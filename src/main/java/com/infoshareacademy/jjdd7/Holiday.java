@@ -8,23 +8,23 @@ public class Holiday {
     private String name;
     private Date date;
     private String type;
-    private String description;
+    private Description description;
 
     public Holiday() {
     }
 
-    public Holiday(String name, Date date, String type, String description) {
+    public Holiday(String name, Date date, String type, Description description) {
         this.name = name;
         this.date = date;
         this.type = type;
-        this.description = description;
+        this.description=description;
     }
 
-    public String getDescription() {
+    public Description getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(Description description) {
         this.description = description;
     }
 
