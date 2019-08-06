@@ -4,7 +4,8 @@ import java.util.Scanner;
 
 public class Menu {
 
-    public void showOptions() {
+    public void loadMenu() {
+        Submenu submenu = new Submenu();
         MenuPrinter menuPrinter = new MenuPrinter();
         menuPrinter.printTitle();
         menuPrinter.printHeader();
@@ -19,25 +20,22 @@ public class Menu {
                 case "1":
                     menuPrinter.printWorkersList();
                     select = scanner.nextLine();
-                    switch (select) {
-                        case "1":
-                            System.out.println("bla1");
-                            break;
-                        case "2":
-                            System.out.println("bla2");
-                            break;
-                        default:
-                            System.out.println("default");
-                    }
+                    submenu.workerListMenu(select);
                     break;
                 case "2":
                     menuPrinter.printVacation();
+                    select = scanner.nextLine();
+                    submenu.vacationMenu(select);
                     break;
                 case "3":
                     menuPrinter.printSearchEngine();
+                    select = scanner.nextLine();
+                    submenu.searchingEngineMenu(select);
                     break;
                 case "4":
                     menuPrinter.printConfigurations();
+                    select = scanner.nextLine();
+                    submenu.configurationsMenu(select);
                     break;
                 default:
                     menuPrinter.printAlertMessage();

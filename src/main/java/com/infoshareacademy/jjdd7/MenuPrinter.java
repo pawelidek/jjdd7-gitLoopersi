@@ -10,7 +10,7 @@ public class MenuPrinter {
 
     public void printHeader() {
 
-        System.out.println("1. Lista pracowników");
+        System.out.println("\n1. Lista pracowników");
         System.out.println("2. Urlop");
         System.out.println("3. Wyszukaj");
         System.out.println("4. Konfiguracja");
