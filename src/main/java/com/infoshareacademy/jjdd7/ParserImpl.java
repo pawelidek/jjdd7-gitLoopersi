@@ -4,11 +4,16 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ParserImpl implements Parser {
     private String path;
@@ -32,20 +37,17 @@ public class ParserImpl implements Parser {
     }
 
     public void createTextJSON() {
-        StringBuilder stringBuilderb = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
+        List<String> tempLinesList = null;
         try {
-            FileReader fileReader = new FileReader(this.path);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line = null;
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuilderb.append(line);
-            }
-        } catch (java.io.FileNotFoundException fnfe) {
-            throw new RuntimeException("File not founded exception");
-        } catch (java.io.IOException ioe) {
-            throw new RuntimeException("IOE exception");
+            tempLinesList = Files.readAllLines(Paths.get(this.path));
+        } catch (IOException e) {
+            System.out.println("Problem with IO occured");
         }
-        this.inputJSONString = stringBuilderb.toString();
+        for (String elem : tempLinesList) {
+            stringBuilder.append(elem);
+        }
+        this.inputJSONString = stringBuilder.toString();
     }
 
     public void createJSONObject() {
@@ -61,7 +63,7 @@ public class ParserImpl implements Parser {
             try {
                 date = new SimpleDateFormat("yyyy-MM-dd").parse(arrayOfHolidays.getJSONObject(i).getJSONObject("date").getString("iso"));
             } catch (java.text.ParseException pe) {
-                throw new RuntimeException("Parse Exception");
+                System.out.println("Problem with parsing data occured");
             }
             String description;
             try {
@@ -81,10 +83,8 @@ public class ParserImpl implements Parser {
                 case "Season":
                     typeOfHoliday = Type.SEASON;
                     break;
-
-
                 default:
-                    System.out.println("There is no such type of holiday");
+                    System.out.println("Problem with Types occured: there is no such type of holiday");
 
             }
             listofHolidays.add(new Holiday(name, date, typeOfHoliday, description));
