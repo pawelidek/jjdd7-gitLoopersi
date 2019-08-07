@@ -6,12 +6,9 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,21 +16,21 @@ public class ParserImpl implements Parser {
     private String path;
     private String inputJSONString;
     private JSONObject inputJSONObject;
-    private ArrayList<Holiday> listofHolidays;
+    private ArrayList<Holiday> listOfHolidays;
 
 
     public ParserImpl() {
     }
 
     public ParserImpl(String path) {
-        this.path = new File(path).getAbsolutePath();
+        this.path=path;
         this.createTextJSON();
         this.createJSONObject();
         this.loadDatetoArray();
     }
 
-    public ArrayList<Holiday> getListofHolidays() {
-        return listofHolidays;
+    public ArrayList<Holiday> getListOfHolidays() {
+        return listOfHolidays;
     }
 
     public void createTextJSON() {
@@ -56,7 +53,7 @@ public class ParserImpl implements Parser {
 
     public void loadDatetoArray() {
         JSONArray arrayOfHolidays = this.inputJSONObject.getJSONObject("response").getJSONArray("holidays");
-        listofHolidays = new ArrayList<Holiday>();
+        listOfHolidays = new ArrayList<Holiday>();
         for (int i = 0; i < arrayOfHolidays.length(); i++) {
             String name = arrayOfHolidays.getJSONObject(i).getString("name");
             Date date = null;
@@ -87,7 +84,7 @@ public class ParserImpl implements Parser {
                     System.out.println("Problem with Types occured: there is no such type of holiday");
 
             }
-            listofHolidays.add(new Holiday(name, date, typeOfHoliday, description));
+            listOfHolidays.add(new Holiday(name, date, typeOfHoliday, description));
         }
     }
 

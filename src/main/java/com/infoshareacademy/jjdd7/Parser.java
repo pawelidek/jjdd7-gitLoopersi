@@ -6,5 +6,5 @@ public interface Parser {
     void createTextJSON();
     void createJSONObject();
     void loadDatetoArray();
-    ArrayList<Holiday> getListofHolidays();
+    ArrayList<Holiday> getListOfHolidays();
 }

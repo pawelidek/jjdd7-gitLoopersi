@@ -10,9 +10,6 @@ public class Holiday {
     private Type type;
     private String description;
 
-    public Holiday() {
-    }
-
     public Holiday(String name, Date date, Type type, String description) {
         this.name = name;
         this.date = date;
