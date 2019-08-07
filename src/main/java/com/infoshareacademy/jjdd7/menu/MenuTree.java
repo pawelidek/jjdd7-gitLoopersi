@@ -5,7 +5,15 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class MenuTree {
-    private String page;
+    private String page = "0";
+
+    public MenuTree() {
+
+    }
+
+    public MenuTree(String page) {
+        this.page = page;
+    }
 
     public void buildMenuTree() {
         Map<String, Menu> map = new HashMap<>();
@@ -33,12 +41,22 @@ public class MenuTree {
         map.put("31", printHoliday);
         map.put("32", printWorkerVacation);
         map.put("33", printTeamVacation);
+
+        map.get("a").doAction();
+        map.get("0").doAction();
+        if (printMenuPage().equals("01")) {
+            map.get("1").doAction();
+            if(printMenuPage().equals("011")) {
+                System.out.println("Pracownik dodany");
+            }
+        }
+
     }
 
-    public void printMenuPage() {
+    public String printMenuPage() {
 
         Scanner scanner = new Scanner(System.in);
-        this.page += scanner.nextLine();
+        return this.page += scanner.nextLine();
     }
 
     public void returnToPreviousPage() {
