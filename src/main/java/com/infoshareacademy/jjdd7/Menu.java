@@ -19,8 +19,8 @@ public class Menu {
             switch (select) {
                 case "1":
                     menuPrinter.printWorkersList();
-                    select = scanner.nextLine();
-                    submenu.workerListMenu(select);
+
+                    submenu.workerListMenu();
                     break;
                 case "2":
                     menuPrinter.printVacation();
@@ -29,7 +29,7 @@ public class Menu {
                     break;
                 case "3":
                     menuPrinter.printSearchEngine();
-                    select = scanner.nextLine();
+
                     submenu.searchingEngineMenu(select);
                     break;
                 case "4":

@@ -45,4 +45,22 @@ public class MenuPrinter {
     public void printAlertMessage() {
         System.out.println("\nWYBIERZ POPRAWNĄ OPCJĘ!");
     }
+
+    public void printHoliday() {
+        System.out.println("\n1. Wprowadź nazwę święta");
+        System.out.println("2. Podaj zakres dat (pokazuje format)");
+        System.out.println("0. Powrót");
+    }
+
+    public void printWorkerVacation() {
+        System.out.println("\n1. Szukaj pracownika");
+        System.out.println("2. Podaj zakres dat");
+        System.out.println("0. Powrót");
+    }
+
+    public void printTeamVacation() {
+        System.out.println("\n1. Szukaj zespołu");
+        System.out.println("2. Podaj zakres dat");
+        System.out.println("0. Powrót");
+    }
 }
