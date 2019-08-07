@@ -1,6 +1,6 @@
 package com.infoshareacademy.jjdd7.menu;
 
-public class PrintTitle implements Menu{
+public class PrintTitle implements Menu {
 
     @Override
     public void doAction() {
