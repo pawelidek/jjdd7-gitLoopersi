@@ -4,18 +4,22 @@ import java.util.Scanner;
 
 public class Submenu {
 
+    private String select;
+
     public void workerListMenu() {
+
         MenuPrinter menuPrinter = new MenuPrinter();
+        Menu menu = new Menu();
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            String select = scanner.nextLine();
+            select = scanner.nextLine();
             if (select.equals("exit")) {
-                break;
+                System.exit(0);
             }
             switch (select) {
                 case "0":
-                    menuPrinter.printHeader();
+                    menu.loadMenu();
                     break;
                 case "1":
                     System.out.println("Pracownik dodany");
@@ -23,16 +27,20 @@ public class Submenu {
                 case "2":
                     System.out.println("Pracownik usunięty");
                     break;
+                case "exit":
+                    select = "-1";
+                    break;
                 default:
                     menuPrinter.printAlertMessage();
                     menuPrinter.printWorkersList();
             }
-            break;
         }
     }
 
-    public void vacationMenu(String select) {
+    public void vacationMenu() {
+
         MenuPrinter menuPrinter = new MenuPrinter();
+        Menu menu = new Menu();
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -42,7 +50,7 @@ public class Submenu {
             }
             switch (select) {
                 case "0":
-                    menuPrinter.printHeader();
+                    menu.loadMenu();
                     break;
                 case "1":
                     System.out.println("Urlop dodany");
@@ -57,9 +65,10 @@ public class Submenu {
         }
     }
 
-    public void searchingEngineMenu(String select) {
+    public void searchingEngineMenu() {
+
         MenuPrinter menuPrinter = new MenuPrinter();
-        SubmenuSearchingEngine submenuSearchingEngine = new SubmenuSearchingEngine();
+        SubmenuSearchEngine submenuSearchingEngine = new SubmenuSearchEngine();
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -90,7 +99,8 @@ public class Submenu {
         }
     }
     
-    public void configurationsMenu(String select) {
+    public void configurationsMenu() {
+
         MenuPrinter menuPrinter = new MenuPrinter();
         Scanner scanner = new Scanner(System.in);
 

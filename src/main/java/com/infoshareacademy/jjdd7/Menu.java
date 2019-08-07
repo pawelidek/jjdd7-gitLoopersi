@@ -1,6 +1,8 @@
 package com.infoshareacademy.jjdd7;
 
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class Menu {
 
@@ -24,18 +26,18 @@ public class Menu {
                     break;
                 case "2":
                     menuPrinter.printVacation();
-                    select = scanner.nextLine();
-                    submenu.vacationMenu(select);
+
+                    submenu.vacationMenu();
                     break;
                 case "3":
                     menuPrinter.printSearchEngine();
 
-                    submenu.searchingEngineMenu(select);
+                    submenu.searchingEngineMenu();
                     break;
                 case "4":
                     menuPrinter.printConfigurations();
-                    select = scanner.nextLine();
-                    submenu.configurationsMenu(select);
+
+                    submenu.configurationsMenu();
                     break;
                 default:
                     menuPrinter.printAlertMessage();

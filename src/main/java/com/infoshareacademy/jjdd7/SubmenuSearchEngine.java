@@ -2,7 +2,7 @@ package com.infoshareacademy.jjdd7;
 
 import java.util.Scanner;
 
-public class SubmenuSearchingEngine {
+public class SubmenuSearchEngine {
 
     public void holidayMenu() {
         MenuPrinter menuPrinter = new MenuPrinter();
