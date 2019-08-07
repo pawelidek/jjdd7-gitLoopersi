@@ -7,24 +7,16 @@ public class Holiday {
 
     private String name;
     private Date date;
-    private String type;
-    private Description description;
+    private Type type;
+    private String description;
 
     public Holiday() {
     }
 
-    public Holiday(String name, Date date, String type, Description description) {
+    public Holiday(String name, Date date, Type type, String description) {
         this.name = name;
         this.date = date;
         this.type = type;
-        this.description=description;
-    }
-
-    public Description getDescription() {
-        return description;
-    }
-
-    public void setDescription(Description description) {
         this.description = description;
     }
 
@@ -44,11 +36,19 @@ public class Holiday {
         this.date = date;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
