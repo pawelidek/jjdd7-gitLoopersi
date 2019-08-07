@@ -1,1 +1,474 @@
-{"meta":{"code":200},"response":{"holidays":[{"name":"New Year's Day","description":"New Year\u2019s Day, on January 1, is the first day of the year and a public holiday in Poland.","date":{"iso":"2019-01-01","datetime":{"year":2019,"month":1,"day":1}},"type":["National holiday"],"locations":"All","states":"All"},{"name":"Epiphany","description":"Epiphany, also known as the Procession of the Three Kings, is annually celebrated as a public holiday in Poland on January 6.","date":{"iso":"2019-01-06","datetime":{"year":2019,"month":1,"day":6}},"type":["National holiday"],"locations":"All","states":"All"},{"name":"Valentine's Day","description":"Valentine\u2019s Day (Walentynki) is one of the most romantic days of the year celebrated in many countries including Poland on February 14.","date":{"iso":"2019-02-14","datetime":{"year":2019,"month":2,"day":14}},"type":["Observance"],"locations":"All","states":"All"},{"name":"March Equinox","description":null,"date":{"iso":"2019-03-20T22:58:32+01:00","datetime":{"year":2019,"month":3,"day":20,"hour":22,"minute":58,"second":32},"timezone":{"offset":"+01:00","zoneabb":"CET","zoneoffset":3600,"zonedst":0,"zonetotaloffset":3600}},"type":["Season"],"locations":"All","states":"All"},{"name":"Good Friday","description":"Good Friday is observed in many churches in Poland to remember Jesus Christ\u2019s death on the cross.","date":{"iso":"2019-04-19","datetime":{"year":2019,"month":4,"day":19}},"type":["Observance"],"locations":"All","states":"All"},{"name":"Holy Saturday","description":"Holy Saturday, which is the day before Easter Sunday, is observed in many parts of Poland.","date":{"iso":"2019-04-20","datetime":{"year":2019,"month":4,"day":20}},"type":["Observance"],"locations":"All","states":"All"},{"name":"Easter Sunday","description":"Easter Sunday is a public holiday in Poland to celebrate Jesus Christ\u2019s resurrection.","date":{"iso":"2019-04-21","datetime":{"year":2019,"month":4,"day":21}},"type":["National holiday"],"locations":"All","states":"All"},{"name":"Easter Monday","description":"Easter Monday, the day after Easter Sunday, is a public holiday in Poland. Both days celebrate Jesus Christ\u2019s resurrection from the dead.","date":{"iso":"2019-04-22","datetime":{"year":2019,"month":4,"day":22}},"type":["National holiday"],"locations":"All","states":"All"},{"name":"Labor Day \/ May Day","description":"Labor Day (\u015awi\u0119to Pracy), also known as May 1 (1 Maja), is a national public holiday in Poland every year.","date":{"iso":"2019-05-01","datetime":{"year":2019,"month":5,"day":1}},"type":["National holiday"],"locations":"All","states":"All"},{"name":"Day of the Flag","description":null,"date":{"iso":"2019-05-02","datetime":{"year":2019,"month":5,"day":2}},"type":["Observance"],"locations":"All","states":"All"},{"name":"Constitution Day","description":"Constitution Day is an annual public holiday in Poland on May 3.","date":{"iso":"2019-05-03","datetime":{"year":2019,"month":5,"day":3}},"type":["National holiday"],"locations":"All","states":"All"},{"name":"Mother's Day","description":"Mother\u2019s Day is celebrated in Poland on May 26 each year.","date":{"iso":"2019-05-26","datetime":{"year":2019,"month":5,"day":26}},"type":["Observance"],"locations":"All","states":"All"},{"name":"Whit Sunday","description":"Whit Sunday, also known as Pentecost or the Descent of the Holy Spirit (Zeslanie Ducha Swietego) is an annual public holiday in Poland 7 weeks after Easter Sunday.","date":{"iso":"2019-06-09","datetime":{"year":2019,"month":6,"day":9}},"type":["National holiday"],"locations":"All","states":"All"},{"name":"Corpus Christi","description":"Corpus Christi is an annual public holiday in Poland on the Thursday of the ninth week after Easter.","date":{"iso":"2019-06-20","datetime":{"year":2019,"month":6,"day":20}},"type":["National holiday"],"locations":"All","states":"All"},{"name":"June Solstice","description":null,"date":{"iso":"2019-06-21T17:54:14+02:00","datetime":{"year":2019,"month":6,"day":21,"hour":17,"minute":54,"second":14},"timezone":{"offset":"+02:00","zoneabb":"CEST","zoneoffset":3600,"zonedst":3600,"zonetotaloffset":7200}},"type":["Season"],"locations":"All","states":"All"},{"name":"Father's Day","description":"Father\u2019s Day (Dzie\u0144 Ojca) is celebrated in Poland on June 23 every year.","date":{"iso":"2019-06-23","datetime":{"year":2019,"month":6,"day":23}},"type":["Observance"],"locations":"All","states":"All"},{"name":"Assumption of Mary","description":"The Day of Assumption, also known as the Miracle upon the Vistula, is a national holiday in Poland on August 15 each year.","date":{"iso":"2019-08-15","datetime":{"year":2019,"month":8,"day":15}},"type":["National holiday"],"locations":"All","states":"All"},{"name":"September Equinox","description":null,"date":{"iso":"2019-09-23T09:50:13+02:00","datetime":{"year":2019,"month":9,"day":23,"hour":9,"minute":50,"second":13},"timezone":{"offset":"+02:00","zoneabb":"CEST","zoneoffset":3600,"zonedst":3600,"zonetotaloffset":7200}},"type":["Season"],"locations":"All","states":"All"},{"name":"All Saints' Day","description":"All Saints\u2019 Day is a public holiday in Poland on November 1 each year.","date":{"iso":"2019-11-01","datetime":{"year":2019,"month":11,"day":1}},"type":["National holiday"],"locations":"All","states":"All"},{"name":"Independence Day","description":"National Independence Day is an annual public holiday in Poland on November 11 to commemorate the country\u2019s independence in 1918.","date":{"iso":"2019-11-11","datetime":{"year":2019,"month":11,"day":11}},"type":["National holiday"],"locations":"All","states":"All"},{"name":"December Solstice","description":null,"date":{"iso":"2019-12-22T05:19:26+01:00","datetime":{"year":2019,"month":12,"day":22,"hour":5,"minute":19,"second":26},"timezone":{"offset":"+01:00","zoneabb":"CET","zoneoffset":3600,"zonedst":0,"zonetotaloffset":3600}},"type":["Season"],"locations":"All","states":"All"},{"name":"Christmas Eve","description":"Christmas Eve is celebrated as a festive occasion in Poland on December 24.","date":{"iso":"2019-12-24","datetime":{"year":2019,"month":12,"day":24}},"type":["Observance"],"locations":"All","states":"All"},{"name":"Christmas Day","description":"Christmas Day is a public holiday in Poland on December 25 each year.","date":{"iso":"2019-12-25","datetime":{"year":2019,"month":12,"day":25}},"type":["National holiday"],"locations":"All","states":"All"},{"name":"Second Day of Christmas","description":"Boxing Day, also known as St Stephen\u2019s Day or Holy Szczepan, is a public holiday in Poland on December 26 each year.","date":{"iso":"2019-12-26","datetime":{"year":2019,"month":12,"day":26}},"type":["National holiday"],"locations":"All","states":"All"},{"name":"New Year's Eve","description":"Many people in Poland celebrate New Year\u2019s Eve, which is the last day of the year in the Gregorian calendar, on December 31.","date":{"iso":"2019-12-31","datetime":{"year":2019,"month":12,"day":31}},"type":["Observance"],"locations":"All","states":"All"}]}}
+{
+  "meta": {
+    "code": 200
+  },
+  "response": {
+    "holidays": [
+      {
+        "name": "New Year's Day",
+        "description": "New Year\u2019s Day, on January 1, is the first day of the year and a public holiday in Poland.",
+        "date": {
+          "iso": "2019-01-01",
+          "datetime": {
+            "year": 2019,
+            "month": 1,
+            "day": 1
+          }
+        },
+        "type": [
+          "National holiday"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "Epiphany",
+        "description": "Epiphany, also known as the Procession of the Three Kings, is annually celebrated as a public holiday in Poland on January 6.",
+        "date": {
+          "iso": "2019-01-06",
+          "datetime": {
+            "year": 2019,
+            "month": 1,
+            "day": 6
+          }
+        },
+        "type": [
+          "National holiday"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "Valentine's Day",
+        "description": "Valentine\u2019s Day (Walentynki) is one of the most romantic days of the year celebrated in many countries including Poland on February 14.",
+        "date": {
+          "iso": "2019-02-14",
+          "datetime": {
+            "year": 2019,
+            "month": 2,
+            "day": 14
+          }
+        },
+        "type": [
+          "Observance"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "March Equinox",
+        "description": null,
+        "date": {
+          "iso": "2019-03-20T22:58:32+01:00",
+          "datetime": {
+            "year": 2019,
+            "month": 3,
+            "day": 20,
+            "hour": 22,
+            "minute": 58,
+            "second": 32
+          },
+          "timezone": {
+            "offset": "+01:00",
+            "zoneabb": "CET",
+            "zoneoffset": 3600,
+            "zonedst": 0,
+            "zonetotaloffset": 3600
+          }
+        },
+        "type": [
+          "Season"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "Good Friday",
+        "description": "Good Friday is observed in many churches in Poland to remember Jesus Christ\u2019s death on the cross.",
+        "date": {
+          "iso": "2019-04-19",
+          "datetime": {
+            "year": 2019,
+            "month": 4,
+            "day": 19
+          }
+        },
+        "type": [
+          "Observance"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "Holy Saturday",
+        "description": "Holy Saturday, which is the day before Easter Sunday, is observed in many parts of Poland.",
+        "date": {
+          "iso": "2019-04-20",
+          "datetime": {
+            "year": 2019,
+            "month": 4,
+            "day": 20
+          }
+        },
+        "type": [
+          "Observance"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "Easter Sunday",
+        "description": "Easter Sunday is a public holiday in Poland to celebrate Jesus Christ\u2019s resurrection.",
+        "date": {
+          "iso": "2019-04-21",
+          "datetime": {
+            "year": 2019,
+            "month": 4,
+            "day": 21
+          }
+        },
+        "type": [
+          "National holiday"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "Easter Monday",
+        "description": "Easter Monday, the day after Easter Sunday, is a public holiday in Poland. Both days celebrate Jesus Christ\u2019s resurrection from the dead.",
+        "date": {
+          "iso": "2019-04-22",
+          "datetime": {
+            "year": 2019,
+            "month": 4,
+            "day": 22
+          }
+        },
+        "type": [
+          "National holiday"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "Labor Day \/ May Day",
+        "description": "Labor Day (\u015awi\u0119to Pracy), also known as May 1 (1 Maja), is a national public holiday in Poland every year.",
+        "date": {
+          "iso": "2019-05-01",
+          "datetime": {
+            "year": 2019,
+            "month": 5,
+            "day": 1
+          }
+        },
+        "type": [
+          "National holiday"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "Day of the Flag",
+        "description": null,
+        "date": {
+          "iso": "2019-05-02",
+          "datetime": {
+            "year": 2019,
+            "month": 5,
+            "day": 2
+          }
+        },
+        "type": [
+          "Observance"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "Constitution Day",
+        "description": "Constitution Day is an annual public holiday in Poland on May 3.",
+        "date": {
+          "iso": "2019-05-03",
+          "datetime": {
+            "year": 2019,
+            "month": 5,
+            "day": 3
+          }
+        },
+        "type": [
+          "National holiday"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "Mother's Day",
+        "description": "Mother\u2019s Day is celebrated in Poland on May 26 each year.",
+        "date": {
+          "iso": "2019-05-26",
+          "datetime": {
+            "year": 2019,
+            "month": 5,
+            "day": 26
+          }
+        },
+        "type": [
+          "Observance"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "Whit Sunday",
+        "description": "Whit Sunday, also known as Pentecost or the Descent of the Holy Spirit (Zeslanie Ducha Swietego) is an annual public holiday in Poland 7 weeks after Easter Sunday.",
+        "date": {
+          "iso": "2019-06-09",
+          "datetime": {
+            "year": 2019,
+            "month": 6,
+            "day": 9
+          }
+        },
+        "type": [
+          "National holiday"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "Corpus Christi",
+        "description": "Corpus Christi is an annual public holiday in Poland on the Thursday of the ninth week after Easter.",
+        "date": {
+          "iso": "2019-06-20",
+          "datetime": {
+            "year": 2019,
+            "month": 6,
+            "day": 20
+          }
+        },
+        "type": [
+          "National holiday"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "June Solstice",
+        "description": null,
+        "date": {
+          "iso": "2019-06-21T17:54:14+02:00",
+          "datetime": {
+            "year": 2019,
+            "month": 6,
+            "day": 21,
+            "hour": 17,
+            "minute": 54,
+            "second": 14
+          },
+          "timezone": {
+            "offset": "+02:00",
+            "zoneabb": "CEST",
+            "zoneoffset": 3600,
+            "zonedst": 3600,
+            "zonetotaloffset": 7200
+          }
+        },
+        "type": [
+          "Season"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "Father's Day",
+        "description": "Father\u2019s Day (Dzie\u0144 Ojca) is celebrated in Poland on June 23 every year.",
+        "date": {
+          "iso": "2019-06-23",
+          "datetime": {
+            "year": 2019,
+            "month": 6,
+            "day": 23
+          }
+        },
+        "type": [
+          "Observance"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "Assumption of Mary",
+        "description": "The Day of Assumption, also known as the Miracle upon the Vistula, is a national holiday in Poland on August 15 each year.",
+        "date": {
+          "iso": "2019-08-15",
+          "datetime": {
+            "year": 2019,
+            "month": 8,
+            "day": 15
+          }
+        },
+        "type": [
+          "National holiday"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "September Equinox",
+        "description": null,
+        "date": {
+          "iso": "2019-09-23T09:50:13+02:00",
+          "datetime": {
+            "year": 2019,
+            "month": 9,
+            "day": 23,
+            "hour": 9,
+            "minute": 50,
+            "second": 13
+          },
+          "timezone": {
+            "offset": "+02:00",
+            "zoneabb": "CEST",
+            "zoneoffset": 3600,
+            "zonedst": 3600,
+            "zonetotaloffset": 7200
+          }
+        },
+        "type": [
+          "Season"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "All Saints' Day",
+        "description": "All Saints\u2019 Day is a public holiday in Poland on November 1 each year.",
+        "date": {
+          "iso": "2019-11-01",
+          "datetime": {
+            "year": 2019,
+            "month": 11,
+            "day": 1
+          }
+        },
+        "type": [
+          "National holiday"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "Independence Day",
+        "description": "National Independence Day is an annual public holiday in Poland on November 11 to commemorate the country\u2019s independence in 1918.",
+        "date": {
+          "iso": "2019-11-11",
+          "datetime": {
+            "year": 2019,
+            "month": 11,
+            "day": 11
+          }
+        },
+        "type": [
+          "National holiday"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "December Solstice",
+        "description": null,
+        "date": {
+          "iso": "2019-12-22T05:19:26+01:00",
+          "datetime": {
+            "year": 2019,
+            "month": 12,
+            "day": 22,
+            "hour": 5,
+            "minute": 19,
+            "second": 26
+          },
+          "timezone": {
+            "offset": "+01:00",
+            "zoneabb": "CET",
+            "zoneoffset": 3600,
+            "zonedst": 0,
+            "zonetotaloffset": 3600
+          }
+        },
+        "type": [
+          "Season"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "Christmas Eve",
+        "description": "Christmas Eve is celebrated as a festive occasion in Poland on December 24.",
+        "date": {
+          "iso": "2019-12-24",
+          "datetime": {
+            "year": 2019,
+            "month": 12,
+            "day": 24
+          }
+        },
+        "type": [
+          "Observance"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "Christmas Day",
+        "description": "Christmas Day is a public holiday in Poland on December 25 each year.",
+        "date": {
+          "iso": "2019-12-25",
+          "datetime": {
+            "year": 2019,
+            "month": 12,
+            "day": 25
+          }
+        },
+        "type": [
+          "National holiday"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "Second Day of Christmas",
+        "description": "Boxing Day, also known as St Stephen\u2019s Day or Holy Szczepan, is a public holiday in Poland on December 26 each year.",
+        "date": {
+          "iso": "2019-12-26",
+          "datetime": {
+            "year": 2019,
+            "month": 12,
+            "day": 26
+          }
+        },
+        "type": [
+          "National holiday"
+        ],
+        "locations": "All",
+        "states": "All"
+      },
+      {
+        "name": "New Year's Eve",
+        "description": "Many people in Poland celebrate New Year\u2019s Eve, which is the last day of the year in the Gregorian calendar, on December 31.",
+        "date": {
+          "iso": "2019-12-31",
+          "datetime": {
+            "year": 2019,
+            "month": 12,
+            "day": 31
+          }
+        },
+        "type": [
+          "Observance"
+        ],
+        "locations": "All",
+        "states": "All"
+      }
+    ]
+  }
+}

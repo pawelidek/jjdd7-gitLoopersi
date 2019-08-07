@@ -51,4 +51,14 @@ public class Holiday {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "Holiday{" +
+                "name='" + name + '\'' +
+                ", date=" + date +
+                ", type=" + type +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
