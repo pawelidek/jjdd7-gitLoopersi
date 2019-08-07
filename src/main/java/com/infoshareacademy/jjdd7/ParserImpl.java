@@ -3,7 +3,6 @@ package com.infoshareacademy.jjdd7;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -19,14 +18,11 @@ public class ParserImpl implements Parser {
     private ArrayList<Holiday> listOfHolidays;
 
 
-    public ParserImpl() {
-    }
-
     public ParserImpl(String path) {
         this.path=path;
         this.createTextJSON();
         this.createJSONObject();
-        this.loadDatetoArray();
+        this.loadDateToArray();
     }
 
     public ArrayList<Holiday> getListOfHolidays() {
@@ -51,7 +47,7 @@ public class ParserImpl implements Parser {
         this.inputJSONObject = new JSONObject(inputJSONString);
     }
 
-    public void loadDatetoArray() {
+    public void loadDateToArray() {
         JSONArray arrayOfHolidays = this.inputJSONObject.getJSONObject("response").getJSONArray("holidays");
         listOfHolidays = new ArrayList<Holiday>();
         for (int i = 0; i < arrayOfHolidays.length(); i++) {

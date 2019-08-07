@@ -5,6 +5,6 @@ import java.util.ArrayList;
 public interface Parser {
     void createTextJSON();
     void createJSONObject();
-    void loadDatetoArray();
+    void loadDateToArray();
     ArrayList<Holiday> getListOfHolidays();
 }
