@@ -7,14 +7,13 @@ public class MenuNavigator {
     private String page = "m";
 
     public MenuNavigator() {
-
     }
 
     public MenuNavigator(String page) {
         this.page = page;
     }
 
-    public void changeMenuPage() {
+    void changeMenuPage() {
 
         Scanner scanner = new Scanner(System.in);
         String readValue = scanner.nextLine();
@@ -26,12 +25,11 @@ public class MenuNavigator {
 
     }
 
-    public void returnToPreviousPage() {
-
+    void returnToPreviousPage() {
         this.page = this.page.substring(0, this.page.length() - 1);
     }
 
-    public String getPage() {
+    String getPage() {
         return page;
     }
 }

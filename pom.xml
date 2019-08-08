@@ -55,7 +55,7 @@
               <addClasspath>true</addClasspath>
               <classpathPrefix>libs/</classpathPrefix>
               <mainClass>
-                com.infoshareacademy.jjdd7.old.App
+                  com.infoshareacademy.jjdd7.App
               </mainClass>
             </manifest>
           </archive>
