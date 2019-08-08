@@ -10,9 +10,6 @@ public class Holiday {
     private Type type;
     private String description;
 
-    public Holiday() {
-    }
-
     public Holiday(String name, Date date, Type type, String description) {
         this.name = name;
         this.date = date;
@@ -50,5 +47,15 @@ public class Holiday {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Holiday{" +
+                "name='" + name + '\'' +
+                ", date=" + date +
+                ", type=" + type +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
