@@ -1,4 +1,6 @@
-package com.infoshareacademy.jjdd7;
+package com.infoshareacademy.jjdd7.old;
+
+import com.infoshareacademy.jjdd7.old.MenuPrinter;
 
 import java.util.Scanner;
 

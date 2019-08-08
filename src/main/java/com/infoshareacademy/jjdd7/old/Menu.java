@@ -1,4 +1,6 @@
-package com.infoshareacademy.jjdd7;
+package com.infoshareacademy.jjdd7.old;
+
+import com.infoshareacademy.jjdd7.menu.MenuTree;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -7,7 +9,13 @@ import java.util.TreeMap;
 public class Menu {
 
     public void loadMenu() {
-        Submenu submenu = new Submenu();
+
+        MenuTree menuTree = new MenuTree();
+        menuTree.buildMenuTree();
+
+
+
+/*        Submenu submenu = new Submenu();
         MenuPrinter menuPrinter = new MenuPrinter();
         menuPrinter.printTitle();
         menuPrinter.printHeader();
@@ -43,6 +51,6 @@ public class Menu {
                     menuPrinter.printAlertMessage();
                     menuPrinter.printHeader();
             }
-        }
+        }*/
     }
 }

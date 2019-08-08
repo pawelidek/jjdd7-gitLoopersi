@@ -1,6 +1,4 @@
-package com.infoshareacademy.jjdd7;
-
-import java.util.Scanner;
+package com.infoshareacademy.jjdd7.old;
 
 public class App {
     public static void main(String[] args) {

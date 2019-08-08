@@ -1,4 +1,6 @@
-package com.infoshareacademy.jjdd7.menu;
+package com.infoshareacademy.jjdd7.menu.menuprint;
+
+import com.infoshareacademy.jjdd7.menu.Menu;
 
 public class PrintHeader implements Menu {
 
