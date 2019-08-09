@@ -6,7 +6,7 @@ public class TitlePrinter implements Menu {
 
     @Override
     public void doAction() {
-        System.out.println("\nWelcome to Employee Vacation Calendar!");
+        System.out.println("Welcome to Employee Vacation Calendar!");
         System.out.println("\nType 'exit' to close the app in every moment.\n");
     }
 }

@@ -1,6 +1,6 @@
 package com.infoshareacademy.jjdd7.menu;
 
-public interface Menu {
+public interface Menu{
 
     void doAction();
 }

@@ -29,7 +29,6 @@ public class MenuAction {
                 if (menuNavigator.getExit()) {
                     break;
                 }
-                alertMessagePrinter.doAction();
                 /* Petla while wykonuje sie i usuwa ciag znakow ktory nie istnieje w mapie,
                 a ktory ktos podal randomowo */
                 while (!menuTree.buildMenuTree().containsKey(menuNavigator.getPage())) {
@@ -37,6 +36,7 @@ public class MenuAction {
                 }
 
                 menuTree.buildMenuTree().get(menuNavigator.getPage()).doAction();
+                alertMessagePrinter.doAction();
                 menuNavigator.changeMenuPage();
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
