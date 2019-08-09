@@ -2,16 +2,17 @@ package com.infoshareacademy.jjdd7.teams_support;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Teams implements Serializable {
-    private ArrayList<Team> listOfTeams=new ArrayList<>();
+    private List<Team> listOfTeams = new ArrayList<>();
     private final String fileName = "teams.ser";
 
-    public ArrayList<Team> getListOfTeams() {
+    public List<Team> getAllTeams() {
         return listOfTeams;
     }
 
-    public void setListOfTeams(ArrayList<Team> listOfTeams) {
+    public void setAllTeams(List<Team> listOfTeams) {
         this.listOfTeams = listOfTeams;
     }
 
