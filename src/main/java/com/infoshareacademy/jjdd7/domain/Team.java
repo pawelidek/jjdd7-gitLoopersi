@@ -1,4 +1,4 @@
-package com.infoshareacademy.jjdd7.teams_support;
+package com.infoshareacademy.jjdd7.domain;
 
 import java.io.Serializable;
 import java.util.Objects;

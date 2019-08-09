@@ -1,16 +1,17 @@
-package com.infoshareacademy.jjdd7.serialization_deserialization;
+package com.infoshareacademy.jjdd7.serialization;
 
-import com.infoshareacademy.jjdd7.teams_support.Teams;
+import com.infoshareacademy.jjdd7.domain.Team;
 
 import java.io.*;
+import java.util.List;
 
-public class SerializationImpl implements Serialization {
+public class SerializationTeamImpl implements SerializationTeam {
     @Override
-    public void serialize(Teams teams) {
+    public void serialize(List<Team> teamList, String fileName) {
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(teams.getFileName());
+            FileOutputStream fileOutputStream = new FileOutputStream(fileName);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(teams);
+            objectOutputStream.writeObject(teamList);
             fileOutputStream.close();
             objectOutputStream.close();
         } catch (FileNotFoundException e) {

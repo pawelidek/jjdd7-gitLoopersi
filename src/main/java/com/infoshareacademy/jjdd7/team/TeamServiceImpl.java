@@ -1,20 +1,24 @@
-package com.infoshareacademy.jjdd7.teams_support;
+package com.infoshareacademy.jjdd7.team;
 
-import com.infoshareacademy.jjdd7.serialization_deserialization.*;
+import com.infoshareacademy.jjdd7.deserialization.DeserializationTeam;
+import com.infoshareacademy.jjdd7.deserialization.DeserializationTeamImpl;
+import com.infoshareacademy.jjdd7.domain.Team;
+import com.infoshareacademy.jjdd7.serialization.SerializationTeam;
+import com.infoshareacademy.jjdd7.serialization.SerializationTeamImpl;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class TeamServiceImpl implements TeamService {
-    private Teams teams;
-    private Serialization serialization;
-    private Deserialization deserialization;
+    private SerializationTeam serialization;
+    private DeserializationTeam deserialization;
+    private List<Team> listOfTeams;
+    private final String fileName = "teams.ser";
 
     public TeamServiceImpl() {
-        serialization = new SerializationImpl();
-        deserialization = new DeserializationImpl();
-        teams = deserialization.deserialize();
-
+        serialization = new SerializationTeamImpl();
+        deserialization = new DeserializationTeamImpl();
+        listOfTeams = deserialization.deserialize(this.fileName);
     }
 
     @Override
@@ -22,16 +26,16 @@ public class TeamServiceImpl implements TeamService {
         System.out.println("Wprowadz nazwę nowego zespołu: ");
         String newTeam = scanner.nextLine();
         Team team = new Team(newTeam);
-        while (teams.getAllTeams().contains(team)) {
+        while (getAllTeams().contains(team)) {
             System.out.println("Nazwa zduplikowana, wprowadz nazwe nowego zespołu: ");
             newTeam = scanner.nextLine();
             team = new Team(newTeam);
         }
-        List<Team> tempTeams = teams.getAllTeams();
+        List<Team> tempTeams = getAllTeams();
         tempTeams.add(team);
-        teams.setAllTeams(tempTeams);
+        setAllTeams(tempTeams);
         System.out.println("Zespół \"" + newTeam + "\" dodany do listy.");
-        serialization.serialize(teams);
+        serialization.serialize(this.listOfTeams, this.fileName);
     }
 
     @Override
@@ -41,13 +45,13 @@ public class TeamServiceImpl implements TeamService {
         do {
             String teamToUpdateName = scanner.nextLine();
             Team team = new Team(teamToUpdateName);
-            for (int i = 0; i < teams.getAllTeams().size(); i++) {
-                if (team.equals(teams.getAllTeams().get(i))) {
+            for (int i = 0; i < getAllTeams().size(); i++) {
+                if (team.equals(getAllTeams().get(i))) {
                     System.out.println("Wprowadź nową nazwę zespołu: ");
                     String newNameOfTeam = scanner.nextLine();
-                    List<Team> tempTeams = teams.getAllTeams();
+                    List<Team> tempTeams = getAllTeams();
                     tempTeams.get(i).setName(newNameOfTeam);
-                    teams.setAllTeams(tempTeams);
+                    setAllTeams(tempTeams);
                     System.out.println("Zmieniono nazwę zespołu na \"" + newNameOfTeam + "\"");
                     isTeamFound = true;
                     break;
@@ -57,7 +61,7 @@ public class TeamServiceImpl implements TeamService {
                 System.out.println("Nazwa błędna, wprowadź nazwę zespołu któremu chcesz zmienić nazwę: ");
             }
         } while (!isTeamFound);
-        serialization.serialize(teams);
+        serialization.serialize(this.listOfTeams, this.fileName);
     }
 
     @Override
@@ -67,11 +71,11 @@ public class TeamServiceImpl implements TeamService {
         do {
             String teamToUpdateName = scanner.nextLine();
             Team team = new Team(teamToUpdateName);
-            for (int i = 0; i < teams.getAllTeams().size(); i++) {
-                if (team.equals(teams.getAllTeams().get(i))) {
-                    List<Team> tempTeams = teams.getAllTeams();
+            for (int i = 0; i < getAllTeams().size(); i++) {
+                if (team.equals(getAllTeams().get(i))) {
+                    List<Team> tempTeams = getAllTeams();
                     tempTeams.remove(i);
-                    teams.setAllTeams(tempTeams);
+                    setAllTeams(tempTeams);
                     System.out.println("Usunięto zespół: \"" + teamToUpdateName + "\"");
                     isTeamFound = true;
                     break;
@@ -81,6 +85,14 @@ public class TeamServiceImpl implements TeamService {
                 System.out.println("Nazwa błędna, wprowadź nazwę zespołu któremu chcesz zmienić nazwę: ");
             }
         } while (!isTeamFound);
-        serialization.serialize(teams);
+        serialization.serialize(this.listOfTeams, this.fileName);
+    }
+
+    private List<Team> getAllTeams() {
+        return listOfTeams;
+    }
+
+    private void setAllTeams(List<Team> listOfTeams) {
+        this.listOfTeams = listOfTeams;
     }
 }
