@@ -5,6 +5,7 @@ import com.infoshareacademy.jjdd7.menu.Menu;
 public class SortingChanger implements Menu {
     @Override
     public void doAction() {
-        System.out.println("Zmienia sortowanie pracowników");
+        System.out.println("This feature is under construction...");
+        System.out.println("Type '0' to return.");
     }
 }

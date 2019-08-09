@@ -14,7 +14,7 @@ public class MenuAction {
         while (true) {
             if (menuTree.buildMenuTree().containsKey(menuNavigator.getPage())) {
 
-                if (menuNavigator.getPage().contains(menuTree.buildMenuTree().containsKey(menuNavigator.getPage()) + "exit")) {
+                if (menuNavigator.getExit()) {
                     break;
                 }
 
@@ -26,14 +26,14 @@ public class MenuAction {
 
             } else {
 
-                if (menuNavigator.getPage().contains(menuTree.buildMenuTree().containsKey(menuNavigator.getPage()) + "exit")) {
+                if (menuNavigator.getExit()) {
                     break;
                 }
                 alertMessagePrinter.doAction();
                 /* Petla while wykonuje sie i usuwa ciag znakow ktory nie istnieje w mapie,
                 a ktory ktos podal randomowo */
                 while (!menuTree.buildMenuTree().containsKey(menuNavigator.getPage())) {
-                        menuNavigator.returnToPreviousPage();
+                    menuNavigator.returnToPreviousPage();
                 }
 
                 menuTree.buildMenuTree().get(menuNavigator.getPage()).doAction();

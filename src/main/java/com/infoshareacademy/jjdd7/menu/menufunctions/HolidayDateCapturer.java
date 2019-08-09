@@ -5,6 +5,7 @@ import com.infoshareacademy.jjdd7.menu.Menu;
 public class HolidayDateCapturer implements Menu {
     @Override
     public void doAction() {
-        System.out.println("Podaj zakres dat, aby zobaczyc ilosc w swiat w danym okresie");
+        System.out.println("This feature is under construction...");
+        System.out.println("Type '0' to return.");
     }
 }

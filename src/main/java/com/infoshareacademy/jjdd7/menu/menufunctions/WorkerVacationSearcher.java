@@ -5,6 +5,7 @@ import com.infoshareacademy.jjdd7.menu.Menu;
 public class WorkerVacationSearcher implements Menu {
     @Override
     public void doAction() {
-        System.out.println("Szukam urlopu podanego pracownika");
+        System.out.println("This feature is under construction...");
+        System.out.println("Type '0' to return.");
     }
 }
