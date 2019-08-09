@@ -6,8 +6,8 @@ public class PrintHoliday implements Menu {
 
     @Override
     public void doAction() {
-        System.out.println("\n1. Wprowadź nazwę święta");
-        System.out.println("2. Podaj zakres dat (pokazuje format)");
-        System.out.println("0. Powrót");
+        System.out.println("\n1. Find holiday by name");
+        System.out.println("2. Enter date range");
+        System.out.println("0. Return");
     }
 }

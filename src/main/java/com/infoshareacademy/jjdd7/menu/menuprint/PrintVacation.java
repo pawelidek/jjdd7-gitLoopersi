@@ -6,8 +6,8 @@ public class PrintVacation implements Menu {
 
     @Override
     public void doAction() {
-        System.out.println("\n1. Dodaj urlop");
-        System.out.println("2. Anuluj urlop");
-        System.out.println("0. Powrót");
+        System.out.println("\n1. Add vacation");
+        System.out.println("2. Cancel vacation");
+        System.out.println("0. Return");
     }
 }

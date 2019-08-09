@@ -19,6 +19,8 @@ public class MenuNavigator {
         String readValue = scanner.nextLine();
         if (!readValue.equals("0")) {
             this.page += readValue;
+        } else if (this.page.equals("m")) {
+            System.out.println("");
         } else {
             this.page = this.page.substring(0, this.page.length() - 1);
         }

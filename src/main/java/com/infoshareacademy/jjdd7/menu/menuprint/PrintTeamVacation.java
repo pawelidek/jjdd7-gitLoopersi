@@ -6,8 +6,8 @@ public class PrintTeamVacation implements Menu {
 
     @Override
     public void doAction() {
-        System.out.println("\n1. Szukaj zespołu");
-        System.out.println("2. Podaj zakres dat");
-        System.out.println("0. Powrót");
+        System.out.println("\n1. Find team");
+        System.out.println("2. Enter date range");
+        System.out.println("0. Return");
     }
 }

@@ -18,9 +18,9 @@ public class MenuAction {
                     break;
                 }
 
-                System.out.println("Lokalizacja: " + menuNavigator.getPage());
                 menuTree.buildMenuTree().get(menuNavigator.getPage()).doAction();
                 menuNavigator.changeMenuPage();
+
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
 
@@ -29,17 +29,11 @@ public class MenuAction {
                 if (menuNavigator.getPage().contains("exit")) {
                     break;
                 }
-                System.out.println("Lokalizacja: " + menuNavigator.getPage());
                 printAlertMessage.doAction();
                 /* Petla while wykonuje sie i usuwa ciag znakow ktory nie istnieje w mapie,
-                a ktory ktos podal randomowo (do poprawy zejscie ponizej jednego znaku poprzez metode returntopreviouspage) */
+                a ktory ktos podal randomowo */
                 while (!menuTree.buildMenuTree().containsKey(menuNavigator.getPage())) {
-                    if (menuNavigator.getPage().length() > 1) {
                         menuNavigator.returnToPreviousPage();
-                    } else {
-                        System.out.println("Jesteś w menu głównym...");
-                        break;
-                    }
                 }
 
                 menuTree.buildMenuTree().get(menuNavigator.getPage()).doAction();

@@ -6,9 +6,10 @@ public class PrintHeader implements Menu {
 
     @Override
     public void doAction() {
-        System.out.println("\n1. Lista pracowników");
-        System.out.println("2. Urlop");
-        System.out.println("3. Wyszukaj");
-        System.out.println("4. Konfiguracja");
+        System.out.println("Main menu:");
+        System.out.println("1. Workers list");
+        System.out.println("2. Vacation");
+        System.out.println("3. Search");
+        System.out.println("4. Configuration");
     }
 }

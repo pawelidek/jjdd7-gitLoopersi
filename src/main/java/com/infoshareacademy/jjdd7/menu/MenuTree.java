@@ -11,6 +11,7 @@ public class MenuTree {
     public Map<String, Menu> buildMenuTree() {
 
         Map<String, Menu> map = new HashMap<>();
+
         /* METODY DRUKUJĄCE */
         PrintHeader printHeader = new PrintHeader();
 
@@ -24,8 +25,8 @@ public class MenuTree {
         PrintTeamVacation printTeamVacation = new PrintTeamVacation();
 
         /* METODY FUNKCJONALNE */
-        WorkerCreator workerCreator = new WorkerCreator();
-        RemovingWorker removingWorker = new RemovingWorker();
+        CreateWorker createWorker = new CreateWorker();
+        RemoveWorker removeWorker = new RemoveWorker();
 
         AddVacation addVacation = new AddVacation();
         CancelVacation cancelVacation = new CancelVacation();
@@ -41,13 +42,14 @@ public class MenuTree {
 
         ImportSettings importSettings = new ImportSettings();
         FormatDate formatDate = new FormatDate();
+        ChangeSorting changeSorting = new ChangeSorting();
 
         /* MAPA */
         map.put("m", printHeader);
 
         map.put("m1", printWorkersList);
-            map.put("m11", workerCreator);
-            map.put("m12", removingWorker);
+            map.put("m11", createWorker);
+            map.put("m12", removeWorker);
         map.put("m2", printVacation);
             map.put("m21", addVacation);
             map.put("m22", cancelVacation);
@@ -64,6 +66,7 @@ public class MenuTree {
         map.put("m4", printConfigurations);
             map.put("m41", importSettings);
             map.put("m42", formatDate);
+            map.put("m43", changeSorting);
 
         return map;
     }

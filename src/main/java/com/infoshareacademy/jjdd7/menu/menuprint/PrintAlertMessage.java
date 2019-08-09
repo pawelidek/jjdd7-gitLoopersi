@@ -6,6 +6,6 @@ public class PrintAlertMessage implements Menu {
 
     @Override
     public void doAction() {
-        System.out.println("\nWYBIERZ POPRAWNĄ OPCJĘ!");
+        System.out.println("\nCHOOSE CORRECT OPTION!");
     }
 }

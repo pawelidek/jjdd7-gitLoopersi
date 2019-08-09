@@ -6,8 +6,8 @@ public class PrintWorkerVacation implements Menu {
 
     @Override
     public void doAction() {
-        System.out.println("\n1. Szukaj pracownika");
-        System.out.println("2. Podaj zakres dat");
-        System.out.println("0. Powrót");
+        System.out.println("\n1. Find worker");
+        System.out.println("2. Enter date range");
+        System.out.println("0. Return");
     }
 }

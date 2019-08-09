@@ -6,9 +6,9 @@ public class PrintSearchEngine implements Menu {
 
     @Override
     public void doAction() {
-        System.out.println("\n1. Święto");
-        System.out.println("2. Urlop pracownika");
-        System.out.println("3. Urlopy zespołu");
-        System.out.println("0. Powrót");
+        System.out.println("\n1. Holiday");
+        System.out.println("2. Workers vacation");
+        System.out.println("3. Teams vacation");
+        System.out.println("0. Return");
     }
 }
