@@ -1,20 +1,20 @@
 package com.infoshareacademy.jjdd7.menu.menuaction;
 
 import com.infoshareacademy.jjdd7.menu.MenuTree;
-import com.infoshareacademy.jjdd7.menu.menuprint.PrintAlertMessage;
+import com.infoshareacademy.jjdd7.menu.menuprint.AlertMessagePrinter;
 
 public class MenuAction {
 
     private MenuNavigator menuNavigator = new MenuNavigator();
     private MenuTree menuTree = new MenuTree();
-    private PrintAlertMessage printAlertMessage = new PrintAlertMessage();
+    private AlertMessagePrinter alertMessagePrinter = new AlertMessagePrinter();
 
     public void doMenuAction() {
 
         while (true) {
             if (menuTree.buildMenuTree().containsKey(menuNavigator.getPage())) {
 
-                if (menuNavigator.getPage().contains("exit")) {
+                if (menuNavigator.getPage().contains(menuTree.buildMenuTree().containsKey(menuNavigator.getPage()) + "exit")) {
                     break;
                 }
 
@@ -26,10 +26,10 @@ public class MenuAction {
 
             } else {
 
-                if (menuNavigator.getPage().contains("exit")) {
+                if (menuNavigator.getPage().contains(menuTree.buildMenuTree().containsKey(menuNavigator.getPage()) + "exit")) {
                     break;
                 }
-                printAlertMessage.doAction();
+                alertMessagePrinter.doAction();
                 /* Petla while wykonuje sie i usuwa ciag znakow ktory nie istnieje w mapie,
                 a ktory ktos podal randomowo */
                 while (!menuTree.buildMenuTree().containsKey(menuNavigator.getPage())) {

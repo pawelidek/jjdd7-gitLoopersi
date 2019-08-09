@@ -2,9 +2,9 @@ package com.infoshareacademy.jjdd7.menu.menufunctions;
 
 import com.infoshareacademy.jjdd7.menu.Menu;
 
-public class FormatDate implements Menu {
+public class SortingChanger implements Menu {
     @Override
     public void doAction() {
-        System.out.println("Zmienia format wyswietlanej daty");
+        System.out.println("Zmienia sortowanie pracowników");
     }
 }

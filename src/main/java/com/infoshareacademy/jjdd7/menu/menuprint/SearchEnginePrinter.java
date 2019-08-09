@@ -2,7 +2,7 @@ package com.infoshareacademy.jjdd7.menu.menuprint;
 
 import com.infoshareacademy.jjdd7.menu.Menu;
 
-public class PrintSearchEngine implements Menu {
+public class SearchEnginePrinter implements Menu {
 
     @Override
     public void doAction() {

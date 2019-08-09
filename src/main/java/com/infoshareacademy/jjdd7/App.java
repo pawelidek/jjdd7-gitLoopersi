@@ -1,20 +1,17 @@
 package com.infoshareacademy.jjdd7;
 
 import com.infoshareacademy.jjdd7.menu.menuaction.MenuAction;
-import com.infoshareacademy.jjdd7.menu.menuprint.PrintTitle;
+import com.infoshareacademy.jjdd7.menu.menuprint.TitlePrinter;
 
 public class App {
     public static void main(String[] args) {
 
-        ParserImpl parser = new ParserImpl("HolidaysApi.json");
-        for (Holiday holiday : parser.getListOfHolidays()) {
-            System.out.println(holiday);
-        }
+        Parser parser = new ParserImpl("HolidaysApi.json");
 
         MenuAction menuAction = new MenuAction();
-        PrintTitle printTitle = new PrintTitle();
+        TitlePrinter titlePrinter = new TitlePrinter();
 
-        printTitle.doAction();
+        titlePrinter.doAction();
         menuAction.doMenuAction();
     }
 }

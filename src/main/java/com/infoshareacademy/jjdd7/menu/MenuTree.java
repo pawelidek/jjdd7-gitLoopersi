@@ -13,60 +13,60 @@ public class MenuTree {
         Map<String, Menu> map = new HashMap<>();
 
         /* METODY DRUKUJĄCE */
-        PrintHeader printHeader = new PrintHeader();
+        HeaderPrinter headerPrinter = new HeaderPrinter();
 
-        PrintWorkersList printWorkersList = new PrintWorkersList();
-        PrintVacation printVacation = new PrintVacation();
-        PrintSearchEngine printSearchEngine = new PrintSearchEngine();
-        PrintConfigurations printConfigurations = new PrintConfigurations();
+        WorkersListPrinter workersListPrinter = new WorkersListPrinter();
+        VacationPrinter vacationPrinter = new VacationPrinter();
+        SearchEnginePrinter searchEnginePrinter = new SearchEnginePrinter();
+        ConfigurationsPrinter configurationsPrinter = new ConfigurationsPrinter();
 
-        PrintHoliday printHoliday = new PrintHoliday();
-        PrintWorkerVacation printWorkerVacation = new PrintWorkerVacation();
-        PrintTeamVacation printTeamVacation = new PrintTeamVacation();
+        HolidayPrinter holidayPrinter = new HolidayPrinter();
+        WorkerVacationPrinter workerVacationPrinter = new WorkerVacationPrinter();
+        TeamVacationPrinter teamVacationPrinter = new TeamVacationPrinter();
 
         /* METODY FUNKCJONALNE */
-        CreateWorker createWorker = new CreateWorker();
-        RemoveWorker removeWorker = new RemoveWorker();
+        WorkerCreator workerCreator = new WorkerCreator();
+        WorkerRemover workerRemover = new WorkerRemover();
 
-        AddVacation addVacation = new AddVacation();
-        CancelVacation cancelVacation = new CancelVacation();
+        VacationAdder vacationAdder = new VacationAdder();
+        VacationCanceller vacationCanceller = new VacationCanceller();
 
-        EnterNameHoliday enterNameHoliday = new EnterNameHoliday();
-        EnterDateHoliday enterDateHoliday = new EnterDateHoliday();
+        HolidayNameCapturer holidayNameCapturer = new HolidayNameCapturer();
+        HolidayDateCapturer holidayDateCapturer = new HolidayDateCapturer();
 
-        SearchVacationWorker searchVacationWorker = new SearchVacationWorker();
-        SearchDateVacationWorker searchDateVacationWorker = new SearchDateVacationWorker();
+        WorkerVacationSearcher workerVacationSearcher = new WorkerVacationSearcher();
+        WorkerVacationDateSearcher workerVacationDateSearcher = new WorkerVacationDateSearcher();
 
-        SearchVacationTeam searchVacationTeam = new SearchVacationTeam();
-        SearchDateVacationTeam searchDateVacationTeam = new SearchDateVacationTeam();
+        TeamVacationSearcher teamVacationSearcher = new TeamVacationSearcher();
+        TeamVacationDateSearcher teamVacationDateSearcher = new TeamVacationDateSearcher();
 
-        ImportSettings importSettings = new ImportSettings();
-        FormatDate formatDate = new FormatDate();
-        ChangeSorting changeSorting = new ChangeSorting();
+        SettingsImporter settingsImporter = new SettingsImporter();
+        DateFormatter dateFormatter = new DateFormatter();
+        SortingChanger sortingChanger = new SortingChanger();
 
         /* MAPA */
-        map.put("m", printHeader);
+        map.put("m", headerPrinter);
 
-        map.put("m1", printWorkersList);
-            map.put("m11", createWorker);
-            map.put("m12", removeWorker);
-        map.put("m2", printVacation);
-            map.put("m21", addVacation);
-            map.put("m22", cancelVacation);
-        map.put("m3", printSearchEngine);
-            map.put("m31", printHoliday);
-                map.put("m311", enterNameHoliday);
-                map.put("m312", enterDateHoliday);
-            map.put("m32", printWorkerVacation);
-                map.put("m321", searchVacationWorker);
-                map.put("m322", searchDateVacationWorker);
-            map.put("m33", printTeamVacation);
-                map.put("m331", searchVacationTeam);
-                map.put("m332", searchDateVacationTeam);
-        map.put("m4", printConfigurations);
-            map.put("m41", importSettings);
-            map.put("m42", formatDate);
-            map.put("m43", changeSorting);
+        map.put("m1", workersListPrinter);
+        map.put("m11", workerCreator);
+        map.put("m12", workerRemover);
+        map.put("m2", vacationPrinter);
+        map.put("m21", vacationAdder);
+        map.put("m22", vacationCanceller);
+        map.put("m3", searchEnginePrinter);
+        map.put("m31", holidayPrinter);
+        map.put("m311", holidayNameCapturer);
+        map.put("m312", holidayDateCapturer);
+        map.put("m32", workerVacationPrinter);
+        map.put("m321", workerVacationSearcher);
+        map.put("m322", workerVacationDateSearcher);
+        map.put("m33", teamVacationPrinter);
+        map.put("m331", teamVacationSearcher);
+        map.put("m332", teamVacationDateSearcher);
+        map.put("m4", configurationsPrinter);
+        map.put("m41", settingsImporter);
+        map.put("m42", dateFormatter);
+        map.put("m43", sortingChanger);
 
         return map;
     }
