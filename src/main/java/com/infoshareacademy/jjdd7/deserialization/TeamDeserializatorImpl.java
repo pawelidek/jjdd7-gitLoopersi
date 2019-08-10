@@ -9,18 +9,15 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeserializationTeamImpl implements DeserializationTeam {
+public class TeamDeserializatorImpl implements TeamDeserializator {
     @Override
     public List<Team> deserialize(String fileName) {
         List<Team> listOfTeams = new ArrayList<>();
-        try {
+        try (FileInputStream fileInputStream = new FileInputStream(fileName);
+             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
             File file = new File(fileName);
             if (file.exists()) {
-                FileInputStream fileInputStream = new FileInputStream(fileName);
-                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
                 listOfTeams = (List<Team>) objectInputStream.readObject();
-                fileInputStream.close();
-                objectInputStream.close();
             }
         } catch (ClassNotFoundException e) {
             System.out.println("Error with deserialization - IOE");

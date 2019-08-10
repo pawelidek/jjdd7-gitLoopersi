@@ -10,9 +10,6 @@ public class Employee implements Serializable {
     private Team team;
     private Date startDate;
 
-    public Employee() {
-    }
-
     public Employee(String firstName, String secondName, Team team, Date startDate) {
         this.firstName = firstName;
         this.secondName = secondName;

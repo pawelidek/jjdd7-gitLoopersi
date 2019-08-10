@@ -4,6 +4,6 @@ import com.infoshareacademy.jjdd7.domain.Employee;
 
 import java.util.List;
 
-public interface SerializationEmployee {
+public interface EmployeeSerializator {
     void serialize(List<Employee> listOfEmployees, String fileName);
 }

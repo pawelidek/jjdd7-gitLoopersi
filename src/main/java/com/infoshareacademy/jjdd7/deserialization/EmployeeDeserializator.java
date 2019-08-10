@@ -4,6 +4,6 @@ import com.infoshareacademy.jjdd7.domain.Employee;
 
 import java.util.List;
 
-public interface DeserializationEmployee {
+public interface EmployeeDeserializator {
     List<Employee> deserialize(String fileName);
 }

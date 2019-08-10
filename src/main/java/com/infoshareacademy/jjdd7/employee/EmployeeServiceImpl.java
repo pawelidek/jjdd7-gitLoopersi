@@ -1,11 +1,13 @@
 package com.infoshareacademy.jjdd7.employee;
 
-import com.infoshareacademy.jjdd7.deserialization.DeserializationEmployee;
-import com.infoshareacademy.jjdd7.deserialization.DeserializationEmployeeImpl;
+import com.infoshareacademy.jjdd7.deserialization.EmployeeDeserializator;
+import com.infoshareacademy.jjdd7.deserialization.EmployeeDeserializatorImpl;
 import com.infoshareacademy.jjdd7.domain.Employee;
 import com.infoshareacademy.jjdd7.domain.Team;
-import com.infoshareacademy.jjdd7.serialization.SerializationEmployee;
-import com.infoshareacademy.jjdd7.serialization.SerializationEmployeeImpl;
+import com.infoshareacademy.jjdd7.serialization.EmployeeSerializator;
+import com.infoshareacademy.jjdd7.serialization.EmployeeSerializatorImpl;
+import com.infoshareacademy.jjdd7.serialization.TeamSerializator;
+import com.infoshareacademy.jjdd7.serialization.TeamSerializatorImpl;
 import com.infoshareacademy.jjdd7.team.TeamServiceImpl;
 
 import java.text.ParseException;
@@ -19,14 +21,14 @@ import java.util.regex.Pattern;
 import static java.util.regex.Pattern.compile;
 
 public class EmployeeServiceImpl implements EmployeeService {
-    private SerializationEmployee serialization;
-    private DeserializationEmployee deserialization;
+    private EmployeeSerializator serialization;
+    private EmployeeDeserializator deserialization;
     private List<Employee> listOfEmployees;
     private final String fileName = "employees.ser";
 
     public EmployeeServiceImpl() {
-        serialization = new SerializationEmployeeImpl();
-        deserialization = new DeserializationEmployeeImpl();
+        serialization = new EmployeeSerializatorImpl();
+        deserialization = new EmployeeDeserializatorImpl();
         listOfEmployees = deserialization.deserialize(this.fileName);
     }
 
@@ -70,10 +72,12 @@ public class EmployeeServiceImpl implements EmployeeService {
                         break;
                 }
                 teamService.setAllTeams(allTeams);
+                TeamSerializator teamSerializator = new TeamSerializatorImpl();
+                teamSerializator.serialize(teamService.getAllTeams(), "employees.ser");
                 break;
             }
         }
-        System.out.print("\nEnter new employee's start working date (Format: yyyy.MM.dd)");
+        System.out.print("\nEnter new employee's start working date (Format: yyyy.MM.dd): ");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
         Date startWorkDate = null;
         Pattern datePattern = compile("[1-2][0,1,9][0-9][0-9]\\.[0-1][0-9]\\.[0-3][0-9]");
@@ -100,7 +104,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void deleteEmployee(Scanner scanner) {
         Boolean isEmployeeFound = false;
         do {
-            System.out.println("Enter first name of employee who you would like to delete: ");
+            System.out.print("\nEnter first name of employee who you would like to delete: ");
             String firstName = scanner.nextLine();
             while (firstName.length() == 0) {
                 System.out.print("\nEmpty value has been put, enter first name of employee who you would like to delete:  ");
@@ -113,15 +117,17 @@ public class EmployeeServiceImpl implements EmployeeService {
                 secondName = scanner.nextLine();
             }
             List<Employee> allEmployees = getAllEmployees();
-            for (int i = 0; i < allEmployees.size(); i++) {
-                if (allEmployees.get(i).getFirstName().equals(firstName)) {
-                    if (allEmployees.get(i).getSecondName().equals(secondName)) {
-                        allEmployees.remove(i);
+            for (Employee employee : allEmployees) {
+                if (employee.getFirstName().equals(firstName)) {
+                    if (employee.getSecondName().equals(secondName)) {
+                        allEmployees.remove(employee);
                         isEmployeeFound = true;
                         System.out.println("Employee has been succesfully deleted");
+                        break;
                     }
                 }
             }
+
             if (!isEmployeeFound) {
                 System.out.println("Employee is not found, enter correct data of employee.");
             }

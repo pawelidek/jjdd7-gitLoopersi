@@ -1,23 +1,23 @@
 package com.infoshareacademy.jjdd7.team;
 
-import com.infoshareacademy.jjdd7.deserialization.DeserializationTeam;
-import com.infoshareacademy.jjdd7.deserialization.DeserializationTeamImpl;
+import com.infoshareacademy.jjdd7.deserialization.TeamDeserializator;
+import com.infoshareacademy.jjdd7.deserialization.TeamDeserializatorImpl;
 import com.infoshareacademy.jjdd7.domain.Team;
-import com.infoshareacademy.jjdd7.serialization.SerializationTeam;
-import com.infoshareacademy.jjdd7.serialization.SerializationTeamImpl;
+import com.infoshareacademy.jjdd7.serialization.TeamSerializator;
+import com.infoshareacademy.jjdd7.serialization.TeamSerializatorImpl;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class TeamServiceImpl implements TeamService {
-    private SerializationTeam serialization;
-    private DeserializationTeam deserialization;
+    private TeamSerializator serialization;
+    private TeamDeserializator deserialization;
     private List<Team> listOfTeams;
     private final String fileName = "teams.ser";
 
     public TeamServiceImpl() {
-        serialization = new SerializationTeamImpl();
-        deserialization = new DeserializationTeamImpl();
+        serialization = new TeamSerializatorImpl();
+        deserialization = new TeamDeserializatorImpl();
         listOfTeams = deserialization.deserialize(this.fileName);
     }
 
@@ -34,6 +34,7 @@ public class TeamServiceImpl implements TeamService {
         List<Team> tempTeams = getAllTeams();
         tempTeams.add(team);
         setAllTeams(tempTeams);
+        serialization.serialize(this.listOfTeams, this.fileName);
         System.out.println("Zespół \"" + newTeam + "\" dodany do listy.");
         serialization.serialize(this.listOfTeams, this.fileName);
     }
@@ -52,6 +53,7 @@ public class TeamServiceImpl implements TeamService {
                     List<Team> tempTeams = getAllTeams();
                     tempTeams.get(i).setName(newNameOfTeam);
                     setAllTeams(tempTeams);
+                    serialization.serialize(this.listOfTeams, this.fileName);
                     System.out.println("Zmieniono nazwę zespołu na \"" + newNameOfTeam + "\"");
                     isTeamFound = true;
                     break;
@@ -76,6 +78,7 @@ public class TeamServiceImpl implements TeamService {
                     List<Team> tempTeams = getAllTeams();
                     tempTeams.remove(i);
                     setAllTeams(tempTeams);
+                    serialization.serialize(this.listOfTeams, this.fileName);
                     System.out.println("Usunięto zespół: \"" + teamToUpdateName + "\"");
                     isTeamFound = true;
                     break;
@@ -94,6 +97,5 @@ public class TeamServiceImpl implements TeamService {
 
     public void setAllTeams(List<Team> listOfTeams) {
         this.listOfTeams = listOfTeams;
-        serialization.serialize(this.listOfTeams, this.fileName);
     }
 }

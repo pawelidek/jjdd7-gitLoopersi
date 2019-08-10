@@ -4,6 +4,6 @@ import com.infoshareacademy.jjdd7.domain.Team;
 
 import java.util.List;
 
-public interface DeserializationTeam {
+public interface TeamDeserializator {
     List<Team> deserialize(String fileName);
 }
