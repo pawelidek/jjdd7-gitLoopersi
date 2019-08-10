@@ -38,7 +38,7 @@ public class MenuAction {
                 menuTree.buildMenuTree().get(menuNavigator.getPage()).doAction();
                 alertMessagePrinter.doAction();
                 menuNavigator.changeMenuPage();
-                System.out.print("2[H\033[2J");
+                System.out.print("\033[H\033[2J");
                 System.out.flush();
             }
         }
