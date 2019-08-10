@@ -88,11 +88,12 @@ public class TeamServiceImpl implements TeamService {
         serialization.serialize(this.listOfTeams, this.fileName);
     }
 
-    private List<Team> getAllTeams() {
+    public List<Team> getAllTeams() {
         return listOfTeams;
     }
 
-    private void setAllTeams(List<Team> listOfTeams) {
+    public void setAllTeams(List<Team> listOfTeams) {
         this.listOfTeams = listOfTeams;
+        serialization.serialize(this.listOfTeams, this.fileName);
     }
 }
