@@ -4,6 +4,7 @@ import com.infoshareacademy.jjdd7.domain.Employee;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class EmployeeDeserializatorImpl implements EmployeeDeserializator {
             if (file.exists()) {
                 listOfEmployees = (List<Employee>) objectInputStream.readObject();
             }
-        } catch (Exception ex) {
+        } catch (IOException|ClassNotFoundException e) {
             System.out.println("Deserialization has failed, please check input data");
         }
         return listOfEmployees;

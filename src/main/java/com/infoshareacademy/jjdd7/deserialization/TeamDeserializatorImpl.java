@@ -19,10 +19,8 @@ public class TeamDeserializatorImpl implements TeamDeserializator {
             if (file.exists()) {
                 listOfTeams = (List<Team>) objectInputStream.readObject();
             }
-        } catch (ClassNotFoundException e) {
+        } catch (IOException|ClassNotFoundException e) {
             System.out.println("Error with deserialization - IOE");
-        } catch (IOException e) {
-            System.out.println("Error with deserialization - Class not found");
         }
         return listOfTeams;
     }
