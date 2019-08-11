@@ -35,8 +35,9 @@ public class TeamServiceImpl implements TeamService {
         tempTeams.add(team);
         setAllTeams(tempTeams);
         serialization.serialize(this.listOfTeams, this.fileName);
-        System.out.println("Team \"" + newTeam + "\" added to list.");
+        System.out.println("\nTeam \"" + newTeam + "\" added to list.");
         serialization.serialize(this.listOfTeams, this.fileName);
+        System.out.println("\nType '0' to return or 'Enter' to add another employee.");
     }
 
     @Override
@@ -54,7 +55,7 @@ public class TeamServiceImpl implements TeamService {
                     tempTeams.get(i).setName(newNameOfTeam);
                     setAllTeams(tempTeams);
                     serialization.serialize(this.listOfTeams, this.fileName);
-                    System.out.println("Team name changed to \"" + newNameOfTeam + "\"");
+                    System.out.println("\nTeam name changed to \"" + newNameOfTeam + "\"");
                     isTeamFound = true;
                     break;
                 }
@@ -64,6 +65,7 @@ public class TeamServiceImpl implements TeamService {
             }
         } while (!isTeamFound);
         serialization.serialize(this.listOfTeams, this.fileName);
+        System.out.println("\nType '0' to return or 'Enter' to add another employee.");
     }
 
     @Override
@@ -85,10 +87,11 @@ public class TeamServiceImpl implements TeamService {
                 }
             }
             if (!isTeamFound) {
-                System.out.println("There is no team named like that. Try again: ");
+                System.out.println("\nThere is no team named like that. Try again: ");
             }
         } while (!isTeamFound);
         serialization.serialize(this.listOfTeams, this.fileName);
+        System.out.println("\nType '0' to return or 'Enter' to add another employee.");
     }
 
     public List<Team> getAllTeams() {

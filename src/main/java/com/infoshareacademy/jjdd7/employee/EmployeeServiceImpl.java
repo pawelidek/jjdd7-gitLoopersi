@@ -98,10 +98,10 @@ public class EmployeeServiceImpl implements EmployeeService {
             }
 
         } while (startWorkDate == null);
-        System.out.println("Procedure of adding new employee successfully finished.");
+        System.out.println("\nProcedure of adding new employee successfully finished.");
         listOfEmployees.add(new Employee(firstName, secondName, team, startWorkDate));
         serialization.serialize(this.listOfEmployees, this.fileName);
-
+        System.out.println("\nType '0' to return or 'Enter' to add another employee.");
     }
 
     @Override
@@ -127,7 +127,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                     if (employee.getSecondName().equals(secondName)) {
                         allEmployees.remove(employee);
                         isEmployeeFound = true;
-                        System.out.println("Employee has been succesfully deleted.");
+                        System.out.println("\nEmployee has been succesfully deleted.");
                         break;
                     }
                 }
@@ -138,6 +138,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             }
         } while (!isEmployeeFound);
         serialization.serialize(this.listOfEmployees, this.fileName);
+        System.out.println("\nType '0' to return or 'Enter' to add another employee.");
     }
 
     public List<Employee> getAllEmployees() {
