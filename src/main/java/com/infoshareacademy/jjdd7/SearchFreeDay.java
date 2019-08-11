@@ -16,19 +16,16 @@ public class SearchFreeDay {
 
     public static void main(String[] args) {
 
-        System.out.println("Enter Date in format yyyy-MM-dd :");
+        System.out.println("Enter Date in format yyyy.MM.dd :");
 
         Scanner input = new Scanner(System.in);
 
         String date = input.nextLine();
         System.out.println(date);
-        DateTimeFormatter dateFotmater = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate dateGiven = LocalDate.parse(date, dateFotmater);
-        Pattern datePattern = compile("[1-2][0,1,9][0-9][0-9]\\-[0-1][0-9]\\-[0-3][0-9]");
-
-
-
-            Matcher matcher = datePattern.matcher(date);
+        DateTimeFormatter dateFotmater = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+        LocalDate dateGiven = null;
+        Pattern datePattern = compile("[1-2][0,1,9][0-9][0-9]\\.[0-1][0-9]\\.[0-3][0-9]");
+        Matcher matcher = datePattern.matcher(date);
             if (matcher.matches()) {
                 try {
                     dateGiven = LocalDate.parse(date, dateFotmater);
@@ -36,11 +33,8 @@ public class SearchFreeDay {
                     System.out.println("Parse error occured");
                 }
             } else {
-                System.out.println("Wrong data please enter data in format yyyy-MM-dd: ");
+                System.out.println("Wrong data please enter data in format yyyy.MM.dd: ");
             }
-
-
-
             ParserImpl parser = new ParserImpl("HolidaysApi.json");
             List<Holiday> myList = parser.getListOfHolidays();
             boolean ifHolidayfound = false;
@@ -66,7 +60,6 @@ public class SearchFreeDay {
                         System.out.println("Working day");
                 }
             }
-
     }
 }
 
