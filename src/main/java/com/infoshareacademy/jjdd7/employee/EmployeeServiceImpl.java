@@ -4,6 +4,7 @@ import com.infoshareacademy.jjdd7.deserialization.EmployeeDeserializator;
 import com.infoshareacademy.jjdd7.deserialization.EmployeeDeserializatorImpl;
 import com.infoshareacademy.jjdd7.domain.Employee;
 import com.infoshareacademy.jjdd7.domain.Team;
+import com.infoshareacademy.jjdd7.menu.menuprint.EmployeesListPrinter;
 import com.infoshareacademy.jjdd7.serialization.EmployeeSerializator;
 import com.infoshareacademy.jjdd7.serialization.EmployeeSerializatorImpl;
 import com.infoshareacademy.jjdd7.serialization.TeamSerializator;
@@ -73,7 +74,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 }
                 teamService.setAllTeams(allTeams);
                 TeamSerializator teamSerializator = new TeamSerializatorImpl();
-                teamSerializator.serialize(teamService.getAllTeams(), "employees.ser");
+                teamSerializator.serialize(teamService.getAllTeams(), "teams.ser");
                 break;
             }
         }
@@ -96,6 +97,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         } while (startWorkDate == null);
         System.out.println("Procedure of adding new employee successfully finished.");
+
         listOfEmployees.add(new Employee(firstName, secondName, team, startWorkDate));
         serialization.serialize(this.listOfEmployees, this.fileName);
     }
@@ -117,6 +119,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 secondName = scanner.nextLine();
             }
             List<Employee> allEmployees = getAllEmployees();
+            System.out.println(allEmployees);
             for (Employee employee : allEmployees) {
                 if (employee.getFirstName().equals(firstName)) {
                     if (employee.getSecondName().equals(secondName)) {
