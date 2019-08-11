@@ -7,9 +7,6 @@ public class MenuNavigator {
     private String page = "m";
     private boolean exit = false;
 
-    public MenuNavigator() {
-    }
-
     void changeMenuPage() {
 
         Scanner scanner = new Scanner(System.in);
@@ -24,7 +21,7 @@ public class MenuNavigator {
         }
     }
 
-    void returnToPreviousPage() {
+    public void returnToPreviousPage() {
         this.page = this.page.substring(0, this.page.length() - 1);
     }
 
