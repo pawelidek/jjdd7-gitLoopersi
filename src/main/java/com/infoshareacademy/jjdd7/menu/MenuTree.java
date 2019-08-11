@@ -15,18 +15,23 @@ public class MenuTree {
         /* METODY DRUKUJĄCE */
         HeaderPrinter headerPrinter = new HeaderPrinter();
 
-        WorkersListPrinter workersListPrinter = new WorkersListPrinter();
+        EmployeesListPrinter employeesListPrinter = new EmployeesListPrinter();
         VacationPrinter vacationPrinter = new VacationPrinter();
         SearchEnginePrinter searchEnginePrinter = new SearchEnginePrinter();
         ConfigurationsPrinter configurationsPrinter = new ConfigurationsPrinter();
+        TeamsListPrinter teamsListPrinter = new TeamsListPrinter();
 
         HolidayPrinter holidayPrinter = new HolidayPrinter();
-        WorkerVacationPrinter workerVacationPrinter = new WorkerVacationPrinter();
+        EmployeesVacationPrinter employeesVacationPrinter = new EmployeesVacationPrinter();
         TeamVacationPrinter teamVacationPrinter = new TeamVacationPrinter();
 
         /* METODY FUNKCJONALNE */
-        WorkerCreator workerCreator = new WorkerCreator();
-        WorkerRemover workerRemover = new WorkerRemover();
+        EmployeeAdder employeeAdder = new EmployeeAdder();
+        EmployeeDeleter employeeDeleter = new EmployeeDeleter();
+
+        TeamAdder teamAdder = new TeamAdder();
+        TeamNameChanger teamNameChanger = new TeamNameChanger();
+        TeamDeleter teamDeleter = new TeamDeleter();
 
         VacationAdder vacationAdder = new VacationAdder();
         VacationCanceller vacationCanceller = new VacationCanceller();
@@ -35,7 +40,7 @@ public class MenuTree {
         HolidayDateCapturer holidayDateCapturer = new HolidayDateCapturer();
 
         WorkerVacationSearcher workerVacationSearcher = new WorkerVacationSearcher();
-        WorkerVacationDateSearcher workerVacationDateSearcher = new WorkerVacationDateSearcher();
+        EmployeeVacationDateSearcher employeeVacationDateSearcher = new EmployeeVacationDateSearcher();
 
         TeamVacationSearcher teamVacationSearcher = new TeamVacationSearcher();
         TeamVacationDateSearcher teamVacationDateSearcher = new TeamVacationDateSearcher();
@@ -47,26 +52,30 @@ public class MenuTree {
         /* MAPA */
         map.put("m", headerPrinter);
 
-        map.put("m1", workersListPrinter);
-        map.put("m11", workerCreator);
-        map.put("m12", workerRemover);
-        map.put("m2", vacationPrinter);
-        map.put("m21", vacationAdder);
-        map.put("m22", vacationCanceller);
-        map.put("m3", searchEnginePrinter);
-        map.put("m31", holidayPrinter);
-        map.put("m311", holidayNameCapturer);
-        map.put("m312", holidayDateCapturer);
-        map.put("m32", workerVacationPrinter);
-        map.put("m321", workerVacationSearcher);
-        map.put("m322", workerVacationDateSearcher);
-        map.put("m33", teamVacationPrinter);
-        map.put("m331", teamVacationSearcher);
-        map.put("m332", teamVacationDateSearcher);
-        map.put("m4", configurationsPrinter);
-        map.put("m41", settingsImporter);
-        map.put("m42", dateFormatter);
-        map.put("m43", sortingChanger);
+        map.put("m1", employeesListPrinter);
+        map.put("m11", employeeAdder);
+        map.put("m12", employeeDeleter);
+        map.put("m2", teamsListPrinter);
+        map.put("m21", teamAdder);
+        map.put("m22", teamNameChanger);
+        map.put("m23", teamDeleter);
+        map.put("m3", vacationPrinter);
+        map.put("m31", vacationAdder);
+        map.put("m32", vacationCanceller);
+        map.put("m4", searchEnginePrinter);
+        map.put("m41", holidayPrinter);
+        map.put("m411", holidayNameCapturer);
+        map.put("m412", holidayDateCapturer);
+        map.put("m42", employeesVacationPrinter);
+        map.put("m421", workerVacationSearcher);
+        map.put("m422", employeeVacationDateSearcher);
+        map.put("m43", teamVacationPrinter);
+        map.put("m431", teamVacationSearcher);
+        map.put("m432", teamVacationDateSearcher);
+        map.put("m5", configurationsPrinter);
+        map.put("m51", settingsImporter);
+        map.put("m52", dateFormatter);
+        map.put("m53", sortingChanger);
 
         return map;
     }

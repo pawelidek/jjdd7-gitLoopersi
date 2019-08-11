@@ -2,7 +2,7 @@ package com.infoshareacademy.jjdd7.menu.menuprint;
 
 import com.infoshareacademy.jjdd7.menu.Menu;
 
-public class WorkerVacationPrinter implements Menu {
+public class EmployeesVacationPrinter implements Menu {
 
     @Override
     public void doAction() {

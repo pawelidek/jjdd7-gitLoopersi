@@ -8,8 +8,9 @@ public class HeaderPrinter implements Menu {
     public void doAction() {
         System.out.println("Main menu:");
         System.out.println("1. Workers list");
-        System.out.println("2. Vacation");
-        System.out.println("3. Search");
-        System.out.println("4. Configuration");
+        System.out.println("2. Teams list");
+        System.out.println("3. Vacation");
+        System.out.println("4. Search");
+        System.out.println("5. Configuration");
     }
 }
