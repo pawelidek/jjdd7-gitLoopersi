@@ -1,12 +1,11 @@
 package com.infoshareacademy.jjdd7.menu.menuprint;
 
-import com.infoshareacademy.jjdd7.employee.EmployeeService;
 import com.infoshareacademy.jjdd7.employee.EmployeeServiceImpl;
 import com.infoshareacademy.jjdd7.menu.Menu;
 
 public class EmployeesListPrinter implements Menu {
 
-    EmployeeServiceImpl employeeServiceImpl = new EmployeeServiceImpl();
+    private EmployeeServiceImpl employeeServiceImpl = new EmployeeServiceImpl();
 
     @Override
     public void doAction() {

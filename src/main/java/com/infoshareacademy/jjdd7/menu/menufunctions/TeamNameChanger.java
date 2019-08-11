@@ -7,8 +7,8 @@ import com.infoshareacademy.jjdd7.team.TeamServiceImpl;
 import java.util.Scanner;
 
 public class TeamNameChanger implements Menu {
-    TeamService teamService = new TeamServiceImpl();
-    Scanner scanner = new Scanner(System.in);
+    private TeamService teamService = new TeamServiceImpl();
+    private Scanner scanner = new Scanner(System.in);
 
     @Override
     public void doAction() {

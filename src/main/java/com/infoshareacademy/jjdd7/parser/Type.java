@@ -1,4 +1,4 @@
-package com.infoshareacademy.jjdd7;
+package com.infoshareacademy.jjdd7.parser;
 
 public enum Type {
     NATIONAL_HOLIDAY("NATIONAL HOLIDAY"), OBSERVANCE("OBSERVANCE"), SEASON("SEASON");

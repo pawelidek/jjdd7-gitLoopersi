@@ -5,7 +5,7 @@ import com.infoshareacademy.jjdd7.team.TeamServiceImpl;
 
 public class TeamsListPrinter implements Menu {
 
-    TeamServiceImpl teamServiceImpl = new TeamServiceImpl();
+    private TeamServiceImpl teamServiceImpl = new TeamServiceImpl();
 
     @Override
     public void doAction() {

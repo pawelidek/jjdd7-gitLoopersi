@@ -4,8 +4,6 @@ import com.infoshareacademy.jjdd7.deserialization.EmployeeDeserializator;
 import com.infoshareacademy.jjdd7.deserialization.EmployeeDeserializatorImpl;
 import com.infoshareacademy.jjdd7.domain.Employee;
 import com.infoshareacademy.jjdd7.domain.Team;
-import com.infoshareacademy.jjdd7.menu.menuaction.MenuNavigator;
-import com.infoshareacademy.jjdd7.menu.menuprint.EmployeesListPrinter;
 import com.infoshareacademy.jjdd7.serialization.EmployeeSerializator;
 import com.infoshareacademy.jjdd7.serialization.EmployeeSerializatorImpl;
 import com.infoshareacademy.jjdd7.serialization.TeamSerializator;
@@ -127,7 +125,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                     if (employee.getSecondName().equals(secondName)) {
                         allEmployees.remove(employee);
                         isEmployeeFound = true;
-                        System.out.println("\nEmployee has been succesfully deleted.");
+                        System.out.println("\nEmployee has been successfully deleted.");
                         break;
                     }
                 }
