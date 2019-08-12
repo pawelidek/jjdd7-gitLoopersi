@@ -24,6 +24,6 @@ public class HolidaySearcher {
         if (!ifHolidayfound) {
             System.out.println("There is no holiday");
         }
-        System.out.println("\nType '0' to return or 'Enter' to add another employee.");
+        System.out.println("\nType '0' to return or 'Enter' to find another holiday.");
     }
 }

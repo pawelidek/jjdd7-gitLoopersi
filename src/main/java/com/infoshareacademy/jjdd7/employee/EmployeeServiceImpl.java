@@ -136,7 +136,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             }
         } while (!isEmployeeFound);
         serialization.serialize(this.listOfEmployees, this.fileName);
-        System.out.println("\nType '0' to return or 'Enter' to add another employee.");
+        System.out.println("\nType '0' to return or 'Enter' to delete another employee.");
     }
 
     public List<Employee> getAllEmployees() {

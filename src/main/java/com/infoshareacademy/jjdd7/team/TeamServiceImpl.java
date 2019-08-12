@@ -37,7 +37,7 @@ public class TeamServiceImpl implements TeamService {
         serialization.serialize(this.listOfTeams, this.fileName);
         System.out.println("\nTeam \"" + newTeam + "\" added to list.");
         serialization.serialize(this.listOfTeams, this.fileName);
-        System.out.println("\nType '0' to return or 'Enter' to add another employee.");
+        System.out.println("\nType '0' to return or 'Enter' to add another team.");
     }
 
     @Override
@@ -65,7 +65,7 @@ public class TeamServiceImpl implements TeamService {
             }
         } while (!isTeamFound);
         serialization.serialize(this.listOfTeams, this.fileName);
-        System.out.println("\nType '0' to return or 'Enter' to add another employee.");
+        System.out.println("\nType '0' to return or 'Enter' to delete another team.");
     }
 
     @Override

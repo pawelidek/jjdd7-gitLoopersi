@@ -21,21 +21,25 @@ public class FreeDaySearcher {
 
         System.out.println("Enter Date in format yyyy.MM.dd :");
 
-        String date = scanner.nextLine();
-        System.out.println(date);
+
+        //System.out.println(date);
         DateTimeFormatter dateFormater = DateTimeFormatter.ofPattern("yyyy.MM.dd");
         LocalDate dateGiven = null;
         Pattern datePattern = compile("[1-2][0,1,9][0-9][0-9]\\.[0-1][0-9]\\.[0-3][0-9]");
-        Matcher matcher = datePattern.matcher(date);
-        if (matcher.matches()) {
-            try {
-                dateGiven = LocalDate.parse(date, dateFormater);
-            } catch (DateTimeParseException e) {
-                System.out.println("Parse error occured");
+        Matcher matcher = null;
+        do {
+            String date = scanner.nextLine();
+            matcher = datePattern.matcher(date);
+            if (matcher.matches()) {
+                try {
+                    dateGiven = LocalDate.parse(date, dateFormater);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Parse error occured");
+                }
+            } else {
+                System.out.println("Wrong data please enter data in format yyyy.MM.dd: ");
             }
-        } else {
-            System.out.println("Wrong data please enter data in format yyyy.MM.dd: ");
-        }
+        } while (!matcher.matches());
         ParserImpl parser = new ParserImpl("HolidaysApi.json");
         List<Holiday> myList = parser.getListOfHolidays();
         boolean ifHolidayfound = false;
@@ -61,6 +65,6 @@ public class FreeDaySearcher {
                     System.out.println("Working day");
             }
         }
-        System.out.println("\nType '0' to return or 'Enter' to add another employee.");
+        System.out.println("\nType '0' to return or 'Enter' to check another date.");
     }
 }
