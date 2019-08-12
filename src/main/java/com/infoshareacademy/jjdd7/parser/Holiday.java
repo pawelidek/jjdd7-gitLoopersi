@@ -1,21 +1,23 @@
 package com.infoshareacademy.jjdd7.parser;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 
 public class Holiday {
 
     private String name;
-    private Date date;
+    private LocalDate date;
     private Type type;
     private String description;
 
-    public Holiday(String name, Date date, Type type, String description) {
+    public Holiday(String name, LocalDate date, Type type, String description) {
         this.name = name;
         this.date = date;
         this.type = type;
         this.description = description;
     }
+
+
 
     public String getName() {
         return name;
@@ -25,11 +27,11 @@ public class Holiday {
         this.name = name;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

@@ -7,8 +7,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ParserImpl implements Parser {
@@ -52,9 +54,9 @@ public class ParserImpl implements Parser {
         listOfHolidays = new ArrayList<Holiday>();
         for (int i = 0; i < arrayOfHolidays.length(); i++) {
             String name = arrayOfHolidays.getJSONObject(i).getString("name");
-            Date date = null;
+           LocalDate date = null;
             try {
-                date = new SimpleDateFormat("yyyy-MM-dd").parse(arrayOfHolidays.getJSONObject(i).getJSONObject("date").getString("iso"));
+                date = new SimpleDateFormat("yyyy-MM-dd").parse(arrayOfHolidays.getJSONObject(i).getJSONObject("date").getString("iso")).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             } catch (java.text.ParseException pe) {
                 System.out.println("Problem with parsing data occured");
             }
