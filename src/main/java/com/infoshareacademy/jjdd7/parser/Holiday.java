@@ -1,4 +1,4 @@
-package com.infoshareacademy.jjdd7;
+package com.infoshareacademy.jjdd7.parser;
 
 import java.time.LocalDate;
 

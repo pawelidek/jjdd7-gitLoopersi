@@ -20,9 +20,7 @@ public class Team implements Serializable {
 
     @Override
     public String toString() {
-        return "Team{" +
-                "name='" + name + '\'' +
-                '}';
+        return name;
     }
 
     @Override

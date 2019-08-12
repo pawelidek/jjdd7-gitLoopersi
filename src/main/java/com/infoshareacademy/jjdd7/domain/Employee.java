@@ -67,11 +67,9 @@ public class Employee implements Serializable {
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "firstName='" + firstName + '\'' +
-                ", secondName='" + secondName + '\'' +
-                ", team=" + team +
-                ", startDate=" + startDate +
-                '}';
+        return firstName +
+                " " + secondName +
+                ", " + team +
+                ", " + startDate;
     }
 }

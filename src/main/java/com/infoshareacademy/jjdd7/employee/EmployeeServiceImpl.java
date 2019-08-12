@@ -34,16 +34,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void addEmployee(Scanner scanner) {
+
         System.out.print("Enter new employee's first name: ");
         String firstName = scanner.nextLine();
         while (firstName.length() == 0) {
-            System.out.print("\nEmpty value has been put, enter new employee's first name: ");
+            System.out.print("\nEmpty value has been put! Enter new employee's first name: ");
             firstName = scanner.nextLine();
         }
         System.out.print("\nEnter new employee's second name: ");
         String secondName = scanner.nextLine();
         while (secondName.length() == 0) {
-            System.out.println("Empty value has been put, enter new employee's second name.");
+            System.out.println("Empty value has been put! Enter new employee's second name: ");
             secondName = scanner.nextLine();
         }
         System.out.print("\nEnter new employee's team name: ");
@@ -57,7 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         while (teamName.length() == 0 || !allTeams.contains(team)) {
             if (teamName.length() == 0) {
-                System.out.println("Empty value has been put, enter new employee's team: ");
+                System.out.println("Empty value has been put! Enter new employee's team: ");
                 secondName = scanner.nextLine();
             } else {
                 System.out.print("\nThere is no team named \"" + teamName + "\". Would you like to create it? Y/N: ");
@@ -73,7 +74,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 }
                 teamService.setAllTeams(allTeams);
                 TeamSerializator teamSerializator = new TeamSerializatorImpl();
-                teamSerializator.serialize(teamService.getAllTeams(), "employees.ser");
+                teamSerializator.serialize(teamService.getAllTeams(), "teams.ser");
                 break;
             }
         }
@@ -88,51 +89,54 @@ public class EmployeeServiceImpl implements EmployeeService {
                 try {
                     startWorkDate = simpleDateFormat.parse(startWorkDateString);
                 } catch (ParseException e) {
-                    System.out.println("Parse error occured");
+                    System.out.println("Parse error occured!");
                 }
             } else {
-                System.out.println("Wrong data please enter data in format yyyy.MM.dd: ");
+                System.out.println("Wrong data! Please enter data in format yyyy.MM.dd: ");
             }
 
         } while (startWorkDate == null);
-        System.out.println("Procedure of adding new employee successfully finished.");
+        System.out.println("\nProcedure of adding new employee successfully finished.");
         listOfEmployees.add(new Employee(firstName, secondName, team, startWorkDate));
         serialization.serialize(this.listOfEmployees, this.fileName);
+        System.out.println("\nType '0' to return or 'Enter' to add another employee.");
     }
 
     @Override
     public void deleteEmployee(Scanner scanner) {
         Boolean isEmployeeFound = false;
         do {
-            System.out.print("\nEnter first name of employee who you would like to delete: ");
+            System.out.print("\nEnter first name of employee you would like to delete: ");
             String firstName = scanner.nextLine();
             while (firstName.length() == 0) {
-                System.out.print("\nEmpty value has been put, enter first name of employee who you would like to delete:  ");
+                System.out.print("\nEmpty value has been put! Enter first name of employee who you would like to delete: ");
                 firstName = scanner.nextLine();
             }
             System.out.print("\nEnter second name of employee who you would like to delete: ");
             String secondName = scanner.nextLine();
             while (secondName.length() == 0) {
-                System.out.println("Empty value has been put, enter second name of employee who you would like to delete: ");
+                System.out.println("Empty value has been put! Enter second name of employee who you would like to delete: ");
                 secondName = scanner.nextLine();
             }
             List<Employee> allEmployees = getAllEmployees();
+
             for (Employee employee : allEmployees) {
                 if (employee.getFirstName().equals(firstName)) {
                     if (employee.getSecondName().equals(secondName)) {
                         allEmployees.remove(employee);
                         isEmployeeFound = true;
-                        System.out.println("Employee has been succesfully deleted");
+                        System.out.println("\nEmployee has been successfully deleted.");
                         break;
                     }
                 }
             }
 
             if (!isEmployeeFound) {
-                System.out.println("Employee is not found, enter correct data of employee.");
+                System.out.println("Employee is not found! Enter correct data of employee.");
             }
         } while (!isEmployeeFound);
         serialization.serialize(this.listOfEmployees, this.fileName);
+        System.out.println("\nType '0' to return or 'Enter' to add another employee.");
     }
 
     public List<Employee> getAllEmployees() {
