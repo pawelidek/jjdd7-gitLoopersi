@@ -1,39 +1,29 @@
-package com.infoshareacademy.jjdd7;
+package com.infoshareacademy.jjdd7.search;
 
-import java.time.ZoneId;
+import com.infoshareacademy.jjdd7.parser.Holiday;
+import com.infoshareacademy.jjdd7.parser.ParserImpl;
+
 import java.util.List;
 import java.util.Scanner;
 
 
-public class SearchHoliday {
+public class HolidaySearcher {
 
-    public static void main(String[] args) {
-
-
+    public void searchHolidayByName(Scanner scanner) {
         System.out.println("Enter the name of the holiday: ");
-        Scanner scanner = new Scanner(System.in);
-        searchHolidayByName(scanner);
-
-
-    }
-
-    public static void searchHolidayByName(Scanner scanner) {
         ParserImpl parser = new ParserImpl("HolidaysApi.json");
         String name = scanner.nextLine();
         List<Holiday> myList = parser.getListOfHolidays();
         boolean ifHolidayfound = false;
         for (Holiday holiday : myList) {
-            if (name.toLowerCase().equals(holiday.getName()) || holiday.getName().toLowerCase().contains(name) && name.length() <= 3) {
+            if (name.length() >= 3 && holiday.getName().toLowerCase().contains(name.toLowerCase())) {
                 System.out.println(holiday.getDate() + " " + holiday.getName());
                 ifHolidayfound = true;
-                break;
             }
         }
-        if(!ifHolidayfound){
+        if (!ifHolidayfound) {
             System.out.println("There is no holiday");
         }
+        System.out.println("\nType '0' to return or 'Enter' to add another employee.");
     }
 }
-
-
-

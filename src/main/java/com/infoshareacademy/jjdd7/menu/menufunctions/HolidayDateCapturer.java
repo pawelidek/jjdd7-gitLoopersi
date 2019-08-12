@@ -1,11 +1,17 @@
 package com.infoshareacademy.jjdd7.menu.menufunctions;
 
 import com.infoshareacademy.jjdd7.menu.Menu;
+import com.infoshareacademy.jjdd7.search.FreeDaySearcher;
+
+import java.util.Scanner;
 
 public class HolidayDateCapturer implements Menu {
+
+    private FreeDaySearcher freeDaySearcher = new FreeDaySearcher();
+    private Scanner scanner = new Scanner(System.in);
+
     @Override
     public void doAction() {
-        System.out.println("This feature is under construction...");
-        System.out.println("Type '0' to return.");
+        freeDaySearcher.searchFreeDay(scanner);
     }
 }
