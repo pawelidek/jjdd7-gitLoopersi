@@ -9,7 +9,6 @@ import java.util.Scanner;
 public class EmployeeAdder implements Menu {
     private EmployeeService employeeService = new EmployeeServiceImpl();
     private Scanner scanner = new Scanner(System.in);
-
     @Override
     public void doAction() {
         employeeService.addEmployee(scanner);
