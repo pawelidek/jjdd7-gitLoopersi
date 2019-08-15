@@ -16,7 +16,7 @@ public class MenuNavigator {
             this.page = this.page.substring(0, this.page.length() - 1);
         } else if (readValue.equals("exit")) {
             this.exit = true;
-        } else if (readValue.length() == 1){
+        } else if (readValue.length() == 1) {
             this.page += readValue;
         }
     }

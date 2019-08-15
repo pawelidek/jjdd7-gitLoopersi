@@ -1,17 +1,16 @@
 package com.infoshareacademy.jjdd7.serialization;
 
-import com.infoshareacademy.jjdd7.domain.Team;
-
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.List;
 
-public class TeamSerializatorImpl implements TeamSerializator {
-    @Override
-    public void serialize(List<Team> teamList, String fileName) {
+public class Serializator<T> {
+    public void serialize(List<T> listOfItems, String fileName) {
         try (FileOutputStream fileOutputStream = new FileOutputStream(fileName);
              ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
-            objectOutputStream.writeObject(teamList);
-        } catch (Exception ex) {
+            objectOutputStream.writeObject(listOfItems);
+        } catch (IOException e) {
             System.out.println("Serialization has failed, please check output data");
         }
     }

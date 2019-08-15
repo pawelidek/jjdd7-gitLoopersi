@@ -10,9 +10,7 @@ public class Team implements Serializable {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
+    public Team() {}
 
     public void setName(String name) {
         this.name = name;
