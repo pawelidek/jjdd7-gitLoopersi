@@ -5,13 +5,15 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Employee implements Serializable {
+    private Long id = 0L;
     private String firstName;
     private String secondName;
     private Team team;
     private LocalDate startDate;
     private String email;
 
-    public Employee(String firstName, String secondName, Team team, LocalDate startDate, String email) {
+    public Employee(Long id, String firstName, String secondName, Team team, LocalDate startDate, String email) {
+        this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
         this.team = team;
@@ -20,6 +22,14 @@ public class Employee implements Serializable {
     }
 
     public Employee() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -51,7 +61,8 @@ public class Employee implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Employee)) return false;
         Employee employee = (Employee) o;
-        return Objects.equals(firstName, employee.firstName) &&
+        return Objects.equals(id, employee.id) &&
+                Objects.equals(firstName, employee.firstName) &&
                 Objects.equals(secondName, employee.secondName) &&
                 Objects.equals(team, employee.team) &&
                 Objects.equals(startDate, employee.startDate) &&
@@ -60,12 +71,13 @@ public class Employee implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, secondName, team, startDate, email);
+        return Objects.hash(id, firstName, secondName, team, startDate, email);
     }
 
     @Override
     public String toString() {
         return "Employee{" +
+                "id='" + id + '\'' +
                 "firstName='" + firstName + '\'' +
                 ", secondName='" + secondName + '\'' +
                 ", team=" + team +

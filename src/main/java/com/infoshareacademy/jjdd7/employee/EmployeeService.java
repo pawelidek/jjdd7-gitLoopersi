@@ -104,7 +104,10 @@ public class EmployeeService {
         } while (startWorkDate == null);
         System.out.println("\nProcedure of adding new employee successfully finished.");
         List<Employee> tempEmployees = EmployeeRepository.getAllEmployees();
-        tempEmployees.add(new Employee(firstName, secondName, team, startWorkDate, emailAdress));
+        Employee employee = new Employee();
+        employee.setId(employee.getId() + 1);
+        Long id = employee.getId();
+        tempEmployees.add(new Employee(id, firstName, secondName, team, startWorkDate, emailAdress));
         EmployeeRepository.setAllEmployees(tempEmployees);
         serialization.serialize(EmployeeRepository.getAllEmployees(), EmployeeRepository.getFileName());
         System.out.println("\nType '0' to return or 'Enter' to add another employee.");
