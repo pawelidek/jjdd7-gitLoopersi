@@ -1,9 +1,10 @@
 package com.infoshareacademy.jjdd7.search;
 
 
-import com.infoshareacademy.jjdd7.parser.Holiday;
-import com.infoshareacademy.jjdd7.parser.ParserImpl;
-import com.infoshareacademy.jjdd7.parser.Type;
+import com.infoshareacademy.jjdd7.domain.Holiday;
+import com.infoshareacademy.jjdd7.parser.Parser;
+import com.infoshareacademy.jjdd7.parser.TypeOfHoliday;
+import com.infoshareacademy.jjdd7.repository.HolidayRepository;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -40,11 +41,11 @@ public class FreeDaySearcher {
                 System.out.println("Wrong data please enter data in format yyyy.MM.dd: ");
             }
         } while (!matcher.matches());
-        ParserImpl parser = new ParserImpl("HolidaysApi.json");
-        List<Holiday> myList = parser.getListOfHolidays();
+        Parser parser = new Parser();
+        List<Holiday> myList = HolidayRepository.getAllHolidays();
         boolean ifHolidayfound = false;
         for (Holiday holiday : myList) {
-            if (holiday.getType() != Type.NATIONAL_HOLIDAY) {
+            if (holiday.getTypeOfHoliday() != TypeOfHoliday.NATIONAL_HOLIDAY) {
                 continue;
             }
             if (dateGiven.equals(holiday.getDate())) {

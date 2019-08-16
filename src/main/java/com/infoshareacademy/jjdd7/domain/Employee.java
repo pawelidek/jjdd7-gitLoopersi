@@ -1,36 +1,33 @@
 package com.infoshareacademy.jjdd7.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Employee implements Serializable {
     private String firstName;
     private String secondName;
     private Team team;
-    private Date startDate;
+    private LocalDate startDate;
+    private String email;
 
-    public Employee(String firstName, String secondName, Team team, Date startDate) {
+    public Employee(String firstName, String secondName, Team team, LocalDate startDate, String email) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.team = team;
         this.startDate = startDate;
+        this.email = email;
+    }
+
+    public Employee() {
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getSecondName() {
         return secondName;
-    }
-
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
     }
 
     public Team getTeam() {
@@ -41,12 +38,12 @@ public class Employee implements Serializable {
         this.team = team;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public String getEmail() {
+        return email;
     }
 
     @Override
@@ -54,22 +51,26 @@ public class Employee implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Employee)) return false;
         Employee employee = (Employee) o;
-        return firstName.equals(employee.firstName) &&
-                secondName.equals(employee.secondName) &&
-                team.equals(employee.team) &&
-                startDate.equals(employee.startDate);
+        return Objects.equals(firstName, employee.firstName) &&
+                Objects.equals(secondName, employee.secondName) &&
+                Objects.equals(team, employee.team) &&
+                Objects.equals(startDate, employee.startDate) &&
+                Objects.equals(email, employee.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, secondName, team, startDate);
+        return Objects.hash(firstName, secondName, team, startDate, email);
     }
 
     @Override
     public String toString() {
-        return firstName +
-                " " + secondName +
-                ", " + team +
-                ", " + startDate;
+        return "Employee{" +
+                "firstName='" + firstName + '\'' +
+                ", secondName='" + secondName + '\'' +
+                ", team=" + team +
+                ", startDate=" + startDate +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
