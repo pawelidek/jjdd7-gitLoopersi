@@ -1,11 +1,11 @@
 package com.infoshareacademy.jjdd7.parser;
 
-public enum Type {
+public enum TypeOfHoliday {
     NATIONAL_HOLIDAY("NATIONAL HOLIDAY"), OBSERVANCE("OBSERVANCE"), SEASON("SEASON");
 
     private String type;
 
-    Type(String type) {
+    TypeOfHoliday(String type) {
         this.type = type;
     }
 

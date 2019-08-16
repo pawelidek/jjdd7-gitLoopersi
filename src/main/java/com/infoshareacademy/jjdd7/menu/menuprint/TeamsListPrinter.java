@@ -1,18 +1,18 @@
 package com.infoshareacademy.jjdd7.menu.menuprint;
 
 import com.infoshareacademy.jjdd7.menu.Menu;
-import com.infoshareacademy.jjdd7.team.TeamServiceImpl;
+import com.infoshareacademy.jjdd7.repository.TeamRepository;
 
 public class TeamsListPrinter implements Menu {
 
-    private TeamServiceImpl teamServiceImpl = new TeamServiceImpl();
+    private TeamRepository teamRepository = new TeamRepository();
 
     @Override
     public void doAction() {
         System.out.println("Teams list: ");
 
-        for (int i = 0; i < teamServiceImpl.getAllTeams().size(); i++) {
-            System.out.println((i + 1) + ". " + teamServiceImpl.getAllTeams().get(i));
+        for (int i = 0; i < teamRepository.getAllTeams().size(); i++) {
+            System.out.println((i + 1) + ". " + teamRepository.getAllTeams().get(i));
         }
 
         System.out.println("\n1. Add team");

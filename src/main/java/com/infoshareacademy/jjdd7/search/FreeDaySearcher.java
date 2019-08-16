@@ -1,9 +1,10 @@
 package com.infoshareacademy.jjdd7.search;
 
 
-import com.infoshareacademy.jjdd7.parser.Holiday;
-import com.infoshareacademy.jjdd7.parser.ParserImpl;
-import com.infoshareacademy.jjdd7.parser.Type;
+import com.infoshareacademy.jjdd7.domain.Holiday;
+import com.infoshareacademy.jjdd7.parser.Parser;
+import com.infoshareacademy.jjdd7.parser.TypeOfHoliday;
+import com.infoshareacademy.jjdd7.repository.HolidayRepository;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,26 +22,30 @@ public class FreeDaySearcher {
 
         System.out.println("Enter Date in format yyyy.MM.dd :");
 
-        String date = scanner.nextLine();
-        System.out.println(date);
+
+        //System.out.println(date);
         DateTimeFormatter dateFormater = DateTimeFormatter.ofPattern("yyyy.MM.dd");
         LocalDate dateGiven = null;
         Pattern datePattern = compile("[1-2][0,1,9][0-9][0-9]\\.[0-1][0-9]\\.[0-3][0-9]");
-        Matcher matcher = datePattern.matcher(date);
-        if (matcher.matches()) {
-            try {
-                dateGiven = LocalDate.parse(date, dateFormater);
-            } catch (DateTimeParseException e) {
-                System.out.println("Parse error occured");
+        Matcher matcher = null;
+        do {
+            String date = scanner.nextLine();
+            matcher = datePattern.matcher(date);
+            if (matcher.matches()) {
+                try {
+                    dateGiven = LocalDate.parse(date, dateFormater);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Parse error occured");
+                }
+            } else {
+                System.out.println("Wrong data please enter data in format yyyy.MM.dd: ");
             }
-        } else {
-            System.out.println("Wrong data please enter data in format yyyy.MM.dd: ");
-        }
-        ParserImpl parser = new ParserImpl("HolidaysApi.json");
-        List<Holiday> myList = parser.getListOfHolidays();
+        } while (!matcher.matches());
+        Parser parser = new Parser();
+        List<Holiday> myList = HolidayRepository.getAllHolidays();
         boolean ifHolidayfound = false;
         for (Holiday holiday : myList) {
-            if (holiday.getType() != Type.NATIONAL_HOLIDAY) {
+            if (holiday.getTypeOfHoliday() != TypeOfHoliday.NATIONAL_HOLIDAY) {
                 continue;
             }
             if (dateGiven.equals(holiday.getDate())) {
@@ -61,6 +66,6 @@ public class FreeDaySearcher {
                     System.out.println("Working day");
             }
         }
-        System.out.println("\nType '0' to return or 'Enter' to add another employee.");
+        System.out.println("\nType '0' to return or 'Enter' to check another date.");
     }
 }
