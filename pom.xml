@@ -36,7 +36,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.infoshareacademy.jjdd7.App</mainClass>
+              <mainClass>com.infoshareacademy.gitLoopersi.App</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
