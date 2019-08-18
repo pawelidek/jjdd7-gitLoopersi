@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Employee implements Serializable {
-    private Long id = 0L;
+    private Long id;
     private String firstName;
     private String secondName;
     private Team team;
@@ -26,10 +26,6 @@ public class Employee implements Serializable {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFirstName() {

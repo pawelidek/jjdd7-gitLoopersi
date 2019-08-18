@@ -2,8 +2,11 @@ package com.infoshareacademy.gitLoopersi.menu.menuprint;
 
 import com.github.freva.asciitable.AsciiTable;
 import com.github.freva.asciitable.Column;
+import com.github.freva.asciitable.ColumnData;
 import com.github.freva.asciitable.HorizontalAlign;
+import com.infoshareacademy.gitLoopersi.domain.Employee;
 import com.infoshareacademy.gitLoopersi.menu.Menu;
+import com.infoshareacademy.gitLoopersi.repository.EmployeeRepository;
 
 import java.util.Arrays;
 import java.util.function.Function;
@@ -22,8 +25,8 @@ public class EmployeesListPrinter implements Menu {
     */
         Character[] borderStyle = AsciiTable.FANCY_ASCII;
 
-        System.out.println(AsciiTable.getTable(borderStyle, employeeRepository.getAllEmployees(), Arrays.asList(
-                new Column().header("Index").with(employee -> String.valueOf(employeeRepository.getAllEmployees().indexOf(employee) + 1)),
+        System.out.println(AsciiTable.getTable(borderStyle, EmployeeRepository.getAllEmployees(), Arrays.asList(
+                new Column().header("Index").with(employee -> String.valueOf(EmployeeRepository.getAllEmployees().indexOf(employee) + 1)),
                 new Column().header("Id").with(employee -> String.valueOf(employee.getId())),
                 createColumn("Name", Employee::getFirstName),
                 createColumn("Last Name", Employee::getSecondName),

@@ -21,6 +21,7 @@ public class EmployeeMapper {
     public void validateCorrectInputDataForNewEmployee() {
 
         EmployeeService employeeService = new EmployeeService();
+        EmployeeIdCounter employeeIdCounter = new EmployeeIdCounter();
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("The process of adding an employee.\n");
@@ -106,11 +107,12 @@ public class EmployeeMapper {
             }
         } while (startWorkDate == null);
 
+        Long id = Long.valueOf(employeeIdCounter.getIdCounter());
+        employeeIdCounter.incrementIdCounter();
+
         List<Employee> tempEmployees = EmployeeRepository.getAllEmployees();
-        Long id = 0L;
         tempEmployees.add(new Employee(id, firstName, secondName, team, startWorkDate, emailAddress));
         employeeService.addEmployee(tempEmployees);
-
     }
 
     public void validateCorrectInputDataForDeleteEmployee() {
