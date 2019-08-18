@@ -1,43 +1,51 @@
 package com.infoshareacademy.gitLoopersi.employee;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
-public class EmployeeIdCounter {
+class EmployeeIdCounter {
 
-    private static final String fileName = "id.txt";
-    private static long idCounter;
+  private static final String fileName = "id.txt";
 
-    public void incrementIdCounter() {
+  void incrementIdCounter() {
 
-        long incrementation = Long.parseLong(getIdCounter()) + 1L;
-        String content = String.valueOf(incrementation);
+    String newCounterValue = String.valueOf(getIdCounter() + 1L);
 
-        try (BufferedWriter bw = Files.newBufferedWriter(Paths.get(fileName))) {
+    try (
+        FileWriter fw = new FileWriter(fileName);
+        BufferedWriter bw = new BufferedWriter(fw)) {
 
-            bw.write(content);
+      bw.write(newCounterValue);
 
-        } catch (IOException e) {
-            System.err.format("IOException: %s%n", e);
-        }
+    } catch (IOException e) {
+      System.err.format("IOException: %s%n", e);
+    }
+  }
+
+  long getIdCounter() {
+
+    StringBuilder sb = new StringBuilder();
+    File yourFile = new File(fileName);
+    try {
+      yourFile.createNewFile();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
 
-    public String getIdCounter() {
+    try (
+        FileReader fr = new FileReader(fileName);
+        BufferedReader br = new BufferedReader(fr)) {
 
-        StringBuilder sb = new StringBuilder();
+      String counterValue = br.readLine();
 
-        try (BufferedReader br = Files.newBufferedReader(Paths.get(fileName))) {
+      if (counterValue == null || counterValue.equals("")) {
+        sb.append(1L);
+      } else {
+        sb.append(counterValue);
+      }
 
-            String line;
-            if ((line = br.readLine()) != null) {
-                sb.append(line);
-            }
-
-        } catch (IOException e) {
-            System.err.format("IOException: %s%n", e);
-        }
-
-        return sb.toString();
+    } catch (IOException e) {
+      System.err.format("IOException: %s%n", e);
     }
+    return Long.parseLong(sb.toString());
+  }
 }

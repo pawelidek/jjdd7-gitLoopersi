@@ -4,14 +4,15 @@ import com.infoshareacademy.gitLoopersi.menu.menuaction.MenuAction;
 import com.infoshareacademy.gitLoopersi.menu.menuprint.TitlePrinter;
 
 public class App {
-    public static void main(String[] args) {
 
-        MenuAction menuAction = new MenuAction();
-        TitlePrinter titlePrinter = new TitlePrinter();
+  public static void main(String[] args) {
 
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-        titlePrinter.doAction();
-        menuAction.doMenuAction();
-    }
+    MenuAction menuAction = new MenuAction();
+    TitlePrinter titlePrinter = new TitlePrinter();
+
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
+    titlePrinter.doAction();
+    menuAction.doMenuAction();
+  }
 }

@@ -5,80 +5,86 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Employee implements Serializable {
-    private Long id;
-    private String firstName;
-    private String secondName;
-    private Team team;
-    private LocalDate startDate;
-    private String email;
 
-    public Employee(Long id, String firstName, String secondName, Team team, LocalDate startDate, String email) {
-        this.id = id;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.team = team;
-        this.startDate = startDate;
-        this.email = email;
-    }
+  private Long id;
+  private String firstName;
+  private String secondName;
+  private Team team;
+  private LocalDate startDate;
+  private String email;
 
-    public Employee() {
-    }
+  public Employee(Long id, String firstName, String secondName, Team team, LocalDate startDate,
+      String email) {
+    this.id = id;
+    this.firstName = firstName;
+    this.secondName = secondName;
+    this.team = team;
+    this.startDate = startDate;
+    this.email = email;
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public Employee() {
+  }
 
-    public String getFirstName() {
-        return firstName;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public String getSecondName() {
-        return secondName;
-    }
+  public String getFirstName() {
+    return firstName;
+  }
 
-    public Team getTeam() {
-        return team;
-    }
+  public String getSecondName() {
+    return secondName;
+  }
 
-    public void setTeam(Team team) {
-        this.team = team;
-    }
+  public Team getTeam() {
+    return team;
+  }
 
-    public LocalDate getStartDate() {
-        return startDate;
-    }
+  public void setTeam(Team team) {
+    this.team = team;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public LocalDate getStartDate() {
+    return startDate;
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Employee)) return false;
-        Employee employee = (Employee) o;
-        return Objects.equals(id, employee.id) &&
-                Objects.equals(firstName, employee.firstName) &&
-                Objects.equals(secondName, employee.secondName) &&
-                Objects.equals(team, employee.team) &&
-                Objects.equals(startDate, employee.startDate) &&
-                Objects.equals(email, employee.email);
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, secondName, team, startDate, email);
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
+    if (!(o instanceof Employee)) {
+      return false;
+    }
+    Employee employee = (Employee) o;
+    return Objects.equals(id, employee.id) &&
+        Objects.equals(firstName, employee.firstName) &&
+        Objects.equals(secondName, employee.secondName) &&
+        Objects.equals(team, employee.team) &&
+        Objects.equals(startDate, employee.startDate) &&
+        Objects.equals(email, employee.email);
+  }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id='" + id + '\'' +
-                "firstName='" + firstName + '\'' +
-                ", secondName='" + secondName + '\'' +
-                ", team=" + team +
-                ", startDate=" + startDate +
-                ", email='" + email + '\'' +
-                '}';
-    }
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, firstName, secondName, team, startDate, email);
+  }
+
+  @Override
+  public String toString() {
+    return "Employee{" +
+        "id='" + id + '\'' +
+        "firstName='" + firstName + '\'' +
+        ", secondName='" + secondName + '\'' +
+        ", team=" + team +
+        ", startDate=" + startDate +
+        ", email='" + email + '\'' +
+        '}';
+  }
 }
