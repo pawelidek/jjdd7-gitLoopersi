@@ -7,13 +7,13 @@ import java.util.List;
 
 public class HolidayRepository {
 
-    private static List<Holiday> allHolidays = new ArrayList<>();
+  private static List<Holiday> allHolidays = new ArrayList<>();
 
-    public static List<Holiday> getAllHolidays() {
-        return allHolidays;
-    }
+  public static List<Holiday> getAllHolidays() {
+    return allHolidays;
+  }
 
-    public static void setAllHolidays(List<Holiday> allHolidays) {
-        HolidayRepository.allHolidays = allHolidays;
-    }
+  public static void setAllHolidays(List<Holiday> allHolidays) {
+    HolidayRepository.allHolidays = allHolidays;
+  }
 }

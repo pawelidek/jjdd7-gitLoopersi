@@ -6,13 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TeamRepository {
-    private static List<Team> allTeams = new ArrayList<>();
 
-    public static List<Team> getAllTeams() {
-        return allTeams;
-    }
+  private static List<Team> allTeams = new ArrayList<>();
 
-    public static void setAllTeams(List<Team> allTeams) {
-        TeamRepository.allTeams = allTeams;
-    }
+  public static List<Team> getAllTeams() {
+    return allTeams;
+  }
+
+  public static void setAllTeams(List<Team> allTeams) {
+    TeamRepository.allTeams = allTeams;
+  }
 }
