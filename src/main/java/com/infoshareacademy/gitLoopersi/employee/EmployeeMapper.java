@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.commons.validator.routines.EmailValidator;
 
 import static java.util.regex.Pattern.compile;
 
@@ -21,7 +22,6 @@ public class EmployeeMapper {
   public void validateCorrectInputDataForNewEmployee() {
 
     EmployeeService employeeService = new EmployeeService();
-    EmployeeIdCounter employeeIdCounter = new EmployeeIdCounter();
 
     Scanner scanner = new Scanner(System.in);
     System.out.println("The process of adding an employee.\n");
@@ -38,14 +38,12 @@ public class EmployeeMapper {
       secondName = scanner.nextLine();
     }
 
-    System.out.print("\nEnter new employee's e-mail address ");
-    Pattern emailPattern = compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
-        Pattern.CASE_INSENSITIVE);
+    System.out.print("\nEnter new employee's e-mail address: ");
     String emailAddress = null;
     do {
       String emailAddressToCheck = scanner.nextLine();
-      Matcher matcher = emailPattern.matcher(emailAddressToCheck);
-      if (matcher.matches()) {
+      boolean valid = EmailValidator.getInstance().isValid(emailAddressToCheck);;
+      if (valid) {
         emailAddress = emailAddressToCheck;
       } else {
         System.out.println("Wrong e-mail address! Please enter correct e-mail address: ");
@@ -109,13 +107,13 @@ public class EmployeeMapper {
       }
     } while (startWorkDate == null);
 
-    Long id = employeeIdCounter.getIdCounter();
+    Long id = EmployeeRepository.getCurrentId() + 1;
 
     List<Employee> tempEmployees = EmployeeRepository.getAllEmployees();
     tempEmployees.add(new Employee(id, firstName, secondName, team, startWorkDate, emailAddress));
     employeeService.addEmployee(tempEmployees);
 
-    employeeIdCounter.incrementIdCounter();
+    EmployeeRepository.incrementCurrentId();
   }
 
   public void validateCorrectInputDataForDeleteEmployee() {

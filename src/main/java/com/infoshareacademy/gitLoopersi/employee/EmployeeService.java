@@ -22,9 +22,15 @@ public class EmployeeService {
   }
 
   public void loadEmployeeData() {
+    List<Employee> employees = deserializator.deserialize(new Employee(), fileName);
     EmployeeRepository.getAllEmployees().clear();
     EmployeeRepository.getAllEmployees()
-        .addAll(deserializator.deserialize(new Employee(), fileName));
+        .addAll(employees);
+    employees.forEach(e -> {
+      if (e.getId() > EmployeeRepository.getCurrentId()) {
+        EmployeeRepository.setCurrentId(e.getId());
+      }
+    });
   }
 
   public void addTeamIfNotPresent(List<Team> teams) {
