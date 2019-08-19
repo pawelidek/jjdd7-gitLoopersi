@@ -25,11 +25,12 @@ public class VacationMapper {
     System.out.println("Enter vacation date from (Format: yyyy.MM.dd): ");
 
     LocalDate localDate = LocalDate.now();
-    Timestamp timestamp = Timestamp.from(Instant.EPOCH);
-    Timestamp timestamp1 = Timestamp.from(Instant.now());
 
-    System.out.println(timestamp1);
-    System.out.println(timestamp);
+    Timestamp timestamp = Timestamp.valueOf(localDate.atTime(LocalTime.MIDNIGHT));
+    Long time = timestamp.getTime();
+
+    System.out.println(time);
+    System.out.println(localDate);
     System.out.println(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")));
     do {
       String vacationDateFromString = scanner.nextLine();
