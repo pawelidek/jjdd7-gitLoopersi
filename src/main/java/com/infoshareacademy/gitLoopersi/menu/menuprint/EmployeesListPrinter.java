@@ -9,6 +9,7 @@ import com.infoshareacademy.gitLoopersi.employee.EmployeeService;
 import com.infoshareacademy.gitLoopersi.menu.Menu;
 import com.infoshareacademy.gitLoopersi.repository.EmployeeRepository;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.function.Function;
 
@@ -39,7 +40,8 @@ public class EmployeesListPrinter implements Menu {
             createColumn("Name", Employee::getFirstName),
             createColumn("Last Name", Employee::getSecondName),
             createColumn("Team", employee -> employee.getTeam().toString()),
-            createColumn("Work start date", employee -> employee.getStartDate().toString())
+            createColumn("Work start date", employee -> employee.getStartDate().format(
+                DateTimeFormatter.ofPattern("yyyy.MM.dd")))
         )));
 
     System.out.println("\n1. Add worker");

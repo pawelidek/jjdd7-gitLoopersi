@@ -11,11 +11,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.apache.commons.validator.routines.EmailValidator;
-
-import static java.util.regex.Pattern.compile;
 
 public class EmployeeMapper {
 
@@ -70,9 +66,9 @@ public class EmployeeMapper {
         } else {
           System.out.print(
               "\nThere is no team named \"" + teamName + "\". Would you like to create it? Y/N: ");
-          String answer = scanner.nextLine();
+          String answer = scanner.nextLine().toLowerCase();
           switch (answer) {
-            case "Y":
+            case "y":
               allTeams.add(new Team(teamName));
               break;
             default:
@@ -91,20 +87,14 @@ public class EmployeeMapper {
     System.out.print("\nEnter new employee's start working date (Format: yyyy.MM.dd): ");
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
     LocalDate startWorkDate = null;
-    Pattern datePattern = compile("[1-2][0,1,9][0-9][0-9]\\.[0-1][0-9]\\.[0-3][0-9]");
     do {
       String startWorkDateString = scanner.nextLine();
-      Matcher matcher = datePattern.matcher(startWorkDateString);
-      if (matcher.matches()) {
         try {
           startWorkDate = simpleDateFormat
               .parse(startWorkDateString).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         } catch (ParseException e) {
-          System.out.println("Parse error occurred!");
+          System.out.println("Wrong data! Please enter data in format yyyy.MM.dd: ");
         }
-      } else {
-        System.out.println("Wrong data! Please enter data in format yyyy.MM.dd: ");
-      }
     } while (startWorkDate == null);
 
     Long id = EmployeeRepository.getCurrentId() + 1;
