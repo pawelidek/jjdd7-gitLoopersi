@@ -1,5 +1,6 @@
 package com.infoshareacademy.gitLoopersi.menu.menuaction;
 
+import com.infoshareacademy.gitLoopersi.menu.ConsoleCleaner;
 import com.infoshareacademy.gitLoopersi.menu.MenuTree;
 import com.infoshareacademy.gitLoopersi.menu.menuprint.AlertMessagePrinter;
 
@@ -20,8 +21,7 @@ public class MenuAction {
         menuTree.buildMenuTree().get(menuNavigator.getPage()).doAction();
         menuNavigator.changeMenuPage();
 
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        ConsoleCleaner.cleanConsole();
 
       } else {
 
@@ -35,8 +35,8 @@ public class MenuAction {
         menuTree.buildMenuTree().get(menuNavigator.getPage()).doAction();
         alertMessagePrinter.doAction();
         menuNavigator.changeMenuPage();
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+
+        ConsoleCleaner.cleanConsole();
       }
     }
   }
