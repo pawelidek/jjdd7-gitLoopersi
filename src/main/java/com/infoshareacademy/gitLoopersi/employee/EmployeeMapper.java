@@ -100,13 +100,17 @@ public class EmployeeMapper {
       }
     } while (startWorkDate == null);
 
-    Long id = EmployeeRepository.getCurrentId() + 1;
+    Long id = generateSerialId();
 
     List<Employee> tempEmployees = EmployeeRepository.getAllEmployees();
     tempEmployees.add(new Employee(id, firstName, secondName, team, startWorkDate, emailAddress));
     employeeService.addEmployee(tempEmployees);
 
     EmployeeRepository.incrementCurrentId();
+  }
+
+  private Long generateSerialId() {
+    return EmployeeRepository.getCurrentId() + 1;
   }
 
   public void validateCorrectInputDataForDeleteEmployee() {
