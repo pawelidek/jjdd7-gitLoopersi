@@ -41,7 +41,7 @@ public class EmployeeMapper {
     do {
       String emailAddressToCheck = scanner.nextLine();
       boolean valid = EmailValidator.getInstance().isValid(emailAddressToCheck);
-      ;
+
       if (valid) {
         emailAddress = emailAddressToCheck;
       } else {
@@ -127,7 +127,7 @@ public class EmployeeMapper {
 
       while (!isCreatable(idToCheck)) {
         System.out.print("Wrong data! Enter " +
-            "id of employee who you would like to delete: \n");
+            "Id of employee you would like to delete: \n");
         idToCheck = scanner.nextLine();
       }
 
