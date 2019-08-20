@@ -1,5 +1,7 @@
 package com.infoshareacademy.gitLoopersi.employee;
 
+import static org.apache.commons.lang3.math.NumberUtils.isCreatable;
+
 import com.infoshareacademy.gitLoopersi.domain.Employee;
 import com.infoshareacademy.gitLoopersi.domain.Team;
 import com.infoshareacademy.gitLoopersi.repository.EmployeeRepository;
@@ -38,7 +40,8 @@ public class EmployeeMapper {
     String emailAddress = null;
     do {
       String emailAddressToCheck = scanner.nextLine();
-      boolean valid = EmailValidator.getInstance().isValid(emailAddressToCheck);;
+      boolean valid = EmailValidator.getInstance().isValid(emailAddressToCheck);
+      ;
       if (valid) {
         emailAddress = emailAddressToCheck;
       } else {
@@ -89,12 +92,12 @@ public class EmployeeMapper {
     LocalDate startWorkDate = null;
     do {
       String startWorkDateString = scanner.nextLine();
-        try {
-          startWorkDate = simpleDateFormat
-              .parse(startWorkDateString).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        } catch (ParseException e) {
-          System.out.println("Wrong data! Please enter data in format yyyy.MM.dd: ");
-        }
+      try {
+        startWorkDate = simpleDateFormat
+            .parse(startWorkDateString).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+      } catch (ParseException e) {
+        System.out.println("Wrong data! Please enter data in format yyyy.MM.dd: ");
+      }
     } while (startWorkDate == null);
 
     Long id = EmployeeRepository.getCurrentId() + 1;
@@ -110,37 +113,35 @@ public class EmployeeMapper {
 
     EmployeeService employeeService = new EmployeeService();
 
+    List<Employee> tempEmployees = EmployeeRepository.getAllEmployees();
+
     Scanner scanner = new Scanner(System.in);
     boolean isEmployeeFound = false;
+
+    System.out.println("The process of removing an employee");
+    System.out.print("\nEnter Id of employee you would like to delete: \n");
+
     do {
-      System.out.println("The process of removing an employee.\n");
-      System.out.print("\nEnter first name of employee you would like to delete: ");
-      String firstName = scanner.nextLine();
-      while (firstName.length() == 0) {
-        System.out.print("\nEmpty value has been put! Enter " +
-            "first name of employee who you would like to delete: ");
-        firstName = scanner.nextLine();
+
+      String idToCheck = scanner.nextLine();
+
+      while (!isCreatable(idToCheck)) {
+        System.out.print("Wrong data! Enter " +
+            "id of employee who you would like to delete: \n");
+        idToCheck = scanner.nextLine();
       }
-      System.out.print("\nEnter second name of employee who you would like to delete: ");
-      String secondName = scanner.nextLine();
-      while (secondName.length() == 0) {
-        System.out.println("Empty value has been put! Enter second " +
-            "name of employee who you would like to delete: ");
-        secondName = scanner.nextLine();
-      }
-      List<Employee> tempEmployees = EmployeeRepository.getAllEmployees();
+
+      Long id = Long.valueOf(idToCheck);
 
       for (Employee employee : tempEmployees) {
-        if (employee.getFirstName().equals(firstName)) {
-          if (employee.getSecondName().equals(secondName)) {
-            isEmployeeFound = true;
-            employeeService.deleteEmployee(employee);
-            break;
-          }
+        if (employee.getId().equals(id)) {
+          isEmployeeFound = true;
+          employeeService.deleteEmployee(employee);
+          break;
         }
       }
       if (!isEmployeeFound) {
-        System.out.println("Employee is not found! Enter correct data of employee.");
+        System.out.println("Employee is not found! Enter correct Id: ");
       }
     } while (!isEmployeeFound);
   }
