@@ -14,10 +14,6 @@ public class ConsoleCleaner {
 
         Runtime.getRuntime().exec("cls");
 
-      } else if (os.contains("mac")) {
-
-        Runtime.getRuntime().exec("clear");
-
       } else {
 
         System.out.print("\033[H\033[2J");
