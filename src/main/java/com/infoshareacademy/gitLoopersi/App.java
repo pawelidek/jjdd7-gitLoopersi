@@ -5,6 +5,7 @@ import com.infoshareacademy.gitLoopersi.menu.ConsoleCleaner;
 import com.infoshareacademy.gitLoopersi.menu.menuaction.MenuAction;
 import com.infoshareacademy.gitLoopersi.menu.menuprint.TitlePrinter;
 import com.infoshareacademy.gitLoopersi.vacation.VacationMapper;
+import com.infoshareacademy.gitLoopersi.vacation.VacationService;
 
 public class App {
 
@@ -17,8 +18,12 @@ public class App {
     System.out.flush();
     titlePrinter.doAction();
     menuAction.doMenuAction();*/
+
     EmployeeService employeeService = new EmployeeService();
     employeeService.loadEmployeeData();
+
+    VacationService vacationService = new VacationService();
+    vacationService.loadVacationData();
 
     VacationMapper vacationMapper = new VacationMapper();
     vacationMapper.validateDataForDefineVacation();

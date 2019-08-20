@@ -26,7 +26,7 @@ public class VacationService {
 
   public void addVacation(List<Vacation> vacations) {
     VacationRepository.setAllVacations(vacations);
-    serializator.serialize(VacationRepository.getAllVacations(), VacationService.getFileName());
+    serializator.serialize(VacationRepository.getAllVacations(), getFileName());
   }
 
   public static String getFileName() {
