@@ -11,10 +11,12 @@ public class AppConfigLoader {
         try (InputStream input = new FileInputStream(FILEPATH)) {
             Properties appProperties = new Properties();
             appProperties.load(input);
-            AppConfig.dateFormat=appProperties.getProperty("date.format");
-            AppConfig.sortType=appProperties.getProperty("employee.sort");
+            AppConfig.setDateFormat(appProperties.getProperty("date.format"));
+            AppConfig.setSortType(appProperties.getProperty("employee.sort"));
         } catch (IOException iOE) {
-            System.out.println("Error with loading properties");
+            AppConfig.setDateFormat("yyyy.MM.dd");
+            AppConfig.setSortType("ASC");
+            System.out.println("Error with loading properties, default properties have been set");
         }
     }
 

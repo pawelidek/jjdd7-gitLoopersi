@@ -10,8 +10,8 @@ public class AppConfigSaver {
     public void saveProperty(){
         try (OutputStream output = new FileOutputStream(FILEPATH)){
             Properties appProperties = new Properties();
-            appProperties.put("date.format",AppConfig.dateFormat);
-            appProperties.put("employee.sort",AppConfig.sortType);
+            appProperties.put("date.format",AppConfig.getDateFormat());
+            appProperties.put("type.sort",AppConfig.getSort());
             appProperties.store(output, null);
         } catch (java.io.IOException iOE){
             System.out.println("Openning properties");
