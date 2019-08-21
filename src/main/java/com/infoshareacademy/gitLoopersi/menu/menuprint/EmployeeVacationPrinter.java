@@ -7,6 +7,7 @@ import com.github.freva.asciitable.HorizontalAlign;
 import com.infoshareacademy.gitLoopersi.domain.Employee;
 import com.infoshareacademy.gitLoopersi.menu.Menu;
 import com.infoshareacademy.gitLoopersi.repository.EmployeeRepository;
+import com.infoshareacademy.gitLoopersi.vacation.EmployeeVacationSearcher;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.function.Function;
@@ -15,23 +16,26 @@ public class EmployeeVacationPrinter implements Menu {
 
   @Override
   public void doAction() {
-    System.out.println("Planned vacation of: ");
+    EmployeeVacationSearcher employeeVacationSearcher = new EmployeeVacationSearcher();
+
+    System.out.println("Planned vacation of: " + employeeVacationSearcher.getSearchedEmployee());
 
     Character[] borderStyle = AsciiTable.FANCY_ASCII;
 
     System.out.println(
-        AsciiTable.getTable(borderStyle, EmployeeRepository.getAllEmployees(), Arrays.asList(
-            createColumn("Index",
-                employee -> String
-                    .valueOf(EmployeeRepository
-                        .getAllEmployees()
-                        .indexOf(employee) + 1)),
-            createColumn("Vacation start date", employee -> employee.getStartDate().format(
-                DateTimeFormatter.ofPattern("yyyy.MM.dd"))),
-            createColumn("Vacation end date", employee -> employee.getStartDate().format(
-                DateTimeFormatter.ofPattern("yyyy.MM.dd"))),
-            createColumn("Duration", Employee::getFirstName)
-        )));
+        AsciiTable.getTable(borderStyle, employeeVacationSearcher.getListOfMatchingEmployees(),
+            Arrays.asList(
+                createColumn("Index",
+                    employee -> String
+                        .valueOf(EmployeeRepository
+                            .getAllEmployees()
+                            .indexOf(employee) + 1)),
+                createColumn("Vacation start date", employee -> employee.getStartDate().format(
+                    DateTimeFormatter.ofPattern("yyyy.MM.dd"))),
+                createColumn("Vacation end date", employee -> employee.getStartDate().format(
+                    DateTimeFormatter.ofPattern("yyyy.MM.dd"))),
+                createColumn("Duration", Employee::getFirstName)
+            )));
 
     System.out.println("\n1. Find an employee");
     System.out.println("2. Set date range to filter");

@@ -17,6 +17,7 @@ public class App {
 
     employeeVacationSearcher.searchForEmployee();
 
+    System.out.println(employeeVacationSearcher.getSearchedEmployee());
 //    ConsoleCleaner.cleanConsole();
 //
 //    MenuAction menuAction = new MenuAction();
