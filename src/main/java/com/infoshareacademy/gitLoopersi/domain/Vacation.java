@@ -1,9 +1,10 @@
 package com.infoshareacademy.gitLoopersi.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Vacation {
+public class Vacation implements Serializable {
 
   private Long id;
   private String email;
