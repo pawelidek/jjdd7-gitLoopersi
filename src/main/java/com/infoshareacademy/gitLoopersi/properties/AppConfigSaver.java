@@ -7,7 +7,7 @@ import java.util.Properties;
 public class AppConfigSaver {
     private final String FILEPATH ="application.properties";
 
-    private void saveProperty(){
+    public void saveProperty(){
         try (OutputStream output = new FileOutputStream(FILEPATH)){
             Properties appProperties = new Properties();
             appProperties.put("date.format",AppConfig.dateFormat);

@@ -2,6 +2,7 @@ package com.infoshareacademy.gitLoopersi.properties;
 
 import java.io.*;
 import java.util.Properties;
+import org.w3c.dom.ls.LSOutput;
 
 public class AppConfigLoader {
     private final String FILEPATH ="application.properties";
@@ -16,6 +17,7 @@ public class AppConfigLoader {
             System.out.println("Error with loading properties");
         }
     }
+
 
 
 }
