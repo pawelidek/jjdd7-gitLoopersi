@@ -6,6 +6,8 @@ import com.infoshareacademy.gitLoopersi.menu.menuprint.*;
 import com.infoshareacademy.gitLoopersi.search.HolidayMapper;
 import com.infoshareacademy.gitLoopersi.team.TeamMapper;
 
+import com.infoshareacademy.gitLoopersi.vacation.EmployeeVacationDateRangePicker;
+import com.infoshareacademy.gitLoopersi.vacation.EmployeeVacationSearcher;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,14 +26,14 @@ public class MenuTree {
     TeamsListPrinter teamsListPrinter = new TeamsListPrinter();
 
     HolidayPrinter holidayPrinter = new HolidayPrinter();
-    EmployeesVacationPrinter employeesVacationPrinter = new EmployeesVacationPrinter();
+    EmployeeVacationPrinter employeeVacationPrinter = new EmployeeVacationPrinter();
     TeamVacationPrinter teamVacationPrinter = new TeamVacationPrinter();
 
     VacationAdder vacationAdder = new VacationAdder();
     VacationCanceller vacationCanceller = new VacationCanceller();
 
-    WorkerVacationSearcher workerVacationSearcher = new WorkerVacationSearcher();
-    EmployeeVacationDateSearcher employeeVacationDateSearcher = new EmployeeVacationDateSearcher();
+    EmployeeVacationSearcher employeeVacationSearcher = new EmployeeVacationSearcher();
+    EmployeeVacationDateRangePicker employeeVacationDateRangepicker = new EmployeeVacationDateRangePicker();
 
     TeamVacationSearcher teamVacationSearcher = new TeamVacationSearcher();
     TeamVacationDateSearcher teamVacationDateSearcher = new TeamVacationDateSearcher();
@@ -60,9 +62,9 @@ public class MenuTree {
     map.put("m41", holidayPrinter);
     map.put("m411", holidayMapper::validateCorrectInputDataForHolidayName);
     map.put("m412", holidayMapper::validateCorrectInputDataForHolidayDate);
-    map.put("m42", employeesVacationPrinter);
-    map.put("m421", workerVacationSearcher);
-    map.put("m422", employeeVacationDateSearcher);
+    map.put("m42", employeeVacationPrinter);
+    map.put("m421", employeeVacationSearcher::searchForEmployee);
+    map.put("m422", employeeVacationDateRangepicker::pickVacationDateRange);
     map.put("m43", teamVacationPrinter);
     map.put("m431", teamVacationSearcher);
     map.put("m432", teamVacationDateSearcher);
