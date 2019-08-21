@@ -4,8 +4,8 @@ import com.infoshareacademy.gitLoopersi.menu.Menu;
 
 public class AlertMessagePrinter implements Menu {
 
-    @Override
-    public void doAction() {
-        System.out.println("\nCHOOSE CORRECT OPTION!");
-    }
+  @Override
+  public void doAction() {
+    System.out.println("\nCHOOSE CORRECT OPTION!");
+  }
 }

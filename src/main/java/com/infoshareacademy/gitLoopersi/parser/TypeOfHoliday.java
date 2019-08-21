@@ -1,16 +1,16 @@
 package com.infoshareacademy.gitLoopersi.parser;
 
 public enum TypeOfHoliday {
-    NATIONAL_HOLIDAY("NATIONAL HOLIDAY"), OBSERVANCE("OBSERVANCE"), SEASON("SEASON");
+  NATIONAL_HOLIDAY("NATIONAL HOLIDAY"), OBSERVANCE("OBSERVANCE"), SEASON("SEASON");
 
-    private String type;
+  private String type;
 
-    TypeOfHoliday(String type) {
-        this.type = type;
-    }
+  TypeOfHoliday(String type) {
+    this.type = type;
+  }
 
-    public String getType() {
-        return this.type;
-    }
+  public String getType() {
+    return this.type;
+  }
 
 }
