@@ -1,5 +1,6 @@
 package com.infoshareacademy.gitLoopersi.menu;
 
+import com.infoshareacademy.gitLoopersi.domain.Employee;
 import com.infoshareacademy.gitLoopersi.employee.EmployeeMapper;
 import com.infoshareacademy.gitLoopersi.menu.menufunctions.*;
 import com.infoshareacademy.gitLoopersi.menu.menuprint.*;

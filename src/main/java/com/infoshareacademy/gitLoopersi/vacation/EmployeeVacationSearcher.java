@@ -21,7 +21,7 @@ public class EmployeeVacationSearcher {
   private ArrayList<Employee> listOfMatchingEmployees;
   private Employee searchedEmployee;
 
-  public void searchForEmployee() {
+  public Employee searchForEmployee() {
 
     Scanner scanner = new Scanner(System.in);
 
@@ -52,12 +52,13 @@ public class EmployeeVacationSearcher {
       searchedEmployee = listOfMatchingEmployees.get(0);
 
     } else {
-      showListOfMatchingEmployeees();
+      showListOfMatchingEmployees();
+      pickEmployeeFromList(scanner);
     }
-
+    return searchedEmployee;
   }
 
-  private void showListOfMatchingEmployeees() {
+  private void showListOfMatchingEmployees() {
 
     Scanner scanner = new Scanner(System.in);
 
@@ -75,12 +76,10 @@ public class EmployeeVacationSearcher {
             createColumn("Last Name", Employee::getSecondName),
             createColumn("Team", employee -> employee.getTeam().toString())
         )));
-
-    pickEmployeeFromList(scanner);
   }
 
   private void pickEmployeeFromList(Scanner scanner) {
-    System.out.println("Enter the Id of the employee you wanted to type: ");
+    System.out.println("Enter the index of an employee you wanted to type: ");
 
     boolean isPickCorrect = false;
 
@@ -89,7 +88,7 @@ public class EmployeeVacationSearcher {
 
       while (!isCreatable(pickToCheck)) {
         System.out.print("Wrong data! Enter " +
-            "Id of employee you wanted to type: \n");
+            "index of an employee you wanted to type: \n");
         pickToCheck = scanner.nextLine();
       }
 
@@ -101,8 +100,8 @@ public class EmployeeVacationSearcher {
         isPickCorrect = true;
 
       } else {
-        System.out.print("There is no such Id! Enter " +
-            "correct Id value of employee you wanted to type: \n");
+        System.out.print("There is no such an index! Enter " +
+            "correct index of an employee you wanted to type: \n");
       }
     } while (!isPickCorrect);
   }
@@ -116,7 +115,7 @@ public class EmployeeVacationSearcher {
         .with(functionReference);
   }
 
-  public List<Employee> getListOfMatchingEmployees() {
+  private List<Employee> getListOfMatchingEmployees() {
     return listOfMatchingEmployees;
   }
 

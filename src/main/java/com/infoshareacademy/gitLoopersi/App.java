@@ -10,20 +10,20 @@ public class App {
 
   public static void main(String[] args) {
 
-    EmployeeService employeeService = new EmployeeService();
-    employeeService.loadEmployeeData();
-
-    EmployeeVacationSearcher employeeVacationSearcher = new EmployeeVacationSearcher();
-
-    employeeVacationSearcher.searchForEmployee();
-
-    System.out.println(employeeVacationSearcher.getSearchedEmployee());
-//    ConsoleCleaner.cleanConsole();
+//    EmployeeService employeeService = new EmployeeService();
+//    employeeService.loadEmployeeData();
 //
-//    MenuAction menuAction = new MenuAction();
-//    TitlePrinter titlePrinter = new TitlePrinter();
+//    EmployeeVacationSearcher employeeVacationSearcher = new EmployeeVacationSearcher();
 //
-//    titlePrinter.doAction();
-//    menuAction.doMenuAction();
+//    employeeVacationSearcher.searchForEmployee();
+//
+//    System.out.println(employeeVacationSearcher.getSearchedEmployee());
+    ConsoleCleaner.cleanConsole();
+
+    MenuAction menuAction = new MenuAction();
+    TitlePrinter titlePrinter = new TitlePrinter();
+
+    titlePrinter.doAction();
+    menuAction.doMenuAction();
   }
 }
