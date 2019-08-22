@@ -30,7 +30,7 @@ public class VacationMapper {
     List<Vacation> listVacations = VacationRepository.getAllVacations();
 
     Scanner scanner = new Scanner(System.in);
-    
+
     LocalDate vacationDateFrom = null;
     LocalDate vacationDateTo = null;
 
@@ -58,9 +58,8 @@ public class VacationMapper {
       numberOfVacationDays = checkAmountDaysOff(employee);
     }
 
-
-      vacationDateFrom = validateDateFrom();
-      vacationDateTo = validateDateTo();
+    vacationDateFrom = validateDateFrom();
+    vacationDateTo = validateDateTo();
 
     List<Vacation> vacationListForEmployee = VacationRepository.getAllVacations().stream()
         .filter(vacation -> vacation.getEmployeeId().equals(id))
@@ -68,12 +67,15 @@ public class VacationMapper {
 
     System.out.println(vacationListForEmployee);
 
-    numberOfVacationDays = validateAndCalculateVacationDays(vacationDateFrom, vacationDateTo, numberOfVacationDays);
+
+    int amountOfDays = validateAndCalculateVacationDays(vacationDateFrom, vacationDateTo);
+
+    validateRemainingDaysOff(id, numberOfVacationDays);
 
     System.out.println("id " + id + " email " + email + " vacationDateFrom " + vacationDateFrom +
         " vacationDateTo " + vacationDateTo + " numberOfVacationDays " + numberOfVacationDays);
 
-    //listVacations.add(new Vacation(id, vacationDateFrom, vacationDateTo, numberOfVacationDays));
+    listVacations.add(new Vacation(id, vacationDateFrom, vacationDateTo, amountOfDays));
     vacationService.addVacation(listVacations);
   }
 
@@ -172,8 +174,8 @@ public class VacationMapper {
     }
   }
 
-  private int validateAndCalculateVacationDays(LocalDate vacationDateFrom, LocalDate vacationDateTo,
-      int numberOfVacationDays) {
+  private int validateAndCalculateVacationDays(LocalDate vacationDateFrom, LocalDate vacationDateTo) {
+
     Parser parser = new Parser();
     List<Holiday> holidayList = HolidayRepository.getAllHolidays();
 
@@ -204,20 +206,34 @@ public class VacationMapper {
       }
     }
 
-
-
-    int count = amountOfDaysOff - amountOfHolidays;
-    numberOfVacationDays = numberOfVacationDays - count;
-    return count;
+    return amountOfDaysOff - amountOfHolidays;
   }
 
-  private List<Vacation> countOfDaysHistory(Long id) {
-    return VacationRepository.getAllVacations().stream()
+  public int validateRemainingDaysOff(Long id, int numberOfVacationDays) {
+
+    LocalDate today = LocalDate.now();
+    int workDaysCount = 0;
+
+    List<Vacation> countOfDaysHistory = VacationRepository.getAllVacations().stream()
         .filter(vacation -> vacation.getEmployeeId().equals(id))
         .collect(Collectors.toList());
+
+    for (Vacation value : countOfDaysHistory) {
+      if (today.getYear() == value.getDateFrom().getYear()) {
+        workDaysCount = workDaysCount + value.getCountOfDays();
+      }
+    }
+
+    numberOfVacationDays = numberOfVacationDays - count - workDaysCount;
+    if (numberOfVacationDays < 0) {
+
+    }
+
+    return 0;
   }
 
   private Employee employeeNotExist() {
+
     Employee employee = new Employee();
     Scanner scanner = new Scanner(System.in);
     System.out.println("Employee doesn't exist. Enter correct ID: ");
