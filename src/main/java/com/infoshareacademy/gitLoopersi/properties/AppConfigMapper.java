@@ -29,7 +29,6 @@ public class AppConfigMapper {
       }
     } while (dateFormat == null);
     AppConfigService appConfigService = new AppConfigService();
-    System.out.println(AppConfig.getDateFormat());
     appConfigService.setConfigurationOfDateFormatting(dateFormat);
   }
 
