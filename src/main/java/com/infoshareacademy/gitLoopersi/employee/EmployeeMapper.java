@@ -41,7 +41,7 @@ public class EmployeeMapper {
     do {
       String emailAddressToCheck = scanner.nextLine();
       boolean valid = EmailValidator.getInstance().isValid(emailAddressToCheck);
-      
+
       if (valid) {
         emailAddress = emailAddressToCheck;
       } else {

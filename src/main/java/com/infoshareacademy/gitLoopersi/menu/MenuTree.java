@@ -6,6 +6,7 @@ import com.infoshareacademy.gitLoopersi.menu.menuprint.*;
 import com.infoshareacademy.gitLoopersi.search.HolidayMapper;
 import com.infoshareacademy.gitLoopersi.team.TeamMapper;
 
+import com.infoshareacademy.gitLoopersi.vacation.VacationMapper;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,9 +28,6 @@ public class MenuTree {
     EmployeesVacationPrinter employeesVacationPrinter = new EmployeesVacationPrinter();
     TeamVacationPrinter teamVacationPrinter = new TeamVacationPrinter();
 
-    VacationAdder vacationAdder = new VacationAdder();
-    VacationCanceller vacationCanceller = new VacationCanceller();
-
     WorkerVacationSearcher workerVacationSearcher = new WorkerVacationSearcher();
     EmployeeVacationDateSearcher employeeVacationDateSearcher = new EmployeeVacationDateSearcher();
 
@@ -43,6 +41,7 @@ public class MenuTree {
     TeamMapper teamMapper = new TeamMapper();
     EmployeeMapper employeeMapper = new EmployeeMapper();
     HolidayMapper holidayMapper = new HolidayMapper();
+    VacationMapper vacationMapper = new VacationMapper();
 
     map.put("m", headerPrinter);
 
@@ -54,8 +53,8 @@ public class MenuTree {
     map.put("m22", teamMapper::validateCorrectInputDataForUpdateTeam);
     map.put("m23", teamMapper::validateCorrectInputDataForDeleteTeam);
     map.put("m3", vacationPrinter);
-    map.put("m31", vacationAdder);
-    map.put("m32", vacationCanceller);
+    map.put("m31", vacationMapper::validateDataForDefineVacation);
+    map.put("m32", vacationMapper::validateCancellationOfVacation);
     map.put("m4", searchEnginePrinter);
     map.put("m41", holidayPrinter);
     map.put("m411", holidayMapper::validateCorrectInputDataForHolidayName);

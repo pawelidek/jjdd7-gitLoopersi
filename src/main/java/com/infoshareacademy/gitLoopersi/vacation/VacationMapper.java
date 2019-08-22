@@ -31,64 +31,108 @@ public class VacationMapper {
 
     Scanner scanner = new Scanner(System.in);
 
-    LocalDate vacationDateFrom = null;
-    LocalDate vacationDateTo = null;
+    LocalDate vacationDateFrom;
+    LocalDate vacationDateTo;
 
-    System.out.println("Enter your ID: \n");
+    System.out.println("Enter your ID: ");
     String idToCheck = scanner.nextLine();
     while (!isCreatable(idToCheck)) {
-      System.out.println("Wrong data! Enter your ID: \n");
+      System.out.println("Wrong data! Enter your ID: ");
       idToCheck = scanner.nextLine();
     }
 
     Long id = Long.valueOf(idToCheck);
 
-/*    long employeeExist = EmployeeRepository.getAllEmployees().stream()
+    long employeeExist = EmployeeRepository.getAllEmployees().stream()
         .filter(employee -> employee.getId().equals(id))
-        .count();*/
+        .count();
 
-    Employee employee = EmployeeRepository.getAllEmployees().stream()
-        .filter(emp -> emp.getId().equals(id))
-        .findFirst().orElseGet(this::employeeNotExist);
+    if (employeeExist != 0) {
 
-    String email = employee.getEmail();
-    int numberOfVacationDays = 0;
-    Vacation vacationDays = new Vacation(numberOfVacationDays);
-    if (!listVacations.contains(vacationDays)) {
-      numberOfVacationDays = checkAmountDaysOff(employee);
+      Employee employee = EmployeeRepository.getAllEmployees().stream()
+          .filter(emp -> emp.getId().equals(id))
+          .findFirst().get();
+
+      int numberOfVacationDays = checkAmountDaysOff(employee);
+
+      vacationDateFrom = validateDateFrom();
+      vacationDateTo = validateDateTo();
+
+      validateOverlappingOfTheGivenDateRange(id, vacationDateFrom, vacationDateTo);
+      validateAtTheTurnOfTheYear(vacationDateFrom, vacationDateTo);
+
+      int amountOfDays = validateAndCalculateVacationDays(vacationDateFrom, vacationDateTo);
+
+      validateRemainingDaysOff(id, numberOfVacationDays, amountOfDays);
+
+      listVacations.add(new Vacation(id, vacationDateFrom, vacationDateTo, amountOfDays));
+      vacationService.addVacation(listVacations);
+    } else {
+      System.out.println("An employee with a given ID does not exist \n"
+          + "Enter a valid employee ID");
+      System.out.println("\nType '0' to return or 'Enter' to add define vacation.");
+    }
+  }
+
+  public void validateCancellationOfVacation() {
+
+    VacationService vacationService = new VacationService();
+    Scanner scanner = new Scanner(System.in);
+
+    LocalDate vacationDateFrom;
+    LocalDate vacationDateTo;
+
+    System.out.println("Enter your ID: ");
+    String idToCheck = scanner.nextLine();
+    while (!isCreatable(idToCheck)) {
+      System.out.println("Wrong data! Enter your ID: ");
+      idToCheck = scanner.nextLine();
     }
 
-    vacationDateFrom = validateDateFrom();
-    vacationDateTo = validateDateTo();
+    Long id = Long.valueOf(idToCheck);
 
-    List<Vacation> vacationListForEmployee = VacationRepository.getAllVacations().stream()
-        .filter(vacation -> vacation.getEmployeeId().equals(id))
-        .collect(Collectors.toList());
+    long employeeExist = EmployeeRepository.getAllEmployees().stream()
+        .filter(employee -> employee.getId().equals(id))
+        .count();
 
-    System.out.println(vacationListForEmployee);
+    if (employeeExist != 0) {
 
+      vacationDateFrom = validateDateFrom();
+      vacationDateTo = validateDateTo();
 
-    int amountOfDays = validateAndCalculateVacationDays(vacationDateFrom, vacationDateTo);
+      List<Vacation> vacationList = VacationRepository.getAllVacations().stream()
+          .filter(vacation -> vacation.getEmployeeId().equals(id))
+          .collect(Collectors.toList());
 
-    validateRemainingDaysOff(id, numberOfVacationDays);
-
-    System.out.println("id " + id + " email " + email + " vacationDateFrom " + vacationDateFrom +
-        " vacationDateTo " + vacationDateTo + " numberOfVacationDays " + numberOfVacationDays);
-
-    listVacations.add(new Vacation(id, vacationDateFrom, vacationDateTo, amountOfDays));
-    vacationService.addVacation(listVacations);
+      for (Vacation vacation : vacationList) {
+        if (vacationDateFrom.equals(vacation.getDateFrom()) && vacationDateTo
+            .equals(vacation.getDateTo())) {
+          vacationService.cancelVacation(vacation);
+          break;
+        } else {
+          System.out.println("If you do not have a vacation within the given date range,"
+              + " please define the exact date range.");
+          System.out.println("\nType '0' to return or 'Enter' to cancel vacation.");
+          break;
+        }
+      }
+    } else {
+      System.out.println("An employee with a given ID does not exist \n"
+          + "Enter a valid employee ID");
+      System.out.println("\nType '0' to return or 'Enter' to cancel vacation.");
+    }
   }
 
   private LocalDate validateDateFrom() {
 
     Scanner scanner = new Scanner(System.in);
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
-    LocalDate vacationDateFrom = null;
+    LocalDate vacationDateFrom;
 
     System.out.println("Enter vacation date from (Format: yyyy.MM.dd): ");
 
-    LocalDate localDate = LocalDate.now();
-    Timestamp timestampToday = Timestamp.valueOf(localDate.atTime(LocalTime.MIDNIGHT));
+    LocalDate today = LocalDate.now();
+    Timestamp timestampToday = Timestamp.valueOf(today.atTime(LocalTime.MIDNIGHT));
     Long todayDate = timestampToday.getTime();
 
     do {
@@ -97,21 +141,27 @@ public class VacationMapper {
       try {
         vacationDateFrom = simpleDateFormat.parse(vacationDateFromString)
             .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-        Timestamp timestampVacationFrom = Timestamp
-            .valueOf(vacationDateFrom.atTime(LocalTime.MIDNIGHT));
-        setVacationDateFromCounter(timestampVacationFrom.getTime());
-
-        while (todayDate > getVacationDateFromCounter()) {
-
-          System.out.println("Wrong data! Give the date from the future: ");
-          vacationDateFromString = scanner.nextLine();
-          vacationDateFrom = simpleDateFormat.parse(vacationDateFromString)
-              .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-          timestampVacationFrom = Timestamp
+        if (vacationDateFrom.getYear() == today.getYear() || vacationDateFrom.getYear() == today
+            .plusYears(1).getYear()) {
+          Timestamp timestampVacationFrom = Timestamp
               .valueOf(vacationDateFrom.atTime(LocalTime.MIDNIGHT));
           setVacationDateFromCounter(timestampVacationFrom.getTime());
+
+          while (todayDate > getVacationDateFromCounter()) {
+
+            System.out.println("Wrong data! Give the date from the future: ");
+            vacationDateFromString = scanner.nextLine();
+            vacationDateFrom = simpleDateFormat.parse(vacationDateFromString)
+                .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            timestampVacationFrom = Timestamp
+                .valueOf(vacationDateFrom.atTime(LocalTime.MIDNIGHT));
+            setVacationDateFromCounter(timestampVacationFrom.getTime());
+          }
+        } else {
+          System.out.println(
+              "You can define or cancel your vacation from today until the end of next year");
+          vacationDateFrom = null;
         }
       } catch (ParseException e) {
         vacationDateFrom = null;
@@ -126,7 +176,8 @@ public class VacationMapper {
 
     Scanner scanner = new Scanner(System.in);
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
-    LocalDate vacationDateTo = null;
+    LocalDate vacationDateTo;
+    LocalDate today = LocalDate.now();
 
     System.out.println("Enter vacation date to (Format: yyyy.MM.dd): ");
     do {
@@ -134,23 +185,29 @@ public class VacationMapper {
       try {
         vacationDateTo = simpleDateFormat.parse(vacationDateToString)
             .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-        Timestamp timestampVacationTo = Timestamp
-            .valueOf(vacationDateTo.atTime(LocalTime.MIDNIGHT));
-
-        setVacationDateToCounter(timestampVacationTo.getTime());
-
-        while (getVacationDateToCounter() < getVacationDateFromCounter()) {
-
-          System.out.println("Wrong data! Give the date from the future: ");
-          vacationDateToString = scanner.nextLine();
-
-          vacationDateTo = simpleDateFormat.parse(vacationDateToString)
-              .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-          timestampVacationTo = Timestamp
+        if (vacationDateTo.getYear() == today.getYear() || vacationDateTo.getYear() == today
+            .plusYears(1).getYear()) {
+          Timestamp timestampVacationTo = Timestamp
               .valueOf(vacationDateTo.atTime(LocalTime.MIDNIGHT));
+
           setVacationDateToCounter(timestampVacationTo.getTime());
+
+          while (getVacationDateToCounter() < getVacationDateFromCounter()) {
+
+            System.out.println("Wrong data! Give the date from the future: ");
+            vacationDateToString = scanner.nextLine();
+
+            vacationDateTo = simpleDateFormat.parse(vacationDateToString)
+                .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            timestampVacationTo = Timestamp
+                .valueOf(vacationDateTo.atTime(LocalTime.MIDNIGHT));
+            setVacationDateToCounter(timestampVacationTo.getTime());
+          }
+        } else {
+          System.out.println(
+              "You can define or cancel your vacation from today until the end of next year");
+          vacationDateTo = null;
         }
       } catch (ParseException e) {
         vacationDateTo = null;
@@ -174,7 +231,8 @@ public class VacationMapper {
     }
   }
 
-  private int validateAndCalculateVacationDays(LocalDate vacationDateFrom, LocalDate vacationDateTo) {
+  private int validateAndCalculateVacationDays(LocalDate vacationDateFrom,
+      LocalDate vacationDateTo) {
 
     Parser parser = new Parser();
     List<Holiday> holidayList = HolidayRepository.getAllHolidays();
@@ -198,7 +256,6 @@ public class VacationMapper {
         localDate = localDate.plusDays(1)) {
       switch (localDate.getDayOfWeek()) {
         case SUNDAY:
-          break;
         case SATURDAY:
           break;
         default:
@@ -209,44 +266,89 @@ public class VacationMapper {
     return amountOfDaysOff - amountOfHolidays;
   }
 
-  public int validateRemainingDaysOff(Long id, int numberOfVacationDays) {
+  private void validateRemainingDaysOff(Long id, int numberOfVacationDays, int amountOfDays) {
 
     LocalDate today = LocalDate.now();
     int workDaysCount = 0;
+    int overdueDaysOff = 0;
+
+    Employee employee = EmployeeRepository.getAllEmployees().stream()
+        .filter(emp -> emp.getId().equals(id))
+        .findFirst().get();
 
     List<Vacation> countOfDaysHistory = VacationRepository.getAllVacations().stream()
         .filter(vacation -> vacation.getEmployeeId().equals(id))
         .collect(Collectors.toList());
 
     for (Vacation value : countOfDaysHistory) {
-      if (today.getYear() == value.getDateFrom().getYear()) {
+      if (today.getYear() == value.getDateFrom().getYear() && today.getYear() == value.getDateTo()
+          .getYear()) {
         workDaysCount = workDaysCount + value.getCountOfDays();
+      }
+      if (employee.getStartDate().getMonthValue() < 6
+          && (today.minusYears(1).getYear() == value.getDateFrom().minusYears(1).getYear()
+          && today.minusYears(1).getYear() == value.getDateTo().minusYears(1).getYear())) {
+
+        overdueDaysOff = overdueDaysOff + value.getCountOfDays();
       }
     }
 
-    numberOfVacationDays = numberOfVacationDays - count - workDaysCount;
+    overdueDaysOff = numberOfVacationDays - overdueDaysOff;
+    workDaysCount = (numberOfVacationDays - workDaysCount) + overdueDaysOff;
+    numberOfVacationDays = workDaysCount - amountOfDays;
+
     if (numberOfVacationDays < 0) {
-
+      validateLackOfDaysOff(workDaysCount);
+      validateDataForDefineVacation();
     }
-
-    return 0;
   }
 
-  private Employee employeeNotExist() {
+  private void validateAtTheTurnOfTheYear(LocalDate vacationDateFrom,
+      LocalDate vacationDateTo) {
 
-    Employee employee = new Employee();
-    Scanner scanner = new Scanner(System.in);
-    System.out.println("Employee doesn't exist. Enter correct ID: ");
+    LocalDate today = LocalDate.now();
 
-    String idToCheck = scanner.nextLine();
-    while (!isCreatable(idToCheck)) {
-      System.out.println("Wrong data! Enter your ID: \n");
-      idToCheck = scanner.nextLine();
+    if (today.getYear() != vacationDateFrom.getYear() || today.getYear() != vacationDateTo
+        .getYear()) {
+
+      System.out.println(
+          "In order to define vacation at the turn of the year, set the scope of"
+              + " leave first for the current year and then for the following year.");
+      validateDataForDefineVacation();
+    }
+  }
+
+  private void validateLackOfDaysOff(int amountOfDays) {
+    System.out.println(
+        "You don't have enough vacation days to go on vacation in the specified period."
+            + " The remaining number of vacation days is: " + amountOfDays);
+  }
+
+  private void validateOverlappingOfTheGivenDateRange(Long id, LocalDate vacationDateFrom,
+      LocalDate vacationDateTo) {
+
+    List<Vacation> employeeVacationList = VacationRepository.getAllVacations().stream()
+        .filter(vacation -> vacation.getEmployeeId().equals(id))
+        .collect(Collectors.toList());
+    boolean vacationFlag = false;
+
+    for (Vacation dateRange : employeeVacationList) {
+      for (LocalDate localDate = dateRange.getDateFrom(); localDate.isBefore(dateRange.getDateTo());
+          localDate = localDate.plusDays(1)) {
+        for (LocalDate localDate1 = vacationDateFrom; localDate1.isBefore(vacationDateTo);
+            localDate1 = localDate1.plusDays(1)) {
+          if (localDate1.equals(localDate)) {
+            vacationFlag = true;
+          }
+        }
+      }
     }
 
-    Long id = Long.valueOf(idToCheck);
-
-    return employee;
+    if (vacationFlag) {
+      System.out.println("The given range of dates is superimposed on the already reported "
+          + "leave, please enter the range correctly.");
+      validateDataForDefineVacation();
+    }
   }
 
   public Long getVacationDateFromCounter() {

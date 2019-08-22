@@ -24,10 +24,18 @@ public class VacationService {
         .addAll(vacations);
   }
 
-  public void addVacation(List<Vacation> vacations) {
+  void addVacation(List<Vacation> vacations) {
     VacationRepository.setAllVacations(vacations);
-    System.out.println(vacations.get(0));
     serializator.serialize(VacationRepository.getAllVacations(), getFileName());
+    System.out.println("\nProcedure of defining vacation successfully finished.");
+    System.out.println("\nType '0' to return or 'Enter' to add define vacation.");
+  }
+
+  void cancelVacation(Vacation vacation) {
+    VacationRepository.getAllVacations().remove(vacation);
+    serializator.serialize(VacationRepository.getAllVacations(), getFileName());
+    System.out.println("\nVacation has been successfully cancelled.");
+    System.out.println("\nType '0' to return or 'Enter' to cancel vacation.");
   }
 
   public static String getFileName() {
