@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Employee implements Serializable {
+public class Employee implements Serializable, Comparable<Employee> {
 
   private Long id;
   private String firstName;
@@ -20,7 +20,7 @@ public class Employee implements Serializable {
     this.secondName = secondName;
     this.team = team;
     this.startDate = startDate;
-    this.email = email;
+      this.email = email;
   }
 
   public Employee() {
@@ -86,5 +86,16 @@ public class Employee implements Serializable {
         ", startDate=" + startDate +
         ", email='" + email + '\'' +
         '}';
+  }
+
+  @Override
+  public int compareTo(Employee employee) {
+    if (id == employee.id) {
+      return 0;
+    } else if (id > employee.id) {
+      return 1;
+    } else {
+      return -1;
+    }
   }
 }

@@ -1,23 +1,26 @@
 package com.infoshareacademy.gitLoopersi.properties;
 
+import com.infoshareacademy.gitLoopersi.deserialization.AppConfigLoader;
+import com.infoshareacademy.gitLoopersi.serialization.AppConfigSaver;
+
 public class AppConfigService {
 
-  public void importSettings(){
+  public void importSettings() {
     AppConfigLoader appConfigLoader = new AppConfigLoader();
     appConfigLoader.loadConfig();
   }
 
-  public void setConfigurationOfSorting(String newSortingType){
+  public void setConfigurationOfSorting(String newSortingType) {
     AppConfig.setSortType(newSortingType);
     saveConfiguration();
   }
 
-  public void setConfigurationOfDateFormatting(String newDateFormat){
+  public void setConfigurationOfDateFormatting(String newDateFormat) {
     AppConfig.setDateFormat(newDateFormat);
     saveConfiguration();
   }
 
-  private void saveConfiguration(){
+  private void saveConfiguration() {
     AppConfigSaver appConfigSaver = new AppConfigSaver();
     appConfigSaver.saveProperty();
     System.out.println("\nProcedure of changing configuration finished successfully.");
