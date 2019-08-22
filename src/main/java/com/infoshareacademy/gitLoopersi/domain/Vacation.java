@@ -6,46 +6,40 @@ import java.util.Objects;
 
 public class Vacation implements Serializable {
 
-  private Long id;
-  private String email;
-  private LocalDate vacationDateFrom;
-  private LocalDate vacationDateTo;
-  private Integer numberOfVacationDays;
+  private Long employeeId;
+  private LocalDate dateFrom;
+  private LocalDate dateTo;
+  private Integer countOfDays;
 
   public Vacation() {
   }
 
-  public Vacation(Integer numberOfVacationDays) {
-    this.numberOfVacationDays = numberOfVacationDays;
+  public Vacation(Integer countOfDays) {
+    this.countOfDays = countOfDays;
   }
 
-  public Vacation(Long id, String email, LocalDate vacationDateFrom, LocalDate vacationDateTo,
-      Integer numberOfVacationDays) {
-    this.id = id;
-    this.email = email;
-    this.vacationDateFrom = vacationDateFrom;
-    this.vacationDateTo = vacationDateTo;
-    this.numberOfVacationDays = numberOfVacationDays;
+  public Vacation(Long employeeId, LocalDate dateFrom, LocalDate dateTo,
+      Integer countOfDays) {
+    this.employeeId = employeeId;
+    this.dateFrom = dateFrom;
+    this.dateTo = dateTo;
+    this.countOfDays = countOfDays;
   }
 
-  public Long getId() {
-    return id;
+  public Long getEmployeeId() {
+    return employeeId;
   }
 
-  public String getEmail() {
-    return email;
+  public LocalDate getDateFrom() {
+    return dateFrom;
   }
 
-  public LocalDate getVacationDateFrom() {
-    return vacationDateFrom;
+  public LocalDate getDateTo() {
+    return dateTo;
   }
 
-  public LocalDate getVacationDateTo() {
-    return vacationDateTo;
-  }
-
-  public Integer getNumberOfVacationDays() {
-    return numberOfVacationDays;
+  public Integer getCountOfDays() {
+    return countOfDays;
   }
 
   @Override
@@ -57,26 +51,24 @@ public class Vacation implements Serializable {
       return false;
     }
     Vacation vacation = (Vacation) o;
-    return Objects.equals(id, vacation.id) &&
-        Objects.equals(email, vacation.email) &&
-        Objects.equals(vacationDateFrom, vacation.vacationDateFrom) &&
-        Objects.equals(vacationDateTo, vacation.vacationDateTo) &&
-        Objects.equals(numberOfVacationDays, vacation.numberOfVacationDays);
+    return Objects.equals(employeeId, vacation.employeeId) &&
+        Objects.equals(dateFrom, vacation.dateFrom) &&
+        Objects.equals(dateTo, vacation.dateTo) &&
+        Objects.equals(countOfDays, vacation.countOfDays);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, email, vacationDateFrom, vacationDateTo, numberOfVacationDays);
+    return Objects.hash(employeeId, dateFrom, dateTo, countOfDays);
   }
 
   @Override
   public String toString() {
     return "Vacation{" +
-        "id=" + id +
-        ", email='" + email + '\'' +
-        ", vacationDateFrom='" + vacationDateFrom + '\'' +
-        ", vacationDateTo='" + vacationDateTo + '\'' +
-        ", numberOfVacationDays=" + numberOfVacationDays +
+        "employeeId=" + employeeId +
+        ", vacationDateFrom='" + dateFrom + '\'' +
+        ", vacationDateTo='" + dateTo + '\'' +
+        ", numberOfVacationDays=" + countOfDays +
         '}';
   }
 }

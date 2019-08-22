@@ -43,38 +43,38 @@ public class VacationMapper {
 
     Long id = Long.valueOf(idToCheck);
 
-    long employeeExist = EmployeeRepository.getAllEmployees().stream()
+/*    long employeeExist = EmployeeRepository.getAllEmployees().stream()
         .filter(employee -> employee.getId().equals(id))
-        .count();
+        .count();*/
 
-    List<Employee> emp = EmployeeRepository.getAllEmployees().stream()
-        .filter(employee -> employee.getId().equals(id))
-        .collect(Collectors.toList());
+    Employee employee = EmployeeRepository.getAllEmployees().stream()
+        .filter(emp -> emp.getId().equals(id))
+        .findFirst().orElseGet(this::employeeNotExist);
 
-    String email = emp.get(0).getEmail();
+    String email = employee.getEmail();
     int numberOfVacationDays = 0;
     Vacation vacationDays = new Vacation(numberOfVacationDays);
     if (!listVacations.contains(vacationDays)) {
-      numberOfVacationDays = checkAmountDaysOff(emp.get(0));
+      numberOfVacationDays = checkAmountDaysOff(employee);
     }
 
-    if (employeeExist == 1) {
 
       vacationDateFrom = validateDateFrom();
       vacationDateTo = validateDateTo();
 
-    } else {
-      System.out.println("Employee not found with this ID number.");
-    }
+    List<Vacation> vacationListForEmployee = VacationRepository.getAllVacations().stream()
+        .filter(vacation -> vacation.getEmployeeId().equals(id))
+        .collect(Collectors.toList());
+
+    System.out.println(vacationListForEmployee);
 
     numberOfVacationDays = validateAndCalculateVacationDays(vacationDateFrom, vacationDateTo, numberOfVacationDays);
 
     System.out.println("id " + id + " email " + email + " vacationDateFrom " + vacationDateFrom +
         " vacationDateTo " + vacationDateTo + " numberOfVacationDays " + numberOfVacationDays);
-    listVacations
-        .add(new Vacation(id, email, vacationDateFrom, vacationDateTo, numberOfVacationDays));
-    vacationService.addVacation(listVacations);
 
+    //listVacations.add(new Vacation(id, vacationDateFrom, vacationDateTo, numberOfVacationDays));
+    vacationService.addVacation(listVacations);
   }
 
   private LocalDate validateDateFrom() {
@@ -204,9 +204,33 @@ public class VacationMapper {
       }
     }
 
+
+
     int count = amountOfDaysOff - amountOfHolidays;
     numberOfVacationDays = numberOfVacationDays - count;
-    return numberOfVacationDays;
+    return count;
+  }
+
+  private List<Vacation> countOfDaysHistory(Long id) {
+    return VacationRepository.getAllVacations().stream()
+        .filter(vacation -> vacation.getEmployeeId().equals(id))
+        .collect(Collectors.toList());
+  }
+
+  private Employee employeeNotExist() {
+    Employee employee = new Employee();
+    Scanner scanner = new Scanner(System.in);
+    System.out.println("Employee doesn't exist. Enter correct ID: ");
+
+    String idToCheck = scanner.nextLine();
+    while (!isCreatable(idToCheck)) {
+      System.out.println("Wrong data! Enter your ID: \n");
+      idToCheck = scanner.nextLine();
+    }
+
+    Long id = Long.valueOf(idToCheck);
+
+    return employee;
   }
 
   public Long getVacationDateFromCounter() {

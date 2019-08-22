@@ -12,7 +12,7 @@ public class ConsoleCleaner {
 
       if (os.contains("win")) {
 
-        Runtime.getRuntime().exec("cls");
+        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 
       } else {
 
@@ -21,7 +21,7 @@ public class ConsoleCleaner {
 
       }
 
-    } catch (IOException e) {
+    } catch (IOException | InterruptedException e) {
       e.printStackTrace();
     }
   }
