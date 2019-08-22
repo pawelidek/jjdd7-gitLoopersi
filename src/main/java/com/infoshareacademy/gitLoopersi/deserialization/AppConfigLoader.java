@@ -20,6 +20,8 @@ public class AppConfigLoader {
       AppConfig.setSortType(loadSortTypeChecker(appProperties));
     } catch (IOException iOE) {
       System.out.println("Error with loading properties");
+      AppConfig.setDateFormat("yyyy.MM.dd");
+      AppConfig.setSortType("ASC");
     }
   }
 
@@ -30,31 +32,30 @@ public class AppConfigLoader {
           properties.getProperty("date.format"));
       validatedData = Optional.ofNullable(properties.getProperty("date.format"))
           .orElse("yyyy.MM.dd");
-    } catch (IllegalArgumentException iAE) {
-      System.out
-          .println("Bad date format in properties file, default value \"yyyy.MM.dd\" has been set");
-      validatedData = "yyyy.MM.dd";
     } finally {
-      return validatedData;
+      if (validatedData == null) {
+        System.out
+            .println(
+                "Bad date format in properties file, default value \"yyyy.MM.dd\" has been set");
+        validatedData = "yyyy.MM.dd";
+      }
     }
+    return validatedData;
   }
 
   private String loadSortTypeChecker(Properties properties) {
     String validatedSortType = null;
-    try {
-      if (properties.getProperty("sort.type").equals("ASC") || properties.getProperty("sort.type")
-          .equals("DESC")) {
-        validatedSortType = properties.getProperty("employee.sort");
-      } else {
-        System.out.println(
-            "Bad sort or no type format in properties file, default value \"ASC\" has been set");
-        validatedSortType = "ASC";
-      }
-    } catch (NullPointerException nPE) {
+    if (properties.containsKey("sort.type") && (
+        properties.getProperty("sort.type").toUpperCase().equals("ASC") || properties
+            .getProperty("sort.type")
+            .toUpperCase().equals("DESC"))) {
+      validatedSortType = properties.getProperty("employee.sort");
+    } else {
       System.out.println(
           "Bad sort or no type format in properties file, default value \"ASC\" has been set");
       validatedSortType = "ASC";
     }
+
     return validatedSortType;
   }
 }

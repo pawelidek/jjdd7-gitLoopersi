@@ -20,8 +20,10 @@ public class AppConfigMapper {
       try {
         DateTimeFormatter formatChecker = DateTimeFormatter.ofPattern(tempDateFormat);
         dateFormat = tempDateFormat;
-      } catch (IllegalArgumentException e) {
-        System.out.println("Wrong date format! Please enter date format correctly.");
+      } finally {
+        if (dateFormat == null) {
+          System.out.println("Wrong date format! Please enter date format correctly.");
+        }
       }
     } while (dateFormat == null);
     AppConfigService appConfigService = new AppConfigService();
