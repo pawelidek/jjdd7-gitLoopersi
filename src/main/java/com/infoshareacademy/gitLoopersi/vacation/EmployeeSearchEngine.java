@@ -8,7 +8,6 @@ import com.github.freva.asciitable.ColumnData;
 import com.github.freva.asciitable.HorizontalAlign;
 import com.infoshareacademy.gitLoopersi.domain.Employee;
 import com.infoshareacademy.gitLoopersi.repository.EmployeeRepository;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,12 +15,12 @@ import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class EmployeeVacationSearcher {
+class EmployeeSearchEngine {
 
   private ArrayList<Employee> listOfMatchingEmployees;
   private Employee searchedEmployee;
 
-  public Employee searchForEmployee() {
+  void searchForEmployee() {
 
     Scanner scanner = new Scanner(System.in);
 
@@ -55,12 +54,9 @@ public class EmployeeVacationSearcher {
       showListOfMatchingEmployees();
       pickEmployeeFromList(scanner);
     }
-    return searchedEmployee;
   }
 
   private void showListOfMatchingEmployees() {
-
-    Scanner scanner = new Scanner(System.in);
 
     System.out.println("\nDid you think of...? ");
     Character[] borderStyle = AsciiTable.FANCY_ASCII;
@@ -115,11 +111,11 @@ public class EmployeeVacationSearcher {
         .with(functionReference);
   }
 
-  private List<Employee> getListOfMatchingEmployees() {
+  List<Employee> getListOfMatchingEmployees() {
     return listOfMatchingEmployees;
   }
 
-  public Employee getSearchedEmployee() {
+  Employee getSearchedEmployee() {
     return searchedEmployee;
   }
 }

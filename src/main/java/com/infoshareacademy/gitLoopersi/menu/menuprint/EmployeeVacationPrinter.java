@@ -1,17 +1,8 @@
 package com.infoshareacademy.gitLoopersi.menu.menuprint;
 
-import com.github.freva.asciitable.AsciiTable;
-import com.github.freva.asciitable.Column;
-import com.github.freva.asciitable.ColumnData;
-import com.github.freva.asciitable.HorizontalAlign;
-import com.infoshareacademy.gitLoopersi.domain.Employee;
 import com.infoshareacademy.gitLoopersi.employee.EmployeeService;
 import com.infoshareacademy.gitLoopersi.menu.Menu;
-import com.infoshareacademy.gitLoopersi.repository.EmployeeRepository;
-import com.infoshareacademy.gitLoopersi.vacation.EmployeeVacationSearcher;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.function.Function;
+import com.infoshareacademy.gitLoopersi.vacation.EmployeeVacationSearchEngine;
 
 public class EmployeeVacationPrinter implements Menu {
 
@@ -21,14 +12,14 @@ public class EmployeeVacationPrinter implements Menu {
     EmployeeService employeeService = new EmployeeService();
     employeeService.loadEmployeeData();
 
-    EmployeeVacationSearcher employeeVacationSearcher = new EmployeeVacationSearcher();
+    EmployeeVacationSearchEngine employeeVacationSearchEngine = new EmployeeVacationSearchEngine();
 
-    System.out.println("Planned vacation of: " + employeeVacationSearcher.searchForEmployee());
+//    System.out.println("Planned vacation of: " + employeeVacationSearchEngine.searchForEmployee());
 
 //    Character[] borderStyle = AsciiTable.FANCY_ASCII;
 //
 //    System.out.println(
-//        AsciiTable.getTable(borderStyle, employeeVacationSearcher.getListOfMatchingEmployees(),
+//        AsciiTable.getTable(borderStyle, employeeVacationSearchEngine.getListOfMatchingEmployees(),
 //            Arrays.asList(
 //                createColumn("Index",
 //                    employee -> String
