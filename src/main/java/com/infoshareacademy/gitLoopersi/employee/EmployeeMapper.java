@@ -4,6 +4,7 @@ import static org.apache.commons.lang3.math.NumberUtils.isCreatable;
 
 import com.infoshareacademy.gitLoopersi.domain.Employee;
 import com.infoshareacademy.gitLoopersi.domain.Team;
+import com.infoshareacademy.gitLoopersi.properties.AppConfig;
 import com.infoshareacademy.gitLoopersi.repository.EmployeeRepository;
 import com.infoshareacademy.gitLoopersi.repository.TeamRepository;
 
@@ -75,8 +76,8 @@ public class EmployeeMapper {
         }
       }
     }
-    System.out.print("\nEnter new employee's start working date (Format: yyyy.MM.dd): ");
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
+    System.out.print("\nEnter new employee's start working date (Format:" + AppConfig.getDateFormat() + "): ");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
     LocalDate startWorkDate = null;
 
     do {
@@ -85,7 +86,7 @@ public class EmployeeMapper {
         startWorkDate = simpleDateFormat
             .parse(startWorkDateString).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
       } catch (ParseException e) {
-        System.out.println("Wrong data! Please enter data in format yyyy.MM.dd: ");
+        System.out.println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
       }
     } while (startWorkDate == null);
 

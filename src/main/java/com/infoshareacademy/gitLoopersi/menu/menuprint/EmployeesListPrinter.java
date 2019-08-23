@@ -7,10 +7,13 @@ import com.github.freva.asciitable.HorizontalAlign;
 import com.infoshareacademy.gitLoopersi.domain.Employee;
 import com.infoshareacademy.gitLoopersi.employee.EmployeeService;
 import com.infoshareacademy.gitLoopersi.menu.Menu;
+import com.infoshareacademy.gitLoopersi.properties.AppConfig;
 import com.infoshareacademy.gitLoopersi.repository.EmployeeRepository;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.function.Function;
 
 public class EmployeesListPrinter implements Menu {
@@ -29,21 +32,27 @@ public class EmployeesListPrinter implements Menu {
 
     Character[] borderStyle = AsciiTable.FANCY_ASCII;
 
+    List<Employee> allEmployees=EmployeeRepository.getAllEmployees();
+    if (AppConfig.getSort().equals("ASC")){
+      Collections.sort(allEmployees);
+    } else {
+      Collections.reverse(allEmployees);
+    }
+
     System.out.println(
-        AsciiTable.getTable(borderStyle, EmployeeRepository.getAllEmployees(), Arrays.asList(
+        AsciiTable.getTable(borderStyle, allEmployees, Arrays.asList(
             createColumn("Index",
                 employee -> String
-                    .valueOf(EmployeeRepository
-                        .getAllEmployees()
+                    .valueOf(allEmployees
                         .indexOf(employee) + 1)),
             createColumn("Id", employee -> String.valueOf(employee.getId())),
             createColumn("Name", Employee::getFirstName),
             createColumn("Last Name", Employee::getSecondName),
             createColumn("Team", employee -> employee.getTeam().toString()),
             createColumn("Work start date", employee -> employee.getStartDate().format(
-                DateTimeFormatter.ofPattern("yyyy.MM.dd"))),
+                DateTimeFormatter.ofPattern(AppConfig.getDateFormat()))),
             createColumn("Hire date", employee -> employee.getStartHireDate().format(
-                DateTimeFormatter.ofPattern("yyyy.MM.dd")))
+                DateTimeFormatter.ofPattern(AppConfig.getDateFormat())))
         )));
 
     System.out.println("\n1. Add worker");
