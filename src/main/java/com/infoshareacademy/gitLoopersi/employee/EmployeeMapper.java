@@ -36,19 +36,6 @@ public class EmployeeMapper {
       secondName = scanner.nextLine();
     }
 
-    System.out.print("\nEnter new employee's e-mail address: ");
-    String emailAddress = null;
-    do {
-      String emailAddressToCheck = scanner.nextLine();
-      boolean valid = EmailValidator.getInstance().isValid(emailAddressToCheck);
-
-      if (valid) {
-        emailAddress = emailAddressToCheck;
-      } else {
-        System.out.println("Wrong e-mail address! Please enter correct e-mail address: ");
-      }
-    } while (emailAddress == null);
-
     System.out.print("\nEnter new employee's team name: ");
     String teamName = scanner.nextLine();
     List<Team> allTeams = TeamRepository.getAllTeams();
@@ -102,10 +89,23 @@ public class EmployeeMapper {
       }
     } while (startWorkDate == null);
 
+    System.out.println("\nEnter new employee's start hire date (Format: yyyy.MM.dd): ");
+    LocalDate startHireDate = null;
+
+    do {
+      String startHireDateString = scanner.nextLine();
+      try {
+        startHireDate = simpleDateFormat
+            .parse(startHireDateString).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+      } catch (ParseException e) {
+        System.out.println("Wrong date! Please enter data in format yyyy.MM.dd: ");
+      }
+    } while (startHireDate == null);
+
     Long id = generateSerialId();
 
     List<Employee> tempEmployees = EmployeeRepository.getAllEmployees();
-    tempEmployees.add(new Employee(id, firstName, secondName, team, startWorkDate, emailAddress));
+    tempEmployees.add(new Employee(id, firstName, secondName, team, startWorkDate, startHireDate));
     employeeService.addEmployee(tempEmployees);
 
     EmployeeRepository.incrementCurrentId();

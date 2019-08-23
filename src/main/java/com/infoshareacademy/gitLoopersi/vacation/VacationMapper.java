@@ -1,5 +1,6 @@
 package com.infoshareacademy.gitLoopersi.vacation;
 
+import static java.lang.Math.ceil;
 import static org.apache.commons.lang3.math.NumberUtils.isCreatable;
 
 import com.infoshareacademy.gitLoopersi.domain.Employee;
@@ -77,6 +78,7 @@ public class VacationMapper {
   public void validateCancellationOfVacation() {
 
     VacationService vacationService = new VacationService();
+
     Scanner scanner = new Scanner(System.in);
 
     LocalDate vacationDateFrom;
@@ -237,7 +239,7 @@ public class VacationMapper {
     Parser parser = new Parser();
     List<Holiday> holidayList = HolidayRepository.getAllHolidays();
 
-    int amountOfDaysOff = 1;
+    int amountOfDaysOff = 0;
     int amountOfHolidays = 0;
 
     for (Holiday holiday : holidayList) {
@@ -252,7 +254,7 @@ public class VacationMapper {
         }
       }
     }
-    for (LocalDate localDate = vacationDateFrom; localDate.isBefore(vacationDateTo);
+    for (LocalDate localDate = vacationDateFrom; localDate.isBefore(vacationDateTo.plusDays(1));
         localDate = localDate.plusDays(1)) {
       switch (localDate.getDayOfWeek()) {
         case SUNDAY:
@@ -271,6 +273,7 @@ public class VacationMapper {
     LocalDate today = LocalDate.now();
     int workDaysCount = 0;
     int overdueDaysOff = 0;
+    int monthCount = 12;
 
     Employee employee = EmployeeRepository.getAllEmployees().stream()
         .filter(emp -> emp.getId().equals(id))
@@ -279,16 +282,23 @@ public class VacationMapper {
     List<Vacation> countOfDaysHistory = VacationRepository.getAllVacations().stream()
         .filter(vacation -> vacation.getEmployeeId().equals(id))
         .collect(Collectors.toList());
-
+    System.out.println(countOfDaysHistory);
     for (Vacation value : countOfDaysHistory) {
       if (today.getYear() == value.getDateFrom().getYear() && today.getYear() == value.getDateTo()
           .getYear()) {
+
         workDaysCount = workDaysCount + value.getCountOfDays();
       }
-      if (employee.getStartDate().getMonthValue() < 6
-          && (today.minusYears(1).getYear() == value.getDateFrom().minusYears(1).getYear()
-          && today.minusYears(1).getYear() == value.getDateTo().minusYears(1).getYear())) {
 
+      if (numberOfVacationDays == 20
+          && employee.getStartHireDate().getYear() == today.minusYears(1).getYear()) {
+        monthCount = monthCount - employee.getStartHireDate().getMonthValue();
+        overdueDaysOff = (overdueDaysOff - (int) (ceil(monthCount * 1.6)));
+      } else if (numberOfVacationDays == 26
+          && employee.getStartHireDate().getYear() == today.minusYears(1).getYear()) {
+        monthCount = monthCount - employee.getStartHireDate().getMonthValue();
+        overdueDaysOff = overdueDaysOff - (int) (ceil(monthCount * 2.2));
+      } else if (today.minusYears(1).getYear() == value.getDateFrom().getYear()) {
         overdueDaysOff = overdueDaysOff + value.getCountOfDays();
       }
     }

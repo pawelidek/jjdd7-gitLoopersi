@@ -11,16 +11,16 @@ public class Employee implements Serializable {
   private String secondName;
   private Team team;
   private LocalDate startDate;
-  private String email;
+  private LocalDate startHireDate;
 
   public Employee(Long id, String firstName, String secondName, Team team, LocalDate startDate,
-      String email) {
+      LocalDate startHireDate) {
     this.id = id;
     this.firstName = firstName;
     this.secondName = secondName;
     this.team = team;
     this.startDate = startDate;
-    this.email = email;
+    this.startHireDate = startHireDate;
   }
 
   public Employee() {
@@ -50,8 +50,8 @@ public class Employee implements Serializable {
     return startDate;
   }
 
-  public String getEmail() {
-    return email;
+  public LocalDate getStartHireDate() {
+    return startHireDate;
   }
 
   @Override
@@ -68,12 +68,12 @@ public class Employee implements Serializable {
         Objects.equals(secondName, employee.secondName) &&
         Objects.equals(team, employee.team) &&
         Objects.equals(startDate, employee.startDate) &&
-        Objects.equals(email, employee.email);
+        Objects.equals(startHireDate, employee.startHireDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, firstName, secondName, team, startDate, email);
+    return Objects.hash(id, firstName, secondName, team, startDate, startHireDate);
   }
 
   @Override
@@ -84,7 +84,7 @@ public class Employee implements Serializable {
         ", secondName='" + secondName + '\'' +
         ", team=" + team +
         ", startDate=" + startDate +
-        ", email='" + email + '\'' +
+        ", startHireDate='" + startHireDate + '\'' +
         '}';
   }
 }

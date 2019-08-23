@@ -41,6 +41,8 @@ public class EmployeesListPrinter implements Menu {
             createColumn("Last Name", Employee::getSecondName),
             createColumn("Team", employee -> employee.getTeam().toString()),
             createColumn("Work start date", employee -> employee.getStartDate().format(
+                DateTimeFormatter.ofPattern("yyyy.MM.dd"))),
+            createColumn("Hire date", employee -> employee.getStartHireDate().format(
                 DateTimeFormatter.ofPattern("yyyy.MM.dd")))
         )));
 
