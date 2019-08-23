@@ -3,9 +3,13 @@ package com.infoshareacademy.gitLoopersi.search;
 import com.infoshareacademy.gitLoopersi.domain.Holiday;
 import com.infoshareacademy.gitLoopersi.parser.Parser;
 import com.infoshareacademy.gitLoopersi.parser.TypeOfHoliday;
+import com.infoshareacademy.gitLoopersi.properties.AppConfig;
 import com.infoshareacademy.gitLoopersi.repository.HolidayRepository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -44,26 +48,19 @@ public class HolidayMapper {
   public void validateCorrectInputDataForHolidayDate() {
 
     System.out.println("Check whether the given day is a non-working.\n");
-    System.out.println("Enter Date in format yyyy.MM.dd :");
+    System.out.println("Enter Date in format "+AppConfig.getDateFormat()+":");
     Scanner scanner = new Scanner(System.in);
-
-    DateTimeFormatter dateFormater = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-    LocalDate dateGiven = null;
-    Pattern datePattern = compile("[1-2][0,1,9][0-9][0-9]\\.[0-1][0-9]\\.[0-3][0-9]");
-    Matcher matcher = null;
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
+    LocalDate dateToCheck = null;
     do {
-      String date = scanner.nextLine();
-      matcher = datePattern.matcher(date);
-      if (matcher.matches()) {
-        try {
-          dateGiven = LocalDate.parse(date, dateFormater);
-        } catch (DateTimeParseException e) {
-          System.out.println("Parse error occured");
-        }
-      } else {
-        System.out.println("Wrong data please enter data in format yyyy.MM.dd: ");
+      String tempDateToCheck = scanner.nextLine();
+      try {
+        dateToCheck = simpleDateFormat
+                .parse(tempDateToCheck).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+      } catch (ParseException e) {
+        System.out.println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
       }
-    } while (!matcher.matches());
+    } while (dateToCheck == null);
     Parser parser = new Parser();
     List<Holiday> myList = HolidayRepository.getAllHolidays();
     boolean holidayFound = false;
@@ -71,14 +68,14 @@ public class HolidayMapper {
       if (holiday.getTypeOfHoliday() != TypeOfHoliday.NATIONAL_HOLIDAY) {
         continue;
       }
-      if (dateGiven.equals(holiday.getDate())) {
+      if (dateToCheck.equals(holiday.getDate())) {
         System.out.println("Non-working day because it is Holiday");
         holidayFound = true;
         break;
       }
     }
     if (!holidayFound) {
-      switch (dateGiven.getDayOfWeek()) {
+      switch (dateToCheck.getDayOfWeek()) {
         case SUNDAY:
           System.out.println("Non-working day because it is Sunday");
           break;
