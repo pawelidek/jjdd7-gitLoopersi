@@ -9,15 +9,6 @@ public class App {
 
   public static void main(String[] args) {
 
-//    EmployeeService employeeService = new EmployeeService();
-//    employeeService.loadEmployeeData();
-//
-//    EmployeeVacationSearchEngine employeeVacationSearcher = new EmployeeVacationSearchEngine();
-//
-//    employeeVacationSearcher.searchForEmployee();
-//
-//    System.out.println(employeeVacationSearcher.getSearchedEmployee());
-
     AppConfigMapper appConfigMapper = new AppConfigMapper();
     appConfigMapper.loadUserConfiguration();
 

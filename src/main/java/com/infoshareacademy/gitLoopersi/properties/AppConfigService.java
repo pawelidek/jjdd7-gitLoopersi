@@ -24,6 +24,5 @@ public class AppConfigService {
     AppConfigSaver appConfigSaver = new AppConfigSaver();
     appConfigSaver.saveProperty();
     System.out.println("\nProcedure of changing configuration finished successfully.");
-    System.out.println("\nType '0' to return or 'Enter' to add another employee.");
   }
 }

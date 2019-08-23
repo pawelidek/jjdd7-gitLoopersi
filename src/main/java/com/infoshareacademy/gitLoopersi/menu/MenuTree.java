@@ -4,9 +4,9 @@ import com.infoshareacademy.gitLoopersi.employee.EmployeeMapper;
 import com.infoshareacademy.gitLoopersi.menu.menufunctions.*;
 import com.infoshareacademy.gitLoopersi.menu.menuprint.*;
 import com.infoshareacademy.gitLoopersi.search.HolidayMapper;
+import com.infoshareacademy.gitLoopersi.search.VacationMapper;
 import com.infoshareacademy.gitLoopersi.team.TeamMapper;
 
-import com.infoshareacademy.gitLoopersi.vacation.EmployeeVacationSearchEngine;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +30,7 @@ public class MenuTree {
     VacationAdder vacationAdder = new VacationAdder();
     VacationCanceller vacationCanceller = new VacationCanceller();
 
-    EmployeeVacationSearchEngine employeeVacationSearchEngine = new EmployeeVacationSearchEngine();
+    VacationMapper vacationMapper = new VacationMapper();
 
     TeamVacationSearcher teamVacationSearcher = new TeamVacationSearcher();
     TeamVacationDateSearcher teamVacationDateSearcher = new TeamVacationDateSearcher();
@@ -59,7 +59,7 @@ public class MenuTree {
     map.put("m41", holidayPrinter);
     map.put("m411", holidayMapper::validateCorrectInputDataForHolidayName);
     map.put("m412", holidayMapper::validateCorrectInputDataForHolidayDate);
-    map.put("m42", employeeVacationSearchEngine::searchEmployeeVacation);
+    map.put("m42", vacationMapper::searchEmployeeVacation);
     map.put("m43", teamVacationPrinter);
     map.put("m431", teamVacationSearcher);
     map.put("m432", teamVacationDateSearcher);

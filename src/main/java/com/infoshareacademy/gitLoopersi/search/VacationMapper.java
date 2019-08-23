@@ -1,4 +1,4 @@
-package com.infoshareacademy.gitLoopersi.vacation;
+package com.infoshareacademy.gitLoopersi.search;
 
 import static org.apache.commons.lang3.math.NumberUtils.isCreatable;
 
@@ -7,7 +7,10 @@ import com.github.freva.asciitable.Column;
 import com.github.freva.asciitable.ColumnData;
 import com.github.freva.asciitable.HorizontalAlign;
 import com.infoshareacademy.gitLoopersi.domain.Employee;
+import com.infoshareacademy.gitLoopersi.employee.EmployeeService;
+import com.infoshareacademy.gitLoopersi.menu.ConsoleCleaner;
 import com.infoshareacademy.gitLoopersi.repository.EmployeeRepository;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,16 +18,62 @@ import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-class EmployeeSearchEngine {
+public class VacationMapper {
 
   private ArrayList<Employee> listOfMatchingEmployees;
   private Employee searchedEmployee;
+
+  public void searchEmployeeVacation() {
+
+    EmployeeService employeeService = new EmployeeService();
+
+    employeeService.loadEmployeeData();
+
+    if (EmployeeRepository.getAllEmployees().size() != 0) {
+      searchForEmployee();
+
+      ConsoleCleaner.cleanConsole();
+
+      System.out.println("PLANNED VACATION OF: " +
+          getSearchedEmployee()
+              .getFirstName().concat(" " + getSearchedEmployee().getSecondName())
+              .toUpperCase());
+
+      Character[] borderStyle = AsciiTable.FANCY_ASCII;
+
+      System.out.println(
+          AsciiTable.getTable(borderStyle, getListOfMatchingEmployees(),
+              Arrays.asList(
+                  createColumn("Index",
+                      employee -> String
+                          .valueOf(EmployeeRepository
+                              .getAllEmployees()
+                              .indexOf(employee) + 1)),
+                  createColumn("Vacation start date", employee -> employee.getStartDate().format(
+                      DateTimeFormatter.ofPattern("yyyy.MM.dd"))),
+                  createColumn("Vacation end date", employee -> employee.getStartDate().format(
+                      DateTimeFormatter.ofPattern("yyyy.MM.dd"))),
+                  createColumn("Duration", Employee::getFirstName)
+              )));
+
+      System.out.println("\n1. Set date range to filter");
+      System.out.println("0. Return");
+
+      Scanner scanner = new Scanner(System.in);
+      String readValue = scanner.nextLine();
+    } else {
+      System.out.println("There are no employees added to database!");
+      System.out.println("\nType '0' to return.");
+    }
+  }
+
 
   void searchForEmployee() {
 
     Scanner scanner = new Scanner(System.in);
 
     System.out.println("Enter at least three signs of searched employee name: ");
+
     String searchedPhrase = scanner.nextLine();
     int characterQuantity = searchedPhrase.length();
 
