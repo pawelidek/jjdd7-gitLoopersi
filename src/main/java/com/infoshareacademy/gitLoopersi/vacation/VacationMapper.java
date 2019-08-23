@@ -8,6 +8,7 @@ import com.infoshareacademy.gitLoopersi.domain.Holiday;
 import com.infoshareacademy.gitLoopersi.domain.Vacation;
 import com.infoshareacademy.gitLoopersi.parser.Parser;
 import com.infoshareacademy.gitLoopersi.parser.TypeOfHoliday;
+import com.infoshareacademy.gitLoopersi.properties.AppConfig;
 import com.infoshareacademy.gitLoopersi.repository.EmployeeRepository;
 import com.infoshareacademy.gitLoopersi.repository.HolidayRepository;
 import com.infoshareacademy.gitLoopersi.repository.VacationRepository;
@@ -28,7 +29,7 @@ public class VacationMapper {
   public void validateDataForDefineVacation() {
 
     VacationService vacationService = new VacationService();
-    List<Vacation> listVacations = VacationRepository.getAllVacations();
+    List<Vacation> listVacations = VacationRepository.getVacationList();
 
     Scanner scanner = new Scanner(System.in);
 
@@ -44,13 +45,13 @@ public class VacationMapper {
 
     Long id = Long.valueOf(idToCheck);
 
-    long employeeExist = EmployeeRepository.getAllEmployees().stream()
+    long employeeExist = EmployeeRepository.getEmployeeList().stream()
         .filter(employee -> employee.getId().equals(id))
         .count();
 
     if (employeeExist != 0) {
 
-      Employee employee = EmployeeRepository.getAllEmployees().stream()
+      Employee employee = EmployeeRepository.getEmployeeList().stream()
           .filter(emp -> emp.getId().equals(id))
           .findFirst().get();
 
@@ -93,7 +94,7 @@ public class VacationMapper {
 
     Long id = Long.valueOf(idToCheck);
 
-    long employeeExist = EmployeeRepository.getAllEmployees().stream()
+    long employeeExist = EmployeeRepository.getEmployeeList().stream()
         .filter(employee -> employee.getId().equals(id))
         .count();
 
@@ -102,7 +103,7 @@ public class VacationMapper {
       vacationDateFrom = validateDateFrom();
       vacationDateTo = validateDateTo();
 
-      List<Vacation> vacationList = VacationRepository.getAllVacations().stream()
+      List<Vacation> vacationList = VacationRepository.getVacationList().stream()
           .filter(vacation -> vacation.getEmployeeId().equals(id))
           .collect(Collectors.toList());
 
@@ -128,10 +129,10 @@ public class VacationMapper {
   private LocalDate validateDateFrom() {
 
     Scanner scanner = new Scanner(System.in);
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
     LocalDate vacationDateFrom;
 
-    System.out.println("Enter vacation date from (Format: yyyy.MM.dd): ");
+    System.out.println("Enter vacation date from (Format: " + AppConfig.getDateFormat() + "): ");
 
     LocalDate today = LocalDate.now();
     Timestamp timestampToday = Timestamp.valueOf(today.atTime(LocalTime.MIDNIGHT));
@@ -167,7 +168,7 @@ public class VacationMapper {
         }
       } catch (ParseException e) {
         vacationDateFrom = null;
-        System.out.println("Wrong data! Please enter data in format yyyy.MM.dd: ");
+        System.out.println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + "): ");
       }
     } while (vacationDateFrom == null);
 
@@ -177,11 +178,11 @@ public class VacationMapper {
   private LocalDate validateDateTo() {
 
     Scanner scanner = new Scanner(System.in);
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
     LocalDate vacationDateTo;
     LocalDate today = LocalDate.now();
 
-    System.out.println("Enter vacation date to (Format: yyyy.MM.dd): ");
+    System.out.println("Enter vacation date to (Format: " + AppConfig.getDateFormat() + "): ");
     do {
       String vacationDateToString = scanner.nextLine();
       try {
@@ -213,7 +214,7 @@ public class VacationMapper {
         }
       } catch (ParseException e) {
         vacationDateTo = null;
-        System.out.println("Wrong data! Please enter data in format yyyy.MM.dd: ");
+        System.out.println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + " : ");
       }
     } while (vacationDateTo == null);
 
@@ -275,11 +276,11 @@ public class VacationMapper {
     int overdueDaysOff = 0;
     int monthCount = 12;
 
-    Employee employee = EmployeeRepository.getAllEmployees().stream()
+    Employee employee = EmployeeRepository.getEmployeeList().stream()
         .filter(emp -> emp.getId().equals(id))
         .findFirst().get();
 
-    List<Vacation> countOfDaysHistory = VacationRepository.getAllVacations().stream()
+    List<Vacation> countOfDaysHistory = VacationRepository.getVacationList().stream()
         .filter(vacation -> vacation.getEmployeeId().equals(id))
         .collect(Collectors.toList());
     System.out.println(countOfDaysHistory);
@@ -337,7 +338,7 @@ public class VacationMapper {
   private void validateOverlappingOfTheGivenDateRange(Long id, LocalDate vacationDateFrom,
       LocalDate vacationDateTo) {
 
-    List<Vacation> employeeVacationList = VacationRepository.getAllVacations().stream()
+    List<Vacation> employeeVacationList = VacationRepository.getVacationList().stream()
         .filter(vacation -> vacation.getEmployeeId().equals(id))
         .collect(Collectors.toList());
     boolean vacationFlag = false;

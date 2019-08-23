@@ -19,21 +19,21 @@ public class VacationService {
 
   public void loadVacationData() {
     List<Vacation> vacations = deserializator.deserialize(new Vacation(), fileName);
-    VacationRepository.getAllVacations().clear();
-    VacationRepository.getAllVacations()
+    VacationRepository.getVacationList().clear();
+    VacationRepository.getVacationList()
         .addAll(vacations);
   }
 
   void addVacation(List<Vacation> vacations) {
-    VacationRepository.setAllVacations(vacations);
-    serializator.serialize(VacationRepository.getAllVacations(), getFileName());
+    VacationRepository.setVacationList(vacations);
+    serializator.serialize(VacationRepository.getVacationList(), getFileName());
     System.out.println("\nProcedure of defining vacation successfully finished.");
     System.out.println("\nType '0' to return or 'Enter' to add define vacation.");
   }
 
   void cancelVacation(Vacation vacation) {
-    VacationRepository.getAllVacations().remove(vacation);
-    serializator.serialize(VacationRepository.getAllVacations(), getFileName());
+    VacationRepository.getVacationList().remove(vacation);
+    serializator.serialize(VacationRepository.getVacationList(), getFileName());
     System.out.println("\nVacation has been successfully cancelled.");
     System.out.println("\nType '0' to return or 'Enter' to cancel vacation.");
   }

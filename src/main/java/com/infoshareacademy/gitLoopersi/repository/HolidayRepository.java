@@ -9,6 +9,9 @@ public class HolidayRepository {
 
   private static List<Holiday> allHolidays = new ArrayList<>();
 
+  private HolidayRepository() {
+  }
+
   public static List<Holiday> getAllHolidays() {
     return allHolidays;
   }

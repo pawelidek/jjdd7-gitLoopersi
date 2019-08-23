@@ -14,7 +14,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Scanner;
-import org.apache.commons.validator.routines.EmailValidator;
 
 public class EmployeeMapper {
 
@@ -90,7 +89,7 @@ public class EmployeeMapper {
       }
     } while (startWorkDate == null);
 
-    System.out.println("\nEnter new employee's start hire date (Format: yyyy.MM.dd): ");
+    System.out.println("\nEnter new employee's start hire date (Format: " + AppConfig.getDateFormat() + "): ");
     LocalDate startHireDate = null;
 
     do {
@@ -99,13 +98,13 @@ public class EmployeeMapper {
         startHireDate = simpleDateFormat
             .parse(startHireDateString).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
       } catch (ParseException e) {
-        System.out.println("Wrong date! Please enter data in format yyyy.MM.dd: ");
+        System.out.println("Wrong date! Please enter data in format " + AppConfig.getDateFormat() + ": ");
       }
     } while (startHireDate == null);
 
     Long id = generateSerialId();
 
-    List<Employee> tempEmployees = EmployeeRepository.getAllEmployees();
+    List<Employee> tempEmployees = EmployeeRepository.getEmployeeList();
     tempEmployees.add(new Employee(id, firstName, secondName, team, startWorkDate, startHireDate));
     employeeService.addEmployee(tempEmployees);
 
@@ -120,7 +119,7 @@ public class EmployeeMapper {
 
     EmployeeService employeeService = new EmployeeService();
 
-    List<Employee> tempEmployees = EmployeeRepository.getAllEmployees();
+    List<Employee> tempEmployees = EmployeeRepository.getEmployeeList();
 
     Scanner scanner = new Scanner(System.in);
     boolean isEmployeeFound = false;

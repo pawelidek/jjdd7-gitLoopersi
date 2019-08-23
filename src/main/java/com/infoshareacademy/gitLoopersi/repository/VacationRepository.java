@@ -6,14 +6,17 @@ import java.util.List;
 
 public class VacationRepository {
 
-  private static List<Vacation> allVacations = new ArrayList<>();
+  private static List<Vacation> vacationList = new ArrayList<>();
 
-  public static List<Vacation> getAllVacations() {
-    return allVacations;
+  private VacationRepository() {
   }
 
-  public static void setAllVacations(
-      List<Vacation> allVacations) {
-    VacationRepository.allVacations = allVacations;
+  public static List<Vacation> getVacationList() {
+    return vacationList;
+  }
+
+  public static void setVacationList(
+      List<Vacation> vacationList) {
+    VacationRepository.vacationList = vacationList;
   }
 }
