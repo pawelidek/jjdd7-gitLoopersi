@@ -49,7 +49,7 @@ public class AppConfigLoader {
         properties.getProperty("sort.type").toUpperCase().equals("ASC") || properties
             .getProperty("sort.type")
             .toUpperCase().equals("DESC"))) {
-      validatedSortType = properties.getProperty("employee.sort");
+      validatedSortType = properties.getProperty("sort.type");
     } else {
       System.out.println(
           "Bad sort or no type format in properties file, default value \"ASC\" has been set");

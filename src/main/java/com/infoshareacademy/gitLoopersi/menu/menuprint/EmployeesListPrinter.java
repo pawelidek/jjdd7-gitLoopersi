@@ -32,7 +32,7 @@ public class EmployeesListPrinter implements Menu {
 
     Character[] borderStyle = AsciiTable.FANCY_ASCII;
 
-    List<Employee> allEmployees=EmployeeRepository.getAllEmployees();
+    List<Employee> allEmployees=EmployeeRepository.getEmployeeList();
     if (AppConfig.getSort().equals("ASC")){
       Collections.sort(allEmployees);
     } else {
@@ -50,6 +50,8 @@ public class EmployeesListPrinter implements Menu {
             createColumn("Last Name", Employee::getSecondName),
             createColumn("Team", employee -> employee.getTeam().toString()),
             createColumn("Work start date", employee -> employee.getStartDate().format(
+                DateTimeFormatter.ofPattern(AppConfig.getDateFormat()))),
+            createColumn("Hire date", employee -> employee.getStartHireDate().format(
                 DateTimeFormatter.ofPattern(AppConfig.getDateFormat())))
         )));
 
