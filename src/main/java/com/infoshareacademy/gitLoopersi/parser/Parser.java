@@ -2,7 +2,7 @@ package com.infoshareacademy.gitLoopersi.parser;
 
 import com.infoshareacademy.gitLoopersi.domain.Holiday;
 import com.infoshareacademy.gitLoopersi.repository.HolidayRepository;
-import com.infoshareacademy.gitLoopersi.search.HolidayService;
+import com.infoshareacademy.gitLoopersi.holiday.HolidayService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

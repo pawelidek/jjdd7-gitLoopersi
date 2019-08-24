@@ -23,8 +23,8 @@ public class EmployeeService {
 
   public void loadEmployeeData() {
     List<Employee> employees = deserializator.deserialize(new Employee(), fileName);
-    EmployeeRepository.getAllEmployees().clear();
-    EmployeeRepository.getAllEmployees()
+    EmployeeRepository.getEmployeeList().clear();
+    EmployeeRepository.getEmployeeList()
         .addAll(employees);
     employees.forEach(e -> {
       if (e.getId() > EmployeeRepository.getCurrentId()) {
@@ -39,15 +39,15 @@ public class EmployeeService {
   }
 
   void addEmployee(List<Employee> employeesList) {
-    EmployeeRepository.setAllEmployees(employeesList);
-    serialization.serialize(EmployeeRepository.getAllEmployees(), getFileName());
+    EmployeeRepository.setEmployeeList(employeesList);
+    serialization.serialize(EmployeeRepository.getEmployeeList(), getFileName());
     System.out.println("\nProcedure of adding new employee successfully finished.");
     System.out.println("\nType '0' to return or 'Enter' to add another employee.");
   }
 
   void deleteEmployee(Employee employee) {
-    EmployeeRepository.getAllEmployees().remove(employee);
-    serialization.serialize(EmployeeRepository.getAllEmployees(), getFileName());
+    EmployeeRepository.getEmployeeList().remove(employee);
+    serialization.serialize(EmployeeRepository.getEmployeeList(), getFileName());
     System.out.println("\nEmployee has been successfully deleted.");
     System.out.println("\nType '0' to return or 'Enter' to delete another employee.");
   }

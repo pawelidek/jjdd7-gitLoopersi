@@ -9,14 +9,17 @@ public class EmployeeRepository {
 
   private static Long currentId = 0L;
 
-  private static List<Employee> allEmployees = new ArrayList<>();
+  private static List<Employee> employeeList = new ArrayList<>();
 
-  public static List<Employee> getAllEmployees() {
-    return allEmployees;
+  private EmployeeRepository() {
   }
 
-  public static void setAllEmployees(List<Employee> allEmployees) {
-    EmployeeRepository.allEmployees = allEmployees;
+  public static List<Employee> getEmployeeList() {
+    return employeeList;
+  }
+
+  public static void setEmployeeList(List<Employee> employeeList) {
+    EmployeeRepository.employeeList = employeeList;
   }
 
   public static Long getCurrentId() {

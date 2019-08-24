@@ -1,4 +1,4 @@
-package com.infoshareacademy.gitLoopersi.search;
+package com.infoshareacademy.gitLoopersi.vacation;
 
 import static org.apache.commons.lang3.math.NumberUtils.isCreatable;
 
@@ -7,9 +7,10 @@ import com.github.freva.asciitable.Column;
 import com.github.freva.asciitable.ColumnData;
 import com.github.freva.asciitable.HorizontalAlign;
 import com.infoshareacademy.gitLoopersi.domain.Employee;
-import com.infoshareacademy.gitLoopersi.employee.EmployeeService;
+import com.infoshareacademy.gitLoopersi.domain.Vacation;
 import com.infoshareacademy.gitLoopersi.menu.ConsoleCleaner;
 import com.infoshareacademy.gitLoopersi.repository.EmployeeRepository;
+import com.infoshareacademy.gitLoopersi.repository.VacationRepository;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,43 +19,55 @@ import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class VacationSearcher {
+public class VacationSearchEngine {
 
   private ArrayList<Employee> listOfMatchingEmployees;
   private Employee searchedEmployee;
 
   public void searchEmployeeVacation() {
 
-    EmployeeService employeeService = new EmployeeService();
-
-    employeeService.loadEmployeeData();
-
-    if (EmployeeRepository.getAllEmployees().size() != 0) {
+    if (EmployeeRepository.getEmployeeList().size() != 0) {
       searchForEmployee();
 
       ConsoleCleaner.cleanConsole();
 
-      System.out.println("PLANNED VACATION OF: " +
-          getSearchedEmployee()
-              .getFirstName().concat(" " + getSearchedEmployee().getSecondName())
-              .toUpperCase());
+      getSearchedEmployee();
 
-      Character[] borderStyle = AsciiTable.FANCY_ASCII;
+      if (getSearchedEmployee() == null) {
 
-      System.out.println(
-          AsciiTable.getTable(borderStyle, getListOfMatchingEmployees(),
-              Arrays.asList(
-                  createColumn("Index",
-                      employee -> String
-                          .valueOf(EmployeeRepository
-                              .getAllEmployees()
-                              .indexOf(employee) + 1)),
-                  createColumn("Vacation start date", employee -> employee.getStartDate().format(
-                      DateTimeFormatter.ofPattern("yyyy.MM.dd"))),
-                  createColumn("Vacation end date", employee -> employee.getStartDate().format(
-                      DateTimeFormatter.ofPattern("yyyy.MM.dd"))),
-                  createColumn("Duration", Employee::getFirstName)
-              )));
+        System.out.println("There is no matching employee!");
+
+      } else {
+
+        String searchedEmployee = getSearchedEmployee()
+            .getFirstName().concat(" " + getSearchedEmployee().getSecondName())
+            .toUpperCase();
+
+        Long searchedEmployeeId = getSearchedEmployee().getId();
+
+        System.out.println("PLANNED VACATION OF: " + searchedEmployee);
+
+        Character[] borderStyle = AsciiTable.FANCY_ASCII;
+
+        List<Vacation> searchedEmployeeVacationList = VacationRepository.getVacationList().stream()
+            .filter(vacation -> vacation.getEmployeeId().equals(searchedEmployeeId))
+            .collect(Collectors.toList());
+
+        System.out.println(
+            AsciiTable.getTable(borderStyle, searchedEmployeeVacationList,
+                Arrays.asList(
+                    createColumnVacation("Index",
+                        i -> String
+                            .valueOf(VacationRepository.getVacationList()
+                                .indexOf(i) + 1)),
+                    createColumnVacation("Vacation start date", vacation -> vacation.getDateFrom()
+                        .format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))),
+                    createColumnVacation("Vacation end date", vacation -> vacation.getDateTo()
+                        .format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))),
+                    createColumnVacation("Duration",
+                        vacation -> String.valueOf(vacation.getCountOfDays()))
+                )));
+      }
 
       System.out.println("\n0. Return");
 
@@ -64,6 +77,14 @@ public class VacationSearcher {
     }
   }
 
+  private ColumnData<Vacation> createColumnVacation(String name,
+      Function<Vacation, String> functionReference) {
+    return new Column()
+        .header(name)
+        .headerAlign(HorizontalAlign.CENTER)
+        .dataAlign(HorizontalAlign.LEFT)
+        .with(functionReference);
+  }
 
   void searchForEmployee() {
 
@@ -82,15 +103,16 @@ public class VacationSearcher {
 
     String finalSearchedPhrase = searchedPhrase;
 
-    listOfMatchingEmployees = (ArrayList<Employee>) EmployeeRepository.getAllEmployees()
+    listOfMatchingEmployees = (ArrayList<Employee>) EmployeeRepository.getEmployeeList()
         .stream()
         .filter(
-            e -> (e.getFirstName().concat(" " + e.getSecondName())).toLowerCase().contains(finalSearchedPhrase))
+            e -> (e.getFirstName().concat(" " + e.getSecondName())).toLowerCase()
+                .contains(finalSearchedPhrase))
         .collect(Collectors.toList());
 
     if (listOfMatchingEmployees.size() == 0) {
 
-      System.out.println("There is no matching employee!");
+      searchedEmployee = null;
 
     } else if (listOfMatchingEmployees.size() == 1) {
 
@@ -120,6 +142,15 @@ public class VacationSearcher {
         )));
   }
 
+  private ColumnData<Employee> createColumn(String name,
+      Function<Employee, String> functionReference) {
+    return new Column()
+        .header(name)
+        .headerAlign(HorizontalAlign.CENTER)
+        .dataAlign(HorizontalAlign.LEFT)
+        .with(functionReference);
+  }
+
   private void pickEmployeeFromList(Scanner scanner) {
     System.out.println("Enter the index of an employee you wanted to type: ");
 
@@ -146,15 +177,6 @@ public class VacationSearcher {
             "correct index of an employee you wanted to type: \n");
       }
     } while (!isPickCorrect);
-  }
-
-  private ColumnData<Employee> createColumn(String name,
-      Function<Employee, String> functionReference) {
-    return new Column()
-        .header(name)
-        .headerAlign(HorizontalAlign.CENTER)
-        .dataAlign(HorizontalAlign.LEFT)
-        .with(functionReference);
   }
 
   private List<Employee> getListOfMatchingEmployees() {

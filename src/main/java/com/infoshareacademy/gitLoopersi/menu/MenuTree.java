@@ -3,10 +3,11 @@ package com.infoshareacademy.gitLoopersi.menu;
 import com.infoshareacademy.gitLoopersi.employee.EmployeeMapper;
 import com.infoshareacademy.gitLoopersi.menu.menufunctions.*;
 import com.infoshareacademy.gitLoopersi.menu.menuprint.*;
-import com.infoshareacademy.gitLoopersi.search.HolidayMapper;
-import com.infoshareacademy.gitLoopersi.search.VacationSearcher;
+import com.infoshareacademy.gitLoopersi.holiday.HolidayMapper;
+import com.infoshareacademy.gitLoopersi.vacation.VacationSearchEngine;
 import com.infoshareacademy.gitLoopersi.team.TeamMapper;
 
+import com.infoshareacademy.gitLoopersi.vacation.VacationMapper;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,10 +28,7 @@ public class MenuTree {
     HolidayPrinter holidayPrinter = new HolidayPrinter();
     TeamVacationPrinter teamVacationPrinter = new TeamVacationPrinter();
 
-    VacationAdder vacationAdder = new VacationAdder();
-    VacationCanceller vacationCanceller = new VacationCanceller();
-
-    VacationSearcher vacationSearcher = new VacationSearcher();
+    VacationSearchEngine vacationSearchEngine = new VacationSearchEngine();
 
     TeamVacationSearcher teamVacationSearcher = new TeamVacationSearcher();
     TeamVacationDateSearcher teamVacationDateSearcher = new TeamVacationDateSearcher();
@@ -42,6 +40,7 @@ public class MenuTree {
     TeamMapper teamMapper = new TeamMapper();
     EmployeeMapper employeeMapper = new EmployeeMapper();
     HolidayMapper holidayMapper = new HolidayMapper();
+    VacationMapper vacationMapper = new VacationMapper();
 
     map.put("m", headerPrinter);
 
@@ -53,13 +52,13 @@ public class MenuTree {
     map.put("m22", teamMapper::validateCorrectInputDataForUpdateTeam);
     map.put("m23", teamMapper::validateCorrectInputDataForDeleteTeam);
     map.put("m3", vacationPrinter);
-    map.put("m31", vacationAdder);
-    map.put("m32", vacationCanceller);
+    map.put("m31", vacationMapper::validateDataForDefineVacation);
+    map.put("m32", vacationMapper::validateCancellationOfVacation);
     map.put("m4", searchEnginePrinter);
     map.put("m41", holidayPrinter);
     map.put("m411", holidayMapper::validateCorrectInputDataForHolidayName);
     map.put("m412", holidayMapper::validateCorrectInputDataForHolidayDate);
-    map.put("m42", vacationSearcher::searchEmployeeVacation);
+    map.put("m42", vacationSearchEngine::searchEmployeeVacation);
     map.put("m43", teamVacationPrinter);
     map.put("m431", teamVacationSearcher);
     map.put("m432", teamVacationDateSearcher);

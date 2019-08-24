@@ -1,4 +1,4 @@
-package com.infoshareacademy.gitLoopersi.search;
+package com.infoshareacademy.gitLoopersi.holiday;
 
 import com.infoshareacademy.gitLoopersi.domain.Holiday;
 import com.infoshareacademy.gitLoopersi.parser.TypeOfHoliday;
@@ -19,7 +19,7 @@ public class HolidayMapper {
     HolidayService holidayService = new HolidayService();
 
     Scanner scanner = new Scanner(System.in);
-    System.out.println("Holidays search by name.\n");
+    System.out.println("Holidays holiday by name.\n");
     System.out.println("Enter the name of the holiday: ");
     String name = scanner.nextLine();
 

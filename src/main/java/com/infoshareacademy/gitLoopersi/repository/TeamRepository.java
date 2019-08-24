@@ -9,6 +9,9 @@ public class TeamRepository {
 
   private static List<Team> allTeams = new ArrayList<>();
 
+  private TeamRepository() {
+  }
+
   public static List<Team> getAllTeams() {
     return allTeams;
   }
