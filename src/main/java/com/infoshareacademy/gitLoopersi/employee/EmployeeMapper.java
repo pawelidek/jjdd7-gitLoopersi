@@ -57,7 +57,7 @@ public class EmployeeMapper {
               "\nThere is no team named \"" + teamName + "\". Would you like to create it? Y/N: ");
 
           String answer = scanner.nextLine().toLowerCase();
-          if (answer.equals("y")) {
+          if ("y".equals(answer)) {
             allTeams.add(new Team(teamName));
           } else {
             System.out.println("Employee will be add to team \"unknown\"");

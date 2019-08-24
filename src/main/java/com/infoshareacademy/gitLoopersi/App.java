@@ -16,8 +16,7 @@ public class App {
     new VacationService().loadVacationData();
     new TeamService().loadTeamData();
 
-    AppConfigMapper appConfigMapper = new AppConfigMapper();
-    appConfigMapper.loadUserConfiguration();
+    new AppConfigMapper().loadUserConfiguration();
 
     ConsoleCleaner.cleanConsole();
 

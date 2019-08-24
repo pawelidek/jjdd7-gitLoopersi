@@ -100,7 +100,7 @@ public class VacationSearchEngine {
     Scanner scanner = new Scanner(System.in);
     String answer = scanner.nextLine().toLowerCase();
 
-    if (answer.equals("y")) {
+    if ("y".equals(answer)) {
 
       this.from = validateFilterDateFrom().plusDays(-1);
       this.to = validateFilterDateTo().plusDays(1);
