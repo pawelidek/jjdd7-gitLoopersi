@@ -4,7 +4,6 @@ import com.infoshareacademy.gitLoopersi.deserialization.Deserializator;
 import com.infoshareacademy.gitLoopersi.domain.Team;
 import com.infoshareacademy.gitLoopersi.repository.TeamRepository;
 import com.infoshareacademy.gitLoopersi.serialization.Serializator;
-
 import java.util.List;
 
 public class TeamService {

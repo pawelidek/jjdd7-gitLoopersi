@@ -2,7 +2,6 @@ package com.infoshareacademy.gitLoopersi.team;
 
 import com.infoshareacademy.gitLoopersi.domain.Team;
 import com.infoshareacademy.gitLoopersi.repository.TeamRepository;
-
 import java.util.List;
 import java.util.Scanner;
 

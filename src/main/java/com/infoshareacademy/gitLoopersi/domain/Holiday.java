@@ -1,7 +1,6 @@
 package com.infoshareacademy.gitLoopersi.domain;
 
 import com.infoshareacademy.gitLoopersi.parser.TypeOfHoliday;
-
 import java.time.LocalDate;
 
 

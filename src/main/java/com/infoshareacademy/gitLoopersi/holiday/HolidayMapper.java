@@ -4,7 +4,6 @@ import com.infoshareacademy.gitLoopersi.domain.Holiday;
 import com.infoshareacademy.gitLoopersi.parser.TypeOfHoliday;
 import com.infoshareacademy.gitLoopersi.properties.AppConfig;
 import com.infoshareacademy.gitLoopersi.repository.HolidayRepository;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -40,7 +39,7 @@ public class HolidayMapper {
   public void validateCorrectInputDataForHolidayDate() {
 
     System.out.println("Check whether the given day is a non-working.\n");
-    System.out.println("Enter Date in format "+AppConfig.getDateFormat()+":");
+    System.out.println("Enter Date in format " + AppConfig.getDateFormat() + ":");
     Scanner scanner = new Scanner(System.in);
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
     LocalDate dateToCheck = null;
@@ -48,9 +47,10 @@ public class HolidayMapper {
       String tempDateToCheck = scanner.nextLine();
       try {
         dateToCheck = simpleDateFormat
-                .parse(tempDateToCheck).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            .parse(tempDateToCheck).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
       } catch (ParseException e) {
-        System.out.println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
+        System.out
+            .println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
       }
     } while (dateToCheck == null);
     List<Holiday> myList = HolidayRepository.getAllHolidays();

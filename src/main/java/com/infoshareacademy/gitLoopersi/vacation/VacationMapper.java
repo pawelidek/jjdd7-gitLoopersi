@@ -12,11 +12,13 @@ import com.infoshareacademy.gitLoopersi.properties.AppConfig;
 import com.infoshareacademy.gitLoopersi.repository.EmployeeRepository;
 import com.infoshareacademy.gitLoopersi.repository.HolidayRepository;
 import com.infoshareacademy.gitLoopersi.repository.VacationRepository;
-
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -126,7 +128,7 @@ public class VacationMapper {
     }
   }
 
-  LocalDate validateDateFrom() {
+  private LocalDate validateDateFrom() {
 
     Scanner scanner = new Scanner(System.in);
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
@@ -168,14 +170,15 @@ public class VacationMapper {
         }
       } catch (ParseException e) {
         vacationDateFrom = null;
-        System.out.println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + "): ");
+        System.out.println(
+            "Wrong data! Please enter data in format " + AppConfig.getDateFormat() + "): ");
       }
     } while (vacationDateFrom == null);
 
     return vacationDateFrom;
   }
 
-  LocalDate validateDateTo() {
+  private LocalDate validateDateTo() {
 
     Scanner scanner = new Scanner(System.in);
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
@@ -214,7 +217,8 @@ public class VacationMapper {
         }
       } catch (ParseException e) {
         vacationDateTo = null;
-        System.out.println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + " : ");
+        System.out.println(
+            "Wrong data! Please enter data in format " + AppConfig.getDateFormat() + " : ");
       }
     } while (vacationDateTo == null);
 

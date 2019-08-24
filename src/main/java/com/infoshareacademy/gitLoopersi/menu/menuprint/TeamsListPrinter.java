@@ -16,9 +16,6 @@ public class TeamsListPrinter implements Menu {
   @Override
   public void doAction() {
 
-    TeamService teamService = new TeamService();
-    teamService.loadTeamData();
-
 //      Copyright 2017 freva
 //      Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 //      documentation files (the "Software"), to deal in the Software without restriction, including without limitation
