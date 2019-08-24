@@ -88,7 +88,8 @@ public class EmployeeMapper {
         }
       }
     }
-    System.out.print("\nEnter new employee's start working date (Format:" + AppConfig.getDateFormat() + "): ");
+    System.out.print(
+        "\nEnter new employee's start working date (Format:" + AppConfig.getDateFormat() + "): ");
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
     LocalDate startWorkDate = null;
     do {
@@ -97,7 +98,8 @@ public class EmployeeMapper {
         startWorkDate = simpleDateFormat
             .parse(startWorkDateString).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
       } catch (ParseException e) {
-        System.out.println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
+        System.out
+            .println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
       }
     } while (startWorkDate == null);
 

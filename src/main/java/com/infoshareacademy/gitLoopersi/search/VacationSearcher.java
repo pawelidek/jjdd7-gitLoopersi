@@ -18,7 +18,7 @@ import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class VacationMapper {
+public class VacationSearcher {
 
   private ArrayList<Employee> listOfMatchingEmployees;
   private Employee searchedEmployee;
@@ -56,11 +56,8 @@ public class VacationMapper {
                   createColumn("Duration", Employee::getFirstName)
               )));
 
-      System.out.println("\n1. Set date range to filter");
-      System.out.println("0. Return");
+      System.out.println("\n0. Return");
 
-      Scanner scanner = new Scanner(System.in);
-      String readValue = scanner.nextLine();
     } else {
       System.out.println("There are no employees added to database!");
       System.out.println("\nType '0' to return.");
@@ -74,12 +71,12 @@ public class VacationMapper {
 
     System.out.println("Enter at least three signs of searched employee name: ");
 
-    String searchedPhrase = scanner.nextLine();
+    String searchedPhrase = scanner.nextLine().toLowerCase();
     int characterQuantity = searchedPhrase.length();
 
     while (characterQuantity < 3) {
       System.out.println("Please enter at least three signs! Enter searched phrase: ");
-      searchedPhrase = scanner.nextLine();
+      searchedPhrase = scanner.nextLine().toLowerCase();
       characterQuantity = searchedPhrase.length();
     }
 
@@ -88,7 +85,7 @@ public class VacationMapper {
     listOfMatchingEmployees = (ArrayList<Employee>) EmployeeRepository.getAllEmployees()
         .stream()
         .filter(
-            e -> (e.getFirstName().concat(" " + e.getSecondName())).contains(finalSearchedPhrase))
+            e -> (e.getFirstName().concat(" " + e.getSecondName())).toLowerCase().contains(finalSearchedPhrase))
         .collect(Collectors.toList());
 
     if (listOfMatchingEmployees.size() == 0) {
@@ -139,7 +136,7 @@ public class VacationMapper {
 
       int pick = Integer.parseInt(pickToCheck);
 
-      if (pick > 0 && pick <= (getListOfMatchingEmployees().size())) {
+      if ((pick > 0) && (pick <= (getListOfMatchingEmployees().size()))) {
 
         searchedEmployee = getListOfMatchingEmployees().get(pick - 1);
         isPickCorrect = true;
@@ -160,11 +157,11 @@ public class VacationMapper {
         .with(functionReference);
   }
 
-  List<Employee> getListOfMatchingEmployees() {
+  private List<Employee> getListOfMatchingEmployees() {
     return listOfMatchingEmployees;
   }
 
-  Employee getSearchedEmployee() {
+  private Employee getSearchedEmployee() {
     return searchedEmployee;
   }
 }
