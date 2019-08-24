@@ -1,23 +1,15 @@
-package com.infoshareacademy.gitLoopersi.search;
+package com.infoshareacademy.gitLoopersi.holiday;
 
 import com.infoshareacademy.gitLoopersi.domain.Holiday;
-import com.infoshareacademy.gitLoopersi.parser.Parser;
 import com.infoshareacademy.gitLoopersi.parser.TypeOfHoliday;
 import com.infoshareacademy.gitLoopersi.properties.AppConfig;
 import com.infoshareacademy.gitLoopersi.repository.HolidayRepository;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static java.util.regex.Pattern.compile;
 
 public class HolidayMapper {
 
@@ -26,9 +18,8 @@ public class HolidayMapper {
     HolidayService holidayService = new HolidayService();
 
     Scanner scanner = new Scanner(System.in);
-    System.out.println("Holidays search by name.\n");
+    System.out.println("Holidays holiday by name.\n");
     System.out.println("Enter the name of the holiday: ");
-    Parser parser = new Parser();
     String name = scanner.nextLine();
 
     List<Holiday> myList = HolidayRepository.getAllHolidays();
@@ -48,7 +39,7 @@ public class HolidayMapper {
   public void validateCorrectInputDataForHolidayDate() {
 
     System.out.println("Check whether the given day is a non-working.\n");
-    System.out.println("Enter Date in format "+AppConfig.getDateFormat()+":");
+    System.out.println("Enter Date in format " + AppConfig.getDateFormat() + ":");
     Scanner scanner = new Scanner(System.in);
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
     LocalDate dateToCheck = null;
@@ -56,12 +47,12 @@ public class HolidayMapper {
       String tempDateToCheck = scanner.nextLine();
       try {
         dateToCheck = simpleDateFormat
-                .parse(tempDateToCheck).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            .parse(tempDateToCheck).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
       } catch (ParseException e) {
-        System.out.println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
+        System.out
+            .println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
       }
     } while (dateToCheck == null);
-    Parser parser = new Parser();
     List<Holiday> myList = HolidayRepository.getAllHolidays();
     boolean holidayFound = false;
     for (Holiday holiday : myList) {

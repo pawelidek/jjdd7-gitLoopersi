@@ -13,10 +13,10 @@ public class AppConfigSaver {
     try (OutputStream output = new FileOutputStream(FILEPATH)) {
       Properties appProperties = new Properties();
       appProperties.put("date.format", AppConfig.getDateFormat());
-      appProperties.put("type.sort", AppConfig.getSort());
+      appProperties.put("sort.type", AppConfig.getSort());
       appProperties.store(output, null);
     } catch (java.io.IOException iOE) {
-      System.out.println("Openning properties");
+      System.out.println("Opening properties");
     }
   }
 }

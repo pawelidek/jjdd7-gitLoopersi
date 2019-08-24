@@ -18,7 +18,7 @@ public class Deserializator<T> {
         listOfItems = (List<T>) objectInputStream.readObject();
       }
     } catch (IOException | ClassNotFoundException e) {
-      System.out.println("Deserialization has failed, please check input data");
+      System.out.println("Deserialization has failed, please check input data!");
     }
     return listOfItems;
   }

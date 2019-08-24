@@ -7,7 +7,6 @@ import com.infoshareacademy.gitLoopersi.domain.Team;
 import com.infoshareacademy.gitLoopersi.properties.AppConfig;
 import com.infoshareacademy.gitLoopersi.repository.EmployeeRepository;
 import com.infoshareacademy.gitLoopersi.repository.TeamRepository;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -29,10 +28,10 @@ public class EmployeeMapper {
       System.out.print("\nEmpty value has been put! Enter new employee's first name: ");
       firstName = scanner.nextLine();
     }
-    System.out.print("\nEnter new employee's second name: ");
+    System.out.print("\nEnter new employee's last name: ");
     String secondName = scanner.nextLine();
     while (secondName.length() == 0) {
-      System.out.println("Empty value has been put! Enter new employee's second name: ");
+      System.out.println("Empty value has been put! Enter new employee's last name: ");
       secondName = scanner.nextLine();
     }
 
@@ -58,24 +57,22 @@ public class EmployeeMapper {
               "\nThere is no team named \"" + teamName + "\". Would you like to create it? Y/N: ");
 
           String answer = scanner.nextLine().toLowerCase();
-          switch (answer) {
-            case "y":
-              allTeams.add(new Team(teamName));
-              break;
-            default:
-              System.out.println("Employee will be add to team \"unknown\"");
-              team = new Team("unknown");
-              if (!allTeams.contains(team)) {
-                allTeams.add(new Team("unknown"));
-              }
-              break;
+          if ("y".equals(answer)) {
+            allTeams.add(new Team(teamName));
+          } else {
+            System.out.println("Employee will be add to team \"unknown\"");
+            team = new Team("unknown");
+            if (!allTeams.contains(team)) {
+              allTeams.add(new Team("unknown"));
+            }
           }
           employeeService.addTeamIfNotPresent(allTeams);
           break;
         }
       }
     }
-    System.out.print("\nEnter new employee's start working date (Format:" + AppConfig.getDateFormat() + "): ");
+    System.out.print(
+        "\nEnter new employee's work start date (Format:" + AppConfig.getDateFormat() + "): ");
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
     LocalDate startWorkDate = null;
 
@@ -85,11 +82,13 @@ public class EmployeeMapper {
         startWorkDate = simpleDateFormat
             .parse(startWorkDateString).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
       } catch (ParseException e) {
-        System.out.println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
+        System.out
+            .println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
       }
     } while (startWorkDate == null);
 
-    System.out.println("\nEnter new employee's start hire date (Format: " + AppConfig.getDateFormat() + "): ");
+    System.out.println(
+        "\nEnter new employee's hirement date (Format: " + AppConfig.getDateFormat() + "): ");
     LocalDate startHireDate = null;
 
     do {
@@ -98,7 +97,8 @@ public class EmployeeMapper {
         startHireDate = simpleDateFormat
             .parse(startHireDateString).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
       } catch (ParseException e) {
-        System.out.println("Wrong date! Please enter data in format " + AppConfig.getDateFormat() + ": ");
+        System.out
+            .println("Wrong date! Please enter data in format " + AppConfig.getDateFormat() + ": ");
       }
     } while (startHireDate == null);
 
