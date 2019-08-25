@@ -7,9 +7,13 @@ public class SettingsImporter implements Menu {
 
   @Override
   public void doAction() {
+    System.out.println("Main menu >> Configuration >> Import settings");
+
     AppConfigMapper appConfigMapper = new AppConfigMapper();
     appConfigMapper.loadUserConfiguration();
-    System.out.println("Importing settings has been finished successfully.");
-    System.out.println("Type '0' to return.");
+
+    System.out.println("\nImporting settings has been finished successfully.");
+    System.out.println("\nType '0' to return.");
+    System.out.println("\nType \"exit\" to close the app");
   }
 }
