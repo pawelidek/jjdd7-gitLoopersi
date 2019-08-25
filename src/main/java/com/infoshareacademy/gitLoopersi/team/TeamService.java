@@ -31,7 +31,7 @@ public class TeamService {
 
   void deleteTeam(Team team) {
     TeamRepository.getAllTeams().remove(team);
-    System.out.println("Deleted team: \"" + team + "\"");
+    System.out.println("\nDeleted team: \"" + team + "\"");
     serialization.serialize(TeamRepository.getAllTeams(), getFileName());
     System.out.println("\nType '0' to return or 'Enter' to add another employee.");
   }

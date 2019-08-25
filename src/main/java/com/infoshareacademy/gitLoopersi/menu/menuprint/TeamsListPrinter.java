@@ -15,7 +15,7 @@ public class TeamsListPrinter implements Menu {
 
   @Override
   public void doAction() {
-
+    System.out.println("Main menu >> Teams list\n");
 //      Copyright 2017 freva
 //      Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 //      documentation files (the "Software"), to deal in the Software without restriction, including without limitation
@@ -33,11 +33,11 @@ public class TeamsListPrinter implements Menu {
             createColumn("Team name", Team::getName))
         ));
 
-    System.out.println("\n1. Add team");
+    System.out.println("\n1. Add new team");
     System.out.println("2. Change team name");
     System.out.println("3. Delete team");
     System.out.println("0. Return");
-    System.out.println("Type \"exit\" to close the app");
+    System.out.println("\nType \"exit\" to close the app");
   }
 
   private ColumnData<Team> createColumn(String name,

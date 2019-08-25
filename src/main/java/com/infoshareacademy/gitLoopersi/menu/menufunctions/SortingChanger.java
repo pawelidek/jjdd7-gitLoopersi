@@ -7,8 +7,11 @@ public class SortingChanger implements Menu {
 
   @Override
   public void doAction() {
+    System.out.println("Main menu >> Configuration >> Sorting changer");
+
     AppConfigMapper appConfigMapper = new AppConfigMapper();
     appConfigMapper.validateCorrectInputDataForConfigurationOfSorting();
-    System.out.println("Type '0' to return.");
+    System.out.println("\nType '0' to return");
+    System.out.println("\nType \"exit\" to close the app");
   }
 }

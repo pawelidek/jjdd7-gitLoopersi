@@ -37,8 +37,8 @@ public class VacationMapper {
 
     LocalDate vacationDateFrom;
     LocalDate vacationDateTo;
-
-    System.out.println("Enter your ID: ");
+    System.out.println("Main menu >> Vacation >> Add vacation");
+    System.out.println("\nEnter your ID: ");
     String idToCheck = scanner.nextLine();
     while (!isCreatable(idToCheck)) {
       System.out.println("Wrong data! Enter your ID: ");
@@ -72,8 +72,7 @@ public class VacationMapper {
       listVacations.add(new Vacation(id, vacationDateFrom, vacationDateTo, amountOfDays));
       vacationService.addVacation(listVacations);
     } else {
-      System.out.println("An employee with a given ID does not exist \n"
-          + "Enter a valid employee ID");
+      System.out.println("\nAn employee with a given ID does not exist");
       System.out.println("\nType '0' to return or 'Enter' to add define vacation.");
     }
   }
@@ -86,8 +85,8 @@ public class VacationMapper {
 
     LocalDate vacationDateFrom;
     LocalDate vacationDateTo;
-
-    System.out.println("Enter your ID: ");
+    System.out.println("Main menu >> Vacation >> Cancel vacation");
+    System.out.println("\nEnter your ID: ");
     String idToCheck = scanner.nextLine();
     while (!isCreatable(idToCheck)) {
       System.out.println("Wrong data! Enter your ID: ");
@@ -117,13 +116,12 @@ public class VacationMapper {
         } else {
           System.out.println("If you do not have a vacation within the given date range,"
               + " please define the exact date range.");
-          System.out.println("\nType '0' to return or 'Enter' to cancel vacation.");
+          System.out.println("\nType '0' to return or 'Enter' to cancel another vacation.");
           break;
         }
       }
     } else {
-      System.out.println("An employee with a given ID does not exist \n"
-          + "Enter a valid employee ID");
+      System.out.println("\nAn employee with a given ID does not exist");
       System.out.println("\nType '0' to return or 'Enter' to cancel vacation.");
     }
   }
@@ -134,7 +132,7 @@ public class VacationMapper {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
     LocalDate vacationDateFrom;
 
-    System.out.println("Enter vacation date from (Format: " + AppConfig.getDateFormat() + "): ");
+    System.out.println("\nEnter vacation date from (Format: " + AppConfig.getDateFormat() + "): ");
 
     LocalDate today = LocalDate.now();
     Timestamp timestampToday = Timestamp.valueOf(today.atTime(LocalTime.MIDNIGHT));
@@ -165,7 +163,8 @@ public class VacationMapper {
           }
         } else {
           System.out.println(
-              "You can define or cancel your vacation from today until the end of next year");
+              "\nYou can define or cancel your vacation from today until the end of next year!" +
+                  "\nEnter vacation date from (Format: " + AppConfig.getDateFormat() + "): ");
           vacationDateFrom = null;
         }
       } catch (ParseException e) {
@@ -185,7 +184,7 @@ public class VacationMapper {
     LocalDate vacationDateTo;
     LocalDate today = LocalDate.now();
 
-    System.out.println("Enter vacation date to (Format: " + AppConfig.getDateFormat() + "): ");
+    System.out.println("\nEnter vacation date to (Format: " + AppConfig.getDateFormat() + "): ");
     do {
       String vacationDateToString = scanner.nextLine();
       try {
@@ -287,7 +286,7 @@ public class VacationMapper {
     List<Vacation> countOfDaysHistory = VacationRepository.getVacationList().stream()
         .filter(vacation -> vacation.getEmployeeId().equals(id))
         .collect(Collectors.toList());
-    System.out.println(countOfDaysHistory);
+
     for (Vacation value : countOfDaysHistory) {
       if (today.getYear() == value.getDateFrom().getYear() && today.getYear() == value.getDateTo()
           .getYear()) {

@@ -21,21 +21,22 @@ public class EmployeeMapper {
     EmployeeService employeeService = new EmployeeService();
 
     Scanner scanner = new Scanner(System.in);
-    System.out.println("The process of adding an employee.\n");
-    System.out.print("Enter new employee's first name: ");
+    System.out.println("Main menu >> Employees list >> Add an employee");
+    System.out.print("\nEnter new employee's first name:\n");
     String firstName = scanner.nextLine();
+
     while (firstName.length() == 0) {
-      System.out.print("\nEmpty value has been put! Enter new employee's first name: ");
+      System.out.print("\nEmpty value has been put! Enter new employee's first name:\n");
       firstName = scanner.nextLine();
     }
-    System.out.print("\nEnter new employee's last name: ");
+    System.out.print("\nEnter new employee's last name:\n");
     String secondName = scanner.nextLine();
     while (secondName.length() == 0) {
-      System.out.println("Empty value has been put! Enter new employee's last name: ");
+      System.out.println("Empty value has been put! Enter new employee's last name:\n");
       secondName = scanner.nextLine();
     }
 
-    System.out.print("\nEnter new employee's team name: ");
+    System.out.print("\nEnter new employee's team name:\n");
     String teamName = scanner.nextLine();
     List<Team> allTeams = TeamRepository.getAllTeams();
     Team team = new Team(teamName);
@@ -44,7 +45,7 @@ public class EmployeeMapper {
     } else {
       while (teamName.length() == 0 || !allTeams.contains(team)) {
         if (teamName.length() == 0) {
-          System.out.println("Empty value has been put! Enter new employee's team: ");
+          System.out.println("Empty value has been put! Enter new employee's team:\n");
           String teamNameRepeat = scanner.nextLine();
           team = new Team(teamNameRepeat);
           if (!allTeams.contains(team)) {
@@ -54,7 +55,7 @@ public class EmployeeMapper {
           break;
         } else {
           System.out.print(
-              "\nThere is no team named \"" + teamName + "\". Would you like to create it? Y/N: ");
+              "\nThere is no team named \"" + teamName + "\". Would you like to create it? Y/N:\n");
 
           String answer = scanner.nextLine().toLowerCase();
           if ("y".equals(answer)) {
@@ -72,7 +73,7 @@ public class EmployeeMapper {
       }
     }
     System.out.print(
-        "\nEnter new employee's work start date (Format:" + AppConfig.getDateFormat() + "): ");
+        "\nEnter new employee's work start date (Format:" + AppConfig.getDateFormat() + "):\n");
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
     LocalDate startWorkDate = null;
 
@@ -83,12 +84,19 @@ public class EmployeeMapper {
             .parse(startWorkDateString).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
       } catch (ParseException e) {
         System.out
-            .println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
+            .println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ":\n");
+        continue;
+      }
+      if (startWorkDate.isAfter(LocalDate.now(ZoneId.systemDefault()).plusDays(30))){
+        startWorkDate = null;
+        System.out
+            .println("Wrong data! Date after later than one month "
+                + "from now is not allowed here. Enter new Date: ");
       }
     } while (startWorkDate == null);
 
     System.out.println(
-        "\nEnter new employee's hirement date (Format: " + AppConfig.getDateFormat() + "): ");
+        "\nEnter new employee's hirement date (Format: " + AppConfig.getDateFormat() + "):");
     LocalDate startHireDate = null;
 
     do {
@@ -98,8 +106,22 @@ public class EmployeeMapper {
             .parse(startHireDateString).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
       } catch (ParseException e) {
         System.out
-            .println("Wrong date! Please enter data in format " + AppConfig.getDateFormat() + ": ");
+            .println("Wrong date! Please enter data in format " + AppConfig.getDateFormat() + ":\n");
+        continue;
       }
+      if (startHireDate.isAfter(LocalDate.now(ZoneId.systemDefault()).plusDays(30))){
+        startHireDate = null;
+        System.out
+            .println("Wrong data! Date after later than one month from now is not allowed here.");
+        continue;
+      }
+      if(!startHireDate.isAfter(startWorkDate) && !startHireDate.isEqual(startWorkDate)){
+        startHireDate = null;
+        System.out
+            .println("Wrong data! Date of employment have to be "
+                + "later or equal to start working date. Enter new Date: ");
+      }
+
     } while (startHireDate == null);
 
     Long id = generateSerialId();
@@ -124,8 +146,8 @@ public class EmployeeMapper {
     Scanner scanner = new Scanner(System.in);
     boolean isEmployeeFound = false;
 
-    System.out.println("The process of removing an employee");
-    System.out.print("\nEnter Id of employee you would like to delete: \n");
+    System.out.println("Main menu >> Employees list >> Delete an employee");
+    System.out.print("\nEnter Id of employee you would like to delete:\n");
 
     do {
 
@@ -133,7 +155,7 @@ public class EmployeeMapper {
 
       while (!isCreatable(idToCheck)) {
         System.out.print("Wrong data! Enter " +
-            "Id of employee you would like to delete: \n");
+            "Id of employee you would like to delete:\n");
         idToCheck = scanner.nextLine();
       }
 
@@ -147,7 +169,7 @@ public class EmployeeMapper {
         }
       }
       if (!isEmployeeFound) {
-        System.out.println("Employee is not found! Enter correct Id: ");
+        System.out.println("Employee is not found! Enter correct Id:\n");
       }
     } while (!isEmployeeFound);
   }

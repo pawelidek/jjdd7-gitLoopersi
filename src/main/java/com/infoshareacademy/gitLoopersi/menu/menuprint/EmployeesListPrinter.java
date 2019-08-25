@@ -19,10 +19,7 @@ public class EmployeesListPrinter implements Menu {
 
   @Override
   public void doAction() {
-
-    EmployeeService employeeService = new EmployeeService();
-    employeeService.loadEmployeeData();
-
+    System.out.println("Main menu >> Employees list\n");
 //      Copyright 2017 freva
 //      Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 //      documentation files (the "Software"), to deal in the Software without restriction, including without limitation
@@ -55,10 +52,10 @@ public class EmployeesListPrinter implements Menu {
                 DateTimeFormatter.ofPattern(AppConfig.getDateFormat())))
         )));
 
-    System.out.println("\n1. Add worker");
-    System.out.println("2. Delete worker");
+    System.out.println("\n1. Add an employee");
+    System.out.println("2. Delete an employee");
     System.out.println("0. Return");
-    System.out.println("Type \"exit\" to close the app");
+    System.out.println("\nType \"exit\" to close the app");
   }
 
   private ColumnData<Employee> createColumn(String name,

@@ -18,8 +18,8 @@ public class HolidayMapper {
     HolidayService holidayService = new HolidayService();
 
     Scanner scanner = new Scanner(System.in);
-    System.out.println("Holidays holiday by name.\n");
-    System.out.println("Enter the name of the holiday: ");
+    System.out.println("Main menu >> Search engine >> Holiday >> By name");
+    System.out.println("\nEnter the name of the holiday: ");
     String name = scanner.nextLine();
 
     List<Holiday> myList = HolidayRepository.getAllHolidays();
@@ -31,15 +31,14 @@ public class HolidayMapper {
       }
     }
     if (!holidayFound) {
-      System.out.println("There is no holiday");
+      System.out.println("\nThere is no holiday");
     }
     System.out.println("\nType '0' to return or 'Enter' to find another holiday.");
   }
 
   public void validateCorrectInputDataForHolidayDate() {
-
-    System.out.println("Check whether the given day is a non-working.\n");
-    System.out.println("Enter Date in format " + AppConfig.getDateFormat() + ":");
+    System.out.println("Main menu >> Search engine >> Holiday >> By date");
+    System.out.println("\nEnter Date from this or next year in format " + AppConfig.getDateFormat() + ":");
     Scanner scanner = new Scanner(System.in);
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
     LocalDate dateToCheck = null;
@@ -48,9 +47,19 @@ public class HolidayMapper {
       try {
         dateToCheck = simpleDateFormat
             .parse(tempDateToCheck).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        while (dateToCheck.getYear() < 2019 || dateToCheck.getYear() > 2020)
+             {
+          System.out.println("\nWrong data! Enter Date from this or next year: ");
+          tempDateToCheck = scanner.nextLine();
+
+          dateToCheck = simpleDateFormat.parse(tempDateToCheck)
+              .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        }
+
       } catch (ParseException e) {
         System.out
-            .println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
+            .println("\nWrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
       }
     } while (dateToCheck == null);
     List<Holiday> myList = HolidayRepository.getAllHolidays();
@@ -60,7 +69,7 @@ public class HolidayMapper {
         continue;
       }
       if (dateToCheck.equals(holiday.getDate())) {
-        System.out.println("Non-working day because it is Holiday");
+        System.out.println("\nNon-working day because it is Holiday");
         holidayFound = true;
         break;
       }
@@ -68,13 +77,13 @@ public class HolidayMapper {
     if (!holidayFound) {
       switch (dateToCheck.getDayOfWeek()) {
         case SUNDAY:
-          System.out.println("Non-working day because it is Sunday");
+          System.out.println("\nNon-working day because it is Sunday");
           break;
         case SATURDAY:
-          System.out.println("Non-working day because it is Saturday");
+          System.out.println("\nNon-working day because it is Saturday");
           break;
         default:
-          System.out.println("Working day");
+          System.out.println("\nWorking day");
       }
     }
     System.out.println("\nType '0' to return or 'Enter' to check another date.");

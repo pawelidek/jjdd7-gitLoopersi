@@ -12,8 +12,7 @@ public class AppConfigMapper {
 
   public void validateCorrectInputDataForConfigurationOfDateFormatting() {
     Scanner scanner = new Scanner(System.in);
-    System.out.println("The process of date formatting new configuration.\n");
-    System.out.print("Enter new date format: ");
+    System.out.print("\nEnter new date format:\n");
     String dateFormat = null;
     do {
       String tempDateFormat = scanner.nextLine();
@@ -32,8 +31,7 @@ public class AppConfigMapper {
 
   public void validateCorrectInputDataForConfigurationOfSorting() {
     Scanner scanner = new Scanner(System.in);
-    System.out.println("The process of sorting property new configuration.\n");
-    System.out.print("Enter new sorting configuration (ASC/DESC): ");
+    System.out.print("\nEnter new sorting configuration (ASC/DESC):\n");
     String sortType = null;
     do {
       String tempSortType = scanner.nextLine();
