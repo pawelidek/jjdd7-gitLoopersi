@@ -31,7 +31,7 @@ public class HolidayMapper {
       }
     }
     if (!holidayFound) {
-      System.out.println("There is no holiday");
+      System.out.println("\nThere is no holiday");
     }
     System.out.println("\nType '0' to return or 'Enter' to find another holiday.");
   }
@@ -59,7 +59,7 @@ public class HolidayMapper {
         continue;
       }
       if (dateToCheck.equals(holiday.getDate())) {
-        System.out.println("Non-working day because it is Holiday");
+        System.out.println("\nNon-working day because it is Holiday");
         holidayFound = true;
         break;
       }
@@ -67,13 +67,13 @@ public class HolidayMapper {
     if (!holidayFound) {
       switch (dateToCheck.getDayOfWeek()) {
         case SUNDAY:
-          System.out.println("Non-working day because it is Sunday");
+          System.out.println("\nNon-working day because it is Sunday");
           break;
         case SATURDAY:
-          System.out.println("Non-working day because it is Saturday");
+          System.out.println("\nNon-working day because it is Saturday");
           break;
         default:
-          System.out.println("Working day");
+          System.out.println("\nWorking day");
       }
     }
     System.out.println("\nType '0' to return or 'Enter' to check another date.");

@@ -59,7 +59,7 @@ public class VacationSearchEngine {
       System.out.println("\nThere are no employees added to database!");
     }
 
-    System.out.println("\nType '0' to return.");
+    System.out.println("\nType '0' to return");
     System.out.println("\nType \"exit\" to close the app");
   }
 

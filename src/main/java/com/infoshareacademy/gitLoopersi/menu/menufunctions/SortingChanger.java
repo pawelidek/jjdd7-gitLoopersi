@@ -11,7 +11,7 @@ public class SortingChanger implements Menu {
 
     AppConfigMapper appConfigMapper = new AppConfigMapper();
     appConfigMapper.validateCorrectInputDataForConfigurationOfSorting();
-    System.out.println("\nType '0' to return.");
+    System.out.println("\nType '0' to return");
     System.out.println("\nType \"exit\" to close the app");
   }
 }
