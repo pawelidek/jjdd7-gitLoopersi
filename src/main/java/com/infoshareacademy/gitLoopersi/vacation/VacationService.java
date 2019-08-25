@@ -2,6 +2,7 @@ package com.infoshareacademy.gitLoopersi.vacation;
 
 import com.infoshareacademy.gitLoopersi.deserialization.Deserializator;
 import com.infoshareacademy.gitLoopersi.domain.Vacation;
+import com.infoshareacademy.gitLoopersi.menu.ConsoleCleaner;
 import com.infoshareacademy.gitLoopersi.repository.VacationRepository;
 import com.infoshareacademy.gitLoopersi.serialization.Serializator;
 import java.util.List;
@@ -34,6 +35,7 @@ public class VacationService {
   void cancelVacation(Vacation vacation) {
     VacationRepository.getVacationList().remove(vacation);
     serializator.serialize(VacationRepository.getVacationList(), getFileName());
+    ConsoleCleaner.cleanConsole();
     System.out.println("\nVacation has been successfully cancelled.");
     System.out.println("\nType '0' to return or 'Enter' to cancel vacation.");
   }

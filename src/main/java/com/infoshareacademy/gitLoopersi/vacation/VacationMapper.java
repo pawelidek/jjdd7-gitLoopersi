@@ -6,6 +6,7 @@ import static org.apache.commons.lang3.math.NumberUtils.isCreatable;
 import com.infoshareacademy.gitLoopersi.domain.Employee;
 import com.infoshareacademy.gitLoopersi.domain.Holiday;
 import com.infoshareacademy.gitLoopersi.domain.Vacation;
+import com.infoshareacademy.gitLoopersi.menu.ConsoleCleaner;
 import com.infoshareacademy.gitLoopersi.parser.Parser;
 import com.infoshareacademy.gitLoopersi.parser.TypeOfHoliday;
 import com.infoshareacademy.gitLoopersi.properties.AppConfig;
@@ -117,7 +118,6 @@ public class VacationMapper {
           System.out.println("If you do not have a vacation within the given date range,"
               + " please define the exact date range.");
           System.out.println("\nType '0' to return or 'Enter' to cancel another vacation.");
-          break;
         }
       }
     } else {
@@ -144,33 +144,26 @@ public class VacationMapper {
       try {
         vacationDateFrom = simpleDateFormat.parse(vacationDateFromString)
             .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        if (vacationDateFrom.getYear() == today.getYear() || vacationDateFrom.getYear() == today
-            .plusYears(1).getYear()) {
-          Timestamp timestampVacationFrom = Timestamp
-              .valueOf(vacationDateFrom.atTime(LocalTime.MIDNIGHT));
-          setVacationDateFromCounter(timestampVacationFrom.getTime());
 
-          while (todayDate > getVacationDateFromCounter()) {
+        Timestamp timestampVacationFrom = Timestamp
+            .valueOf(vacationDateFrom.atTime(LocalTime.MIDNIGHT));
+        setVacationDateFromCounter(timestampVacationFrom.getTime());
 
-            System.out.println("Wrong data! Give the date from the future: ");
-            vacationDateFromString = scanner.nextLine();
-            vacationDateFrom = simpleDateFormat.parse(vacationDateFromString)
-                .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if ((vacationDateFrom.getYear() == today.getYear() || vacationDateFrom.getYear() == today
+            .plusYears(1).getYear()) && (todayDate < getVacationDateFromCounter())) {
 
-            timestampVacationFrom = Timestamp
-                .valueOf(vacationDateFrom.atTime(LocalTime.MIDNIGHT));
-            setVacationDateFromCounter(timestampVacationFrom.getTime());
-          }
+          vacationDateFrom = simpleDateFormat.parse(vacationDateFromString)
+              .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         } else {
-          System.out.println(
-              "\nYou can define or cancel your vacation from today until the end of next year!" +
-                  "\nEnter vacation date from (Format: " + AppConfig.getDateFormat() + "): ");
+          System.out.println("Wrong data! Give the date from the future" +
+              "\nPress \"enter\" to enter the correct date");
           vacationDateFrom = null;
         }
       } catch (ParseException e) {
         vacationDateFrom = null;
         System.out.println(
-            "Wrong data! Please enter data in format " + AppConfig.getDateFormat() + "): ");
+            "\nYou can define or cancel your vacation from today until the end of next year!" +
+                "\nWrong data! Please enter data in format " + AppConfig.getDateFormat() + "): ");
       }
     } while (vacationDateFrom == null);
 
@@ -190,34 +183,27 @@ public class VacationMapper {
       try {
         vacationDateTo = simpleDateFormat.parse(vacationDateToString)
             .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        Timestamp timestampVacationTo = Timestamp
+            .valueOf(vacationDateTo.atTime(LocalTime.MIDNIGHT));
+        setVacationDateToCounter(timestampVacationTo.getTime());
+
         if (vacationDateTo.getYear() == today.getYear() || vacationDateTo.getYear() == today
-            .plusYears(1).getYear()) {
-          Timestamp timestampVacationTo = Timestamp
-              .valueOf(vacationDateTo.atTime(LocalTime.MIDNIGHT));
+            .plusYears(1).getYear() && (getVacationDateToCounter()
+            > getVacationDateFromCounter())) {
 
-          setVacationDateToCounter(timestampVacationTo.getTime());
-
-          while (getVacationDateToCounter() < getVacationDateFromCounter()) {
-
-            System.out.println("Wrong data! Give the date from the future: ");
-            vacationDateToString = scanner.nextLine();
-
-            vacationDateTo = simpleDateFormat.parse(vacationDateToString)
-                .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-            timestampVacationTo = Timestamp
-                .valueOf(vacationDateTo.atTime(LocalTime.MIDNIGHT));
-            setVacationDateToCounter(timestampVacationTo.getTime());
-          }
+          vacationDateTo = simpleDateFormat.parse(vacationDateToString)
+              .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         } else {
-          System.out.println(
-              "You can define or cancel your vacation from today until the end of next year");
+          System.out.println("Wrong data! Give the date from the future" +
+              "\nPress \"enter\" to enter the correct date");
           vacationDateTo = null;
         }
       } catch (ParseException e) {
         vacationDateTo = null;
         System.out.println(
-            "Wrong data! Please enter data in format " + AppConfig.getDateFormat() + " : ");
+            "\nYou can define or cancel your vacation from today until the end of next year!" +
+                "\nWrong data! Please enter data in format " + AppConfig.getDateFormat() + "): ");
       }
     } while (vacationDateTo == null);
 
@@ -240,7 +226,6 @@ public class VacationMapper {
   private int validateAndCalculateVacationDays(LocalDate vacationDateFrom,
       LocalDate vacationDateTo) {
 
-    Parser parser = new Parser();
     List<Holiday> holidayList = HolidayRepository.getAllHolidays();
 
     int amountOfDaysOff = 0;
