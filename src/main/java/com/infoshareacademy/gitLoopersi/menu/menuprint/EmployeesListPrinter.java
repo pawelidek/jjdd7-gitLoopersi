@@ -29,6 +29,7 @@ public class EmployeesListPrinter implements Menu {
     Character[] borderStyle = AsciiTable.FANCY_ASCII;
 
     List<Employee> allEmployees = EmployeeRepository.getEmployeeList();
+
     if ("ASC".equals(AppConfig.getSort())) {
       Collections.sort(allEmployees);
     } else {

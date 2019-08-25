@@ -12,6 +12,7 @@ public class HeaderPrinter implements Menu {
     System.out.println("3. Vacation");
     System.out.println("4. Search");
     System.out.println("5. Configuration");
+    System.out.println("6. Calendar");
     System.out.println("\nType \"exit\" to close the app");
   }
 }
