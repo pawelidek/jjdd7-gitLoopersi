@@ -1,4 +1,4 @@
-package com.infoshareacademy.gitLoopersi.vacation;
+package com.infoshareacademy.gitLoopersi.team;
 
 import static org.apache.commons.lang3.math.NumberUtils.isCreatable;
 
@@ -15,7 +15,6 @@ import com.infoshareacademy.gitLoopersi.properties.AppConfig;
 import com.infoshareacademy.gitLoopersi.repository.EmployeeRepository;
 import com.infoshareacademy.gitLoopersi.repository.TeamRepository;
 import com.infoshareacademy.gitLoopersi.repository.VacationRepository;
-import com.infoshareacademy.gitLoopersi.team.TeamService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -30,7 +29,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class VacationSearchEngine {
+public class TeamVacationSearcher {
 
   private ArrayList<Employee> listOfMatchingEmployees;
   private Employee searchedEmployee;
@@ -43,7 +42,7 @@ public class VacationSearchEngine {
   public void searchEmployeeVacation() {
 
     if (EmployeeRepository.getEmployeeList().size() != 0) {
-      searchForEmployee();
+      searchTeamVacation();
       ConsoleCleaner.cleanConsole();
 
       if (getSearchedEmployee() == null) {
@@ -63,9 +62,55 @@ public class VacationSearchEngine {
     System.out.println("Type \"exit\" to close the app");
   }
 
-  private void searchForEmployee() {
+  private void searchTeamVacation() {
+
+    Character[] borderStyle = AsciiTable.FANCY_ASCII;
 
     Scanner scanner = new Scanner(System.in);
+
+    boolean isTeamFound = false;
+    TeamService teamService1 = new TeamService();
+    teamService1.loadTeamData();
+    System.out.println("List of all teams " + TeamRepository.getAllTeams());
+    System.out.println("Enter a team that you want to choose: ");
+    String choosenTeam = scanner.nextLine();
+    Team team = new Team(choosenTeam);
+
+      for (int i = 0; i < TeamRepository.getAllTeams().size(); i++) {
+        if (team.equals(TeamRepository.getAllTeams().get(i))) {
+          System.out.println("Team selected: " + team);
+          List<Employee> allEmployees = EmployeeRepository.getEmployeeList().stream()
+              .filter(employee -> team.equals(employee.getTeam()))
+              .collect(Collectors.toList());
+
+          if ("ASC".equals(AppConfig.getSort())) {
+            Collections.sort(allEmployees);
+          } else {
+            Collections.reverse(allEmployees);
+          }
+
+          System.out.println(
+              AsciiTable.getTable(borderStyle, allEmployees, Arrays.asList(
+                  createColumn("Index",
+                      employee -> String
+                          .valueOf(allEmployees
+                              .indexOf(employee) + 1)),
+                  createColumn("Id", employee -> String.valueOf(employee.getId())),
+                  createColumn("Name", Employee::getFirstName),
+                  createColumn("Last Name", Employee::getSecondName),
+                  createColumn("Team", employee -> employee.getTeam().toString()),
+                  createColumn("Work start date", employee -> employee.getStartDate().format(
+                      DateTimeFormatter.ofPattern(AppConfig.getDateFormat()))),
+                  createColumn("Hirement date", employee -> employee.getStartHireDate().format(
+                      DateTimeFormatter.ofPattern(AppConfig.getDateFormat())))
+              )));
+          isTeamFound = true;
+          break;
+        }
+      }
+        if (!isTeamFound) {
+          System.out.println("There is no team named like that. Try again: ");
+        }
 
     System.out.println("Enter at least three signs of searched employee name: ");
 
@@ -149,7 +194,7 @@ public class VacationSearchEngine {
     System.out.println(
         AsciiTable.getTable(borderStyle, searchedEmployeeVacationList,
             Arrays.asList(
-                createColumnVacation("Index",
+                createColumnVacation("Employee ID",
                     i -> String
                         .valueOf(VacationRepository.getVacationList()
                             .indexOf(i) + 1)),
