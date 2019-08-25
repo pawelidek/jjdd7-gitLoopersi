@@ -1,13 +1,11 @@
 package com.infoshareacademy.gitLoopersi.team;
 
-import static org.apache.commons.lang3.math.NumberUtils.isCreatable;
 
 import com.github.freva.asciitable.AsciiTable;
 import com.github.freva.asciitable.Column;
 import com.github.freva.asciitable.ColumnData;
 import com.github.freva.asciitable.HorizontalAlign;
 import com.infoshareacademy.gitLoopersi.domain.Employee;
-import com.infoshareacademy.gitLoopersi.domain.Team;
 import com.infoshareacademy.gitLoopersi.domain.Vacation;
 import com.infoshareacademy.gitLoopersi.menu.ConsoleCleaner;
 import com.infoshareacademy.gitLoopersi.properties.AppConfig;
@@ -24,35 +22,19 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class TeamVacationSearcher {
 
-  private ArrayList<Employee> listOfMatchingEmployees;
-  private Employee searchedEmployee;
-  private Predicate<Vacation> myFilterFrom;
-  private Predicate<Vacation> myFilterTo;
-  private LocalDate from;
-  private LocalDate to;
-
-
   public void searchTeamVacation() {
 
     if (EmployeeRepository.getEmployeeList().size() != 0) {
-      searchEmployeeVacationByTeam();
+      List<Employee> employeesFromTeam = searchEmployeesFromTeam();
+      LocalDate[] datesRange = dateFiltering();
+      showListOfMatchingVacations(datesRange, employeesFromTeam);
       ConsoleCleaner.cleanConsole();
-
-      if (getSearchedEmployee() == null) {
-        System.out.println("There is no matching employee!");
-
-      } else {
-        makeFilter();
-        ConsoleCleaner.cleanConsole();
-        showListOfEmployeeVacation();
-      }
-
     } else {
       System.out.println("There are no employees added to database!");
     }
@@ -61,146 +43,125 @@ public class TeamVacationSearcher {
     System.out.println("Type \"exit\" to close the app");
   }
 
-  private void searchEmployeeVacationByTeam() {
-
-    Character[] borderStyle = AsciiTable.FANCY_ASCII;
-
+  private List<Employee> searchEmployeesFromTeam() {
     Scanner scanner = new Scanner(System.in);
-
     boolean isTeamFound = false;
     TeamService teamService1 = new TeamService();
     teamService1.loadTeamData();
     System.out.println("List of all teams " + TeamRepository.getAllTeams());
     System.out.println("Enter a team that you want to choose: ");
-    String choosenTeam = scanner.nextLine();
-    Team team = new Team(choosenTeam);
-
+    List<Employee> filteredEmployees = new ArrayList<>();
+    do {
+      String choosenTeam = scanner.nextLine().toLowerCase();
       for (int i = 0; i < TeamRepository.getAllTeams().size(); i++) {
-        if (team.equals(TeamRepository.getAllTeams().get(i))) {
-          System.out.println("Team selected: " + team);
-          List<Employee> allEmployees = EmployeeRepository.getEmployeeList().stream()
-              .filter(employee -> team.equals(employee.getTeam()))
+        if (choosenTeam.equals(TeamRepository.getAllTeams().get(i).getName().toLowerCase())) {
+          System.out.println("Team selected: " + choosenTeam);
+          filteredEmployees = EmployeeRepository.getEmployeeList().stream()
+              .filter(employee -> choosenTeam.equals(employee.getTeam().getName().toLowerCase()))
               .collect(Collectors.toList());
-
           if ("ASC".equals(AppConfig.getSort())) {
-            Collections.sort(allEmployees);
+            Collections.sort(filteredEmployees);
           } else {
-            Collections.reverse(allEmployees);
+            Collections.reverse(filteredEmployees);
           }
-
-          System.out.println(
-              AsciiTable.getTable(borderStyle, allEmployees, Arrays.asList(
-                  createColumn("Index",
-                      employee -> String
-                          .valueOf(allEmployees
-                              .indexOf(employee) + 1)),
-                  createColumn("Id", employee -> String.valueOf(employee.getId())),
-                  createColumn("Name", Employee::getFirstName),
-                  createColumn("Last Name", Employee::getSecondName),
-                  createColumn("Team", employee -> employee.getTeam().toString()),
-                  createColumn("Work start date", employee -> employee.getStartDate().format(
-                      DateTimeFormatter.ofPattern(AppConfig.getDateFormat()))),
-                  createColumn("Hirement date", employee -> employee.getStartHireDate().format(
-                      DateTimeFormatter.ofPattern(AppConfig.getDateFormat())))
-              )));
           isTeamFound = true;
-          break;
         }
       }
-        if (!isTeamFound) {
-          System.out.println("There is no team named like that. Try again: ");
-        }
-
-    System.out.println("Enter at least three signs of searched employee name: ");
-
-    String searchedPhrase = scanner.nextLine().toLowerCase();
-    int characterQuantity = searchedPhrase.length();
-
-    while (characterQuantity < 3) {
-      System.out.println("Please enter at least three signs! Enter searched phrase: ");
-      searchedPhrase = scanner.nextLine().toLowerCase();
-      characterQuantity = searchedPhrase.length();
-    }
-
-    String finalSearchedPhrase = searchedPhrase;
-
-    listOfMatchingEmployees = (ArrayList<Employee>) EmployeeRepository.getEmployeeList()
-        .stream()
-        .filter(
-            e -> (e.getFirstName().concat(" " + e.getSecondName())).toLowerCase()
-                .contains(finalSearchedPhrase))
-        .sorted()
-        .collect(Collectors.toList());
-
-    if (listOfMatchingEmployees.size() == 0) {
-      searchedEmployee = null;
-
-    } else if (listOfMatchingEmployees.size() == 1) {
-      searchedEmployee = listOfMatchingEmployees.get(0);
-
-    } else {
-      showListOfMatchingEmployees();
-      pickEmployeeFromList(scanner);
-    }
+      if (!isTeamFound) {
+        System.out.println("Incorrect team name, try again:");
+      }
+    } while (!isTeamFound);
+    return filteredEmployees;
   }
 
-  private void makeFilter() {
-    System.out.println("Do you want to filter results by date? Y/N");
-
+  private LocalDate[] dateFiltering() {
     Scanner scanner = new Scanner(System.in);
-    String answer = scanner.nextLine().toLowerCase();
-
-    if ("y".equals(answer)) {
-
-      this.from = validateFilterDateFrom().plusDays(-1);
-      this.to = validateFilterDateTo().plusDays(1);
-      this.myFilterFrom = (vacation -> vacation.getDateFrom().isAfter(from));
-      this.myFilterTo = (vacation -> vacation.getDateTo().isBefore(to));
-    }
-  }
-
-  private void showListOfEmployeeVacation() {
-    String searchedEmployee = getSearchedEmployee()
-        .getFirstName().concat(" " + getSearchedEmployee().getSecondName())
-        .toUpperCase();
-
-    Long searchedEmployeeId = getSearchedEmployee().getId();
-
-    System.out.println("PLANNED VACATION OF: " + searchedEmployee);
-    if (myFilterFrom != null || myFilterTo != null) {
-      System.out.println("From " + from.plusDays(1) + " to " + to.plusDays(-1));
-    }
-
-    List<Vacation> searchedEmployeeVacationList;
-
-    if (myFilterFrom == null || myFilterTo == null) {
-
-      searchedEmployeeVacationList = VacationRepository.getVacationList().stream()
-          .filter(vacation -> vacation.getEmployeeId().equals(searchedEmployeeId))
-          .collect(Collectors.toList());
-
-    } else {
-
-      searchedEmployeeVacationList = VacationRepository.getVacationList().stream()
-          .filter(vacation -> vacation.getEmployeeId().equals(searchedEmployeeId))
-          .filter(myFilterFrom)
-          .filter(myFilterTo)
-          .collect(Collectors.toList());
-    }
-
-    Character[] borderStyle = AsciiTable.FANCY_ASCII;
+    System.out.print(
+        "\nEnter start date from wanted range(Format: " + AppConfig.getDateFormat() + "): ");
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
+    LocalDate firstDate = null;
+    do {
+      String startWorkDateString = scanner.nextLine();
+      try {
+        firstDate = simpleDateFormat
+            .parse(startWorkDateString).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+      } catch (ParseException e) {
+        System.out
+            .println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
+        continue;
+      }
+      if (firstDate.isAfter(LocalDate.now(ZoneId.systemDefault()).plusYears(1))) {
+        firstDate = null;
+        System.out
+            .println("Wrong data! Date later than one year "
+                + "from now is not allowed here. Enter new Date: ");
+      }
+    } while (firstDate == null);
 
     System.out.println(
-        AsciiTable.getTable(borderStyle, searchedEmployeeVacationList,
+        "\nEnter end date from wanted range(Format: " + AppConfig.getDateFormat() + "): ");
+    LocalDate secondDate = null;
+    do {
+      String startHireDateString = scanner.nextLine();
+      try {
+        secondDate = simpleDateFormat
+            .parse(startHireDateString).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+      } catch (ParseException e) {
+        System.out
+            .println("Wrong date! Please enter data in format " + AppConfig.getDateFormat() + ": ");
+      }
+      if (secondDate.isAfter(LocalDate.now(ZoneId.systemDefault()).plusYears(1))) {
+        secondDate = null;
+        System.out
+            .println("Wrong data! Date later than one year "
+                + "from now is not allowed here. Enter new Date: ");
+      }
+      if (!secondDate.isAfter(firstDate) && !firstDate.isEqual(secondDate)) {
+        secondDate = null;
+        System.out
+            .println("Wrong data! The end date have to be "
+                + "later or equal to start working date. Enter new Date: ");
+      }
+    } while (secondDate == null);
+    return new LocalDate[]{firstDate, secondDate};
+  }
+
+  private void showListOfMatchingVacations(LocalDate[] dateRange,
+      List<Employee> employeesFromTeam) {
+    Set<Long> ids = employeesFromTeam
+        .stream()
+        .map(e -> e.getId())
+        .collect(Collectors.toSet());
+
+    Set<LocalDate> rangeofDates = dateRange[0].datesUntil(dateRange[1].plusDays(1))
+        .collect(Collectors.toUnmodifiableSet());
+
+    List<Vacation> allVacation = VacationRepository.getVacationList();
+
+    List<Vacation> selectedVacation = allVacation.stream()
+        .filter(e -> !Collections.disjoint(e.getDateFrom().datesUntil(e.getDateTo().plusDays(1))
+            .collect(Collectors.toUnmodifiableSet()), rangeofDates))
+        .filter(e -> ids.contains(e.getEmployeeId()))
+        .collect(Collectors.toList());
+
+    Character[] borderStyle = AsciiTable.FANCY_ASCII;
+    System.out.println(
+        AsciiTable.getTable(borderStyle, selectedVacation,
             Arrays.asList(
                 createColumnVacation("Employee ID",
                     i -> String
                         .valueOf(VacationRepository.getVacationList()
                             .indexOf(i) + 1)),
+                createColumnVacation("First name", vacation -> employeesFromTeam.stream()
+                    .filter(e -> e.getId().equals(vacation.getEmployeeId())).findFirst().get()
+                    .getFirstName()),
+                createColumnVacation("Second name", vacation -> employeesFromTeam.stream()
+                    .filter(e -> e.getId().equals(vacation.getEmployeeId())).findFirst().get()
+                    .getSecondName()),
                 createColumnVacation("Vacation start date", vacation -> vacation.getDateFrom()
-                    .format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))),
+                    .format(DateTimeFormatter.ofPattern(AppConfig.getDateFormat()))),
                 createColumnVacation("Vacation end date", vacation -> vacation.getDateTo()
-                    .format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))),
+                    .format(DateTimeFormatter.ofPattern(AppConfig.getDateFormat()))),
                 createColumnVacation("Duration",
                     vacation -> String.valueOf(vacation.getCountOfDays()))
             )));
@@ -213,132 +174,5 @@ public class TeamVacationSearcher {
         .headerAlign(HorizontalAlign.CENTER)
         .dataAlign(HorizontalAlign.LEFT)
         .with(functionReference);
-  }
-
-  private void showListOfMatchingEmployees() {
-
-    System.out.println("\nDid you think of...? ");
-    Character[] borderStyle = AsciiTable.FANCY_ASCII;
-
-    System.out.println(
-        AsciiTable.getTable(borderStyle, getListOfMatchingEmployees(), Arrays.asList(
-            createColumn("Index",
-                employee -> String
-                    .valueOf(getListOfMatchingEmployees()
-                        .indexOf(employee) + 1)),
-            createColumn("Id", employee -> String.valueOf(employee.getId())),
-            createColumn("Name", Employee::getFirstName),
-            createColumn("Last Name", Employee::getSecondName),
-            createColumn("Team", employee -> employee.getTeam().toString())
-        )));
-  }
-
-  private ColumnData<Employee> createColumn(String name,
-      Function<Employee, String> functionReference) {
-    return new Column()
-        .header(name)
-        .headerAlign(HorizontalAlign.CENTER)
-        .dataAlign(HorizontalAlign.LEFT)
-        .with(functionReference);
-  }
-
-  private void pickEmployeeFromList(Scanner scanner) {
-    System.out.println("Enter the index of an employee you wanted to type: ");
-
-    boolean isPickCorrect = false;
-
-    do {
-      String pickToCheck = scanner.nextLine();
-
-      while (!isCreatable(pickToCheck)) {
-        System.out.print("Wrong data! Enter " +
-            "index of an employee you wanted to type: \n");
-        pickToCheck = scanner.nextLine();
-      }
-
-      int pick = Integer.parseInt(pickToCheck);
-
-      if ((pick > 0) && (pick <= (getListOfMatchingEmployees().size()))) {
-
-        searchedEmployee = getListOfMatchingEmployees().get(pick - 1);
-        isPickCorrect = true;
-
-      } else {
-        System.out.print("There is no such an index! Enter " +
-            "correct index of an employee you wanted to type: \n");
-      }
-    } while (!isPickCorrect);
-  }
-
-  private LocalDate validateFilterDateFrom() {
-
-    Scanner scanner = new Scanner(System.in);
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
-    LocalDate vacationDateFrom;
-
-    System.out.println("Enter vacation date from (Format: " + AppConfig.getDateFormat() + "): ");
-
-    do {
-      String vacationDateFromString = scanner.nextLine();
-
-      try {
-        vacationDateFrom = simpleDateFormat.parse(vacationDateFromString)
-            .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-        while (vacationDateFrom.isBefore(getSearchedEmployee().getStartHireDate())) {
-          System.out.println("Wrong data! Give the date not older than hire date: ");
-          vacationDateFromString = scanner.nextLine();
-
-          vacationDateFrom = simpleDateFormat.parse(vacationDateFromString)
-              .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        }
-
-      } catch (ParseException e) {
-        vacationDateFrom = null;
-        System.out.println(
-            "Wrong data! Please enter data in format " + AppConfig.getDateFormat() + "): ");
-      }
-    } while (vacationDateFrom == null);
-
-    return vacationDateFrom;
-  }
-
-  private LocalDate validateFilterDateTo() {
-
-    Scanner scanner = new Scanner(System.in);
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
-    LocalDate vacationDateTo;
-
-    System.out.println("Enter vacation date to (Format: " + AppConfig.getDateFormat() + "): ");
-    do {
-      String vacationDateToString = scanner.nextLine();
-      try {
-        vacationDateTo = simpleDateFormat.parse(vacationDateToString)
-            .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-        while (vacationDateTo.isBefore(from.plusDays(1))) {
-          System.out.println("Wrong data! Give the date later than the filter start date: ");
-          vacationDateToString = scanner.nextLine();
-
-          vacationDateTo = simpleDateFormat.parse(vacationDateToString)
-              .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        }
-
-      } catch (ParseException e) {
-        vacationDateTo = null;
-        System.out.println(
-            "Wrong data! Please enter data in format " + AppConfig.getDateFormat() + " : ");
-      }
-    } while (vacationDateTo == null);
-
-    return vacationDateTo;
-  }
-
-  private List<Employee> getListOfMatchingEmployees() {
-    return listOfMatchingEmployees;
-  }
-
-  private Employee getSearchedEmployee() {
-    return searchedEmployee;
   }
 }

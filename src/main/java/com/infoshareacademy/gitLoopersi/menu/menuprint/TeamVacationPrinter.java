@@ -8,7 +8,7 @@ public class TeamVacationPrinter implements Menu {
   public void doAction() {
 
     System.out.println("Main menu >> Search engine >> Team vacation");
-    System.out.println("\n1. Find Find vacation team");
+    System.out.println("\n1. Find vacation team");
     System.out.println("0. Return");
     System.out.println("\nType \"exit\" to close the app");
   }
