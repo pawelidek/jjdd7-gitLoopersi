@@ -21,8 +21,8 @@ public class EmployeeMapper {
     EmployeeService employeeService = new EmployeeService();
 
     Scanner scanner = new Scanner(System.in);
-    System.out.println("The process of adding an employee.\n");
-    System.out.print("Enter new employee's first name: ");
+    System.out.println("Main menu >> Employees list >> Add an employee");
+    System.out.print("\nEnter new employee's first name: ");
     String firstName = scanner.nextLine();
     while (firstName.length() == 0) {
       System.out.print("\nEmpty value has been put! Enter new employee's first name: ");
@@ -124,7 +124,7 @@ public class EmployeeMapper {
     Scanner scanner = new Scanner(System.in);
     boolean isEmployeeFound = false;
 
-    System.out.println("The process of removing an employee");
+    System.out.println("Main menu >> Employees list >> Delete an employee");
     System.out.print("\nEnter Id of employee you would like to delete: \n");
 
     do {

@@ -18,8 +18,8 @@ public class HolidayMapper {
     HolidayService holidayService = new HolidayService();
 
     Scanner scanner = new Scanner(System.in);
-    System.out.println("Holidays holiday by name.\n");
-    System.out.println("Enter the name of the holiday: ");
+    System.out.println("Main menu >> Search engine >> Holiday >> By name");
+    System.out.println("\nEnter the name of the holiday: ");
     String name = scanner.nextLine();
 
     List<Holiday> myList = HolidayRepository.getAllHolidays();
@@ -37,9 +37,8 @@ public class HolidayMapper {
   }
 
   public void validateCorrectInputDataForHolidayDate() {
-
-    System.out.println("Check whether the given day is a non-working.\n");
-    System.out.println("Enter Date in format " + AppConfig.getDateFormat() + ":");
+    System.out.println("Main menu >> Search engine >> Holiday >> By date");
+    System.out.println("\nEnter Date in format " + AppConfig.getDateFormat() + ":");
     Scanner scanner = new Scanner(System.in);
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
     LocalDate dateToCheck = null;

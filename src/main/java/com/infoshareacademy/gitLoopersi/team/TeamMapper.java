@@ -12,8 +12,8 @@ public class TeamMapper {
     TeamService teamService = new TeamService();
 
     Scanner scanner = new Scanner(System.in);
-    System.out.println("The process of adding a team.\n");
-    System.out.println("Enter new teams name: ");
+    System.out.println("Main menu >> Teams list >> Add new team");
+    System.out.println("\nEnter new teams name: ");
     String newTeam = scanner.nextLine();
     Team team = new Team(newTeam);
     while (TeamRepository.getAllTeams().contains(team)) {
@@ -29,8 +29,8 @@ public class TeamMapper {
     TeamService teamService = new TeamService();
 
     Scanner scanner = new Scanner(System.in);
-    System.out.println("The process of removing a team.\n");
-    System.out.println("Enter a team that you want to delete: ");
+    System.out.println("Main menu >> Teams list >> Delete team");
+    System.out.println("\nEnter a team that you want to delete: ");
     boolean isTeamFound = false;
     do {
       String teamToDelete = scanner.nextLine();
@@ -55,8 +55,8 @@ public class TeamMapper {
 
     Scanner scanner = new Scanner(System.in);
     boolean isTeamFound = false;
-    System.out.println("Team name update process.\n");
-    System.out.println("Enter a team that you want to change name of: ");
+    System.out.println("Main menu >> Teams list >> Change team name");
+    System.out.println("\nEnter the name of the team you want to change: ");
     do {
       String teamToUpdateName = scanner.nextLine();
       Team team = new Team(teamToUpdateName);
