@@ -1,7 +1,6 @@
 package com.infoshareacademy.gitLoopersi.repository;
 
 import com.infoshareacademy.gitLoopersi.domain.Holiday;
-
 import java.util.ArrayList;
 import java.util.List;
 

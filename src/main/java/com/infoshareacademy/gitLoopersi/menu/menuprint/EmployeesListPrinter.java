@@ -9,7 +9,6 @@ import com.infoshareacademy.gitLoopersi.employee.EmployeeService;
 import com.infoshareacademy.gitLoopersi.menu.Menu;
 import com.infoshareacademy.gitLoopersi.properties.AppConfig;
 import com.infoshareacademy.gitLoopersi.repository.EmployeeRepository;
-
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,7 +32,11 @@ public class EmployeesListPrinter implements Menu {
     Character[] borderStyle = AsciiTable.FANCY_ASCII;
 
     List<Employee> allEmployees = EmployeeRepository.getEmployeeList();
+<<<<<<< HEAD
     if (AppConfig.getSort().equals("ASC")) {
+=======
+    if ("ASC".equals(AppConfig.getSort())) {
+>>>>>>> 1d49cbdf7a59406228c532870e3d5b33791a1d77
       Collections.sort(allEmployees);
     } else {
       Collections.reverse(allEmployees);
@@ -51,7 +54,7 @@ public class EmployeesListPrinter implements Menu {
             createColumn("Team", employee -> employee.getTeam().toString()),
             createColumn("Work start date", employee -> employee.getStartDate().format(
                 DateTimeFormatter.ofPattern(AppConfig.getDateFormat()))),
-            createColumn("Hire date", employee -> employee.getStartHireDate().format(
+            createColumn("Hirement date", employee -> employee.getStartHireDate().format(
                 DateTimeFormatter.ofPattern(AppConfig.getDateFormat())))
         )));
 

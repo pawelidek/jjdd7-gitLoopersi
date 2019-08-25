@@ -11,9 +11,6 @@ public class Vacation implements Serializable {
   private LocalDate dateTo;
   private Integer countOfDays;
 
-  public Vacation() {
-  }
-
   public Vacation(Integer countOfDays) {
     this.countOfDays = countOfDays;
   }
@@ -24,6 +21,9 @@ public class Vacation implements Serializable {
     this.dateFrom = dateFrom;
     this.dateTo = dateTo;
     this.countOfDays = countOfDays;
+  }
+
+  public Vacation() {
   }
 
   public Long getEmployeeId() {

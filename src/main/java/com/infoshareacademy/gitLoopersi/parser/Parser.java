@@ -1,11 +1,8 @@
 package com.infoshareacademy.gitLoopersi.parser;
 
 import com.infoshareacademy.gitLoopersi.domain.Holiday;
+import com.infoshareacademy.gitLoopersi.holiday.HolidayService;
 import com.infoshareacademy.gitLoopersi.repository.HolidayRepository;
-import com.infoshareacademy.gitLoopersi.search.HolidayService;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -14,6 +11,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class Parser {
 

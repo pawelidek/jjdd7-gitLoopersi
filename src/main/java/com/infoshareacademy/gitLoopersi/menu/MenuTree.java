@@ -2,12 +2,23 @@ package com.infoshareacademy.gitLoopersi.menu;
 
 import com.infoshareacademy.gitLoopersi.Calendar.Calendar;
 import com.infoshareacademy.gitLoopersi.employee.EmployeeMapper;
-import com.infoshareacademy.gitLoopersi.menu.menufunctions.*;
-import com.infoshareacademy.gitLoopersi.menu.menuprint.*;
-import com.infoshareacademy.gitLoopersi.search.HolidayMapper;
+import com.infoshareacademy.gitLoopersi.holiday.HolidayMapper;
+import com.infoshareacademy.gitLoopersi.menu.menufunctions.DateFormatter;
+import com.infoshareacademy.gitLoopersi.menu.menufunctions.SettingsImporter;
+import com.infoshareacademy.gitLoopersi.menu.menufunctions.SortingChanger;
+import com.infoshareacademy.gitLoopersi.menu.menufunctions.TeamVacationDateSearcher;
+import com.infoshareacademy.gitLoopersi.menu.menufunctions.TeamVacationSearcher;
+import com.infoshareacademy.gitLoopersi.menu.menuprint.ConfigurationsPrinter;
+import com.infoshareacademy.gitLoopersi.menu.menuprint.EmployeesListPrinter;
+import com.infoshareacademy.gitLoopersi.menu.menuprint.HeaderPrinter;
+import com.infoshareacademy.gitLoopersi.menu.menuprint.HolidayPrinter;
+import com.infoshareacademy.gitLoopersi.menu.menuprint.SearchEnginePrinter;
+import com.infoshareacademy.gitLoopersi.menu.menuprint.TeamVacationPrinter;
+import com.infoshareacademy.gitLoopersi.menu.menuprint.TeamsListPrinter;
+import com.infoshareacademy.gitLoopersi.menu.menuprint.VacationPrinter;
 import com.infoshareacademy.gitLoopersi.team.TeamMapper;
-
 import com.infoshareacademy.gitLoopersi.vacation.VacationMapper;
+import com.infoshareacademy.gitLoopersi.vacation.VacationSearchEngine;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,11 +37,9 @@ public class MenuTree {
     TeamsListPrinter teamsListPrinter = new TeamsListPrinter();
 
     HolidayPrinter holidayPrinter = new HolidayPrinter();
-    EmployeesVacationPrinter employeesVacationPrinter = new EmployeesVacationPrinter();
     TeamVacationPrinter teamVacationPrinter = new TeamVacationPrinter();
 
-    WorkerVacationSearcher workerVacationSearcher = new WorkerVacationSearcher();
-    EmployeeVacationDateSearcher employeeVacationDateSearcher = new EmployeeVacationDateSearcher();
+    VacationSearchEngine vacationSearchEngine = new VacationSearchEngine();
 
     TeamVacationSearcher teamVacationSearcher = new TeamVacationSearcher();
     TeamVacationDateSearcher teamVacationDateSearcher = new TeamVacationDateSearcher();
@@ -63,9 +72,7 @@ public class MenuTree {
     map.put("m41", holidayPrinter);
     map.put("m411", holidayMapper::validateCorrectInputDataForHolidayName);
     map.put("m412", holidayMapper::validateCorrectInputDataForHolidayDate);
-    map.put("m42", employeesVacationPrinter);
-    map.put("m421", workerVacationSearcher);
-    map.put("m422", employeeVacationDateSearcher);
+    map.put("m42", vacationSearchEngine::searchEmployeeVacation);
     map.put("m43", teamVacationPrinter);
     map.put("m431", teamVacationSearcher);
     map.put("m432", teamVacationDateSearcher);

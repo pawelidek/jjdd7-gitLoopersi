@@ -6,7 +6,7 @@ public class ConfigurationsPrinter implements Menu {
 
   @Override
   public void doAction() {
-    System.out.println("Configuration options.");
+    System.out.println("Configuration options");
     System.out.println("\n1. Import settings");
     System.out.println("2. Change date format");
     System.out.println("3. Change sorting for workers in team (ASC/DESC)");

@@ -6,7 +6,7 @@ public class HeaderPrinter implements Menu {
 
   @Override
   public void doAction() {
-    System.out.println("Main menu:");
+    System.out.println("Main menu");
     System.out.println("1. Workers list");
     System.out.println("2. Teams list");
     System.out.println("3. Vacation");
