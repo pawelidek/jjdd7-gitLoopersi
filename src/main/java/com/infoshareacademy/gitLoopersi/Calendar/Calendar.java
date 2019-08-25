@@ -79,6 +79,30 @@ public class Calendar {
     String monthx = "";
     for (int month = 1; month <= 12; month++) {
 
+      boolean breakPrinterTime=false;
+      if((month-1)%3==0 && month!=0){
+        System.out.println("Would you like to print another 3 months? [y/n]");
+        Scanner scanner = new Scanner(System.in);
+        Boolean inputValidateResult=false;
+        do {
+          switch (scanner.nextLine().toLowerCase()) {
+            case "y":
+              inputValidateResult=true;
+              break;
+            case "n":
+              inputValidateResult=true;
+              breakPrinterTime=true;
+              break;
+            default:
+              System.out.println("Wrong input. Please enter [y/n]");
+          }
+        }
+        while (!inputValidateResult);
+      }
+      if (breakPrinterTime) {
+        break;
+      }
+
       switch (month) {
         case 1:
           monthx = "January";
