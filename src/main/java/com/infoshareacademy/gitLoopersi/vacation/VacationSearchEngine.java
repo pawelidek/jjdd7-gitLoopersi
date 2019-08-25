@@ -36,32 +36,38 @@ public class VacationSearchEngine {
 
   public void searchEmployeeVacation() {
 
+    System.out.println("Main menu >> Search engine >> Employee vacation");
+
     if (EmployeeRepository.getEmployeeList().size() != 0) {
       searchForEmployee();
       ConsoleCleaner.cleanConsole();
+      System.out.println("Main menu >> Search engine >> Employee vacation");
 
       if (getSearchedEmployee() == null) {
-        System.out.println("There is no matching employee!");
+        System.out.println("\nThere is no matching employee!");
 
       } else {
         makeFilter();
         ConsoleCleaner.cleanConsole();
+
+        System.out.println("Main menu >> Search engine >> Employee vacation\n");
+
         showListOfEmployeeVacation();
       }
 
     } else {
-      System.out.println("There are no employees added to database!");
+      System.out.println("\nThere are no employees added to database!");
     }
 
     System.out.println("\nType '0' to return.");
-    System.out.println("Type \"exit\" to close the app");
+    System.out.println("\nType \"exit\" to close the app");
   }
 
   private void searchForEmployee() {
 
     Scanner scanner = new Scanner(System.in);
 
-    System.out.println("Enter at least three signs of searched employee name: ");
+    System.out.println("\nEnter at least three signs of searched employee name: ");
 
     String searchedPhrase = scanner.nextLine().toLowerCase();
     int characterQuantity = searchedPhrase.length();
@@ -95,7 +101,7 @@ public class VacationSearchEngine {
   }
 
   private void makeFilter() {
-    System.out.println("Do you want to filter results by date? Y/N");
+    System.out.println("\nDo you want to filter results by date? Y/N");
 
     Scanner scanner = new Scanner(System.in);
     String answer = scanner.nextLine().toLowerCase();

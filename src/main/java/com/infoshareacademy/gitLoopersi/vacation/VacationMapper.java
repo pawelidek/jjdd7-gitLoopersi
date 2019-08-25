@@ -37,8 +37,8 @@ public class VacationMapper {
 
     LocalDate vacationDateFrom;
     LocalDate vacationDateTo;
-
-    System.out.println("Enter your ID: ");
+    System.out.println("Main menu >> Vacation >> Add vacation");
+    System.out.println("\nEnter your ID: ");
     String idToCheck = scanner.nextLine();
     while (!isCreatable(idToCheck)) {
       System.out.println("Wrong data! Enter your ID: ");
@@ -86,8 +86,8 @@ public class VacationMapper {
 
     LocalDate vacationDateFrom;
     LocalDate vacationDateTo;
-
-    System.out.println("Enter your ID: ");
+    System.out.println("Main menu >> Vacation >> Cancel vacation");
+    System.out.println("\nEnter your ID: ");
     String idToCheck = scanner.nextLine();
     while (!isCreatable(idToCheck)) {
       System.out.println("Wrong data! Enter your ID: ");

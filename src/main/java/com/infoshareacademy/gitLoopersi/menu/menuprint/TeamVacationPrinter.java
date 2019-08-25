@@ -6,10 +6,10 @@ public class TeamVacationPrinter implements Menu {
 
   @Override
   public void doAction() {
-    System.out.println("Vacation holiday engine for a given team");
+    System.out.println("Main menu >> Search engine >> Team vacation");
     System.out.println("\n1. Find team");
     System.out.println("2. Enter date range");
     System.out.println("0. Return");
-    System.out.println("Type \"exit\" to close the app");
+    System.out.println("\nType \"exit\" to close the app");
   }
 }
