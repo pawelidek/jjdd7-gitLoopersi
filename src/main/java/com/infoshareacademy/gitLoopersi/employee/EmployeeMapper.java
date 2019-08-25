@@ -85,9 +85,15 @@ public class EmployeeMapper {
         System.out
             .println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
       }
+      if (startWorkDate.isAfter(LocalDate.now(ZoneId.systemDefault()).plusDays(30))){
+        startWorkDate = null;
+        System.out
+            .println("Wrong data! Date after more than one month "
+                + "from now is not allowed here. Enter new Date: ");
+      }
     } while (startWorkDate == null);
 
-    System.out.println(
+    System.out.print(
         "\nEnter new employee's hirement date (Format: " + AppConfig.getDateFormat() + "): ");
     LocalDate startHireDate = null;
 
@@ -100,6 +106,18 @@ public class EmployeeMapper {
         System.out
             .println("Wrong date! Please enter data in format " + AppConfig.getDateFormat() + ": ");
       }
+      if (startHireDate.isAfter(LocalDate.now(ZoneId.systemDefault()).plusDays(30))){
+        startHireDate = null;
+        System.out
+            .println("Wrong data! Date after more than one month from now is not allowed here.");
+      }
+      if(!startHireDate.isAfter(startWorkDate) && !startHireDate.isEqual(startWorkDate)){
+        startHireDate = null;
+        System.out
+            .println("Wrong data! Date of employment have to be "
+                + "later or equal to start working date. Enter new Date: ");
+      }
+
     } while (startHireDate == null);
 
     Long id = generateSerialId();
