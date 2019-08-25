@@ -38,7 +38,7 @@ public class HolidayMapper {
 
   public void validateCorrectInputDataForHolidayDate() {
     System.out.println("Main menu >> Search engine >> Holiday >> By date");
-    System.out.println("\nEnter Date in format " + AppConfig.getDateFormat() + ":");
+    System.out.println("\nEnter Date from this or next year in format " + AppConfig.getDateFormat() + ":");
     Scanner scanner = new Scanner(System.in);
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
     LocalDate dateToCheck = null;
@@ -47,9 +47,19 @@ public class HolidayMapper {
       try {
         dateToCheck = simpleDateFormat
             .parse(tempDateToCheck).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        while (dateToCheck.getYear() < 2019 || dateToCheck.getYear() > 2020)
+             {
+          System.out.println("\nWrong data! Enter Date from this or next year: ");
+          tempDateToCheck = scanner.nextLine();
+
+          dateToCheck = simpleDateFormat.parse(tempDateToCheck)
+              .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        }
+
       } catch (ParseException e) {
         System.out
-            .println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
+            .println("\nWrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
       }
     } while (dateToCheck == null);
     List<Holiday> myList = HolidayRepository.getAllHolidays();
