@@ -9,7 +9,6 @@ import com.github.freva.asciitable.HorizontalAlign;
 import com.infoshareacademy.gitLoopersi.domain.Employee;
 import com.infoshareacademy.gitLoopersi.domain.Team;
 import com.infoshareacademy.gitLoopersi.domain.Vacation;
-import com.infoshareacademy.gitLoopersi.employee.EmployeeService;
 import com.infoshareacademy.gitLoopersi.menu.ConsoleCleaner;
 import com.infoshareacademy.gitLoopersi.properties.AppConfig;
 import com.infoshareacademy.gitLoopersi.repository.EmployeeRepository;
@@ -39,10 +38,10 @@ public class TeamVacationSearcher {
   private LocalDate to;
 
 
-  public void searchEmployeeVacation() {
+  public void searchTeamVacation() {
 
     if (EmployeeRepository.getEmployeeList().size() != 0) {
-      searchTeamVacation();
+      searchEmployeeVacationByTeam();
       ConsoleCleaner.cleanConsole();
 
       if (getSearchedEmployee() == null) {
@@ -62,7 +61,7 @@ public class TeamVacationSearcher {
     System.out.println("Type \"exit\" to close the app");
   }
 
-  private void searchTeamVacation() {
+  private void searchEmployeeVacationByTeam() {
 
     Character[] borderStyle = AsciiTable.FANCY_ASCII;
 

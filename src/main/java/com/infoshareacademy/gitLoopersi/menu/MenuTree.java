@@ -67,7 +67,7 @@ public class MenuTree {
     map.put("m411", holidayMapper::validateCorrectInputDataForHolidayName);
     map.put("m412", holidayMapper::validateCorrectInputDataForHolidayDate);
     map.put("m42", vacationSearchEngine::searchEmployeeVacation);
-    map.put("m43", teamVacationSearcher::searchEmployeeVacation);
+    map.put("m43", teamVacationSearcher::searchTeamVacation);
     map.put("m5", configurationsPrinter);
     map.put("m51", settingsImporter);
     map.put("m52", dateFormatter);
