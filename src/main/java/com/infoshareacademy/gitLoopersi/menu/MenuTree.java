@@ -1,5 +1,6 @@
 package com.infoshareacademy.gitLoopersi.menu;
 
+import com.infoshareacademy.gitLoopersi.Calendar.Calendar;
 import com.infoshareacademy.gitLoopersi.employee.EmployeeMapper;
 import com.infoshareacademy.gitLoopersi.menu.menufunctions.*;
 import com.infoshareacademy.gitLoopersi.menu.menuprint.*;
@@ -43,6 +44,9 @@ public class MenuTree {
     HolidayMapper holidayMapper = new HolidayMapper();
     VacationMapper vacationMapper = new VacationMapper();
 
+    CalendarPrinter calendarPrinter = new CalendarPrinter();
+    Calendar calendar = new Calendar();
+
     map.put("m", headerPrinter);
 
     map.put("m1", employeesListPrinter);
@@ -69,6 +73,8 @@ public class MenuTree {
     map.put("m51", settingsImporter);
     map.put("m52", dateFormatter);
     map.put("m53", sortingChanger);
+    map.put("m6", calendarPrinter);
+    map.put("m61", calendar::showCalendar);
 
     return map;
   }

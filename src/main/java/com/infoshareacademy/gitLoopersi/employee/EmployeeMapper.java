@@ -75,7 +75,8 @@ public class EmployeeMapper {
         }
       }
     }
-    System.out.print("\nEnter new employee's start working date (Format:" + AppConfig.getDateFormat() + "): ");
+    System.out.print(
+        "\nEnter new employee's start working date (Format:" + AppConfig.getDateFormat() + "): ");
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
     LocalDate startWorkDate = null;
 
@@ -85,11 +86,13 @@ public class EmployeeMapper {
         startWorkDate = simpleDateFormat
             .parse(startWorkDateString).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
       } catch (ParseException e) {
-        System.out.println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
+        System.out
+            .println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
       }
     } while (startWorkDate == null);
 
-    System.out.println("\nEnter new employee's start hire date (Format: " + AppConfig.getDateFormat() + "): ");
+    System.out.println(
+        "\nEnter new employee's start hire date (Format: " + AppConfig.getDateFormat() + "): ");
     LocalDate startHireDate = null;
 
     do {
@@ -98,7 +101,8 @@ public class EmployeeMapper {
         startHireDate = simpleDateFormat
             .parse(startHireDateString).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
       } catch (ParseException e) {
-        System.out.println("Wrong date! Please enter data in format " + AppConfig.getDateFormat() + ": ");
+        System.out
+            .println("Wrong date! Please enter data in format " + AppConfig.getDateFormat() + ": ");
       }
     } while (startHireDate == null);
 

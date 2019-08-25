@@ -168,7 +168,8 @@ public class VacationMapper {
         }
       } catch (ParseException e) {
         vacationDateFrom = null;
-        System.out.println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + "): ");
+        System.out.println(
+            "Wrong data! Please enter data in format " + AppConfig.getDateFormat() + "): ");
       }
     } while (vacationDateFrom == null);
 
@@ -214,7 +215,8 @@ public class VacationMapper {
         }
       } catch (ParseException e) {
         vacationDateTo = null;
-        System.out.println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + " : ");
+        System.out.println(
+            "Wrong data! Please enter data in format " + AppConfig.getDateFormat() + " : ");
       }
     } while (vacationDateTo == null);
 
