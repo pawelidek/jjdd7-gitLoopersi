@@ -85,6 +85,7 @@ public class EmployeeMapper {
       } catch (ParseException e) {
         System.out
             .println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ":\n");
+        continue;
       }
       if (startWorkDate.isAfter(LocalDate.now(ZoneId.systemDefault()).plusDays(30))){
         startWorkDate = null;
@@ -106,11 +107,13 @@ public class EmployeeMapper {
       } catch (ParseException e) {
         System.out
             .println("Wrong date! Please enter data in format " + AppConfig.getDateFormat() + ":\n");
+        continue;
       }
       if (startHireDate.isAfter(LocalDate.now(ZoneId.systemDefault()).plusDays(30))){
         startHireDate = null;
         System.out
             .println("Wrong data! Date after later than one month from now is not allowed here.");
+        continue;
       }
       if(!startHireDate.isAfter(startWorkDate) && !startHireDate.isEqual(startWorkDate)){
         startHireDate = null;
