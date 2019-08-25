@@ -62,7 +62,7 @@ public class TeamMapper {
       Team team = new Team(teamToUpdateName);
       for (int i = 0; i < TeamRepository.getAllTeams().size(); i++) {
         if (team.equals(TeamRepository.getAllTeams().get(i))) {
-          System.out.println("Enter teams new name: ");
+          System.out.println("\nEnter teams new name: ");
           String newNameOfTeam = scanner.nextLine();
           List<Team> tempTeams = TeamRepository.getAllTeams();
           tempTeams.get(i).setName(newNameOfTeam);

@@ -12,7 +12,7 @@ public class DateFormatter implements Menu {
     AppConfigMapper appConfigMapper = new AppConfigMapper();
     appConfigMapper.validateCorrectInputDataForConfigurationOfDateFormatting();
 
-    System.out.println("\nType '0' to return.");
+    System.out.println("\nType '0' to return");
     System.out.println("\nType \"exit\" to close the app");
   }
 }
