@@ -7,11 +7,15 @@ import com.github.freva.asciitable.Column;
 import com.github.freva.asciitable.ColumnData;
 import com.github.freva.asciitable.HorizontalAlign;
 import com.infoshareacademy.gitLoopersi.domain.Employee;
+import com.infoshareacademy.gitLoopersi.domain.Team;
 import com.infoshareacademy.gitLoopersi.domain.Vacation;
+import com.infoshareacademy.gitLoopersi.employee.EmployeeService;
 import com.infoshareacademy.gitLoopersi.menu.ConsoleCleaner;
 import com.infoshareacademy.gitLoopersi.properties.AppConfig;
 import com.infoshareacademy.gitLoopersi.repository.EmployeeRepository;
+import com.infoshareacademy.gitLoopersi.repository.TeamRepository;
 import com.infoshareacademy.gitLoopersi.repository.VacationRepository;
+import com.infoshareacademy.gitLoopersi.team.TeamService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -19,6 +23,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Function;
@@ -33,6 +38,7 @@ public class VacationSearchEngine {
   private Predicate<Vacation> myFilterTo;
   private LocalDate from;
   private LocalDate to;
+
 
   public void searchEmployeeVacation() {
 
