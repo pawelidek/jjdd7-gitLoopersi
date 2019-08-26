@@ -191,7 +191,7 @@ public class Calendar {
           }
         }
 
-        Parser parser = new Parser();
+//        Parser parser = new Parser();
         List<Holiday> myList = HolidayRepository.getAllHolidays();
         boolean isHoliday = false;
 
