@@ -7,7 +7,6 @@ import com.github.freva.asciitable.HorizontalAlign;
 import com.infoshareacademy.gitLoopersi.domain.Team;
 import com.infoshareacademy.gitLoopersi.menu.Menu;
 import com.infoshareacademy.gitLoopersi.repository.TeamRepository;
-import com.infoshareacademy.gitLoopersi.team.TeamService;
 import java.util.Arrays;
 import java.util.function.Function;
 

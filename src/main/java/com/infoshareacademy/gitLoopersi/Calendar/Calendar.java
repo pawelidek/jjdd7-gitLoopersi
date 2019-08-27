@@ -3,12 +3,11 @@ package com.infoshareacademy.gitLoopersi.Calendar;
 
 import com.infoshareacademy.gitLoopersi.domain.Holiday;
 import com.infoshareacademy.gitLoopersi.domain.Vacation;
-import com.infoshareacademy.gitLoopersi.parser.Parser;
+import com.infoshareacademy.gitLoopersi.menu.ConsoleCleaner;
 import com.infoshareacademy.gitLoopersi.parser.TypeOfHoliday;
 import com.infoshareacademy.gitLoopersi.repository.HolidayRepository;
 import com.infoshareacademy.gitLoopersi.repository.VacationRepository;
 import com.infoshareacademy.gitLoopersi.vacation.VacationService;
-
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -20,6 +19,9 @@ public class Calendar {
 
   public void showCalendar() {
 
+    ConsoleCleaner.cleanConsole();
+    System.out.println("Main menu >> Calendar");
+
     final String ANSI_RED = "\u001B[31m";
     final String ANSI_YELLOW = "\u001B[33m";
     final String ANSI_RESET = "\u001B[0m";
@@ -30,7 +32,7 @@ public class Calendar {
     int year = 0;
     boolean correctFormat = false;
     while (!correctFormat) {
-      System.out.println("Enter a year: ");
+      System.out.println("\nEnter a year: ");
       try {
         year = input.nextInt();
         correctFormat = true;
@@ -79,19 +81,19 @@ public class Calendar {
     String monthx = "";
     for (int month = 1; month <= 12; month++) {
 
-      boolean breakPrinterTime=false;
-      if((month-1)%3==0 && month!=0){
+      boolean breakPrinterTime = false;
+      if (monthToPrintExists(month)) {
         System.out.println("Would you like to print another 3 months? [y/n]");
         Scanner scanner = new Scanner(System.in);
-        Boolean inputValidateResult=false;
+        Boolean inputValidateResult = false;
         do {
           switch (scanner.nextLine().toLowerCase()) {
             case "y":
-              inputValidateResult=true;
+              inputValidateResult = true;
               break;
             case "n":
-              inputValidateResult=true;
-              breakPrinterTime=true;
+              inputValidateResult = true;
+              breakPrinterTime = true;
               break;
             default:
               System.out.println("Wrong input. Please enter [y/n]");
@@ -222,5 +224,12 @@ public class Calendar {
       System.out.println();
 
     }
+
+    System.out.println("\nType '0' to return");
+    System.out.println("Type \"exit\" to close the app");
+  }
+
+  private boolean monthToPrintExists(int month) {
+    return (month - 1) % 3 == 0 && month != 0;
   }
 }

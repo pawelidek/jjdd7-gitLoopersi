@@ -84,10 +84,11 @@ public class EmployeeMapper {
             .parse(startWorkDateString).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
       } catch (ParseException e) {
         System.out
-            .println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ":\n");
+            .println(
+                "Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ":\n");
         continue;
       }
-      if (startWorkDate.isAfter(LocalDate.now(ZoneId.systemDefault()).plusDays(30))){
+      if (isStartWorkDateValid(startWorkDate)) {
         startWorkDate = null;
         System.out
             .println("Wrong data! Date after later than one month "
@@ -106,16 +107,17 @@ public class EmployeeMapper {
             .parse(startHireDateString).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
       } catch (ParseException e) {
         System.out
-            .println("Wrong date! Please enter data in format " + AppConfig.getDateFormat() + ":\n");
+            .println(
+                "Wrong date! Please enter data in format " + AppConfig.getDateFormat() + ":\n");
         continue;
       }
-      if (startHireDate.isAfter(LocalDate.now(ZoneId.systemDefault()).plusDays(30))){
+      if (isStartHireDateValid(startHireDate)) {
         startHireDate = null;
         System.out
             .println("Wrong data! Date after later than one month from now is not allowed here.");
         continue;
       }
-      if(!startHireDate.isAfter(startWorkDate) && !startHireDate.isEqual(startWorkDate)){
+      if (isDatesRelationValid(startWorkDate, startHireDate)) {
         startHireDate = null;
         System.out
             .println("Wrong data! Date of employment have to be "
@@ -131,6 +133,19 @@ public class EmployeeMapper {
     employeeService.addEmployee(tempEmployees);
 
     EmployeeRepository.incrementCurrentId();
+  }
+
+  private boolean isDatesRelationValid(LocalDate startWorkDate,
+      LocalDate startHireDate) {
+    return !startHireDate.isAfter(startWorkDate) && !startHireDate.isEqual(startWorkDate);
+  }
+
+  private boolean isStartHireDateValid(LocalDate startHireDate) {
+    return startHireDate.isAfter(LocalDate.now(ZoneId.systemDefault()).plusMonths(1));
+  }
+
+  private boolean isStartWorkDateValid(LocalDate startWorkDate) {
+    return startWorkDate.isAfter(LocalDate.now(ZoneId.systemDefault()).plusMonths(1));
   }
 
   private Long generateSerialId() {

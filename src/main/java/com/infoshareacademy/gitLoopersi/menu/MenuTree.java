@@ -6,7 +6,6 @@ import com.infoshareacademy.gitLoopersi.holiday.HolidayMapper;
 import com.infoshareacademy.gitLoopersi.menu.menufunctions.DateFormatter;
 import com.infoshareacademy.gitLoopersi.menu.menufunctions.SettingsImporter;
 import com.infoshareacademy.gitLoopersi.menu.menufunctions.SortingChanger;
-import com.infoshareacademy.gitLoopersi.menu.menuprint.CalendarPrinter;
 import com.infoshareacademy.gitLoopersi.menu.menuprint.ConfigurationsPrinter;
 import com.infoshareacademy.gitLoopersi.menu.menuprint.EmployeesListPrinter;
 import com.infoshareacademy.gitLoopersi.menu.menuprint.HeaderPrinter;
