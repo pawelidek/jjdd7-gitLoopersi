@@ -49,7 +49,8 @@ public class HolidayMapper {
         dateToCheck = simpleDateFormat
             .parse(tempDateToCheck).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-        while (dateToCheck.getYear() < 2019 || dateToCheck.getYear() > 2020) {
+        while (dateToCheck.getYear() < LocalDate.now().getYear()
+            || dateToCheck.getYear() > LocalDate.now().plusYears(1).getYear()) {
           System.out.println("\nWrong data! Enter Date from this or next year: ");
           tempDateToCheck = scanner.nextLine();
 
