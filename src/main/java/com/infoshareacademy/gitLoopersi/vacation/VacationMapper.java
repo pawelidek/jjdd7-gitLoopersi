@@ -6,7 +6,6 @@ import static org.apache.commons.lang3.math.NumberUtils.isCreatable;
 import com.infoshareacademy.gitLoopersi.domain.Employee;
 import com.infoshareacademy.gitLoopersi.domain.Holiday;
 import com.infoshareacademy.gitLoopersi.domain.Vacation;
-import com.infoshareacademy.gitLoopersi.parser.Parser;
 import com.infoshareacademy.gitLoopersi.parser.TypeOfHoliday;
 import com.infoshareacademy.gitLoopersi.properties.AppConfig;
 import com.infoshareacademy.gitLoopersi.repository.EmployeeRepository;
@@ -129,11 +128,14 @@ public class VacationMapper {
       try {
         vacationDateFrom = simpleDateFormat.parse(vacationDateFromString)
             .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
         Timestamp timestampVacationFrom = Timestamp
             .valueOf(vacationDateFrom.atTime(LocalTime.MIDNIGHT));
         setVacationDateFromCounter(timestampVacationFrom.getTime());
+
         if ((vacationDateFrom.getYear() == today.getYear() || vacationDateFrom.getYear() == today
             .plusYears(1).getYear()) && (todayDate < getVacationDateFromCounter())) {
+
           vacationDateFrom = simpleDateFormat.parse(vacationDateFromString)
               .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         } else {
@@ -162,12 +164,15 @@ public class VacationMapper {
       try {
         vacationDateTo = simpleDateFormat.parse(vacationDateToString)
             .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
         Timestamp timestampVacationTo = Timestamp
             .valueOf(vacationDateTo.atTime(LocalTime.MIDNIGHT));
         setVacationDateToCounter(timestampVacationTo.getTime());
+
         if (vacationDateTo.getYear() == today.getYear() || vacationDateTo.getYear() == today
             .plusYears(1).getYear() && (getVacationDateToCounter()
             > getVacationDateFromCounter())) {
+
           vacationDateTo = simpleDateFormat.parse(vacationDateToString)
               .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         } else {
@@ -201,7 +206,6 @@ public class VacationMapper {
   private int validateAndCalculateVacationDays(LocalDate vacationDateFrom,
       LocalDate vacationDateTo) {
 
-    Parser parser = new Parser();
     List<Holiday> holidayList = HolidayRepository.getAllHolidays();
 
     int amountOfDaysOff = 0;
