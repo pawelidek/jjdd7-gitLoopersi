@@ -49,8 +49,7 @@ public class HolidayMapper {
         dateToCheck = simpleDateFormat
             .parse(tempDateToCheck).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-        while (dateToCheck.getYear() < LocalDate.now().getYear()
-            || dateToCheck.getYear() > LocalDate.now().plusYears(1).getYear()) {
+        while (isYearValid(dateToCheck)) {
           System.out.println("\nWrong data! Enter Date from this or next year: ");
           tempDateToCheck = scanner.nextLine();
 
@@ -89,5 +88,10 @@ public class HolidayMapper {
       }
     }
     System.out.println("\nType '0' to return or 'Enter' to check another date.");
+  }
+
+  private boolean isYearValid(LocalDate dateToCheck) {
+    return dateToCheck.getYear() < LocalDate.now().getYear()
+        || dateToCheck.getYear() > LocalDate.now().plusYears(1).getYear();
   }
 }

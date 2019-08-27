@@ -82,7 +82,7 @@ public class Calendar {
     for (int month = 1; month <= 12; month++) {
 
       boolean breakPrinterTime = false;
-      if (checkIfHaveAnotherMonthsToPrint(month)) {
+      if (monthToPrintExists(month)) {
         System.out.println("Would you like to print another 3 months? [y/n]");
         Scanner scanner = new Scanner(System.in);
         Boolean inputValidateResult = false;
@@ -229,7 +229,7 @@ public class Calendar {
     System.out.println("Type \"exit\" to close the app");
   }
 
-  private boolean checkIfHaveAnotherMonthsToPrint(int month) {
+  private boolean monthToPrintExists(int month) {
     return (month - 1) % 3 == 0 && month != 0;
   }
 }
