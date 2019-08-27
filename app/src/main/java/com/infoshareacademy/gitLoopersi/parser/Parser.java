@@ -23,6 +23,7 @@ public class Parser {
   private String createTextJSON() {
     StringBuilder stringBuilder = new StringBuilder();
     List<String> tempLinesList = null;
+
     try {
       tempLinesList = Files.readAllLines(Paths.get(HolidayService.getFileName()));
     } catch (IOException e) {
