@@ -9,7 +9,6 @@
     <groupId>com.infoshareacademy.jjdd7</groupId>
     <artifactId>EmployeeVacationCalendar</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
   </parent>
 
   <artifactId>web</artifactId>
