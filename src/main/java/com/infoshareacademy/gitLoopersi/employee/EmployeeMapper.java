@@ -88,7 +88,7 @@ public class EmployeeMapper {
                 "Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ":\n");
         continue;
       }
-      if (checkIfStartWorkDateIsTooLate(startWorkDate)) {
+      if (isStartWorkDateValid(startWorkDate)) {
         startWorkDate = null;
         System.out
             .println("Wrong data! Date after later than one month "
@@ -111,13 +111,13 @@ public class EmployeeMapper {
                 "Wrong date! Please enter data in format " + AppConfig.getDateFormat() + ":\n");
         continue;
       }
-      if (checkIfStartHireDateIsTooLate(startHireDate)) {
+      if (isStartHireDateValid(startHireDate)) {
         startHireDate = null;
         System.out
             .println("Wrong data! Date after later than one month from now is not allowed here.");
         continue;
       }
-      if (checkIfStartHireDateIsEarlierThanStartWorkDate(startWorkDate, startHireDate)) {
+      if (isDatesRelationValid(startWorkDate, startHireDate)) {
         startHireDate = null;
         System.out
             .println("Wrong data! Date of employment have to be "
@@ -135,16 +135,16 @@ public class EmployeeMapper {
     EmployeeRepository.incrementCurrentId();
   }
 
-  private boolean checkIfStartHireDateIsEarlierThanStartWorkDate(LocalDate startWorkDate,
+  private boolean isDatesRelationValid(LocalDate startWorkDate,
       LocalDate startHireDate) {
     return !startHireDate.isAfter(startWorkDate) && !startHireDate.isEqual(startWorkDate);
   }
 
-  private boolean checkIfStartHireDateIsTooLate(LocalDate startHireDate) {
+  private boolean isStartHireDateValid(LocalDate startHireDate) {
     return startHireDate.isAfter(LocalDate.now(ZoneId.systemDefault()).plusMonths(1));
   }
 
-  private boolean checkIfStartWorkDateIsTooLate(LocalDate startWorkDate) {
+  private boolean isStartWorkDateValid(LocalDate startWorkDate) {
     return startWorkDate.isAfter(LocalDate.now(ZoneId.systemDefault()).plusMonths(1));
   }
 
