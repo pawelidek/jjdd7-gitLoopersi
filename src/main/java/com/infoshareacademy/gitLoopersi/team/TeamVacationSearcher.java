@@ -7,7 +7,6 @@ import com.github.freva.asciitable.ColumnData;
 import com.github.freva.asciitable.HorizontalAlign;
 import com.infoshareacademy.gitLoopersi.domain.Employee;
 import com.infoshareacademy.gitLoopersi.domain.Vacation;
-import com.infoshareacademy.gitLoopersi.menu.ConsoleCleaner;
 import com.infoshareacademy.gitLoopersi.properties.AppConfig;
 import com.infoshareacademy.gitLoopersi.repository.EmployeeRepository;
 import com.infoshareacademy.gitLoopersi.repository.TeamRepository;
@@ -30,16 +29,17 @@ public class TeamVacationSearcher {
 
   public void searchTeamVacation() {
 
+    System.out.println("Main menu >> Search engine >> Team vacation\n");
+
     if (EmployeeRepository.getEmployeeList().size() != 0) {
       List<Employee> employeesFromTeam = searchEmployeesFromTeam();
       LocalDate[] datesRange = dateFiltering();
       showListOfMatchingVacations(datesRange, employeesFromTeam);
-      ConsoleCleaner.cleanConsole();
     } else {
       System.out.println("There are no employees added to database!");
     }
 
-    System.out.println("\nType '0' to return.");
+    System.out.println("\nType '0' to return");
     System.out.println("Type \"exit\" to close the app");
   }
 
@@ -49,13 +49,13 @@ public class TeamVacationSearcher {
     TeamService teamService1 = new TeamService();
     teamService1.loadTeamData();
     System.out.println("List of all teams " + TeamRepository.getAllTeams());
-    System.out.println("Enter a team that you want to choose: ");
+    System.out.println("\nEnter a team that you want to choose:");
     List<Employee> filteredEmployees = new ArrayList<>();
     do {
       String choosenTeam = scanner.nextLine().toLowerCase();
       for (int i = 0; i < TeamRepository.getAllTeams().size(); i++) {
         if (choosenTeam.equals(TeamRepository.getAllTeams().get(i).getName().toLowerCase())) {
-          System.out.println("Team selected: " + choosenTeam);
+          System.out.println("\nTeam selected: " + choosenTeam);
           filteredEmployees = EmployeeRepository.getEmployeeList().stream()
               .filter(employee -> choosenTeam.equals(employee.getTeam().getName().toLowerCase()))
               .collect(Collectors.toList());
@@ -77,7 +77,7 @@ public class TeamVacationSearcher {
   private LocalDate[] dateFiltering() {
     Scanner scanner = new Scanner(System.in);
     System.out.print(
-        "\nEnter start date from wanted range(Format: " + AppConfig.getDateFormat() + "): ");
+        "\nEnter start date from wanted range(Format: " + AppConfig.getDateFormat() + "):\n");
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
     LocalDate firstDate = null;
     do {
@@ -87,7 +87,8 @@ public class TeamVacationSearcher {
             .parse(startWorkDateString).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
       } catch (ParseException e) {
         System.out
-            .println("Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ": ");
+            .println(
+                "Wrong data! Please enter data in format " + AppConfig.getDateFormat() + ":\n");
         continue;
       }
       if (firstDate.isAfter(LocalDate.now(ZoneId.systemDefault()).plusYears(1))) {
@@ -99,7 +100,7 @@ public class TeamVacationSearcher {
     } while (firstDate == null);
 
     System.out.println(
-        "\nEnter end date from wanted range(Format: " + AppConfig.getDateFormat() + "): ");
+        "\nEnter end date from wanted range(Format: " + AppConfig.getDateFormat() + "):");
     LocalDate secondDate = null;
     do {
       String startHireDateString = scanner.nextLine();
@@ -108,18 +109,19 @@ public class TeamVacationSearcher {
             .parse(startHireDateString).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
       } catch (ParseException e) {
         System.out
-            .println("Wrong date! Please enter data in format " + AppConfig.getDateFormat() + ": ");
+            .println(
+                "\nWrong date! Please enter data in format " + AppConfig.getDateFormat() + ":\n");
       }
       if (secondDate.isAfter(LocalDate.now(ZoneId.systemDefault()).plusYears(1))) {
         secondDate = null;
         System.out
-            .println("Wrong data! Date later than one year "
+            .println("\nWrong data! Date later than one year "
                 + "from now is not allowed here. Enter new Date: ");
       }
       if (!secondDate.isAfter(firstDate) && !firstDate.isEqual(secondDate)) {
         secondDate = null;
         System.out
-            .println("Wrong data! The end date have to be "
+            .println("\nWrong data! The end date have to be "
                 + "later or equal to start working date. Enter new Date: ");
       }
     } while (secondDate == null);
@@ -143,7 +145,7 @@ public class TeamVacationSearcher {
             .collect(Collectors.toUnmodifiableSet()), rangeofDates))
         .filter(e -> ids.contains(e.getEmployeeId()))
         .collect(Collectors.toList());
-
+    System.out.println("");
     Character[] borderStyle = AsciiTable.FANCY_ASCII;
     System.out.println(
         AsciiTable.getTable(borderStyle, selectedVacation,

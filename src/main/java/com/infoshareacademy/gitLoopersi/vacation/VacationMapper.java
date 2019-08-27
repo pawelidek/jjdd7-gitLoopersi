@@ -78,11 +78,8 @@ public class VacationMapper {
   }
 
   public void validateCancellationOfVacation() {
-
     VacationService vacationService = new VacationService();
-
     Scanner scanner = new Scanner(System.in);
-
     LocalDate vacationDateFrom;
     LocalDate vacationDateTo;
     System.out.println("Main menu >> Vacation >> Cancel vacation");
@@ -92,135 +89,99 @@ public class VacationMapper {
       System.out.println("Wrong data! Enter your ID: ");
       idToCheck = scanner.nextLine();
     }
-
     Long id = Long.valueOf(idToCheck);
-
     long employeeExist = EmployeeRepository.getEmployeeList().stream()
         .filter(employee -> employee.getId().equals(id))
         .count();
-
     if (employeeExist != 0) {
-
       vacationDateFrom = validateDateFrom();
       vacationDateTo = validateDateTo();
-
       List<Vacation> vacationList = VacationRepository.getVacationList().stream()
           .filter(vacation -> vacation.getEmployeeId().equals(id))
           .collect(Collectors.toList());
-
       for (Vacation vacation : vacationList) {
         if (vacationDateFrom.equals(vacation.getDateFrom()) && vacationDateTo
             .equals(vacation.getDateTo())) {
           vacationService.cancelVacation(vacation);
           break;
         } else {
-          System.out.println("If you do not have a vacation within the given date range,"
+          System.out.println("\nIf you do not have a vacation within the given date range,"
               + " please define the exact date range.");
           System.out.println("\nType '0' to return or 'Enter' to cancel another vacation.");
-          break;
         }
       }
     } else {
       System.out.println("\nAn employee with a given ID does not exist");
-      System.out.println("\nType '0' to return or 'Enter' to cancel vacation.");
+      System.out.println("\nType '0' to return or 'Enter' to cancel another vacation.");
     }
   }
 
   private LocalDate validateDateFrom() {
-
     Scanner scanner = new Scanner(System.in);
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
     LocalDate vacationDateFrom;
-
     System.out.println("\nEnter vacation date from (Format: " + AppConfig.getDateFormat() + "): ");
-
     LocalDate today = LocalDate.now();
     Timestamp timestampToday = Timestamp.valueOf(today.atTime(LocalTime.MIDNIGHT));
     Long todayDate = timestampToday.getTime();
-
     do {
       String vacationDateFromString = scanner.nextLine();
-
       try {
         vacationDateFrom = simpleDateFormat.parse(vacationDateFromString)
             .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        if (vacationDateFrom.getYear() == today.getYear() || vacationDateFrom.getYear() == today
-            .plusYears(1).getYear()) {
-          Timestamp timestampVacationFrom = Timestamp
-              .valueOf(vacationDateFrom.atTime(LocalTime.MIDNIGHT));
-          setVacationDateFromCounter(timestampVacationFrom.getTime());
-
-          while (todayDate > getVacationDateFromCounter()) {
-
-            System.out.println("Wrong data! Give the date from the future: ");
-            vacationDateFromString = scanner.nextLine();
-            vacationDateFrom = simpleDateFormat.parse(vacationDateFromString)
-                .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-            timestampVacationFrom = Timestamp
-                .valueOf(vacationDateFrom.atTime(LocalTime.MIDNIGHT));
-            setVacationDateFromCounter(timestampVacationFrom.getTime());
-          }
+        Timestamp timestampVacationFrom = Timestamp
+            .valueOf(vacationDateFrom.atTime(LocalTime.MIDNIGHT));
+        setVacationDateFromCounter(timestampVacationFrom.getTime());
+        if ((vacationDateFrom.getYear() == today.getYear() || vacationDateFrom.getYear() == today
+            .plusYears(1).getYear()) && (todayDate < getVacationDateFromCounter())) {
+          vacationDateFrom = simpleDateFormat.parse(vacationDateFromString)
+              .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         } else {
-          System.out.println(
-              "\nYou can define or cancel your vacation from today until the end of next year!" +
-                  "\nEnter vacation date from (Format: " + AppConfig.getDateFormat() + "): ");
+          System.out.println("Wrong data! Give the date from the future" +
+              "\nPress \"enter\" to enter the correct date");
           vacationDateFrom = null;
         }
       } catch (ParseException e) {
         vacationDateFrom = null;
         System.out.println(
-            "Wrong data! Please enter data in format " + AppConfig.getDateFormat() + "): ");
+            "\nYou can define or cancel your vacation from today until the end of next year!" +
+                "\nWrong data! Please enter data in format " + AppConfig.getDateFormat() + "): ");
       }
     } while (vacationDateFrom == null);
-
     return vacationDateFrom;
   }
 
   private LocalDate validateDateTo() {
-
     Scanner scanner = new Scanner(System.in);
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AppConfig.getDateFormat());
     LocalDate vacationDateTo;
     LocalDate today = LocalDate.now();
-
     System.out.println("\nEnter vacation date to (Format: " + AppConfig.getDateFormat() + "): ");
     do {
       String vacationDateToString = scanner.nextLine();
       try {
         vacationDateTo = simpleDateFormat.parse(vacationDateToString)
             .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Timestamp timestampVacationTo = Timestamp
+            .valueOf(vacationDateTo.atTime(LocalTime.MIDNIGHT));
+        setVacationDateToCounter(timestampVacationTo.getTime());
         if (vacationDateTo.getYear() == today.getYear() || vacationDateTo.getYear() == today
-            .plusYears(1).getYear()) {
-          Timestamp timestampVacationTo = Timestamp
-              .valueOf(vacationDateTo.atTime(LocalTime.MIDNIGHT));
-
-          setVacationDateToCounter(timestampVacationTo.getTime());
-
-          while (getVacationDateToCounter() < getVacationDateFromCounter()) {
-
-            System.out.println("Wrong data! Give the date from the future: ");
-            vacationDateToString = scanner.nextLine();
-
-            vacationDateTo = simpleDateFormat.parse(vacationDateToString)
-                .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-            timestampVacationTo = Timestamp
-                .valueOf(vacationDateTo.atTime(LocalTime.MIDNIGHT));
-            setVacationDateToCounter(timestampVacationTo.getTime());
-          }
+            .plusYears(1).getYear() && (getVacationDateToCounter()
+            > getVacationDateFromCounter())) {
+          vacationDateTo = simpleDateFormat.parse(vacationDateToString)
+              .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         } else {
-          System.out.println(
-              "You can define or cancel your vacation from today until the end of next year");
+          System.out.println("Wrong data! Give the date from the future" +
+              "\nPress \"enter\" to enter the correct date");
           vacationDateTo = null;
         }
       } catch (ParseException e) {
         vacationDateTo = null;
         System.out.println(
-            "Wrong data! Please enter data in format " + AppConfig.getDateFormat() + " : ");
+            "\nYou can define or cancel your vacation from today until the end of next year!" +
+                "\nWrong data! Please enter data in format " + AppConfig.getDateFormat() + "): ");
       }
     } while (vacationDateTo == null);
-
     return vacationDateTo;
   }
 

@@ -1,6 +1,5 @@
 package com.infoshareacademy.gitLoopersi;
 
-import com.infoshareacademy.gitLoopersi.Calendar.Calendar;
 import com.infoshareacademy.gitLoopersi.employee.EmployeeService;
 import com.infoshareacademy.gitLoopersi.menu.ConsoleCleaner;
 import com.infoshareacademy.gitLoopersi.menu.menuaction.MenuAction;
@@ -17,7 +16,7 @@ public class App {
     new Parser();
     new EmployeeService().loadEmployeeData();
     new VacationService().loadVacationData();
-    new TeamService().loadTeamData();;
+    new TeamService().loadTeamData();
 
     new AppConfigMapper().loadUserConfiguration();
 
