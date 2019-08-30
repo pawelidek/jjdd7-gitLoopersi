@@ -193,7 +193,7 @@ public class Calendar {
           }
         }
 
-//        Parser parser = new Parser();
+//        Parser com.infoshareacademy.gitLoopersi.domain.parser = new Parser();
         List<Holiday> myList = HolidayRepository.getAllHolidays();
         boolean isHoliday = false;
 
