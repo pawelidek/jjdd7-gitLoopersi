@@ -1,10 +1,12 @@
-package repository;
+package com.infoshareacademy.gitLoopersi.repository;
 
-import domain.Holiday;
+import com.infoshareacademy.gitLoopersi.domain.api.Holiday;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HolidayRepository {
+
+  //TODO
 
   private static List<Holiday> allHolidays = new ArrayList<>();
   private static final String HOLIDAY_JSON = "HolidayApi.json";

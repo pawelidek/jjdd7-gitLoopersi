@@ -1,8 +1,8 @@
-package domain;
+package com.infoshareacademy.gitLoopersi.domain.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.infoshareacademy.gitLoopersi.parser.HolidayType;
 import java.time.LocalDate;
-import parser.TypeOfHoliday;
 
 public class Holiday {
 
@@ -11,18 +11,18 @@ public class Holiday {
   @JsonProperty("date")
   private LocalDate date;
   @JsonProperty("type")
-  private TypeOfHoliday typeOfHoliday;
+  private HolidayType holidayType;
   @JsonProperty("description")
   private String description;
 
   public Holiday() {
   }
 
-  public Holiday(String name, LocalDate date, TypeOfHoliday typeOfHoliday,
+  public Holiday(String name, LocalDate date, HolidayType holidayType,
       String description) {
     this.name = name;
     this.date = date;
-    this.typeOfHoliday = typeOfHoliday;
+    this.holidayType = holidayType;
     this.description = description;
   }
 
@@ -34,8 +34,8 @@ public class Holiday {
     return date;
   }
 
-  public TypeOfHoliday getTypeOfHoliday() {
-    return typeOfHoliday;
+  public HolidayType getHolidayType() {
+    return holidayType;
   }
 
   @Override
@@ -43,7 +43,7 @@ public class Holiday {
     return "Holiday{" +
         "name='" + name + '\'' +
         ", date=" + date +
-        ", typeOfHoliday=" + typeOfHoliday +
+        ", typeOfHoliday=" + holidayType +
         ", description='" + description + '\'' +
         '}';
   }

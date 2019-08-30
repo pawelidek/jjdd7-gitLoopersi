@@ -1,12 +1,14 @@
-package parser;
+package com.infoshareacademy.gitLoopersi.parser;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import domain.Holiday;
+import com.infoshareacademy.gitLoopersi.domain.api.Holiday;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import javax.enterprise.context.RequestScoped;
 
+@RequestScoped
 public class Parser {
 
   private ObjectMapper objectMapper = new ObjectMapper();
