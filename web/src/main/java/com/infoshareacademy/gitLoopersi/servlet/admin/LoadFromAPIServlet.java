@@ -1,4 +1,4 @@
-package com.infoshareacademy.gitLoopersi.servlet;
+package com.infoshareacademy.gitLoopersi.servlet.admin;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet("/main-page")
-public class MainPageServlet extends HttpServlet {
+@WebServlet("/admin/load/api")
+public class LoadFromAPIServlet extends HttpServlet {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
