@@ -107,7 +107,7 @@ body {
 
 #calendar {
   position: fixed;
-  bottom: 600px;
+  bottom: 560px;
   float: top;
   margin-left: 1200px;
 
@@ -123,9 +123,6 @@ body {
   text-align: center;
 }
 
-.aside {
-
-}
 
 #TRESC {
   box-sizing: content-box;
@@ -148,3 +145,4 @@ body {
   font-size: 16px;
   margin-right: 16px;
 }
+
