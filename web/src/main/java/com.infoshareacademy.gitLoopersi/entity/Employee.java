@@ -1,15 +1,8 @@
 package com.infoshareacademy.gitLoopersi.entity;
 
 import java.time.LocalDate;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Entity;
+import java.util.List;
+import javax.persistence.*;
 
 
 @Entity
@@ -27,7 +20,7 @@ public class Employee implements Comparable<Employee> {
   @Column(name="second_name")
   private String secondName;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH,CascadeType.PERSIST})
   @JoinColumn(name="team_id")
   private Team team;
 
@@ -37,13 +30,14 @@ public class Employee implements Comparable<Employee> {
   @Column(name="start_hire_date")
   private LocalDate startHireDate;
 
-  public Employee() {
-  }
+  @OneToMany(mappedBy = "employee",
+          cascade = CascadeType.ALL,
+          orphanRemoval = true
+  )
+  private List<Vacation> employeeVacations;
 
-  public Employee(String first_name, String secondName, Team team) {
-    this.firstName = first_name;
-    this.secondName = secondName;
-    this.team = team;
+
+  public Employee() {
   }
 
   public Employee(String first_name, String secondName, Team team,

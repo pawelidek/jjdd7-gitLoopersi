@@ -1,6 +1,7 @@
 package com.infoshareacademy.gitLoopersi.entity;
 
-import com.infoshareacademy.gitLoopersi.parser.TypeOfHoliday;
+import com.infoshareacademy.gitLoopersi.types.HolidayType;
+
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -21,11 +22,11 @@ public class Holiday {
   @Column(name="name")
   private String name;
 
-  @Column(name="date_of_holiday")
+  @Column(name="holiday_date")
   private LocalDate date;
 
-  @Column(name="type_of_holiday")
-  private TypeOfHoliday typeOfHoliday;
+  @Column(name="holiday_type")
+  private HolidayType holidayType;
 
   @Column(name="description")
   private String description;
@@ -33,11 +34,11 @@ public class Holiday {
   public Holiday() {
   }
 
-  public Holiday(String name, LocalDate date, TypeOfHoliday typeOfHoliday,
+  public Holiday(String name, LocalDate date, HolidayType holidayType,
       String description) {
     this.name = name;
     this.date = date;
-    this.typeOfHoliday = typeOfHoliday;
+    this.holidayType = holidayType;
     this.description = description;
   }
 
@@ -65,12 +66,12 @@ public class Holiday {
     this.date = date;
   }
 
-  public TypeOfHoliday getTypeOfHoliday() {
-    return typeOfHoliday;
+  public HolidayType getTypeOfHoliday() {
+    return holidayType;
   }
 
-  public void setTypeOfHoliday(TypeOfHoliday typeOfHoliday) {
-    this.typeOfHoliday = typeOfHoliday;
+  public void setTypeOfHoliday(HolidayType holidayType) {
+    this.holidayType = holidayType;
   }
 
   public String getDescription() {
@@ -87,7 +88,7 @@ public class Holiday {
         "id=" + id +
         ", name='" + name + '\'' +
         ", date=" + date +
-        ", typeOfHoliday="  +
+        ", holidayType="  + holidayType +
         ", description='" + description + '\'' +
         '}';
   }

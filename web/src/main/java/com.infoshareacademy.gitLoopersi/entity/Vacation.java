@@ -1,5 +1,7 @@
 package com.infoshareacademy.gitLoopersi.entity;
 
+import com.infoshareacademy.gitLoopersi.types.StatusType;
+
 import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -33,19 +35,18 @@ public class Vacation {
   @Column(name="count_of_days")
   private Integer countOfDays;
 
+  @Column(name="status_type")
+  private StatusType statusType;
+
   public Vacation() {
   }
 
-  public Vacation(Integer countOfDays) {
-    this.countOfDays = countOfDays;
-  }
-
-  public Vacation(Employee employee, LocalDate dateFrom, LocalDate dateTo,
-      Integer countOfDays) {
+  public Vacation(Employee employee, LocalDate dateFrom, LocalDate dateTo, Integer countOfDays, StatusType statusType) {
     this.employee = employee;
     this.dateFrom = dateFrom;
     this.dateTo = dateTo;
     this.countOfDays = countOfDays;
+    this.statusType = statusType;
   }
 
   public Long getId() {
@@ -88,14 +89,23 @@ public class Vacation {
     this.countOfDays = countOfDays;
   }
 
-  @java.lang.Override
-  public java.lang.String toString() {
+  public StatusType getStatusType() {
+    return statusType;
+  }
+
+  public void setStatusType(StatusType statusType) {
+    this.statusType = statusType;
+  }
+
+  @Override
+  public String toString() {
     return "Vacation{" +
-        "id=" + id +
-        ", employee=" + employee +
-        ", dateFrom=" + dateFrom +
-        ", dateTo=" + dateTo +
-        ", countOfDays=" + countOfDays +
-        '}';
+            "id=" + id +
+            ", employee=" + employee +
+            ", dateFrom=" + dateFrom +
+            ", dateTo=" + dateTo +
+            ", countOfDays=" + countOfDays +
+            ", statusType=" + statusType +
+            '}';
   }
 }

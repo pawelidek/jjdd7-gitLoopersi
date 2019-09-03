@@ -1,11 +1,7 @@
 package com.infoshareacademy.gitLoopersi.entity;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="team")
@@ -18,6 +14,9 @@ public class Team {
 
   @Column(name="name")
   private String name;
+
+  @OneToMany(mappedBy = "team")
+  private List<Employee> teamEmpolyees;
 
   public Team() {
   }
@@ -42,11 +41,20 @@ public class Team {
     this.name = name;
   }
 
-  @java.lang.Override
-  public java.lang.String toString() {
+  public List<Employee> getTeamEmpolyees() {
+    return teamEmpolyees;
+  }
+
+  public void setTeamEmpolyees(List<Employee> teamEmpolyees) {
+    this.teamEmpolyees = teamEmpolyees;
+  }
+
+  @Override
+  public String toString() {
     return "Team{" +
-        "id=" + id +
-        ", name='" + name + '\'' +
-        '}';
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", teamEmpolyees=" + teamEmpolyees +
+            '}';
   }
 }
