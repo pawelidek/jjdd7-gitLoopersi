@@ -1,7 +1,7 @@
-package com.infoshareacademy.gitLoopersi.domain.api;
+package com.infoshareacademy.gitloopersi.domain.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.infoshareacademy.gitLoopersi.parser.HolidayType;
+import com.infoshareacademy.gitloopersi.parser.HolidayType;
 import java.time.LocalDate;
 
 public class Holiday {

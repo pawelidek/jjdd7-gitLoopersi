@@ -1,8 +1,8 @@
-package com.infoshareacademy.gitLoopersi.parser;
+package com.infoshareacademy.gitloopersi.parser;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infoshareacademy.gitLoopersi.domain.api.Holiday;
+import com.infoshareacademy.gitloopersi.domain.api.Holiday;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;

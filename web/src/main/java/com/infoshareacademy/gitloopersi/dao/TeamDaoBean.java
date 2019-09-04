@@ -12,7 +12,7 @@ public class TeamDaoBean {
     @PersistenceContext
     EntityManager entityManager;
 
-    public void saveTeam(String teamName){
+    public void addTeam(String teamName){
         Team team = new Team(teamName);
         entityManager.persist(team);
     }
