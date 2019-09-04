@@ -28,7 +28,7 @@ public class HomeServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-    String userType = req.getParameter("userType"); //FIXME (brać z sesji - w ok. 1/3 prezentacji z JEE)
+    String userType = (String) req.getSession().getAttribute("userType");
 
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
 
