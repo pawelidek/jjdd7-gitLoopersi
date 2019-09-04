@@ -2,6 +2,7 @@ package com.infoshareacademy.gitloopersi.servlet.admin;
 
 import com.infoshareacademy.gitloopersi.service.HolidayService;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
@@ -25,9 +26,11 @@ public class VacationManagerServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-
     Map<String, Object> dataModel = new HashMap<>();
     dataModel.put("holidays",holidayService.findAllHolidays());
-    
+
+    PrintWriter printWriter = resp.getWriter();
+
+
   }
 }
