@@ -28,9 +28,12 @@ public class HomeServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
+    String userType = req.getParameter("userType"); //FIXME (brać z sesji - w ok. 1/3 prezentacji z JEE)
+
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
 
     Map<String, Object> dataModel = new HashMap<>();
+    dataModel.put("userType", userType);
 
     PrintWriter printWriter = resp.getWriter();
 
