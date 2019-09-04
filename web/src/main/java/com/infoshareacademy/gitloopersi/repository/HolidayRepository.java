@@ -1,6 +1,6 @@
-package com.infoshareacademy.gitLoopersi.repository;
+package com.infoshareacademy.gitloopersi.repository;
 
-import com.infoshareacademy.gitLoopersi.domain.api.Holiday;
+import com.infoshareacademy.gitloopersi.domain.api.Holiday;
 import java.util.ArrayList;
 import java.util.List;
 

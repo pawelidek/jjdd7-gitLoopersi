@@ -1,4 +1,4 @@
-package com.infoshareacademy.gitLoopersi.parser;
+package com.infoshareacademy.gitloopersi.parser;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

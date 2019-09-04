@@ -1,4 +1,4 @@
-package com.infoshareacademy.gitLoopersi.servlet.admin;
+package com.infoshareacademy.gitloopersi.servlet.admin;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet("/admin/vacation/add-day-off")
-public class AddDayOffServlet extends HttpServlet {
+@WebServlet("/admin/team")
+public class TeamManagerServlet extends HttpServlet {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
