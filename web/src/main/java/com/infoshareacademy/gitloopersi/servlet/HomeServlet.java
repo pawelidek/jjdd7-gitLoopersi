@@ -1,6 +1,6 @@
-package com.infoshareacademy.gitLoopersi.servlet;
+package com.infoshareacademy.gitloopersi.servlet;
 
-import com.infoshareacademy.gitLoopersi.freemarker.TemplateProvider;
+import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;

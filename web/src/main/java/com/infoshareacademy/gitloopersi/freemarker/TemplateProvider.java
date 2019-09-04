@@ -1,4 +1,4 @@
-package com.infoshareacademy.gitLoopersi.freemarker;
+package com.infoshareacademy.gitloopersi.freemarker;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;

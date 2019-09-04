@@ -1,4 +1,4 @@
-package com.infoshareacademy.gitLoopersi.servlet;
+package com.infoshareacademy.gitloopersi.servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
