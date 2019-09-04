@@ -69,7 +69,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.infoshareacademy.gitLoopersi.App</mainClass>
+              <mainClass>com.infoshareacademy.gitloopersi.App</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
