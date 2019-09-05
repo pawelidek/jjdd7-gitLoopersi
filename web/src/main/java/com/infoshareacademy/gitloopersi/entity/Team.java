@@ -1,18 +1,24 @@
 package com.infoshareacademy.gitloopersi.entity;
 
-import javax.persistence.*;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
-@Table(name="team")
+@Table(name = "team")
 public class Team {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name="id")
+  @Column(name = "id")
   private Integer id;
 
-  @Column(name="name")
+  @Column(name = "name")
   private String name;
 
   @OneToMany(mappedBy = "team")
@@ -52,9 +58,9 @@ public class Team {
   @Override
   public String toString() {
     return "Team{" +
-            "id=" + id +
-            ", name='" + name + '\'' +
-            ", teamEmpolyees=" + teamEmpolyees +
-            '}';
+        "id=" + id +
+        ", name='" + name + '\'' +
+        ", teamEmpolyees=" + teamEmpolyees +
+        '}';
   }
 }

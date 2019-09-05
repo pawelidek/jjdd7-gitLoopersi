@@ -18,7 +18,8 @@ public class Parser {
     JsonNode jsonNode = objectMapper.readTree(holidaysPath);
 
     return objectMapper.readValue(jsonNode.get("response").get("holidays").toString(),
-        new TypeReference<List<HolidayApi>>() {});
+        new TypeReference<List<HolidayApi>>() {
+        });
   }
 
   public List<HolidayApi> parseHolidaysFromApi(String holidays) throws IOException {
@@ -26,6 +27,7 @@ public class Parser {
     JsonNode jsonNode = objectMapper.readTree(holidays);
 
     return objectMapper.readValue(jsonNode.get("response").get("holidays").toString(),
-        new TypeReference<List<HolidayApi>>() {});
+        new TypeReference<List<HolidayApi>>() {
+        });
   }
 }

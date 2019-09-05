@@ -1,5 +1,6 @@
 package com.infoshareacademy.gitloopersi.service;
 
+import com.infoshareacademy.gitloopersi.dao.ApiHolidayDao;
 import com.infoshareacademy.gitloopersi.domain.api.HolidayApi;
 import com.infoshareacademy.gitloopersi.entity.Holiday;
 import com.infoshareacademy.gitloopersi.mapper.HolidayMapper;
@@ -30,11 +31,14 @@ public class ApiConsumerService {
   @EJB
   private HolidayMapper holidayMapper;
 
-  Logger logger = Logger.getLogger(getClass().getName());
+  @EJB
+  private ApiHolidayDao apiHolidayDao;
+
+  private Logger logger = Logger.getLogger(getClass().getName());
 
   @PostConstruct
   protected void init() {
-    logger.severe("Api consumer started");
+    logger.info("Api consumer started");
     Client client = ClientBuilder.newClient();
 
     String apikey = "93deab6507d4b12925ee610aafe48024f98ad8e5";
@@ -43,11 +47,7 @@ public class ApiConsumerService {
         "http://isa-proxy.blueazurit.com/calendar/holidays").queryParam("api_key", apikey)
         .queryParam("country", "PL").queryParam("year", LocalDate.now().getYear());
 
-    try {
-      holidayMapper.mapApiToEntity(loadData());
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    loadDataToDataBase();
   }
 
   public List<HolidayApi> loadData() throws IOException {
@@ -58,4 +58,12 @@ public class ApiConsumerService {
     return parser.parseHolidaysFromApi(resp);
   }
 
+  private void loadDataToDataBase() {
+    try {
+      List<Holiday> holidays = holidayMapper.mapApiToEntity(loadData());
+      holidays.forEach(holiday -> apiHolidayDao.addHoliday(holiday));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 }

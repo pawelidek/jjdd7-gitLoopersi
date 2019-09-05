@@ -2,37 +2,47 @@ package com.infoshareacademy.gitloopersi.entity;
 
 import java.time.LocalDate;
 import java.util.List;
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 @Entity
-@Table(name="employee")
+@Table(name = "employee")
 public class Employee implements Comparable<Employee> {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name="id")
+  @Column(name = "id")
   private Long id;
 
-  @Column(name="first_name")
+  @Column(name = "first_name")
   private String firstName;
 
-  @Column(name="second_name")
+  @Column(name = "second_name")
   private String secondName;
 
-  @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH,CascadeType.PERSIST})
-  @JoinColumn(name="team_id")
+  @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH,
+      CascadeType.PERSIST})
+  @JoinColumn(name = "team_id")
   private Team team;
 
-  @Column(name="start_date")
+  @Column(name = "start_date")
   private LocalDate startDate;
 
-  @Column(name="start_hire_date")
+  @Column(name = "start_hire_date")
   private LocalDate startHireDate;
 
   @OneToMany(mappedBy = "employee",
-          cascade = CascadeType.ALL,
-          orphanRemoval = true
+      cascade = CascadeType.ALL,
+      orphanRemoval = true
   )
   private List<Vacation> employeeVacations;
 
@@ -74,7 +84,7 @@ public class Employee implements Comparable<Employee> {
     this.secondName = secondName;
   }
 
-  public Team  getTeam() {
+  public Team getTeam() {
     return team;
   }
 
