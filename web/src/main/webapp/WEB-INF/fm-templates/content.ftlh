@@ -1,23 +1,7 @@
 <div class="container">
   <div>
     <article id="TRESC">
-      <p>Under Construction</p>
-      <p>Under Construction</p>
-      <p>Under Construction</p>
-      <p>Under Construction</p>
-      <p>Under Construction</p>
-      <p>Under Construction</p>
-      <p>Under Construction</p>
-      <p>Under Construction</p>
-      <p>Under Construction</p>
-      <p>Under Construction</p>
-      <p>Under Construction</p>
-      <p>Under Construction</p>
-      <p>Under Construction</p>
-      <p>Under Construction</p>
-      <p>Under Construction</p>
-      <p>Under Construction</p>
-      <p>Under Construction</p>
-      <p>Under Construction</p>
+      <h1> Welcome ${user ! "visitor"}!</h1>
+
     </article>
   </div>

@@ -1,12 +1,11 @@
 <nav class="navbar navbar-light fixed-top bg-light flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><img
-        src="/img/logo.png" alt="Responsive image"
+        src="img/logo.png" alt="Logo"
         width=150px height=65px></a>
 
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
-      <a id="sign out" class="nav-link" href="#"><img src="/img/btn_google_signin_light_focus_web.png"
-                                                      alt="Google"></a>
+      <a id="sign out" class="nav-link" href="#">Sign out</a>
     </li>
   </ul>
 </nav>
@@ -24,17 +23,27 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
-              Holidays
+              Employee
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
-              Change of date format
+              Teams
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              My Vacation
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              Holidays
             </a>
           </li>
 
         </ul>
+        </ul>
       </div>
     </nav>
   </div>
-</div>
