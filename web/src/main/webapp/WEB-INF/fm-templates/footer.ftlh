@@ -1,0 +1,1 @@
+<div class="footer">Calendar created by <strong>GitLoopers&copy; </strong>${.now?string.yyyy}.</div>
