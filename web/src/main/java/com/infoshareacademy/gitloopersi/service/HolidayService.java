@@ -14,10 +14,10 @@ public class HolidayService {
   @EJB
   HolidayDaoBean holidayDaoBean;
 
-  public void saveHoliday(String name, LocalDate date, HolidayType holidayType,
+  public void addHoliday(String name, LocalDate date, HolidayType holidayType,
       String description) {
     Holiday holidayToSave = new Holiday(name, date, holidayType, description);
-    holidayDaoBean.addHoliday(new Holiday());
+    holidayDaoBean.saveHoliday(new Holiday());
   }
 
   public Holiday findHolidayById(Integer id) {

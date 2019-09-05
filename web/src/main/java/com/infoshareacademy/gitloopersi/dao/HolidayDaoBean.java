@@ -12,9 +12,8 @@ public class HolidayDaoBean {
   @PersistenceContext
   EntityManager entityManager;
 
-  public void addHoliday(Holiday holidayToSave){
+  public void saveHoliday(Holiday holidayToSave){
     entityManager.persist(holidayToSave);
-
   }
 
   public void updateHoliday(Holiday holiday){
@@ -22,10 +21,7 @@ public class HolidayDaoBean {
   }
 
   public Holiday getHolidayById(Integer id){
-    Holiday foundHoliday = (Holiday) entityManager.createQuery(
-        "SELECT h FROM Holiday h WHERE h.id=:id")
-        .setParameter("id", id)
-        .getSingleResult();
+    Holiday foundHoliday = entityManager.find(Holiday.class,id);
     return foundHoliday;
   }
 

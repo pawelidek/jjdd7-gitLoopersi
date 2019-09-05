@@ -1,7 +1,9 @@
 package com.infoshareacademy.gitloopersi.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.*;
 
 
@@ -34,16 +36,16 @@ public class Employee implements Comparable<Employee> {
           cascade = CascadeType.ALL,
           orphanRemoval = true
   )
-  private List<Vacation> employeeVacations;
+  private List<Vacation> employeeVacations = new ArrayList<>();
 
 
   public Employee() {
   }
 
-  public Employee(String first_name, String secondName, Team team,
+  public Employee(String firstName, String secondName, Team team,
       LocalDate startDate,
       LocalDate startHireDate) {
-    this.firstName = first_name;
+    this.firstName = firstName;
     this.secondName = secondName;
     this.team = team;
     this.startDate = startDate;
@@ -62,8 +64,8 @@ public class Employee implements Comparable<Employee> {
     return firstName;
   }
 
-  public void setFirstName(String first_name) {
-    this.firstName = first_name;
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
   }
 
   public String getSecondName() {
@@ -111,8 +113,34 @@ public class Employee implements Comparable<Employee> {
   }
 
   @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof Employee)) {
+      return false;
+    }
+    Employee employee = (Employee) o;
+    return getId().equals(employee.getId()) &&
+        Objects.equals(getFirstName(), employee.getFirstName()) &&
+        Objects.equals(getSecondName(), employee.getSecondName()) &&
+        Objects.equals(getTeam(), employee.getTeam()) &&
+        Objects.equals(getStartDate(), employee.getStartDate()) &&
+        Objects.equals(getStartHireDate(), employee.getStartHireDate()) &&
+        Objects.equals(employeeVacations, employee.employeeVacations);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects
+        .hash(getId(), getFirstName(), getSecondName(), getTeam(), getStartDate(),
+            getStartHireDate(),
+            employeeVacations);
+  }
+
+  @Override
   public int compareTo(Employee employee) {
-    if (id == employee.id) {
+    if (id.equals(employee.id)) {
       return 0;
     } else if (id > employee.id) {
       return 1;
