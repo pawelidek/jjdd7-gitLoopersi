@@ -1,6 +1,6 @@
 package com.infoshareacademy.gitloopersi.dao;
 
-import com.infoshareacademy.gitloopersi.entity.Team;
+import com.infoshareacademy.gitloopersi.domain.entity.Team;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,7 +12,8 @@ public class TeamDaoBean {
   EntityManager entityManager;
 
   public void saveTeam(String teamName) {
-    Team team = new Team(teamName);
+    Team team = new Team();
+    team.setName(teamName);
     entityManager.persist(team);
   }
 }

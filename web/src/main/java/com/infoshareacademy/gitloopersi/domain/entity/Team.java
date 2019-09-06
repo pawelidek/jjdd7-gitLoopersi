@@ -1,5 +1,6 @@
-package com.infoshareacademy.gitloopersi.entity;
+package com.infoshareacademy.gitloopersi.domain.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,14 +23,7 @@ public class Team {
   private String name;
 
   @OneToMany(mappedBy = "team")
-  private List<Employee> teamEmpolyees;
-
-  public Team() {
-  }
-
-  public Team(String name) {
-    this.name = name;
-  }
+  private List<Employee> teamEmployees = new ArrayList<>();
 
   public Integer getId() {
     return id;
@@ -47,20 +41,7 @@ public class Team {
     this.name = name;
   }
 
-  public List<Employee> getTeamEmpolyees() {
-    return teamEmpolyees;
-  }
-
-  public void setTeamEmpolyees(List<Employee> teamEmpolyees) {
-    this.teamEmpolyees = teamEmpolyees;
-  }
-
-  @Override
-  public String toString() {
-    return "Team{" +
-        "id=" + id +
-        ", name='" + name + '\'' +
-        ", teamEmpolyees=" + teamEmpolyees +
-        '}';
+  public List<Employee> getTeamEmployees() {
+    return teamEmployees;
   }
 }

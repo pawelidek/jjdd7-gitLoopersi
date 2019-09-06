@@ -1,6 +1,7 @@
-package com.infoshareacademy.gitloopersi.entity;
+package com.infoshareacademy.gitloopersi.domain.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,10 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "employee")
-public class Employee implements Comparable<Employee> {
+public class Employee {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,21 +44,7 @@ public class Employee implements Comparable<Employee> {
       cascade = CascadeType.ALL,
       orphanRemoval = true
   )
-  private List<Vacation> employeeVacations;
-
-
-  public Employee() {
-  }
-
-  public Employee(String first_name, String secondName, Team team,
-      LocalDate startDate,
-      LocalDate startHireDate) {
-    this.firstName = first_name;
-    this.secondName = secondName;
-    this.team = team;
-    this.startDate = startDate;
-    this.startHireDate = startHireDate;
-  }
+  private List<Vacation> employeeVacations = new ArrayList<>();
 
   public Long getId() {
     return id;
@@ -72,8 +58,8 @@ public class Employee implements Comparable<Employee> {
     return firstName;
   }
 
-  public void setFirstName(String first_name) {
-    this.firstName = first_name;
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
   }
 
   public String getSecondName() {
@@ -108,26 +94,7 @@ public class Employee implements Comparable<Employee> {
     this.startHireDate = startHireDate;
   }
 
-  @java.lang.Override
-  public java.lang.String toString() {
-    return "Employee{" +
-        "id=" + id +
-        ", first_name='" + firstName + '\'' +
-        ", secondName='" + secondName + '\'' +
-        ", team=" + team +
-        ", startDate=" + startDate +
-        ", startHireDate=" + startHireDate +
-        '}';
-  }
-
-  @Override
-  public int compareTo(Employee employee) {
-    if (id == employee.id) {
-      return 0;
-    } else if (id > employee.id) {
-      return 1;
-    } else {
-      return -1;
-    }
+  public List<Vacation> getEmployeeVacations() {
+    return employeeVacations;
   }
 }
