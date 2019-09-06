@@ -16,6 +16,10 @@ public class HolidayDaoBean {
     entityManager.persist(holidayToSave);
   }
 
+  public void deleteHoliday(Integer id){
+    entityManager.remove(getHolidayById(id));
+  }
+
   public void updateHoliday(Holiday holiday){
     entityManager.merge(holiday);
   }

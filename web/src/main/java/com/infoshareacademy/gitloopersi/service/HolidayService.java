@@ -17,7 +17,7 @@ public class HolidayService {
   public void addHoliday(String name, LocalDate date, HolidayType holidayType,
       String description) {
     Holiday holidayToSave = new Holiday(name, date, holidayType, description);
-    holidayDaoBean.saveHoliday(new Holiday());
+    holidayDaoBean.saveHoliday(holidayToSave);
   }
 
   public Holiday findHolidayById(Integer id) {
@@ -26,6 +26,10 @@ public class HolidayService {
 
   public void modifyHoliday(Holiday changedHoliday){
     holidayDaoBean.updateHoliday(changedHoliday);
+  }
+
+  public void removeHoliday(Integer id){
+    holidayDaoBean.deleteHoliday(id);
   }
 
   public List<Holiday> findAllHolidays() {

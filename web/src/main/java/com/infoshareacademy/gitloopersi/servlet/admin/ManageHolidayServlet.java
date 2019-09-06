@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet("/admin/vacation")
-public class VacationManagerServlet extends HttpServlet {
+@WebServlet("/admin/holiday/manage-holiday")
+public class ManageHolidayServlet extends HttpServlet {
+
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @Override
@@ -36,4 +37,5 @@ public class VacationManagerServlet extends HttpServlet {
       throws ServletException, IOException {
     //TODO
   }
+
 }
