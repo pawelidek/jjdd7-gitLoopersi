@@ -1,20 +1,19 @@
-package com.infoshareacademy.gitloopersi.entity;
+package com.infoshareacademy.gitloopersi.domain.entity;
 
 import com.infoshareacademy.gitloopersi.types.StatusType;
-
 import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Entity;
 
 @Entity
-@Table(name="vacation")
+@Table(name = "vacation")
 public class Vacation {
 
   @Id
@@ -37,18 +36,6 @@ public class Vacation {
 
   @Column(name = "status_type")
   private StatusType statusType;
-
-  public Vacation() {
-  }
-
-  public Vacation(Employee employee, LocalDate dateFrom, LocalDate dateTo, Integer daysCount,
-      StatusType statusType) {
-    this.employee = employee;
-    this.dateFrom = dateFrom;
-    this.dateTo = dateTo;
-    this.daysCount = daysCount;
-    this.statusType = statusType;
-  }
 
   public Long getId() {
     return id;
@@ -96,18 +83,6 @@ public class Vacation {
 
   public void setStatusType(StatusType statusType) {
     this.statusType = statusType;
-  }
-
-  @Override
-  public String toString() {
-    return "Vacation{" +
-        "id=" + id +
-        ", employee=" + employee +
-        ", dateFrom=" + dateFrom +
-        ", dateTo=" + dateTo +
-        ", daysCount=" + daysCount +
-        ", statusType=" + statusType +
-        '}';
   }
 }
 
