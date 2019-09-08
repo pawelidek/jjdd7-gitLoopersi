@@ -31,17 +31,6 @@ public class Holiday {
   @Column(name="description")
   private String description;
 
-  public Holiday() {
-  }
-
-  public Holiday(String name, LocalDate date, HolidayType holidayType,
-      String description) {
-    this.name = name;
-    this.date = date;
-    this.holidayType = holidayType;
-    this.description = description;
-  }
-
   public Integer getId() {
     return id;
   }
@@ -82,14 +71,4 @@ public class Holiday {
     this.description = description;
   }
 
-  @java.lang.Override
-  public java.lang.String toString() {
-    return "Holiday{" +
-        "id=" + id +
-        ", name='" + name + '\'' +
-        ", date=" + date +
-        ", holidayType="  + holidayType +
-        ", description='" + description + '\'' +
-        '}';
-  }
 }

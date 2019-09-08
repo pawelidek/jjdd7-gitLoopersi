@@ -1,54 +1,49 @@
 package com.infoshareacademy.gitloopersi.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
-
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
-@Table(name="employee")
-public class Employee implements Comparable<Employee> {
+@Table(name = "employee")
+public class Employee {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name="id")
+  @Column(name = "id")
   private Long id;
 
-  @Column(name="first_name")
+  @Column(name = "first_name")
   private String firstName;
 
-  @Column(name="second_name")
+  @Column(name = "second_name")
   private String secondName;
 
-  @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH,CascadeType.PERSIST})
-  @JoinColumn(name="team_id")
+  @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH,
+      CascadeType.PERSIST})
+  @JoinColumn(name = "team_id")
   private Team team;
 
-  @Column(name="start_date")
+  @Column(name = "start_date")
   private LocalDate startDate;
 
-  @Column(name="start_hire_date")
+  @Column(name = "start_hire_date")
   private LocalDate startHireDate;
 
   @OneToMany(mappedBy = "employee",
-          cascade = CascadeType.ALL,
-          orphanRemoval = true
-  )
-  private List<Vacation> employeeVacations;
-
-
-  public Employee() {
-  }
-
-  public Employee(String first_name, String secondName, Team team,
-      LocalDate startDate,
-      LocalDate startHireDate) {
-    this.firstName = first_name;
-    this.secondName = secondName;
-    this.team = team;
-    this.startDate = startDate;
-    this.startHireDate = startHireDate;
-  }
+      cascade = CascadeType.ALL,
+      orphanRemoval = true)
+  private List<Vacation> employeeVacations = new ArrayList<>();
 
   public Long getId() {
     return id;
@@ -74,7 +69,7 @@ public class Employee implements Comparable<Employee> {
     this.secondName = secondName;
   }
 
-  public Team  getTeam() {
+  public Team getTeam() {
     return team;
   }
 
@@ -98,26 +93,8 @@ public class Employee implements Comparable<Employee> {
     this.startHireDate = startHireDate;
   }
 
-  @java.lang.Override
-  public java.lang.String toString() {
-    return "Employee{" +
-        "id=" + id +
-        ", first_name='" + firstName + '\'' +
-        ", secondName='" + secondName + '\'' +
-        ", team=" + team +
-        ", startDate=" + startDate +
-        ", startHireDate=" + startHireDate +
-        '}';
+  public List<Vacation> getEmployeeVacations() {
+    return employeeVacations;
   }
 
-  @Override
-  public int compareTo(Employee employee) {
-    if (id == employee.id) {
-      return 0;
-    } else if (id > employee.id) {
-      return 1;
-    } else {
-      return -1;
-    }
-  }
 }
