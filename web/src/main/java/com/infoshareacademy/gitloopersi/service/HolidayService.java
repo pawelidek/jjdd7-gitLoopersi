@@ -1,7 +1,7 @@
 package com.infoshareacademy.gitloopersi.service;
 
 import com.infoshareacademy.gitloopersi.dao.HolidayDaoBean;
-import com.infoshareacademy.gitloopersi.entity.Holiday;
+import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
 import com.infoshareacademy.gitloopersi.types.HolidayType;
 import java.time.LocalDate;
 import java.util.List;
@@ -16,7 +16,12 @@ public class HolidayService {
 
   public void addHoliday(String name, LocalDate date, HolidayType holidayType,
       String description) {
-    Holiday holidayToSave = new Holiday(name, date, holidayType, description);
+    Holiday holidayToSave = new Holiday();
+    holidayToSave.setName(name);
+    holidayToSave.setDate(date);
+    holidayToSave.setHolidayType(holidayType);
+    holidayToSave.setDescription(description);
+    holidayToSave.setCustom(true);
     holidayDaoBean.saveHoliday(holidayToSave);
   }
 

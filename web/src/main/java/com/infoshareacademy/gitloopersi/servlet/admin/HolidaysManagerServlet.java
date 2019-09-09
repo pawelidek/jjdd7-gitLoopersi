@@ -1,6 +1,6 @@
 package com.infoshareacademy.gitloopersi.servlet.admin;
 
-import com.infoshareacademy.gitloopersi.entity.Holiday;
+import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
 import com.infoshareacademy.gitloopersi.service.HolidayService;
 import com.infoshareacademy.gitloopersi.types.HolidayType;
@@ -35,11 +35,16 @@ public class HolidaysManagerServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-
-    holidayService.addHoliday("Boze Narodzenie", LocalDate.of(2019,12,24), HolidayType.NATIONAL_HOLIDAY,"swieta");
-    holidayService.addHoliday("Wielkanoc", LocalDate.of(2019,4,10), HolidayType.NATIONAL_HOLIDAY,"swieta");
-    holidayService.addHoliday("Swieto wojska polskiego", LocalDate.of(2019,8,15), HolidayType.NATIONAL_HOLIDAY,"swieta");
-
+    if (holidayService.findAllHolidays()==null || holidayService.findAllHolidays().size()==0) {
+      holidayService
+          .addHoliday("Boze Narodzenie", LocalDate.of(2019, 12, 24), HolidayType.NATIONAL_HOLIDAY,
+              "swieta");
+      holidayService
+          .addHoliday("Wielkanoc", LocalDate.of(2019, 4, 10), HolidayType.NATIONAL_HOLIDAY,
+              "swieta");
+      holidayService.addHoliday("Swieto wojska polskiego", LocalDate.of(2019, 8, 15),
+          HolidayType.NATIONAL_HOLIDAY, "swieta");
+    }
     Map<String, Object> dataModel = new HashMap<>();
     List<Holiday> holidays= holidayService.findAllHolidays();
 

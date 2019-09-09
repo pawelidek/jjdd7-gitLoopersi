@@ -11,9 +11,7 @@ import javax.servlet.ServletContext;
 @RequestScoped
 public class TemplateProvider {
 
-  private final String TEMPLATES_DIRECTORY_PATH = "WEB-INF/fm-templates";
-
-  private Configuration configuration;
+  private static final String TEMPLATES_DIRECTORY_PATH = "WEB-INF/fm-templates";
 
   @Inject
   private ConfigProvider configProvider;
@@ -21,7 +19,7 @@ public class TemplateProvider {
   public Template getTemplate(ServletContext servletContext, String templateName)
       throws IOException {
 
-    configuration = configProvider.getConfiguration();
+    Configuration configuration = configProvider.getConfiguration();
     configuration.setServletContextForTemplateLoading(servletContext, TEMPLATES_DIRECTORY_PATH);
     return configuration.getTemplate(templateName);
   }

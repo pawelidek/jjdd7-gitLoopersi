@@ -1,6 +1,6 @@
 package com.infoshareacademy.gitloopersi.dao;
 
-import com.infoshareacademy.gitloopersi.entity.Holiday;
+import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
