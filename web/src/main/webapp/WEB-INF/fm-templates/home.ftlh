@@ -15,7 +15,9 @@
 <body>
 
 <#include "/side_and_navbar${userType}.ftlh">
-<#include "/contentHomePage.ftlh">
+
+<#include "/content${function}.ftlh">
+
 <#include "/calendar.ftlh">
 <#include "/footer.ftlh">
 

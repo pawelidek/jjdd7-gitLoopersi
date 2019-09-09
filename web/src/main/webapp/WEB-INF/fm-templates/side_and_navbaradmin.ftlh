@@ -41,6 +41,11 @@
               Holidays
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              Load file
+            </a>
+          </li>
 
         </ul>
         </ul>
