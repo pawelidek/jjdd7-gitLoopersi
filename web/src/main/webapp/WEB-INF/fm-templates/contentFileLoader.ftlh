@@ -3,7 +3,7 @@
     <form method="POST" enctype="multipart/form-data" action="/admin/jsonLoader">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon03">
+          <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon03">
             Upload
           </button>
         </div>
