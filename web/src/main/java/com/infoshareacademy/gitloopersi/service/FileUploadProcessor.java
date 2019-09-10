@@ -15,7 +15,7 @@ public class FileUploadProcessor {
 
   private static final String SETTINGS_FILE = "settings.properties";
 
-  public File uploadImageFile(Part filePart) throws IOException, HolidaysFileNotFound {
+  public File uploadHolidaysFile(Part filePart) throws IOException, HolidaysFileNotFound {
 
     String fileName = Paths.get(filePart.getSubmittedFileName())
         .getFileName().toString();

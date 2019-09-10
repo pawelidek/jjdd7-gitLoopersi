@@ -16,7 +16,7 @@ public class ApiHolidayDao {
   EntityManager entityManager;
 
   public void addHoliday(Holiday holiday) {
-    logger.info("Object holiday persist to DB");
-    entityManager.persist(holiday);
+    logger.info("Object holiday merge to DB");
+    entityManager.merge(holiday);
   }
 }

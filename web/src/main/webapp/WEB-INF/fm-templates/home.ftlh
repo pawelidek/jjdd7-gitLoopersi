@@ -15,15 +15,9 @@
 <body>
 
 <#include "/side_and_navbar${userType}.ftlh">
-
 <#include "/content${function}.ftlh">
-
 <#include "/calendar.ftlh">
 <#include "/footer.ftlh">
-
-</div>
-</div>
-
 
 <script src="/js/bootstrap.js"></script>
 <script src="/js/feather.js"></script>
