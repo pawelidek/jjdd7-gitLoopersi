@@ -62,9 +62,11 @@ public class HolidaysManagerServlet extends HttpServlet {
       dataModel.put("holidays", holidayService.findAllHolidays());
       dataModel.put("function", "HolidaysManager");
     } else if (servletPath.equals("/admin/holiday/edit")){
+      dataModel.put("holidays", holidayService.findAllHolidays());
       dataModel.put("function", "HolidaysManager");
       Integer holidayId=Integer.parseInt(req.getParameter("id"));
       dataModel.put("oneHoliday",holidayService.findHolidayById(holidayId));
+      dataModel.put("method","put");
     }
     PrintWriter printWriter = resp.getWriter();
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");

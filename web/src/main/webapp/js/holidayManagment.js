@@ -27,7 +27,7 @@ $(function () {
     $("#add_holiday").click(function (event) {
       $.ajax({
         url: "/admin/holiday",
-        method: "POST",
+        method: $('#addHolidayMethod').val(),
         data: $('form#contactForm').serialize(),
         success: function () {
           location.reload();
@@ -40,21 +40,21 @@ $(function () {
   });
 });
 
-$(function () {
-  $(document).ready(function () {
-    $(".update-holiday").click(function (event) {
-
-      var buttonId = $(event.target).attr('data-id');
-      $.ajax({
-        url: "/admin/holiday/edit/?id=" + $(this).attr('data-id'),
-        method: "GET",
-        success: function () {
-          $('#editModal').modal('toggle');
-        },
-        error: function (error) {
-          alert(buttonId);
-        }
-      });
-    });
-  });
-});
+// $(function () {
+//   $(document).ready(function () {
+//     $(".update-holiday").click(function (event) {
+//
+//       var buttonId = $(event.target).attr('data-id');
+//       $.ajax({
+//         url: "/admin/holiday/edit/?id=" + $(this).attr('data-id'),
+//         method: "GET",
+//         success: function () {
+//           $('#editModal').modal('toggle');
+//         },
+//         error: function (error) {
+//           alert(buttonId);
+//         }
+//       });
+//     });
+//   });
+// });
