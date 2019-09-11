@@ -40,11 +40,11 @@ public class HolidayMapper {
     }
   }
 
-  public HolidayApi mapEntityToApi(Holiday holidayEntity){
+  public HolidayApi mapEntityToApi(Holiday holidayEntity) {
     HolidayApi holidayToJSON = new HolidayApi();
     holidayToJSON.setName(holidayEntity.getName());
 
-    DateApi dateApi =new DateApi();
+    DateApi dateApi = new DateApi();
     dateApi.setIso(holidayEntity.getDate().toString());
 
     holidayToJSON.setDate(dateApi);

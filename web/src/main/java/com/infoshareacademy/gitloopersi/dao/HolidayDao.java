@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Stateless
-public class ApiHolidayDao {
+public class HolidayDao {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
