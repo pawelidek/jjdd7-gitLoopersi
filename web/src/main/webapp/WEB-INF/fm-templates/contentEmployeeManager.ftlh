@@ -1,20 +1,20 @@
 <div>
   <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
-  <script src="/js/deleteEmployee.js"></script>
+  <script src="/js/employee.js"></script>
   <article id="TRESC">
 
     <table>
       <tr>
         <td style="text-align: left" width="100%"><h2>Employee manager</h2></td>
-        <td style="text-align: right" width="100%"><a href="/admin/employee/add">
-          <button type="button" class="btn btn-outline-secondary" title="Add new employee">
+        <td style="text-align: right" width="100%">
+          <button type="button" class="btn btn-outline-secondary"
+                  data-toggle="modal" data-target="#exampleModal">
             <img src="/img/button_add.svg"> Add new employee
           </button>
-        </a></td>
+
+        </td>
       </tr>
     </table>
-
-
 
     <table class="table table-sm" style="text-align: center">
 
@@ -43,9 +43,7 @@
               <td>2005-05-06</td>
               <td>
                 <div>
-                  <a href="#"><img src="/img/button_preview.svg" alt="Preview" title="Preview"></a>
-                  <a href="/admin/employee/edit?id=${employee.id}">
-                    <img src="/img/button_edit.svg" alt="Edit" title="Edit"></a>
+                  <img src="/img/button_edit.svg" alt="Edit" title="Edit">
                   <a class="delete-employee-link" data-id="${employee.id}" href="#">
                     <img src="/img/button_delete.svg" alt="Delete" title="Delete"></a>
                 </div>
@@ -55,6 +53,43 @@
       </#list>
       </tbody>
     </table>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Employee
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="contactForm" name="contact" role="form">
+              <input type="hidden" name="method" value="${method!"post"}"/>
+              <div class="form-group">
+                <label for="firstName">First name:
+                  <input type="text" class="form-control" name="firstName"
+                         placeholder="New first name">
+                </label>
+              </div>
+              <div class="form-group">
+                <label for="secondName">Last name:
+                  <input type="text" class="form-control" name="secondName"
+                         placeholder="New last name">
+                </label>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="settingButton">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </article>
 </div>

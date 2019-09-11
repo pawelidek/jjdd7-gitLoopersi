@@ -70,14 +70,16 @@ public class EmployeeManagerServlet extends HttpServlet {
 
     } else if (servletPath.equals("/admin/employee/add")) {
 
-      dataModel.put("function", "EmployeeCreator");
+      dataModel.put("function", "EmployeeForm");
+      dataModel.put("method", "");
 
     } else if (servletPath.equals("/admin/employee/edit")) {
 
       Long id = Long.parseLong(req.getParameter("id"));
       Employee employee = employeeService.getEmployeeById(id);
       dataModel.put("employee", employee);
-      dataModel.put("function", "EmployeeEditor");
+      dataModel.put("function", "EmployeeForm");
+      dataModel.put("method", "edit");
 
     }
 

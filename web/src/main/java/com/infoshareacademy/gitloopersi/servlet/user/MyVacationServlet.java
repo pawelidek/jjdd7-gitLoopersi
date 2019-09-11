@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet("/vacation")
+@WebServlet("/user/vacation")
 public class MyVacationServlet extends HttpServlet {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());

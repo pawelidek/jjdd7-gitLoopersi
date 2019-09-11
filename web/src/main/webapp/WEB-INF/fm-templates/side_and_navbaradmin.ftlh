@@ -17,8 +17,8 @@
       <div id="menu" class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" href="/home">
-              Main Page <span class="sr-only">(current)</span>
+            <a class="nav-link" href="/home">
+              Main Page
             </a>
           </li>
           <li class="nav-item">
