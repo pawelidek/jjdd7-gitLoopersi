@@ -21,6 +21,7 @@ public class HolidayDao {
   }
 
   public Holiday getHolidayById(Integer id){
+    logger.info("Object holiday id={} find in DB",id);
     return entityManager.find(Holiday.class,id);
   }
 }

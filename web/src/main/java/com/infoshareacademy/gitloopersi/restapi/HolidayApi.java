@@ -12,6 +12,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Path("/holiday")
 public class HolidayApi {
@@ -22,10 +24,13 @@ public class HolidayApi {
   @Inject
   HolidayMapper holidayMapper;
 
+  private Logger logger = LoggerFactory.getLogger(getClass().getName());
+
   @GET
   @Path("/id/{id}")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getNotification(@PathParam("id") int id) throws JsonProcessingException {
+    logger.info("Process of prepare response on request find holiday identified by id={} has been started",id);
     Holiday holidayEntity = holidayService.findHolidayById(id);
     com.infoshareacademy.gitloopersi.domain.api.HolidayApi holidayToJSON = holidayMapper
         .mapEntityToApi(holidayEntity);
