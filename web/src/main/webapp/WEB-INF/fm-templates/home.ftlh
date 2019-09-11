@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="https://getbootstrap.com/docs/4.1/assets/img/favicons/favicon.ico">
+  <link rel="icon" href="/img/icon.ico">
   <title>Home Page</title>
   <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/dashboard/">
   <link href="/css/bootstrap.css" rel="stylesheet">
@@ -14,14 +15,18 @@
 </head>
 <body>
 
-<#include "/side_and_navbar${userType}.ftlh">
-<#include "/contentHomePage.ftlh">
-<#include "/calendar.ftlh">
-<#include "/footer.ftlh">
-
+<div class="container">
+    <#include "/side_and_navbar${userType}.ftlh">
 </div>
+<div class="container">
+    <#include "/content${function}.ftlh">
 </div>
-
+<div class="container">
+    <#include "/calendar.ftlh">
+</div>
+<div class="container">
+    <#include "/footer.ftlh">
+</div>
 
 <script src="/js/bootstrap.js"></script>
 <script src="/js/feather.js"></script>
