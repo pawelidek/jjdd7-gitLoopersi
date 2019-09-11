@@ -21,7 +21,6 @@ public class HolidayApiInitializer {
   protected void init() {
     try {
       holidayApiConsumer.consume();
-      holidayApiConsumer.loadDataToDataBase();
     } catch (IOException e) {
       logger.error(e.getMessage());
     }
