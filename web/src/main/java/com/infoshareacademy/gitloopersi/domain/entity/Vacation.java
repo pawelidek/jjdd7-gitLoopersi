@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "vacation")
@@ -26,15 +27,19 @@ public class Vacation {
   private Employee employee;
 
   @Column(name = "date_from")
+  @NotNull
   private LocalDate dateFrom;
 
   @Column(name = "date_to")
+  @NotNull
   private LocalDate dateTo;
 
   @Column(name = "days_count")
+  @NotNull
   private Integer daysCount;
 
   @Column(name = "status_type")
+  @NotNull
   private StatusType statusType;
 
   public Long getId() {
