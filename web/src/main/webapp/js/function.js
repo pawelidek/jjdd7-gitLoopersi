@@ -1,4 +1,8 @@
 /** code by webdevtrick ( https://webdevtrick.com ) **/
+
+console.log(holidays);
+console.log(holiday)
+
 var month = [
   "January",
   "February",
@@ -137,12 +141,22 @@ function initCalender(monthData) {
             return;
           }
         });
+        // $($($($("tr.days").get(row)).find("td").get(column)).addClass(classToAdd + " " + currentDay).css("color", "#ff0000").html(day));
+
         $($($($("tr.days").get(row)).find("td").get(column)).addClass(classToAdd + " " + currentDay).html(day));
+
         currentDay = "";
         if (column == 6) {
           row++;
         }
-        $($($($("tr.days").get(row)).find("td").get(column)).addClass(classToAdd + " " + holidays).css("color", "#ff0000").html(day));
+
+        if (currentDay == holiday) {
+          day.css("color", "#ff0000");
+        }
+
+
+
+        // $($($($("tr.days").get(row)).find("td").get(column)).addClass(classToAdd + " " + holiday).css("color", "#ff0000").html(day));
 
       });
   $("td.selectable").click(function () {
@@ -150,8 +164,6 @@ function initCalender(monthData) {
   });
 }
 initCalender(getMonth(new Date()));
-
-
 
 var clickCounter = 0;
 $(".fa-angle-double-right").click(function () {
@@ -218,3 +230,4 @@ $(".fa-angle-right").click(function () {
     $(".main").removeClass("is-rotated-right");
   }, 195);
 });
+
