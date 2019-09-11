@@ -19,4 +19,8 @@ public class ApiHolidayDao {
     logger.info("Object holiday merge to DB");
     entityManager.merge(holiday);
   }
+
+  public Holiday getHolidayById(Integer id){
+    return entityManager.find(Holiday.class,id);
+  }
 }
