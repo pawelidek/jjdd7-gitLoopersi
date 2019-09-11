@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Stateless
-public class ApiHolidayDao {
+public class HolidayDao {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
@@ -16,7 +16,12 @@ public class ApiHolidayDao {
   EntityManager entityManager;
 
   public void addHoliday(Holiday holiday) {
-    logger.info("Object holiday persist to DB");
-    entityManager.persist(holiday);
+    logger.info("Object holiday merge to DB");
+    entityManager.merge(holiday);
+  }
+
+  public Holiday getHolidayById(Integer id) {
+    logger.info("Object holiday id={} find in DB", id);
+    return entityManager.find(Holiday.class, id);
   }
 }

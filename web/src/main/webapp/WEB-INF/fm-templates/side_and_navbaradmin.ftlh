@@ -41,9 +41,14 @@
               Holidays
             </a>
           </li>
-
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/jsonLoader">
+              Load file
+            </a>
+          </li>
         </ul>
         </ul>
       </div>
     </nav>
   </div>
+</div>

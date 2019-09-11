@@ -11,6 +11,11 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
+
+  <properties>
+    <resteasy.version>3.0.14.Final</resteasy.version>
+  </properties>
+
   <artifactId>VacationCalendarEngine</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>

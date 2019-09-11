@@ -1,6 +1,6 @@
 package com.infoshareacademy.gitloopersi.service;
 
-import com.infoshareacademy.gitloopersi.dao.ApiHolidayDao;
+import com.infoshareacademy.gitloopersi.dao.HolidayDao;
 import com.infoshareacademy.gitloopersi.domain.api.HolidayApi;
 import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
 import com.infoshareacademy.gitloopersi.mapper.HolidayMapper;
@@ -33,16 +33,17 @@ public class HolidayApiConsumer {
   private HolidayMapper holidayMapper;
 
   @EJB
-  private ApiHolidayDao apiHolidayDao;
+  private HolidayDao holidayDao;
 
-  public List<HolidayApi> consume() throws IOException {
+  public void consume() throws IOException {
 
     init();
     logger.info("Api response prepared");
     Response response = webTarget.request().get();
     String resp = response.readEntity(String.class);
 
-    return parser.parseHolidaysFromApi(resp);
+    List<HolidayApi> holidayApiList = parser.parseHolidaysFromApi(resp);
+    loadDataToDataBase(holidayApiList);
   }
 
   private void init() {
@@ -53,13 +54,9 @@ public class HolidayApiConsumer {
         .queryParam("country", "PL").queryParam("year", LocalDate.now().getYear());
   }
 
-  public void loadDataToDataBase() {
-    try {
-      logger.info("Load holidays to DB");
-      List<Holiday> holidays = holidayMapper.mapApiToEntity(consume());
-      holidays.forEach(holiday -> apiHolidayDao.addHoliday(holiday));
-    } catch (IOException e) {
-      logger.error(e.getMessage());
-    }
+  private void loadDataToDataBase(List<HolidayApi> holidayApiList) {
+    logger.info("Load holidays to DB");
+    List<Holiday> holidays = holidayMapper.mapApiToEntity(holidayApiList);
+    holidays.forEach(holiday -> holidayDao.addHoliday(holiday));
   }
 }
