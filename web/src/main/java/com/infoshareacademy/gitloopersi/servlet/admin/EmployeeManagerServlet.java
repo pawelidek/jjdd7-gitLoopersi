@@ -21,9 +21,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @WebServlet(urlPatterns = {
-    "/admin/user",
-    "/admin/user/add",
-    "/admin/user/edit"
+    "/admin/employee",
+    "/admin/employee/add",
+    "/admin/employee/edit"
 })
 public class EmployeeManagerServlet extends HttpServlet {
 
@@ -56,27 +56,30 @@ public class EmployeeManagerServlet extends HttpServlet {
 
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
 
-    Map<String, Object> dataModel = new HashMap<>();
-    List<Employee> employeeList = employeeService.getEmployeesList();
-
     String servletPath = req.getServletPath();
+
+    Map<String, Object> dataModel = new HashMap<>();
+
     dataModel.put("userType", "admin");
 
-    if (servletPath.equals("/admin/user")) {
+    if (servletPath.equals("/admin/employee")) {
 
+      List<Employee> employeeList = employeeService.getEmployeesList();
       dataModel.put("employees", employeeList);
       dataModel.put("function", "EmployeeManager");
 
-    } else if (servletPath.equals("/admin/user/add")) {
+    } else if (servletPath.equals("/admin/employee/add")) {
 
-      dataModel.put("userType", "admin");
-      dataModel.put("employees", employeeList);
       dataModel.put("function", "EmployeeCreator");
 
+    } else if (servletPath.equals("/admin/employee/edit")) {
+
+      Long id = Long.parseLong(req.getParameter("id"));
+      Employee employee = employeeService.getEmployeeById(id);
+      dataModel.put("employee", employee);
+      dataModel.put("function", "EmployeeEditor");
+
     }
-//    else if (context.equals("/admin/user/edit")){
-//      dataModel.put("function", "EmployeeEditor");
-//    }
 
     PrintWriter printWriter = resp.getWriter();
 
@@ -101,15 +104,27 @@ public class EmployeeManagerServlet extends HttpServlet {
 
     employeeService.addEmployee(employee);
 
-    resp.sendRedirect("/admin/user");
+    resp.sendRedirect("/admin/employee");
   }
 
-  //  @Override
-//  protected void doPut(HttpServletRequest req, HttpServletResponse resp)
-//      throws ServletException, IOException {
-//    //TODO
-//  }
-//
+    @Override
+  protected void doPut(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
+
+      Long id = Long.parseLong(req.getParameter("id"));
+      Employee employee = employeeService.getEmployeeById(id);
+
+      String newName = req.getParameter("newName");
+      String newSecondName = req.getParameter("newSecondName");
+
+      employee.setFirstName(newName);
+      employee.setSecondName(newSecondName);
+
+      employeeService.editEmployee(employee);
+
+      resp.sendRedirect("/admin/employee");
+  }
+
   @Override
   protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {

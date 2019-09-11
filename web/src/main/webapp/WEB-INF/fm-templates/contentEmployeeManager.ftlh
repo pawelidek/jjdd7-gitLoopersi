@@ -3,12 +3,18 @@
   <script src="/js/deleteEmployee.js"></script>
   <article id="TRESC">
 
-    <a href="/admin/user/add">
-      <button type="button" class="btn btn-secondary" title="Add new employee">
-        <img src="/img/button_add.svg"> Add new employee
-      </button>
-    </a>
-    <br><br>
+    <table>
+      <tr>
+        <td style="text-align: left" width="100%"><h2>Employee manager</h2></td>
+        <td style="text-align: right" width="100%"><a href="/admin/employee/add">
+          <button type="button" class="btn btn-outline-secondary" title="Add new employee">
+            <img src="/img/button_add.svg"> Add new employee
+          </button>
+        </a></td>
+      </tr>
+    </table>
+
+
 
     <table class="table table-sm" style="text-align: center">
 
@@ -28,7 +34,7 @@
       <#list employees>
           <#items as employee>
             <tr>
-              <td scope="row">${employee_index + 1}</td>
+              <td>${employee_index + 1}</td>
               <td>${employee.id}</td>
               <td>${employee.firstName}</td>
               <td>${employee.secondName}</td>
@@ -36,11 +42,12 @@
               <td>2010-05-06</td>
               <td>2005-05-06</td>
               <td>
-                <div style="text-align:center">
+                <div>
                   <a href="#"><img src="/img/button_preview.svg" alt="Preview" title="Preview"></a>
-                  <a href="#"><img src="/img/button_edit.svg" alt="Edit" title="Edit"></a>
+                  <a href="/admin/employee/edit?id=${employee.id}">
+                    <img src="/img/button_edit.svg" alt="Edit" title="Edit"></a>
                   <a class="delete-employee-link" data-id="${employee.id}" href="#">
-                  <img src="/img/button_delete.svg" alt="Delete" title="Delete"></a>
+                    <img src="/img/button_delete.svg" alt="Delete" title="Delete"></a>
                 </div>
               </td>
             </tr>
@@ -48,7 +55,6 @@
       </#list>
       </tbody>
     </table>
-
 
   </article>
 </div>

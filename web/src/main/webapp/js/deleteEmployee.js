@@ -5,7 +5,7 @@ $(function () {
     $(".delete-employee-link").click(function () {
 
       $.ajax({
-        url: '/admin/user?id=' + $(this).attr('data-id'),
+        url: '/admin/employee?id=' + $(this).attr('data-id'),
         type: 'DELETE',
         success: function (result) {
           location.reload();
