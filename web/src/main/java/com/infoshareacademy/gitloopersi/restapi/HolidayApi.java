@@ -30,7 +30,9 @@ public class HolidayApi {
   @Path("/id/{id}")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getNotification(@PathParam("id") int id) throws JsonProcessingException {
-    logger.info("Process of prepare response on request find holiday identified by id={} has been started",id);
+    logger.info(
+        "Process of prepare response on request find holiday identified by id={} has been started",
+        id);
     Holiday holidayEntity = holidayService.findHolidayById(id);
     com.infoshareacademy.gitloopersi.domain.api.HolidayApi holidayToJSON = holidayMapper
         .mapEntityToApi(holidayEntity);

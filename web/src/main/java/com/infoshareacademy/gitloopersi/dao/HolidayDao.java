@@ -20,8 +20,8 @@ public class HolidayDao {
     entityManager.merge(holiday);
   }
 
-  public Holiday getHolidayById(Integer id){
-    logger.info("Object holiday id={} find in DB",id);
-    return entityManager.find(Holiday.class,id);
+  public Holiday getHolidayById(Integer id) {
+    logger.info("Object holiday id={} find in DB", id);
+    return entityManager.find(Holiday.class, id);
   }
 }

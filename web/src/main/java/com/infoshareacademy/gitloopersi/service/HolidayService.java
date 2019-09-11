@@ -15,8 +15,8 @@ public class HolidayService {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
-  public Holiday findHolidayById(Integer id){
-    logger.info("Object holiday id={} go to DAO to find it in DB",id);
+  public Holiday findHolidayById(Integer id) {
+    logger.info("Object holiday id={} go to DAO to find it in DB", id);
     return holidayDao.getHolidayById(id);
   }
 
