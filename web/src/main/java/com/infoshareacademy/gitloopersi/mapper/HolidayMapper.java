@@ -25,6 +25,7 @@ public class HolidayMapper {
       holiday.setDate(convertToDate(holidayApi.getDate().getIso()));
       holiday.setDescription(holidayApi.getDescription());
       holiday.setHolidayType(holidayApi.getHolidayType().get(0));
+      holidays.add(holiday);
     });
     return holidays;
   }
