@@ -20,6 +20,7 @@ public class HolidayService {
 
   public void addHoliday(String name, LocalDate date, HolidayType holidayType,
       String description) {
+    logger.info("New object holiday go to DAO to save it in DB");
     Holiday holidayToSave = new Holiday();
     holidayToSave.setName(name);
     holidayToSave.setDate(date);
@@ -34,15 +35,25 @@ public class HolidayService {
     return holidayDaoBean.getHolidayById(id);
   }
 
-  public void modifyHoliday(Holiday changedHoliday) {
-    holidayDaoBean.updateHoliday(changedHoliday);
+  public void modifyHoliday(Integer id, String name, LocalDate date, HolidayType holidayType,
+      String description) {
+    logger.info("Object holiday id={} go to DAO to modify it in DB", id);
+    Holiday holidayToChange = holidayDaoBean.getHolidayById(id);
+    holidayToChange.setName(name);
+    holidayToChange.setDate(date);
+    holidayToChange.setHolidayType(holidayType);
+    holidayToChange.setDescription(description);
+    holidayToChange.setCustom(true);
+    holidayDaoBean.updateHoliday(holidayToChange);
   }
 
   public void removeHoliday(Integer id) {
+    logger.info("Object holiday id={} go to DAO to remove it in DB", id);
     holidayDaoBean.deleteHoliday(id);
   }
 
   public List<Holiday> findAllHolidays() {
+    logger.info("Objects holidays go to DAO to find them in DB");
     return holidayDaoBean.getAllHolidays();
   }
 }

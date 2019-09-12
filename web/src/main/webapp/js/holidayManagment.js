@@ -1,20 +1,23 @@
+$('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus')
+})
+
 $(function () {
   $(document).ready(function () {
     $(".delete-holiday").click(function (event) {
 
-        var buttonId = $(event.target).attr('data-id');
-        $.ajax({
-          url: "/admin/holiday",
-          method: "DELETE",
-          data: {id: buttonId},
-          success: function () {
-            alert('Holiday has been deleted');
-            location.reload();
-          },
-          error: function (error) {
-            alert(buttonId);
-          }
-        });
+      var buttonId = $(event.target).attr('data-id');
+      $.ajax({
+        url: "/admin/holiday",
+        method: "DELETE",
+        data: {id: buttonId},
+        success: function () {
+          location.reload();
+        },
+        error: function (error) {
+          alert('Error! Holiday has not been deleted');
+        }
+      });
     });
   });
 });
@@ -25,14 +28,14 @@ $(function () {
 
       var buttonId = $(event.target).attr('data-id');
       $.ajax({
-        url: '/api/holiday/id/'+buttonId,
+        url: '/api/holiday/id/' + buttonId,
         method: "GET",
-        success: function() {
+        success: function () {
         },
         error: function (error) {
-          alert(buttonId);
+          alert('Error! Holiday has not been updated');
         }
-      }).done(function(data) {
+      }).done(function (data) {
         $('#id').val(buttonId);
         $('#label').html("Edit holiday");
         $('#addHolidayMethod').val("put");
@@ -46,10 +49,6 @@ $(function () {
   });
 });
 
-$('#myModal').on('shown.bs.modal', function () {
-  $('#myInput').trigger('focus')
-})
-
 $(function () {
   $(document).ready(function () {
     $("#add_holiday").click(function (event) {
@@ -61,13 +60,13 @@ $(function () {
           location.reload();
         },
         error: function (error) {
-          alert('Error! Holiday has not been added. Check data in your form');
+          alert(
+              'Error! Holiday has not been added/updated. Check data in your form');
         }
       });
     });
   });
 });
-
 
 $(function () {
   $(document).ready(function () {
@@ -80,6 +79,6 @@ $(function () {
       $('#holiday_type_input').val("National holiday");
       $('#holiday_description_input').val("");
       $('#exampleModal').modal('toggle');
-      });
     });
+  });
 });
