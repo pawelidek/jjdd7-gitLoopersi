@@ -9,7 +9,7 @@
         <td style="text-align: right" width="100%">
           <button type="button" class="btn btn-outline-secondary"
                   data-toggle="modal" data-target="#exampleModal">
-            <img src="/img/button_add.svg"> Add new employee
+            <img src="/img/button_add.svg" alt="Add"> Add new employee
           </button>
 
         </td>
@@ -39,12 +39,14 @@
               <td>${employee.firstName}</td>
               <td>${employee.secondName}</td>
               <td>gitLoopersi</td>
-              <td>2010-05-06</td>
-              <td>2005-05-06</td>
+              <td>${employee.startDate}</td>
+              <td>${employee.startHireDate}</td>
               <td>
                 <div>
-                  <img src="/img/button_edit.svg" alt="Edit" title="Edit">
-                  <a class="delete-employee-link" data-id="${employee.id}" href="#">
+                  <a class="edit-employee" data-id="${employee.id}" href="#" data-toggle="modal"
+                     data-target="#exampleModal">
+                    <img src="/img/button_edit.svg" alt="Edit" title="Edit"></a>
+                  <a class="delete-employee" data-id="${employee.id}" href="#">
                     <img src="/img/button_delete.svg" alt="Delete" title="Delete"></a>
                 </div>
               </td>
@@ -67,8 +69,8 @@
             </button>
           </div>
           <div class="modal-body">
-            <form id="contactForm" name="contact" role="form">
-              <input type="hidden" name="method" value="${method!"post"}"/>
+            <form id="settingForm" name="contact" role="form">
+              <input id="formMethod" type="hidden" name="method" value="${method!"post"}"/>
               <div class="form-group">
                 <label for="firstName">First name:
                   <input type="text" class="form-control" name="firstName"
@@ -81,11 +83,24 @@
                          placeholder="New last name">
                 </label>
               </div>
+              <div class="form-group">
+                <label for="startDate">Employed from:
+                  <input type="date" class="form-control" name="startDate">
+                </label>
+              </div>
+              <div class="form-group">
+                <label for="startHireDate">First employment:
+                  <input type="date" class="form-control" name="startHireDate">
+                </label>
+              </div>
+
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="settingButton">Save changes</button>
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close
+            </button>
+            <button type="button" class="btn btn-outline-secondary" id="settingButton">Save changes
+            </button>
           </div>
         </div>
       </div>

@@ -51,6 +51,9 @@ public class HolidayMapper {
 
     holidayToJSON.setHolidayType(List.of(holidayEntity.getHolidayType()));
     holidayToJSON.setDescription(holidayEntity.getDescription());
+
+    logger.info("Holiday has been mapped to API");
+
     return holidayToJSON;
   }
 }

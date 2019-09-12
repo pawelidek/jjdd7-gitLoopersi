@@ -1,6 +1,6 @@
 package com.infoshareacademy.gitloopersi.service;
 
-import com.infoshareacademy.gitloopersi.dao.TeamDaoBean;
+import com.infoshareacademy.gitloopersi.dao.TeamDao;
 import com.infoshareacademy.gitloopersi.domain.entity.Team;
 import java.util.List;
 import javax.ejb.EJB;
@@ -10,26 +10,26 @@ import javax.enterprise.context.RequestScoped;
 public class TeamService {
 
   @EJB
-  private TeamDaoBean teamDaoBean;
+  private TeamDao teamDao;
 
   public void addTeam(Team team) {
-    teamDaoBean.addTeam(team);
+    teamDao.addTeam(team);
   }
 
   public Team editTeam(Team team) {
-    return teamDaoBean.editTeam(team);
+    return teamDao.editTeam(team);
   }
 
   public Team getTeamById(Long id) {
-    return teamDaoBean.getTeamById(id);
+    return teamDao.getTeamById(id);
   }
 
   public void deleteTeam(Long id) {
-    teamDaoBean.deleteTeamById(id);
+    teamDao.deleteTeamById(id);
   }
 
   public List<Team> getTeamList() {
-    return teamDaoBean.getTeamsList();
+    return teamDao.getTeamsList();
   }
 
 }

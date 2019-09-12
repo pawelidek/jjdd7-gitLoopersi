@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Stateless
-public class EmployeeDaoBean {
+public class EmployeeDao {
 
   @PersistenceContext
   EntityManager entityManager;

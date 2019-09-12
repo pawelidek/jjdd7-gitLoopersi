@@ -7,6 +7,8 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,11 +44,15 @@ public class EmployeeManagerServlet extends HttpServlet {
     Employee e1 = new Employee();
     e1.setFirstName("Franciszek");
     e1.setSecondName("Kowalski");
+    e1.setStartDate(LocalDate.of(2000,8,12));
+    e1.setStartHireDate(LocalDate.of(1995,6,8));
     employeeService.addEmployee(e1);
 
     Employee e2 = new Employee();
     e2.setFirstName("Grzegorz");
     e2.setSecondName("Brzeczyszczykiewicz-Wisniowiecki");
+    e2.setStartDate(LocalDate.of(2002,10,14));
+    e2.setStartHireDate(LocalDate.of(1997,8,10));
     employeeService.addEmployee(e2);
   }
 
@@ -79,7 +85,7 @@ public class EmployeeManagerServlet extends HttpServlet {
       Employee employee = employeeService.getEmployeeById(id);
       dataModel.put("employee", employee);
       dataModel.put("function", "EmployeeForm");
-      dataModel.put("method", "edit");
+      dataModel.put("method", "put");
 
     }
 
@@ -100,9 +106,13 @@ public class EmployeeManagerServlet extends HttpServlet {
 
     String name = req.getParameter("firstName");
     String secondName = req.getParameter("secondName");
+    LocalDate startDate = LocalDate.parse(req.getParameter("startDate"));
+    LocalDate startHireDate = LocalDate.parse(req.getParameter("startHireDate"));
 
     employee.setFirstName(name);
     employee.setSecondName(secondName);
+    employee.setStartDate(startDate);
+    employee.setStartHireDate(startHireDate);
 
     employeeService.addEmployee(employee);
 
@@ -118,9 +128,13 @@ public class EmployeeManagerServlet extends HttpServlet {
 
       String newName = req.getParameter("newName");
       String newSecondName = req.getParameter("newSecondName");
+      LocalDate startDate = LocalDate.parse(req.getParameter("startDate"));
+      LocalDate startHireDate = LocalDate.parse(req.getParameter("startHireDate"));
 
       employee.setFirstName(newName);
       employee.setSecondName(newSecondName);
+      employee.setStartDate(startDate);
+      employee.setStartHireDate(startHireDate);
 
       employeeService.editEmployee(employee);
 

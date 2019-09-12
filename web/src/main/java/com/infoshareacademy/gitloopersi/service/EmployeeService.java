@@ -1,6 +1,6 @@
 package com.infoshareacademy.gitloopersi.service;
 
-import com.infoshareacademy.gitloopersi.dao.EmployeeDaoBean;
+import com.infoshareacademy.gitloopersi.dao.EmployeeDao;
 import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import java.util.List;
 import javax.ejb.EJB;
@@ -10,26 +10,26 @@ import javax.enterprise.context.RequestScoped;
 public class EmployeeService {
 
   @EJB
-  private EmployeeDaoBean employeeDaoBean;
+  private EmployeeDao employeeDao;
 
   public void addEmployee(Employee employee) {
-    employeeDaoBean.addEmployee(employee);
+    employeeDao.addEmployee(employee);
   }
 
   public Employee editEmployee(Employee employee) {
-    return employeeDaoBean.editEmployee(employee);
+    return employeeDao.editEmployee(employee);
   }
 
   public Employee getEmployeeById(Long id) {
-    return employeeDaoBean.getEmployeeById(id);
+    return employeeDao.getEmployeeById(id);
   }
 
   public void deleteEmployeeById(Long id) {
-    employeeDaoBean.deleteEmployeeById(id);
+    employeeDao.deleteEmployeeById(id);
   }
 
   public List<Employee> getEmployeesList() {
-    return employeeDaoBean.getEmployeesList();
+    return employeeDao.getEmployeesList();
   }
 
 }
