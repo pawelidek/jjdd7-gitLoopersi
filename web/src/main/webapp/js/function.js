@@ -1,7 +1,7 @@
 /** code by webdevtrick ( https://webdevtrick.com ) **/
 
 console.log(holidays);
-console.log(holiday)
+console.log(holiday);
 
 var month = [
   "January",
@@ -108,6 +108,7 @@ function clearCalender() {
 }
 
 function initCalender(monthData) {
+  var date = new Date(2019,10,18);
   var row = 0;
   var classToAdd = "";
   var currentDay = "";
@@ -146,12 +147,14 @@ function initCalender(monthData) {
         $($($($("tr.days").get(row)).find("td").get(column)).addClass(classToAdd + " " + currentDay).html(day));
 
         currentDay = "";
-        if (column == 6) {
+        if (column === 6) {
           row++;
         }
+        var dayCount = document.createElement("div");
 
-        if (currentDay == holiday) {
-          day.css("color", "#ff0000");
+        if (thisMonth == holiday.getMonth() && holiday.getDate() == counter) {dayCount.setAttribute("class", "holiday")
+
+          // $(this).find("td").css("color", "#ff0000").html();
         }
 
 

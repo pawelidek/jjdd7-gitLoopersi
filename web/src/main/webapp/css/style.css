@@ -11,6 +11,10 @@ body, html {
   perspective: 1000px;
 }
 
+.holiday {
+  color: #005cbf;
+}
+
 .main {
   position: fixed;
   width: 730px;

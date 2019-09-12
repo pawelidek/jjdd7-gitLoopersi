@@ -105,19 +105,19 @@ body {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
 }
 
-#calendar {
+#calendar2 {
   position: fixed;
-  bottom: 560px;
-  float: top;
-  margin-left: 1175px;
+  top: 125px;
+  margin-left: 1375px;
 
 }
 
 .footer {
   position: absolute;
   right: 0;
-  bottom: 0;
   left: 0;
+  bottom: 0;
+
   padding: 1rem;
   background-color: #efefef;
   text-align: center;
@@ -136,7 +136,7 @@ body {
   background-color: #eee;
   float: top;
   margin-top: 175px;
-  margin-left: 25px;
+  margin-left: -50px;
   font-family: 'Century Gothic';
   padding-top: 8px;
   padding-left: 16px;
