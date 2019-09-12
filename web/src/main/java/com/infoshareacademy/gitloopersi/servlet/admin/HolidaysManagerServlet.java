@@ -3,13 +3,10 @@ package com.infoshareacademy.gitloopersi.servlet.admin;
 import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
 import com.infoshareacademy.gitloopersi.service.HolidayService;
-import com.infoshareacademy.gitloopersi.types.HolidayType;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +43,7 @@ public class HolidaysManagerServlet extends HttpServlet {
     try {
       template.process(dataModel, printWriter);
     } catch (TemplateException e) {
-      e.getStackTrace();
+      logger.error(e.getMessage());
     }
   }
 
@@ -54,10 +51,8 @@ public class HolidaysManagerServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
     logger.info("Request POST method");
     String holidayName = req.getParameter("holiday_name");
-    String holiday_date = req.getParameter("holiday_date");
-    LocalDate holidayDate = LocalDate
-        .parse(holiday_date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-    HolidayType holidayType = HolidayType.deserialize(req.getParameter("holiday_type"));
+    String holidayDate = req.getParameter("holiday_date");
+    String holidayType = req.getParameter("holiday_type");
     String holidayDescription = req.getParameter("holiday_description");
     holidayService.addHoliday(holidayName, holidayDate, holidayType, holidayDescription);
   }
@@ -67,10 +62,8 @@ public class HolidaysManagerServlet extends HttpServlet {
     logger.info("Request PUT method");
     Integer id = Integer.parseInt(req.getParameter("id"));
     String holidayName = req.getParameter("holiday_name");
-    String holiday_date = req.getParameter("holiday_date");
-    LocalDate holidayDate = LocalDate
-        .parse(holiday_date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-    HolidayType holidayType = HolidayType.deserialize(req.getParameter("holiday_type"));
+    String holidayDate = req.getParameter("holiday_date");
+    String holidayType = req.getParameter("holiday_type");
     String holidayDescription = req.getParameter("holiday_description");
     holidayService.modifyHoliday(id, holidayName, holidayDate, holidayType, holidayDescription);
   }
@@ -78,7 +71,7 @@ public class HolidaysManagerServlet extends HttpServlet {
   @Override
   protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
     logger.info("Request DELETE method");
-    Integer idToDelete = Integer.parseInt(req.getParameter("id"));
+    String idToDelete = req.getParameter("id");
     holidayService.removeHoliday(idToDelete);
   }
 

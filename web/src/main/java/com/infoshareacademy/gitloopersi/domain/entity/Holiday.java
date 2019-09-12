@@ -7,10 +7,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "holiday")
+@NamedQueries({
+    @NamedQuery(
+        name = "Holiday.findAllHolidays",
+        query = "SELECT h FROM Holiday h"
+    )
+})
 public class Holiday {
 
   @Id
@@ -81,4 +89,14 @@ public class Holiday {
     this.description = description;
   }
 
+  @Override
+  public String toString() {
+    return "Holiday{" +
+        "name='" + name + '\'' +
+        ", date=" + date +
+        ", holidayType=" + holidayType +
+        ", description='" + description + '\'' +
+        ", isCustom=" + isCustom +
+        '}';
+  }
 }

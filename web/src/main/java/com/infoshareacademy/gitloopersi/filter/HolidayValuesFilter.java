@@ -1,6 +1,7 @@
 package com.infoshareacademy.gitloopersi.filter;
 
 
+import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
 import com.infoshareacademy.gitloopersi.service.HolidayService;
 import java.io.IOException;
 import javax.inject.Inject;
@@ -12,6 +13,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.HttpMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,11 +34,17 @@ public class HolidayValuesFilter implements Filter {
     HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
     HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
 
-    if (httpServletRequest.getMethod().equalsIgnoreCase("PUT")) {
+    if (httpServletRequest.getMethod().equalsIgnoreCase(HttpMethod.PUT)) {
       Integer id = Integer.parseInt(httpServletRequest.getParameter("id"));
-      if (!holidayService.findHolidayById(id).getCustom()) {
-        httpServletResponse.sendRedirect("/home");
-        logger.warn("An wrong attempt to application data has occurred!");
+
+      Holiday holiday = holidayService.findHolidayById(id);
+      if (holiday != null) {
+        if (!holiday.getCustom()) {
+          httpServletResponse.sendRedirect("/home");
+          logger.warn("An wrong attempt to application data has occurred!");
+        }
+      } else {
+        logger.warn("Requested holiday with id={} doesnt exist.", id);
       }
     }
     filterChain.doFilter(httpServletRequest, httpServletResponse);

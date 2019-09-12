@@ -4,13 +4,14 @@ import com.infoshareacademy.gitloopersi.dao.HolidayDaoBean;
 import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
 import com.infoshareacademy.gitloopersi.types.HolidayType;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.Stateless;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@RequestScoped
+@Stateless
 public class HolidayService {
 
   @EJB
@@ -18,12 +19,16 @@ public class HolidayService {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
-  public void addHoliday(String name, LocalDate date, HolidayType holidayType,
+  public void addHoliday(String name, String date, String type,
       String description) {
-    logger.info("New object holiday go to DAO to save it in DB");
+    logger.info("New holiday object [{},{},{},{}] go to DAO to be saved in DB", name, date, type,
+        description);
     Holiday holidayToSave = new Holiday();
     holidayToSave.setName(name);
-    holidayToSave.setDate(date);
+    LocalDate holidayDate = LocalDate
+        .parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    holidayToSave.setDate(holidayDate);
+    HolidayType holidayType = HolidayType.deserialize(type);
     holidayToSave.setHolidayType(holidayType);
     holidayToSave.setDescription(description);
     holidayToSave.setCustom(true);
@@ -31,29 +36,33 @@ public class HolidayService {
   }
 
   public Holiday findHolidayById(Integer id) {
-    logger.info("Object holiday id={} go to DAO to find it in DB", id);
+    logger.info("Object holiday id={} go to DAO to be found in DB", id);
     return holidayDaoBean.getHolidayById(id);
   }
 
-  public void modifyHoliday(Integer id, String name, LocalDate date, HolidayType holidayType,
+  public void modifyHoliday(Integer id, String name, String date, String type,
       String description) {
-    logger.info("Object holiday id={} go to DAO to modify it in DB", id);
+    logger.info("Object holiday id={} go to DAO to be modified in DB", id);
     Holiday holidayToChange = holidayDaoBean.getHolidayById(id);
     holidayToChange.setName(name);
-    holidayToChange.setDate(date);
+    LocalDate holidayDate = LocalDate
+        .parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    holidayToChange.setDate(holidayDate);
+    HolidayType holidayType = HolidayType.deserialize(type);
     holidayToChange.setHolidayType(holidayType);
     holidayToChange.setDescription(description);
     holidayToChange.setCustom(true);
     holidayDaoBean.updateHoliday(holidayToChange);
   }
 
-  public void removeHoliday(Integer id) {
-    logger.info("Object holiday id={} go to DAO to remove it in DB", id);
-    holidayDaoBean.deleteHoliday(id);
+  public void removeHoliday(String id) {
+    logger.info("Object holiday id={} go to DAO to be removed in DB", id);
+    Integer idToDelete = Integer.parseInt(id);
+    holidayDaoBean.deleteHoliday(idToDelete);
   }
 
   public List<Holiday> findAllHolidays() {
-    logger.info("Objects holidays go to DAO to find them in DB");
+    logger.info("Objects holidays go to DAO to be found in DB");
     return holidayDaoBean.getAllHolidays();
   }
 }
