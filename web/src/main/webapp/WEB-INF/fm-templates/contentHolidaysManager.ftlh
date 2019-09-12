@@ -2,8 +2,7 @@
   <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
   <script src="/js/holidayManagment.js"></script>
   <article id="TRESC">
-
-    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+    <button type="button" class="btn btn-secondary" id="add_user_button">
       <img src="/img/button_add.svg"> Add Holiday
     </button>
     <br><br>
@@ -26,16 +25,16 @@
               <td>${holiday.id}.</td>
               <td>${holiday.name}</td>
               <td>${holiday.date}</td>
+              <td>${(holiday.type)!"National Holiday"}</td>
               <td>Holiday</td>
-              <td>${holiday.description}</td>
+              <td>${(holiday.description)!""}</td>
               <td>
                 <div style="text-align:center">
-                  <button id='upd' data-id='${holiday.id}' class='update-holiday'
-                          data-toggle="modal" data-target="#exampleModal">
+
+                  <button id='upd' data-id='${holiday.id}' class='update-holiday'>
                     Edit
                   </button>
-                  <button id='del' data-id='${holiday.id}' class='delete-holiday'
-                          href="/admin/holiday?id=${holiday.id}">
+                  <button id='del' data-id='${holiday.id}' class='delete-holiday'>
                     Delete
                   </button>
                 </div>
@@ -51,39 +50,36 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add Holiday</h5>
+              <h5 class="modal-title" id="label">Add Holiday</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <form id="contactForm" name="contact" role="form">
               <input id="addHolidayMethod" type="hidden" name="method" value="${method!"post"}"/>
-              <input type="hidden" name="id" value="${(oneHoliday.id)!""}"/>
+              <input type="hidden" id="id" name="id" value="${(oneHoliday.id)!""}"/>
               <div class="modal-body">
                 <div class="form-group">
                   <label for="name">Name</label>
-                  <input type="text" name="holiday_name"
+                  <input type="text" name="holiday_name" id="holiday_name_input" autocomplete="off"
                          class="form-control value="${(oneHoliday.name)!""}">
                 </div>
                 <div class="form-group">
                   <label for="name">Date</label>
-                  <input type="date" name="holiday_date" class="form-control"
-                         value="${(oneHoliday.date)!""}">
+                  <input type="date" name="holiday_date" id="holiday_date_input"
+                         class="form-control" value="${(oneHoliday.date)!""}">
                 </div>
                 <div class="form-group">
                   <label for="name">Type</label>
-                  <select class="form-control" name="holiday_type">
-                      <#--                    <option value="NATIONAL_HOLIDAY" ${selectedType[NATIONAL_HOLIDAY]!""}>National holiday</option>-->
-                      <#--                    <option value="OBSERVANCE" ${selectedType[NATIONAL_HOLIDAY]!""}>Observance</option>-->
-                      <#--                    <option value="SEASON" ${selectedType[NATIONAL_HOLIDAY]!""}>Season</option>-->
-                    <option value="NATIONAL_HOLIDAY" }>National holiday</option>
-                    <option value="OBSERVANCE" }>Observance</option>
-                    <option value="SEASON" }>Season</option>
+                  <select class="form-control" name="holiday_type" id="holiday_type_input">
+                    <option value="National holiday" }>National holiday</option>
+                    <option value="Observance" }>Observance</option>
+                    <option value="Season" }>Season</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="message">Description</label>
-                  <textarea name="holiday_description" class="form-control"
+                  <textarea name="holiday_description" class="form-control" id="holiday_description_input"
                             value="${(oneHoliday.description)!""}"></textarea>
                 </div>
           </form>

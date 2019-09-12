@@ -90,24 +90,26 @@ public class HolidaysManagerServlet extends HttpServlet {
     String holiday_date = req.getParameter("holiday_date");
     LocalDate holidayDate = LocalDate
         .parse(holiday_date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-    HolidayType holidayType = HolidayType.valueOf(req.getParameter("holiday_type"));
+    HolidayType holidayType = HolidayType.deserialize(req.getParameter("holiday_type"));
     String holidayDescription = req.getParameter("holiday_description");
     holidayService.addHoliday(holidayName, holidayDate, holidayType, holidayDescription);
   }
 
   @Override
   protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
-    Integer idToDelete = Integer.parseInt(req.getParameter("id"));
-    String holidayName = req.getParameter("name");
-    LocalDate holidayDate = LocalDate.of(1991, 12, 12);
-    HolidayType holidayType = HolidayType.valueOf(req.getParameter("holiday_type"));
-    String holidayMessage = req.getParameter("message");
+    Integer id = Integer.parseInt(req.getParameter("id"));
+    String holidayName = req.getParameter("holiday_name");
+    String holiday_date = req.getParameter("holiday_date");
+    LocalDate holidayDate = LocalDate
+        .parse(holiday_date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    HolidayType holidayType = HolidayType.deserialize(req.getParameter("holiday_type"));
+    String holidayDescription = req.getParameter("holiday_description");
     Holiday holiday = new Holiday();
-    holiday.setId(idToDelete);
+    holiday.setId(id);
     holiday.setName(holidayName);
     holiday.setDate(holidayDate);
     holiday.setHolidayType(holidayType);
-    holiday.setDescription(holidayMessage);
+    holiday.setDescription(holidayDescription);
     holidayService.modifyHoliday(holiday);
   }
 }

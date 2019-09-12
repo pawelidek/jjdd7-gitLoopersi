@@ -18,6 +18,34 @@ $(function () {
     });
   });
 });
+
+$(function () {
+  $(document).ready(function () {
+    $(".update-holiday").click(function (event) {
+
+      var buttonId = $(event.target).attr('data-id');
+      $.ajax({
+        url: '/api/holiday/id/'+buttonId,
+        method: "GET",
+        success: function() {
+        },
+        error: function (error) {
+          alert(buttonId);
+        }
+      }).done(function(data) {
+        $('#id').val(buttonId);
+        $('#label').html("Edit holiday");
+        $('#addHolidayMethod').val("put");
+        $('#holiday_name_input').val(data.name);
+        $('#holiday_date_input').val(data.date.iso);
+        $('#holiday_type_input').val(data.type[0]);
+        $('#holiday_description_input').val(data.description);
+        $('#exampleModal').modal('toggle');
+      });
+    });
+  });
+});
+
 $('#myModal').on('shown.bs.modal', function () {
   $('#myInput').trigger('focus')
 })
@@ -40,21 +68,18 @@ $(function () {
   });
 });
 
-// $(function () {
-//   $(document).ready(function () {
-//     $(".update-holiday").click(function (event) {
-//
-//       var buttonId = $(event.target).attr('data-id');
-//       $.ajax({
-//         url: "/admin/holiday/edit/?id=" + $(this).attr('data-id'),
-//         method: "GET",
-//         success: function () {
-//           $('#editModal').modal('toggle');
-//         },
-//         error: function (error) {
-//           alert(buttonId);
-//         }
-//       });
-//     });
-//   });
-// });
+
+$(function () {
+  $(document).ready(function () {
+    $("#add_user_button").click(function (event) {
+      $('#id').val("");
+      $('#label').html("Add holiday");
+      $('#addHolidayMethod').val("post");
+      $('#holiday_name_input').val("");
+      $('#holiday_date_input').val("");
+      $('#holiday_type_input').val("National holiday");
+      $('#holiday_description_input').val("");
+      $('#exampleModal').modal('toggle');
+      });
+    });
+});
