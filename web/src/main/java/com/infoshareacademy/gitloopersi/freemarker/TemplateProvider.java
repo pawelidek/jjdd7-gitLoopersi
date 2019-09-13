@@ -7,6 +7,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 
+
 @RequestScoped
 public class TemplateProvider {
 
