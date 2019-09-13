@@ -34,7 +34,7 @@ public class TeamApi {
         "Process of prepare response on request find team identified by id={} has been started",
         id);
     Team teamEntity = teamService.getTeamById(id);
-    com.infoshareacademy.gitloopersi.domain.api.TeamApi teamToJSON = teamMapper
+    com.infoshareacademy.gitloopersi.domain.api.Team teamToJSON = teamMapper
         .mapEntityToApi(teamEntity);
     ObjectMapper objectMapper = new ObjectMapper();
     String jsonStr = objectMapper.writeValueAsString(teamToJSON);

@@ -1,11 +1,8 @@
 package com.infoshareacademy.gitloopersi.restapi;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infoshareacademy.gitloopersi.domain.entity.Employee;
-import com.infoshareacademy.gitloopersi.mapper.EmployeeMapper;
-import com.infoshareacademy.gitloopersi.service.EmployeeService;
-import javax.inject.Inject;
+import com.infoshareacademy.gitloopersi.restapi.service.EmployeeApiService;
+import javax.ejb.EJB;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -16,13 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Path("/employee")
-public class EmployeeApi {
+public class EmployeeController {
 
-  @Inject
-  EmployeeService employeeService;
-
-  @Inject
-  EmployeeMapper employeeMapper;
+  @EJB
+  EmployeeApiService employeeApiService;
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
@@ -33,13 +27,8 @@ public class EmployeeApi {
     logger.info(
         "Process of prepare response on request find employee identified by id={} has been started",
         id);
-    Employee employeeEntity = employeeService.getEmployeeById(id);
-    com.infoshareacademy.gitloopersi.domain.api.EmployeeApi employeeToJSON = employeeMapper
-        .mapEntityToApi(employeeEntity);
-    ObjectMapper objectMapper = new ObjectMapper();
-    String jsonStr = objectMapper.writeValueAsString(employeeToJSON);
     return Response.ok()
-        .entity(jsonStr)
+        .entity(employeeApiService.getEmployeeJsonObjectById(id))
         .build();
   }
 }

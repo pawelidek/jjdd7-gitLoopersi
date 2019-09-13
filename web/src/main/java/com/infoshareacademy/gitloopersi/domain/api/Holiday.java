@@ -8,12 +8,12 @@ import java.util.List;
 
 @JsonIgnoreProperties({"locations", "states"})
 
-public class HolidayApi {
+public class Holiday {
 
   @JsonProperty("name")
   private String name;
   @JsonProperty("date")
-  private DateApi date;
+  private Date date;
   @JsonProperty("type")
   private List<HolidayType> holidayType = new ArrayList<>();
   @JsonProperty("description")
@@ -27,11 +27,11 @@ public class HolidayApi {
     this.name = name;
   }
 
-  public DateApi getDate() {
+  public Date getDate() {
     return date;
   }
 
-  public void setDate(DateApi date) {
+  public void setDate(Date date) {
     this.date = date;
   }
 

@@ -23,10 +23,7 @@
 <div class="container">
     <#include "/calendar.ftlh">
 </div>
-<div class="container">
-    <#include "/footer.ftlh">
-</div>
-
+<#include "/footer.ftlh">
 <script src="/js/bootstrap.js"></script>
 <script src="/js/feather.js"></script>
 </body>

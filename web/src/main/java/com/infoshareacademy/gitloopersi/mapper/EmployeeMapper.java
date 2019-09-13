@@ -1,9 +1,10 @@
 package com.infoshareacademy.gitloopersi.mapper;
 
-import com.infoshareacademy.gitloopersi.domain.api.DateApi;
-import com.infoshareacademy.gitloopersi.domain.api.EmployeeApi;
-import com.infoshareacademy.gitloopersi.domain.entity.Employee;
+import com.infoshareacademy.gitloopersi.domain.api.Date;
+import com.infoshareacademy.gitloopersi.domain.api.Employee;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,20 +13,25 @@ public class EmployeeMapper {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
-  public EmployeeApi mapEntityToApi(Employee employeeEntity) {
+  @EJB
+  private TeamMapper teamMapper;
 
-    EmployeeApi employeeToJSON = new EmployeeApi();
+  @Transactional
+  public Employee mapEntityToApi(
+      com.infoshareacademy.gitloopersi.domain.entity.Employee employeeEntity) {
+
+    Employee employeeToJSON = new Employee();
     employeeToJSON.setFirstName(employeeEntity.getFirstName());
     employeeToJSON.setSecondName(employeeEntity.getSecondName());
-    employeeToJSON.setTeam(employeeEntity.getTeam());
+    employeeToJSON.setTeam(teamMapper.mapEntityToApi(employeeEntity.getTeam()));
 
-    DateApi startDateApi = new DateApi();
-    startDateApi.setIso(employeeEntity.getStartDate().toString());
-    employeeToJSON.setStartDate(startDateApi);
+    Date startDate = new Date();
+    startDate.setIso(employeeEntity.getStartDate().toString());
+    employeeToJSON.setStartDate(startDate);
 
-    DateApi startHireDateApi = new DateApi();
-    startHireDateApi.setIso(employeeEntity.getStartHireDate().toString());
-    employeeToJSON.setStartHireDate(startHireDateApi);
+    Date startHireDate = new Date();
+    startHireDate.setIso(employeeEntity.getStartHireDate().toString());
+    employeeToJSON.setStartHireDate(startHireDate);
 
     logger.info("Employee has been mapped to API");
 

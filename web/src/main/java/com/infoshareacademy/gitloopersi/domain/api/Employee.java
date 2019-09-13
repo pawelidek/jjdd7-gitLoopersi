@@ -2,11 +2,10 @@ package com.infoshareacademy.gitloopersi.domain.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.infoshareacademy.gitloopersi.domain.entity.Team;
 
 @JsonIgnoreProperties({"locations", "states"})
 
-public class EmployeeApi {
+public class Employee {
 
   @JsonProperty("firstName")
   private String firstName;
@@ -15,9 +14,9 @@ public class EmployeeApi {
   @JsonProperty("team")
   private Team team;
   @JsonProperty("startDate")
-  private DateApi startDate;
+  private Date startDate;
   @JsonProperty("startHireDate")
-  private DateApi startHireDate;
+  private Date startHireDate;
 
   public String getFirstName() {
     return firstName;
@@ -43,19 +42,19 @@ public class EmployeeApi {
     this.team = team;
   }
 
-  public DateApi getStartDate() {
+  public Date getStartDate() {
     return startDate;
   }
 
-  public void setStartDate(DateApi startDate) {
+  public void setStartDate(Date startDate) {
     this.startDate = startDate;
   }
 
-  public DateApi getStartHireDate() {
+  public Date getStartHireDate() {
     return startHireDate;
   }
 
-  public void setStartHireDate(DateApi startHireDate) {
+  public void setStartHireDate(Date startHireDate) {
     this.startHireDate = startHireDate;
   }
 

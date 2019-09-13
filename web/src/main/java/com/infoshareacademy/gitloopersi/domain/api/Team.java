@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties({"locations", "states"})
 
-public class TeamApi {
+public class Team {
 
   @JsonProperty("name")
   private String name;

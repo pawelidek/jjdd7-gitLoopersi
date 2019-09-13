@@ -34,7 +34,7 @@ public class HolidayApi {
         "Process of prepare response on request find holiday identified by id={} has been started",
         id);
     Holiday holidayEntity = holidayService.findHolidayById(id);
-    com.infoshareacademy.gitloopersi.domain.api.HolidayApi holidayToJSON = holidayMapper
+    com.infoshareacademy.gitloopersi.domain.api.Holiday holidayToJSON = holidayMapper
         .mapEntityToApi(holidayEntity);
     ObjectMapper objectMapper = new ObjectMapper();
     String jsonStr = objectMapper.writeValueAsString(holidayToJSON);

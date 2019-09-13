@@ -1,8 +1,7 @@
 package com.infoshareacademy.gitloopersi.handler;
 
 import com.infoshareacademy.gitloopersi.dao.HolidayDaoBean;
-import com.infoshareacademy.gitloopersi.domain.api.HolidayApi;
-import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
+import com.infoshareacademy.gitloopersi.domain.api.Holiday;
 import com.infoshareacademy.gitloopersi.exception.HolidaysFileNotFound;
 import com.infoshareacademy.gitloopersi.mapper.HolidayMapper;
 import com.infoshareacademy.gitloopersi.parser.Parser;
@@ -35,10 +34,11 @@ public class JsonFileHandler {
 
     Logger logger = LoggerFactory.getLogger(getClass().getName());
     try {
-      List<HolidayApi> holidayApiList = parser
+      List<Holiday> holidayList = parser
           .parseHolidays(fileUploadProcessor.uploadHolidaysFile(filePart));
-      List<Holiday> holidays = holidayMapper.mapApiToEntity(holidayApiList);
-      holidays.forEach(holiday -> holidayDaoBean.addHoliday(holiday));
+      List<com.infoshareacademy.gitloopersi.domain.entity.Holiday> holidays = holidayMapper.mapApiToEntity(
+          holidayList);
+      holidays.forEach(holiday -> holidayDaoBean.saveHoliday(holiday));
     } catch (IOException | HolidaysFileNotFound e) {
       logger.error(e.getMessage());
     }

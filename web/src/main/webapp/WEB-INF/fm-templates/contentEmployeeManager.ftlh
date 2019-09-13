@@ -89,7 +89,7 @@
                   <select id="team" class="form-control" name="team">
                       <#list teams>
                           <#items as team>
-                            <option value="${team.id}">${team.name}</option>
+                            <option value="${(team.id)!""}">${team.name}</option>
                           </#items>
                       </#list>
                   </select>
