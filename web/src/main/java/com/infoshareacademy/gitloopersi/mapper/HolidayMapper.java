@@ -1,5 +1,6 @@
 package com.infoshareacademy.gitloopersi.mapper;
 
+import com.infoshareacademy.gitloopersi.domain.api.DateApi;
 import com.infoshareacademy.gitloopersi.domain.api.HolidayApi;
 import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
 import java.time.LocalDate;
@@ -37,5 +38,19 @@ public class HolidayMapper {
     } else {
       return LocalDate.parse(dateToConvert);
     }
+  }
+
+  public HolidayApi mapEntityToApi(Holiday holidayEntity) {
+    HolidayApi holidayToJSON = new HolidayApi();
+    holidayToJSON.setName(holidayEntity.getName());
+
+    DateApi dateApi = new DateApi();
+    dateApi.setIso(holidayEntity.getDate().toString());
+
+    holidayToJSON.setDate(dateApi);
+
+    holidayToJSON.setHolidayType(List.of(holidayEntity.getHolidayType()));
+    holidayToJSON.setDescription(holidayEntity.getDescription());
+    return holidayToJSON;
   }
 }

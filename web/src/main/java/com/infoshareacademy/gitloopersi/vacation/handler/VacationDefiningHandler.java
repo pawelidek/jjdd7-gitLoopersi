@@ -42,7 +42,7 @@ public class VacationDefiningHandler {
     LocalDate dateFromVacation = LocalDate.parse(dateFrom);
     LocalDate dateToVacation = LocalDate.parse(dateTo);
 
-    List<Holiday> holidayList = holidayService.getHolidayList();
+    List<Holiday> holidayList = holidayService.findAllHolidays();
 
     int amountOfHolidays = 0;
     int amountOfVacationDays = 0;
