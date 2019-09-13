@@ -9,13 +9,13 @@ import com.infoshareacademy.gitloopersi.service.FileUploadProcessor;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.servlet.http.Part;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@RequestScoped
+@Stateless
 public class JsonFileHandler {
 
   @Inject

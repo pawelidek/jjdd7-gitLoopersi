@@ -82,7 +82,6 @@ public class EmployeeManagerServlet extends HttpServlet {
     Employee employee = employeeService.getEmployeeById(id);
     String teamId = req.getParameter("team");
 
-
     setEmployeeFields(req, employee);
 
     employeeService.editEmployee(employee, Long.parseLong(teamId));
