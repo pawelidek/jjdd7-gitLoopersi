@@ -27,7 +27,7 @@ public class VacationDefiningHandler {
 
   public int calculateVacationPoolForEmployee(Long employeeId) {
 
-    Employee employee = employeeService.findEmployeeById(employeeId);
+    Employee employee = employeeService.getEmployeeById(employeeId);
     LocalDate today = LocalDate.now();
 
     if ((today.getYear() - employee.getStartDate().getYear()) < 10) {
@@ -82,7 +82,7 @@ public class VacationDefiningHandler {
     int overdueDaysOff = 0;
     int monthCount = 12;
 
-    Employee employee = employeeService.findEmployeeById(id);
+    Employee employee = employeeService.getEmployeeById(id);
 
     List<Vacation> countOfDaysHistory = vacationDefiningService.getVacationsList().stream()
         .filter(vacation -> vacation.getEmployee().getId().equals(id))

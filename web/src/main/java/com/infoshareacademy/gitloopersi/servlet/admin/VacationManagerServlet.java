@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 @WebServlet("/admin/vacation")
 public class VacationManagerServlet extends HttpServlet {
+
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @Override

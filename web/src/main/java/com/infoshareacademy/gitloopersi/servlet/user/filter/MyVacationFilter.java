@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 
 @WebFilter(
     filterName = "MyVacationFilter",
-    urlPatterns = {"/user/vacation"}
+    urlPatterns = {"/user/vacation/*"}
 )
 public class MyVacationFilter implements Filter {
 
@@ -70,5 +70,7 @@ public class MyVacationFilter implements Filter {
     } else {
       //error message
     }
+
+    chain.doFilter(request, response);
   }
 }
