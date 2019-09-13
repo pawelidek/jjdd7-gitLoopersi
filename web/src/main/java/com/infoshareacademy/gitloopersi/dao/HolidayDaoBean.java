@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,13 +17,24 @@ public class HolidayDaoBean {
   @PersistenceContext
   EntityManager entityManager;
 
-  public void saveHoliday(Holiday holidayToSave) {
-    logger.info("Holiday object {} is to be merged to DB", holidayToSave.toString());
-    entityManager.merge(holidayToSave);
+  public void addHoliday(Holiday holiday) {
+    logger.info("HolidayResponse object {} is to be merged to DB", holiday.toString());
+    entityManager.merge(holiday);
+  }
+
+  public void editHoliday(Holiday holiday) {
+    logger.info("HolidayResponse object id={} is to be updated in DB", holiday.getId());
+    entityManager.merge(holiday);
+  }
+
+  public Holiday getHolidayById(Integer id) {
+    logger.info("HolidayResponse object id={} is to be get from DB", id);
+
+    return entityManager.find(Holiday.class, id);
   }
 
   public void deleteHoliday(Integer id) {
-    logger.info("Holiday object id={} is to be deleted in DB", id);
+    logger.info("HolidayResponse object id={} is to be deleted in DB", id);
     Holiday holidayToDelete = getHolidayById(id);
     if (holidayToDelete != null) {
       entityManager.remove(holidayToDelete);
@@ -31,20 +43,11 @@ public class HolidayDaoBean {
     }
   }
 
-  public void updateHoliday(Holiday holiday) {
-    logger.info("Holiday object id={} is to be updated in DB", holiday.getId());
-    entityManager.merge(holiday);
-  }
+  public List<Holiday> getHolidaysList() {
+    logger.info("HolidayResponse objects are to be get from DB");
 
-  public Holiday getHolidayById(Integer id) {
-    logger.info("Holiday object id={} is to be get from DB", id);
-
-    return entityManager.find(Holiday.class, id);
-  }
-
-  public List<Holiday> getAllHolidays() {
-    logger.info("Holiday objects are to be get from DB");
-    return (List<Holiday>) entityManager.createNamedQuery("Holiday.findAllHolidays")
-        .getResultList();
+    Query query = entityManager
+        .createNamedQuery("Holiday.findAll");
+    return query.getResultList();
   }
 }

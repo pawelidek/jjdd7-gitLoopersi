@@ -11,14 +11,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "holiday")
 @NamedQueries({
     @NamedQuery(
-        name = "Holiday.findAllHolidays",
+        name = "Holiday.findAll",
         query = "SELECT h FROM Holiday h"
     )
 })
+@Entity
+@Table(name = "holiday")
 public class Holiday {
 
   @Id
@@ -91,7 +91,7 @@ public class Holiday {
 
   @Override
   public String toString() {
-    return "Holiday{" +
+    return "HolidayResponse{" +
         "name='" + name + '\'' +
         ", date=" + date +
         ", holidayType=" + holidayType +

@@ -32,7 +32,7 @@ public class HolidayService {
     holidayToSave.setHolidayType(holidayType);
     holidayToSave.setDescription(description);
     holidayToSave.setCustom(true);
-    holidayDaoBean.saveHoliday(holidayToSave);
+    holidayDaoBean.addHoliday(holidayToSave);
   }
 
   public Holiday findHolidayById(Integer id) {
@@ -52,7 +52,7 @@ public class HolidayService {
     holidayToChange.setHolidayType(holidayType);
     holidayToChange.setDescription(description);
     holidayToChange.setCustom(true);
-    holidayDaoBean.updateHoliday(holidayToChange);
+    holidayDaoBean.editHoliday(holidayToChange);
   }
 
   public void removeHoliday(String id) {
@@ -63,6 +63,6 @@ public class HolidayService {
 
   public List<Holiday> findAllHolidays() {
     logger.info("Objects holidays go to DAO to be found in DB");
-    return holidayDaoBean.getAllHolidays();
+    return holidayDaoBean.getHolidaysList();
   }
 }

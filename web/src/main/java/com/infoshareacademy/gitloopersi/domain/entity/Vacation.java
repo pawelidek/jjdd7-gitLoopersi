@@ -97,5 +97,16 @@ public class Vacation {
   public void setStatusType(StatusType statusType) {
     this.statusType = statusType;
   }
-}
 
+  @Override
+  public String toString() {
+    return "Vacation{" +
+        "id=" + id +
+        ", employee=" + employee +
+        ", dateFrom=" + dateFrom +
+        ", dateTo=" + dateTo +
+        ", daysCount=" + daysCount +
+        ", statusType=" + statusType +
+        '}';
+  }
+}

@@ -105,4 +105,22 @@ public class Employee {
   public List<Vacation> getEmployeeVacations() {
     return employeeVacations;
   }
+
+  public void setEmployeeVacations(
+      List<Vacation> employeeVacations) {
+    this.employeeVacations = employeeVacations;
+  }
+
+  @Override
+  public String toString() {
+    return "EmployeeResponse{" +
+        "id=" + id +
+        ", firstName='" + firstName + '\'' +
+        ", secondName='" + secondName + '\'' +
+        ", team=" + team +
+        ", startDate=" + startDate +
+        ", startHireDate=" + startHireDate +
+        ", employeeVacations=" + employeeVacations +
+        '}';
+  }
 }

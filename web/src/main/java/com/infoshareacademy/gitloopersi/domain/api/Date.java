@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties({"datetime", "timezone"})
 
-public class DateApi {
+public class Date {
 
   @JsonProperty("iso")
   private String iso;
