@@ -57,6 +57,6 @@ public class HolidayApiConsumer {
     logger.info("Load holidays to DB");
     List<com.infoshareacademy.gitloopersi.domain.entity.Holiday> holidays = holidayMapper.mapApiToEntity(
         holidayList);
-    holidays.forEach(holiday -> holidayDaoBean.saveHoliday(holiday));
+    holidays.forEach(holiday -> holidayDaoBean.addHoliday(holiday));
   }
 }

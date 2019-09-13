@@ -18,19 +18,19 @@ public class EmployeeMapper {
 
   @Transactional
   public Employee mapEntityToApi(
-      com.infoshareacademy.gitloopersi.domain.entity.Employee employeeEntity) {
+      com.infoshareacademy.gitloopersi.domain.entity.Employee employee) {
 
     Employee employeeToJSON = new Employee();
-    employeeToJSON.setFirstName(employeeEntity.getFirstName());
-    employeeToJSON.setSecondName(employeeEntity.getSecondName());
-    employeeToJSON.setTeam(teamMapper.mapEntityToApi(employeeEntity.getTeam()));
+    employeeToJSON.setFirstName(employee.getFirstName());
+    employeeToJSON.setSecondName(employee.getSecondName());
+    employeeToJSON.setTeam(teamMapper.mapEntityToApi(employee.getTeam()));
 
     Date startDate = new Date();
-    startDate.setIso(employeeEntity.getStartDate().toString());
+    startDate.setIso(employee.getStartDate().toString());
     employeeToJSON.setStartDate(startDate);
 
     Date startHireDate = new Date();
-    startHireDate.setIso(employeeEntity.getStartHireDate().toString());
+    startHireDate.setIso(employee.getStartHireDate().toString());
     employeeToJSON.setStartHireDate(startHireDate);
 
     logger.info("Employee has been mapped to API");

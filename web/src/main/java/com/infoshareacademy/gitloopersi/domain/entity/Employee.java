@@ -110,4 +110,17 @@ public class Employee {
       List<Vacation> employeeVacations) {
     this.employeeVacations = employeeVacations;
   }
+
+  @Override
+  public String toString() {
+    return "Employee{" +
+        "id=" + id +
+        ", firstName='" + firstName + '\'' +
+        ", secondName='" + secondName + '\'' +
+        ", team=" + team +
+        ", startDate=" + startDate +
+        ", startHireDate=" + startHireDate +
+        ", employeeVacations=" + employeeVacations +
+        '}';
+  }
 }

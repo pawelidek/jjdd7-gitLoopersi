@@ -1,10 +1,7 @@
 package com.infoshareacademy.gitloopersi.restapi;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
-import com.infoshareacademy.gitloopersi.mapper.HolidayMapper;
-import com.infoshareacademy.gitloopersi.service.HolidayService;
+import com.infoshareacademy.gitloopersi.restapi.service.HolidayApiService;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -16,13 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Path("/holiday")
-public class HolidayApi {
+public class HolidayController {
 
   @Inject
-  HolidayService holidayService;
-
-  @Inject
-  HolidayMapper holidayMapper;
+  HolidayApiService holidayApiService;
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
@@ -33,13 +27,8 @@ public class HolidayApi {
     logger.info(
         "Process of prepare response on request find holiday identified by id={} has been started",
         id);
-    Holiday holidayEntity = holidayService.findHolidayById(id);
-    com.infoshareacademy.gitloopersi.domain.api.Holiday holidayToJSON = holidayMapper
-        .mapEntityToApi(holidayEntity);
-    ObjectMapper objectMapper = new ObjectMapper();
-    String jsonStr = objectMapper.writeValueAsString(holidayToJSON);
     return Response.ok()
-        .entity(jsonStr)
+        .entity(holidayApiService.getHolidayJsonObjectById(id))
         .build();
   }
 }

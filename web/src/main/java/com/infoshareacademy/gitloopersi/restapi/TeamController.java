@@ -1,10 +1,7 @@
 package com.infoshareacademy.gitloopersi.restapi;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infoshareacademy.gitloopersi.domain.entity.Team;
-import com.infoshareacademy.gitloopersi.mapper.TeamMapper;
-import com.infoshareacademy.gitloopersi.service.TeamService;
+import com.infoshareacademy.gitloopersi.restapi.service.TeamApiService;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -16,13 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Path("/team")
-public class TeamApi {
+public class TeamController {
 
   @Inject
-  TeamService teamService;
-
-  @Inject
-  TeamMapper teamMapper;
+  TeamApiService teamApiService;
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
@@ -33,13 +27,8 @@ public class TeamApi {
     logger.info(
         "Process of prepare response on request find team identified by id={} has been started",
         id);
-    Team teamEntity = teamService.getTeamById(id);
-    com.infoshareacademy.gitloopersi.domain.api.Team teamToJSON = teamMapper
-        .mapEntityToApi(teamEntity);
-    ObjectMapper objectMapper = new ObjectMapper();
-    String jsonStr = objectMapper.writeValueAsString(teamToJSON);
     return Response.ok()
-        .entity(jsonStr)
+        .entity(teamApiService.getTeamJsonObjectById(id))
         .build();
   }
 }

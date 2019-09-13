@@ -1,6 +1,6 @@
 <div>
   <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
-  <script src="/js/holidayManagment.js"></script>
+  <script src="/js/holiday.js"></script>
   <article id="TRESC">
     <button type="button" class="btn btn-secondary" id="add_user_button">
       <img src="/img/button_add.svg"> Add Holiday

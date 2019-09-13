@@ -11,14 +11,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "holiday")
 @NamedQueries({
     @NamedQuery(
         name = "Holiday.findAll",
         query = "SELECT h FROM Holiday h"
     )
 })
+@Entity
+@Table(name = "holiday")
 public class Holiday {
 
   @Id

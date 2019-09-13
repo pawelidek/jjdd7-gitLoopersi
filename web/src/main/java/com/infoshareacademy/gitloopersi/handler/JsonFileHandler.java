@@ -38,7 +38,7 @@ public class JsonFileHandler {
           .parseHolidays(fileUploadProcessor.uploadHolidaysFile(filePart));
       List<com.infoshareacademy.gitloopersi.domain.entity.Holiday> holidays = holidayMapper.mapApiToEntity(
           holidayList);
-      holidays.forEach(holiday -> holidayDaoBean.saveHoliday(holiday));
+      holidays.forEach(holiday -> holidayDaoBean.addHoliday(holiday));
     } catch (IOException | HolidaysFileNotFound e) {
       logger.error(e.getMessage());
     }

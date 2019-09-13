@@ -10,10 +10,10 @@ public class TeamMapper {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
-  public Team mapEntityToApi(com.infoshareacademy.gitloopersi.domain.entity.Team teamEntity) {
+  public Team mapEntityToApi(com.infoshareacademy.gitloopersi.domain.entity.Team team) {
 
     Team teamToJSON = new Team();
-    teamToJSON.setName(teamEntity.getName());
+    teamToJSON.setName(team.getName());
 
     logger.info("Team has been mapped to API");
 
