@@ -218,6 +218,7 @@ function dateClickHandler(elem) {
     $(this).removeClass("hover");
   });
 }
+
 $(".fa-angle-left").click(function () {
   getPrevMonth();
   $(".main").addClass("is-rotated-left");

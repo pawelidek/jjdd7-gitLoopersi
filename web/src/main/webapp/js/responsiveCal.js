@@ -11,7 +11,41 @@ var months = ["January", "February", "March", "April", "May", "June", "July",
 
 // var d = new Date();
 
-var thisMonth = months[d.getMonth() + 1];
+var thisMonth = d.getMonth();
+
+var yearDirection = 0;
+
+function getNextMonth() {
+  yearDirection++;
+  var current;
+  var now = new Date();
+
+  current = new Date(now.getFullYear() + yearDirection);
+  // if (now.getMonth() == 11) {
+  //   current = new Date(now.getFullYear() + monthDirection, 0, 1);
+  // } else {
+  //   current = new Date(now.getFullYear(), now.getMonth() + monthDirection, 1);
+  // }
+  createCalendar(month);
+}
+
+function getPrevMonth() {
+  yearDirection--;
+  var current;
+  var now = new Date();
+
+  current = new Date(now.getFullYear() + yearDirection);
+  // if (now.getMonth() == 11) {
+  //   current = new Date(now.getFullYear() + monthDirection, 0, 1);
+  // } else {
+  //   current = new Date(now.getFullYear(), now.getMonth() + monthDirection, 1);
+  // }
+  createCalendar(month);
+}
+
+
+
+
 
 
 // var thisMonth = d.getMonth();// 0 - 11
@@ -66,7 +100,7 @@ function isHoliday(candidate) {
 }
 
 function createDay(month, counter, order, monthDiv) {
-  var candidate = new Date(2019, month + 1, counter);
+  var candidate = new Date(2019, month +1, counter);
 // if(order == 8){order = -1}
   var day = document.createElement("div");
   if (month == thisMonth && counter == today) {
@@ -179,3 +213,19 @@ calendar.addEventListener("click", function (e) {
 
   }
 }, false);
+
+$(".fa-angle-left").click(function () {
+  getPrevMonth();
+  $(".main").addClass("is-rotated-left");
+  setTimeout(function () {
+    $(".main").removeClass("is-rotated-left");
+  }, 195);
+});
+
+$(".fa-angle-right").click(function () {
+  getNextMonth();
+  $(".main").addClass("is-rotated-right");
+  setTimeout(function () {
+    $(".main").removeClass("is-rotated-right");
+  }, 195);
+});

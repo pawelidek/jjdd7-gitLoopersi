@@ -58,7 +58,7 @@ h1#year {
   font-size: 2em;
   height: 29px;
   font-weight: normal;
-  padding: 1em 1em .5em 1em;
+  padding: 0em 1em 0em 1em;
   margin-bottom: .5em;
   border-bottom: 5px double #d9d9d9;
 }
@@ -147,7 +147,7 @@ script {
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-left: -5em;
+  margin-left: -50em;
   margin-top: -10.89em;
   box-shadow: 0px 0px 5px 1px #ccc;
   transform: scale(2, 2);
@@ -156,7 +156,8 @@ script {
 }
 
 .month.cloneMonth {
-  display: flex
+  display: flex;
+  left: 1em;
 }
 
 .month.cloneMonth:after {
@@ -164,7 +165,7 @@ script {
   color: #f09;
   position: absolute;
   top: 1em;
-  right: 1em;
+  left: 1em;
 }
 
 .cloneCont.trans {
@@ -195,4 +196,15 @@ script {
     transform: translateY(1000px);
     opacity: 0;
   }
+}
+
+.main.is-rotated-left {
+  transform: translate(-50%, -50%) rotateY(-4deg);
+}
+.main.is-rotated-right {
+  transform: translate(-50%, -50%) rotateY(4deg);
+}
+
+.main .right-wrapper.is-active {
+  transform: rotateY(0deg);
 }

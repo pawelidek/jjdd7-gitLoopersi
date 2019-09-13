@@ -5,13 +5,15 @@
     new Date(2019,5, 3),
   ];
 </script>
-
-<div id="calendar2" class="container">
+<div class="main">
+  <div id="calendar2" class="container">
   <section class="calendar-wrapper">
     <h1 id="year"></h1>
+<#--    <i class="fa fa-angle-left" aria-hidden="true"></i><span><span class="month"> </span><span class="year"><h1 id="year"></h1></span></span><i class="fa fa-angle-right" aria-hidden="true"></i>-->
     <div class="calendar"></div>
   </section>
-</div>
+  </div>
+
 
 <#--<div class="main">-->
 <#--  <div class="sideb">-->
