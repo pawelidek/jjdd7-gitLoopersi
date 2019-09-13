@@ -91,7 +91,7 @@ public class Holiday {
 
   @Override
   public String toString() {
-    return "Holiday{" +
+    return "HolidayResponse{" +
         "name='" + name + '\'' +
         ", date=" + date +
         ", holidayType=" + holidayType +

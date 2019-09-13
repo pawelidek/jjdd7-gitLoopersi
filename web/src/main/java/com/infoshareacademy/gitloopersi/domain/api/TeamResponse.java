@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties({"locations", "states"})
 
-public class Team {
+public class TeamResponse {
 
   @JsonProperty("name")
   private String name;
@@ -20,7 +20,7 @@ public class Team {
 
   @Override
   public String toString() {
-    return "Team{" +
+    return "TeamResponse{" +
         "name='" + name + '\'' +
         '}';
   }

@@ -1,7 +1,8 @@
 package com.infoshareacademy.gitloopersi.mapper;
 
 import com.infoshareacademy.gitloopersi.domain.api.Date;
-import com.infoshareacademy.gitloopersi.domain.api.Employee;
+import com.infoshareacademy.gitloopersi.domain.api.EmployeeResponse;
+import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.transaction.Transactional;
@@ -17,10 +18,10 @@ public class EmployeeMapper {
   private TeamMapper teamMapper;
 
   @Transactional
-  public Employee mapEntityToApi(
-      com.infoshareacademy.gitloopersi.domain.entity.Employee employee) {
+  public EmployeeResponse mapEntityToApi(
+      Employee employee) {
 
-    Employee employeeToJSON = new Employee();
+    EmployeeResponse employeeToJSON = new EmployeeResponse();
     employeeToJSON.setFirstName(employee.getFirstName());
     employeeToJSON.setSecondName(employee.getSecondName());
     employeeToJSON.setTeam(teamMapper.mapEntityToApi(employee.getTeam()));
@@ -33,7 +34,7 @@ public class EmployeeMapper {
     startHireDate.setIso(employee.getStartHireDate().toString());
     employeeToJSON.setStartHireDate(startHireDate);
 
-    logger.info("Employee has been mapped to API");
+    logger.info("EmployeeResponse has been mapped to API");
 
     return employeeToJSON;
   }

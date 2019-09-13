@@ -33,7 +33,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
-              My Vacation
+              Vacation
             </a>
           </li>
           <li class="nav-item">

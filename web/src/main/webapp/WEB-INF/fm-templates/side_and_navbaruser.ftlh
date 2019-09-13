@@ -38,7 +38,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
-              Change of date format
+              Change date format
             </a>
           </li>
 

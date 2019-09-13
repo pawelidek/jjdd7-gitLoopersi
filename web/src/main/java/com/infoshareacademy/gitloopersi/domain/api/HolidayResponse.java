@@ -8,7 +8,7 @@ import java.util.List;
 
 @JsonIgnoreProperties({"locations", "states"})
 
-public class Holiday {
+public class HolidayResponse {
 
   @JsonProperty("name")
   private String name;
@@ -54,7 +54,7 @@ public class Holiday {
 
   @Override
   public String toString() {
-    return "Holiday{" +
+    return "HolidayResponse{" +
         "name='" + name + '\'' +
         ", date=" + date +
         ", holidayType=" + holidayType +

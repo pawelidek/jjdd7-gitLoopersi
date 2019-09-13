@@ -1,7 +1,8 @@
 package com.infoshareacademy.gitloopersi.mapper;
 
 import com.infoshareacademy.gitloopersi.domain.api.Date;
-import com.infoshareacademy.gitloopersi.domain.api.Holiday;
+import com.infoshareacademy.gitloopersi.domain.api.HolidayResponse;
+import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +15,13 @@ public class HolidayMapper {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
-  public List<com.infoshareacademy.gitloopersi.domain.entity.Holiday> mapApiToEntity(List<Holiday> holidayList) {
+  public List<Holiday> mapApiToEntity(List<HolidayResponse> holidayList) {
 
     logger.info("Map API to entity");
-    List<com.infoshareacademy.gitloopersi.domain.entity.Holiday> holidays = new ArrayList<>();
+    List<Holiday> holidays = new ArrayList<>();
 
     holidayList.forEach(holidayApi -> {
-      com.infoshareacademy.gitloopersi.domain.entity.Holiday holiday = new com.infoshareacademy.gitloopersi.domain.entity.Holiday();
+      Holiday holiday = new Holiday();
       holiday.setName(holidayApi.getName());
       holiday.setDate(convertToDate(holidayApi.getDate().getIso()));
       holiday.setDescription(holidayApi.getDescription());
@@ -39,8 +40,8 @@ public class HolidayMapper {
     }
   }
 
-  public Holiday mapEntityToApi(com.infoshareacademy.gitloopersi.domain.entity.Holiday holidayEntity) {
-    Holiday holidayToJSON = new Holiday();
+  public HolidayResponse mapEntityToApi(Holiday holidayEntity) {
+    HolidayResponse holidayToJSON = new HolidayResponse();
     holidayToJSON.setName(holidayEntity.getName());
 
     Date date = new Date();
@@ -51,7 +52,7 @@ public class HolidayMapper {
     holidayToJSON.setHolidayType(List.of(holidayEntity.getHolidayType()));
     holidayToJSON.setDescription(holidayEntity.getDescription());
 
-    logger.info("Holiday has been mapped to API");
+    logger.info("HolidayResponse has been mapped to API");
 
     return holidayToJSON;
   }

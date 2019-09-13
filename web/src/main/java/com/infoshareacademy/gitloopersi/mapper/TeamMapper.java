@@ -1,6 +1,7 @@
 package com.infoshareacademy.gitloopersi.mapper;
 
-import com.infoshareacademy.gitloopersi.domain.api.Team;
+import com.infoshareacademy.gitloopersi.domain.api.TeamResponse;
+import com.infoshareacademy.gitloopersi.domain.entity.Team;
 import javax.ejb.Stateless;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,12 +11,12 @@ public class TeamMapper {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
-  public Team mapEntityToApi(com.infoshareacademy.gitloopersi.domain.entity.Team team) {
+  public TeamResponse mapEntityToApi(Team team) {
 
-    Team teamToJSON = new Team();
+    TeamResponse teamToJSON = new TeamResponse();
     teamToJSON.setName(team.getName());
 
-    logger.info("Team has been mapped to API");
+    logger.info("TeamResponse has been mapped to API");
 
     return teamToJSON;
   }

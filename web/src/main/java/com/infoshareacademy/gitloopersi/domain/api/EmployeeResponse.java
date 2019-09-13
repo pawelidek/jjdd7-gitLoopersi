@@ -5,14 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties({"locations", "states"})
 
-public class Employee {
+public class EmployeeResponse {
 
   @JsonProperty("firstName")
   private String firstName;
   @JsonProperty("secondName")
   private String secondName;
   @JsonProperty("team")
-  private Team team;
+  private TeamResponse team;
   @JsonProperty("startDate")
   private Date startDate;
   @JsonProperty("startHireDate")
@@ -34,11 +34,11 @@ public class Employee {
     this.secondName = secondName;
   }
 
-  public Team getTeam() {
+  public TeamResponse getTeam() {
     return team;
   }
 
-  public void setTeam(Team team) {
+  public void setTeam(TeamResponse team) {
     this.team = team;
   }
 
@@ -60,7 +60,7 @@ public class Employee {
 
   @Override
   public String toString() {
-    return "Employee{" +
+    return "EmployeeResponse{" +
         "firstName='" + firstName + '\'' +
         "secondName='" + secondName +
         ", team=" + team +

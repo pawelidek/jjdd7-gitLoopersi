@@ -113,7 +113,7 @@ public class Employee {
 
   @Override
   public String toString() {
-    return "Employee{" +
+    return "EmployeeResponse{" +
         "id=" + id +
         ", firstName='" + firstName + '\'' +
         ", secondName='" + secondName + '\'' +
