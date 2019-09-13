@@ -7,9 +7,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+@NamedQueries({
+    @NamedQuery(
+        name = "Team.findAll",
+        query = "SELECT t FROM Team t"
+    )
+})
 @Entity
 @Table(name = "team")
 public class Team {
@@ -17,19 +25,19 @@ public class Team {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
-  private Integer id;
+  private Long id;
 
   @Column(name = "name")
   private String name;
 
-//  @OneToMany(mappedBy = "team")
-//  private List<Employee> teamEmployees = new ArrayList<>();
+  @OneToMany(mappedBy = "team")
+  private List<Employee> teamEmployees = new ArrayList<>();
 
-  public Integer getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -41,12 +49,12 @@ public class Team {
     this.name = name;
   }
 
-//  public List<Employee> getTeamEmployees() {
-//    return teamEmployees;
-//  }
-//
-//  public void setTeamEmployees(
-//      List<Employee> teamEmployees) {
-//    this.teamEmployees = teamEmployees;
-//  }
+  public List<Employee> getTeamEmployees() {
+    return teamEmployees;
+  }
+
+  public void setTeamEmployees(
+      List<Employee> teamEmployees) {
+    this.teamEmployees = teamEmployees;
+  }
 }

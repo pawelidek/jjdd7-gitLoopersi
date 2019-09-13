@@ -1,35 +1,47 @@
 package com.infoshareacademy.gitloopersi.service;
 
-import com.infoshareacademy.gitloopersi.dao.EmployeeDao;
+import com.infoshareacademy.gitloopersi.dao.EmployeeDaoBean;
 import com.infoshareacademy.gitloopersi.domain.entity.Employee;
+import com.infoshareacademy.gitloopersi.domain.entity.Team;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.Stateless;
+import javax.transaction.Transactional;
 
-@RequestScoped
+@Stateless
 public class EmployeeService {
 
   @EJB
-  private EmployeeDao employeeDao;
+  private EmployeeDaoBean employeeDaoBean;
 
-  public void addEmployee(Employee employee) {
-    employeeDao.addEmployee(employee);
+  @EJB
+  private TeamService teamService;
+
+  @Transactional
+  public void addEmployee(Employee employee, Long teamId) {
+    Team team = teamService.getTeamById(teamId);
+    employee.setTeam(team);
+    employeeDaoBean.addEmployee(employee);
   }
 
-  public Employee editEmployee(Employee employee) {
-    return employeeDao.editEmployee(employee);
+  @Transactional
+  public Employee editEmployee(Employee employee, Long teamId) {
+    Team team = teamService.getTeamById(teamId);
+    employee.setTeam(team);
+    return employeeDaoBean.editEmployee(employee);
   }
 
+  @Transactional
   public Employee getEmployeeById(Long id) {
-    return employeeDao.getEmployeeById(id);
+    return employeeDaoBean.getEmployeeById(id);
   }
 
   public void deleteEmployeeById(Long id) {
-    employeeDao.deleteEmployeeById(id);
+    employeeDaoBean.deleteEmployeeById(id);
   }
 
   public List<Employee> getEmployeesList() {
-    return employeeDao.getEmployeesList();
+    return employeeDaoBean.getEmployeesList();
   }
 
 }

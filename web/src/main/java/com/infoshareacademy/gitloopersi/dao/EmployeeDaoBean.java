@@ -7,8 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+
 @Stateless
-public class EmployeeDao {
+public class EmployeeDaoBean {
 
   @PersistenceContext
   EntityManager entityManager;
@@ -33,7 +34,8 @@ public class EmployeeDao {
   }
 
   public List<Employee> getEmployeesList() {
-    Query query = entityManager.createQuery("select e from Employee e");
+    Query query = entityManager
+        .createNamedQuery("Employee.findAll");
     return query.getResultList();
   }
 }
