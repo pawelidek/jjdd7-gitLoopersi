@@ -1,5 +1,7 @@
 package com.infoshareacademy.gitloopersi.servlet.user;
 
+import com.infoshareacademy.gitloopersi.dao.EmployeeDao;
+import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
 import com.infoshareacademy.gitloopersi.vacation.service.VacationDefiningService;
 import com.infoshareacademy.gitloopersi.vacation.validator.VacationDefiningValidator;
@@ -29,18 +31,24 @@ public class MyVacationServlet extends HttpServlet {
   @Inject
   private VacationDefiningValidator vacationDefiningValidator;
 
+  @EJB
+  private EmployeeDao employeeDao;
+
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
+    Long employeeId = (Long) req.getSession().getAttribute("id");
+    Employee employee = employeeDao.findEmployeeById(employeeId);
+
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
 
     Map<String, Object> dataModel = new HashMap<>();
     dataModel.put("userType", "user");
     dataModel.put("function", "VacationDefining");
-
+    dataModel.put("employee", employee);
     PrintWriter printWriter = resp.getWriter();
 
     try {
@@ -54,10 +62,11 @@ public class MyVacationServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-    LocalDate dateFrom = LocalDate.parse(req.getParameter("dateFrom"));
-    LocalDate dateTo = LocalDate.parse(req.getParameter("dateTo"));
+    String dateFrom = req.getParameter("dateFrom");
+    String dateTo = req.getParameter("dateTo");
+    Long employeeId = Long.valueOf(req.getParameter("id"));
 
-    vacationDefiningValidator.validateGivenDataToAdd(dateFrom, dateTo);
+
 
   }
 
@@ -65,10 +74,10 @@ public class MyVacationServlet extends HttpServlet {
   protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-    LocalDate dateFrom = LocalDate.parse(req.getParameter("dateFrom"));
-    LocalDate dateTo = LocalDate.parse(req.getParameter("dateTo"));
+    String dateFrom = req.getParameter("dateFrom");
+    String dateTo = req.getParameter("dateTo");
 
-    vacationDefiningValidator.validateGivenDataToDelete(dateFrom, dateTo);
+
   }
 
 }

@@ -3,6 +3,7 @@
     <form method="post" action="/user/vacation">
       <div class="form-group">
         <label for="exampleInputDateFrom">From: </label>
+        <input type="hidden" name="id" value="${employee.id}"/>
         <input type="date" name="dateFrom" class="form-control" id="exampleInputDateFrom"
                aria-describedby="emailHelp" placeholder="Enter vacation date from">
       </div>
