@@ -44,8 +44,7 @@ public class HolidayDaoBean {
 
   public List<Holiday> getAllHolidays() {
     logger.info("Holiday objects are to be get from DB");
-    List<Holiday> foundHolidays = entityManager.createNamedQuery("Holiday.findAllHolidays")
+    return (List<Holiday>) entityManager.createNamedQuery("Holiday.findAllHolidays")
         .getResultList();
-    return foundHolidays;
   }
 }

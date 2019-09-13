@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 
 @NamedQueries({
     @NamedQuery(
-        name = "Vacation.getVacationsList",
+        name = "Vacation.findAll",
         query = "SELECT v FROM Vacation v"
     )
 })

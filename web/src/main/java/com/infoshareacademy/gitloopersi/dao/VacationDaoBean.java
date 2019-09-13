@@ -28,7 +28,7 @@ public class VacationDaoBean {
   }
 
   public List<Vacation> getVacationsList() {
-    Query query = entityManager.createNamedQuery("Vacation.getVacationsList");
+    Query query = entityManager.createNamedQuery("Vacation.findAll");
     return query.getResultList();
   }
 }

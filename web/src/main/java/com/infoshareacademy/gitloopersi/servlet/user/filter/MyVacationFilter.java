@@ -1,7 +1,9 @@
 package com.infoshareacademy.gitloopersi.servlet.user.filter;
 
+import com.infoshareacademy.gitloopersi.vacation.service.VacationDefiningService;
 import com.infoshareacademy.gitloopersi.vacation.validator.VacationDefiningValidator;
 import java.io.IOException;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -9,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WebFilter(
     filterName = "MyVacationFilter",
@@ -16,8 +20,13 @@ import javax.servlet.annotation.WebFilter;
 )
 public class MyVacationFilter implements Filter {
 
+  private Logger logger = LoggerFactory.getLogger(getClass().getName());
+
   @Inject
   private VacationDefiningValidator vacationDefiningValidator;
+
+  @EJB
+  private VacationDefiningService vacationDefiningService;
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -35,29 +44,9 @@ public class MyVacationFilter implements Filter {
 
         if (vacationDefiningValidator.isValidDateFromBeforeDateTo(dateFrom, dateTo)) {
 
-          if (vacationDefiningValidator.isValidOverlappingOfDates(employeeId, dateFrom, dateTo)) {
+          if (vacationDefiningService
+              .isValidVacationRequestByEmployee(employeeId, dateFrom, dateTo)) {
 
-            if (vacationDefiningValidator.isValidTurnOfTheYear(dateFrom, dateTo)) {
-
-              int numberOfVacationPool = vacationDefiningValidator
-                  .calculateVacationPoolForEmployee(employeeId);
-
-              int numberOfSelectedVacationDays = vacationDefiningValidator
-                  .calculateNumberOfSelectedVacationDays(dateFrom, dateTo);
-
-              int numberOfRemainingVacationDays = vacationDefiningValidator
-                  .calculateRemainingVacationPool(employeeId, numberOfSelectedVacationDays,
-                      numberOfVacationPool);
-
-              if (numberOfRemainingVacationDays > 0) {
-
-              } else {
-                //error message
-              }
-
-            } else {
-              //error message
-            }
           } else {
             //error message
           }

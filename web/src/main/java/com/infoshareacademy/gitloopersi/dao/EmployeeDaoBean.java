@@ -28,8 +28,4 @@ public class EmployeeDaoBean {
     Query query = entityManager.createNamedQuery("Employee.findAll");
     return query.getResultList();
   }
-
-  public Employee findEmployeeById(Long id) {
-    return entityManager.find(Employee.class, id);
-  }
 }

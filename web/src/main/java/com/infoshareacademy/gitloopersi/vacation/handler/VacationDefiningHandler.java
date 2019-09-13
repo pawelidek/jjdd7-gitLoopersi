@@ -12,9 +12,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RequestScoped
 public class VacationDefiningHandler {
+
+  private static final int YEARS_OF_EXPERIENCE = 10;
+  private static final int LESS_THAN_TEN_YEARS_EXPERIENCE = 20;
+  private static final int GREATER_THAN_TEN_YEARS_EXPERIENCE = 26;
+
+  private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @EJB
   private EmployeeService employeeService;
@@ -25,22 +33,19 @@ public class VacationDefiningHandler {
   @EJB
   private VacationDefiningService vacationDefiningService;
 
-  public int calculateVacationPoolForEmployee(Long employeeId) {
+  public int calculateVacationBankForEmployee(Long employeeId) {
 
-    Employee employee = employeeService.getEmployeeById(employeeId);
-    LocalDate today = LocalDate.now();
-
-    if ((today.getYear() - employee.getStartDate().getYear()) < 10) {
-      return 20;
-    } else {
-      return 26;
-    }
+    return YEARS_OF_EXPERIENCE > calculateEmployeeExperience(employeeId)
+        ? LESS_THAN_TEN_YEARS_EXPERIENCE : GREATER_THAN_TEN_YEARS_EXPERIENCE;
   }
 
   public int calculateNumberOfSelectedVacationDays(String dateFrom, String dateTo) {
 
     LocalDate dateFromVacation = LocalDate.parse(dateFrom);
     LocalDate dateToVacation = LocalDate.parse(dateTo);
+
+    logger.info("Calculate number of selected vacation days between {} and {} ", dateFromVacation,
+        dateToVacation);
 
     List<Holiday> holidayList = holidayService.findAllHolidays();
 
@@ -55,6 +60,7 @@ public class VacationDefiningHandler {
           localDate = localDate.plusDays(1)) {
         if (localDate.equals(holiday.getDate())) {
           amountOfHolidays++;
+          logger.info("Number of holidays between given dates = {}", amountOfHolidays);
           break;
         }
       }
@@ -68,14 +74,16 @@ public class VacationDefiningHandler {
           break;
         default:
           amountOfVacationDays++;
+          logger
+              .info("Number of sunday and saturday between given dates = {}", amountOfVacationDays);
       }
     }
 
     return amountOfVacationDays - amountOfHolidays;
   }
 
-  public int calculateRemainingVacationPool(Long id, int numberOfSelectedVacationDays,
-      int numberOfVacationPool) {
+  public int calculateRemainingVacationBank(Long id, int numberOfSelectedVacationDays,
+      int numberOfVacationBank) {
 
     LocalDate todayDate = LocalDate.now();
     int workDaysNumber = 0;
@@ -95,12 +103,12 @@ public class VacationDefiningHandler {
         workDaysNumber = workDaysNumber + vacation.getDaysCount();
       }
 
-      if (numberOfVacationPool == 20 && employee.getStartHireDate().getYear() == todayDate
+      if (numberOfVacationBank == 20 && employee.getStartHireDate().getYear() == todayDate
           .minusYears(1).getYear()) {
 
         monthCount = monthCount - employee.getStartHireDate().getMonthValue();
         overdueDaysOff = (int) (overdueDaysOff - Math.floor(monthCount * 1.6));
-      } else if (numberOfVacationPool == 26 && employee.getStartHireDate().getYear() == todayDate
+      } else if (numberOfVacationBank == 26 && employee.getStartHireDate().getYear() == todayDate
           .minusYears(1).getYear()) {
 
         monthCount = monthCount - employee.getStartHireDate().getMonthValue();
@@ -110,10 +118,18 @@ public class VacationDefiningHandler {
       }
     }
 
-    overdueDaysOff = numberOfVacationPool - overdueDaysOff;
-    workDaysNumber = (numberOfVacationPool - workDaysNumber) + overdueDaysOff;
-    numberOfVacationPool = workDaysNumber - numberOfSelectedVacationDays;
+    overdueDaysOff = numberOfVacationBank - overdueDaysOff;
+    workDaysNumber = (numberOfVacationBank - workDaysNumber) + overdueDaysOff;
+    numberOfVacationBank = workDaysNumber - numberOfSelectedVacationDays;
 
-    return numberOfVacationPool;
+    return numberOfVacationBank;
+  }
+
+  private int calculateEmployeeExperience(Long employeeId) {
+
+    Employee employee = employeeService.getEmployeeById(employeeId);
+    LocalDate today = LocalDate.now();
+
+    return today.getYear() - employee.getStartDate().getYear();
   }
 }

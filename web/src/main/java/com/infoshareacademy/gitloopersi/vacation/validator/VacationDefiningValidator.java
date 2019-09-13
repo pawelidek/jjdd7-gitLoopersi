@@ -136,19 +136,19 @@ public class VacationDefiningValidator {
         && dateToday.getYear() == dateToVacation.getYear();
   }
 
-  public int calculateVacationPoolForEmployee(Long employeeId) {
-    return vacationDefiningHandler.calculateVacationPoolForEmployee(employeeId);
+  public int calculateVacationBankForEmployee(Long employeeId) {
+    return vacationDefiningHandler.calculateVacationBankForEmployee(employeeId);
   }
 
   public int calculateNumberOfSelectedVacationDays(String dateFrom, String dateTo) {
     return vacationDefiningHandler.calculateNumberOfSelectedVacationDays(dateFrom, dateTo);
   }
 
-  public int calculateRemainingVacationPool(Long employeeId, int numberOfSelectedVacationDays,
-      int numberOfVacationPool) {
+  public int calculateRemainingVacationBank(Long employeeId, int numberOfSelectedVacationDays,
+      int numberOfVacationBank) {
 
     return vacationDefiningHandler
-        .calculateRemainingVacationPool(employeeId, numberOfSelectedVacationDays,
-            numberOfVacationPool);
+        .calculateRemainingVacationBank(employeeId, numberOfSelectedVacationDays,
+            numberOfVacationBank);
   }
 }
