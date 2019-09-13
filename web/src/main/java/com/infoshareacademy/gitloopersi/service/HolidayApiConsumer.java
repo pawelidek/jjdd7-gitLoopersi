@@ -1,6 +1,6 @@
 package com.infoshareacademy.gitloopersi.service;
 
-import com.infoshareacademy.gitloopersi.dao.ApiHolidayDao;
+import com.infoshareacademy.gitloopersi.dao.HolidayDaoBean;
 import com.infoshareacademy.gitloopersi.domain.api.HolidayApi;
 import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
 import com.infoshareacademy.gitloopersi.mapper.HolidayMapper;
@@ -33,7 +33,7 @@ public class HolidayApiConsumer {
   private HolidayMapper holidayMapper;
 
   @EJB
-  private ApiHolidayDao apiHolidayDao;
+  private HolidayDaoBean holidayDaoBean;
 
   public void consume() throws IOException {
 
@@ -57,6 +57,6 @@ public class HolidayApiConsumer {
   private void loadDataToDataBase(List<HolidayApi> holidayApiList) {
     logger.info("Load holidays to DB");
     List<Holiday> holidays = holidayMapper.mapApiToEntity(holidayApiList);
-    holidays.forEach(holiday -> apiHolidayDao.addHoliday(holiday));
+    holidays.forEach(holiday -> holidayDaoBean.saveHoliday(holiday));
   }
 }
