@@ -1,8 +1,7 @@
 package com.infoshareacademy.gitloopersi.restapi.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infoshareacademy.gitloopersi.domain.entity.Team;
+import com.infoshareacademy.gitloopersi.domain.api.TeamResponse;
 import com.infoshareacademy.gitloopersi.mapper.TeamMapper;
 import com.infoshareacademy.gitloopersi.service.TeamService;
 import javax.ejb.EJB;
@@ -19,11 +18,7 @@ public class TeamApiService {
   private TeamMapper teamMapper;
 
   @Transactional
-  public String getTeamJsonObjectById(Long id) throws JsonProcessingException {
-    ObjectMapper objectMapper = new ObjectMapper();
-
-    Team teamById = teamService.getTeamById(id);
-
-    return objectMapper.writeValueAsString(teamMapper.mapEntityToApi(teamById));
+  public TeamResponse getTeamJsonObjectById(Long id) throws JsonProcessingException {
+    return teamMapper.mapEntityToApi(teamService.getTeamById(id));
   }
 }
