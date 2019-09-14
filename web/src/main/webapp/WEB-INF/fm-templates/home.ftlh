@@ -17,18 +17,17 @@
 </head>
 <body>
 
-    <#include "/side_and_navbar${userType}.ftlh">
-    <#include "/content${function}.ftlh">
-    <#include "/calendar.ftlh">
-    <#include "/footer.ftlh">
+<#include "/side_and_navbar${userType}.ftlh">
+<#include "/content${function}.ftlh">
+<#include "/calendar.ftlh">
+<#include "/footer.ftlh">
 
-
-    <script src="/js/bootstrap.js"></script>
-    <script src="/js/feather.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <#--<script src="/js/function.js"></script>-->
-    <script src="/js/responsiveCal.js"></script>
-    <script src="/js/holidayManagment.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/feather.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<#--<script src="/js/function.js"></script>-->
+<script src="/js/responsiveCal.js"></script>
+<script src="/js/holidayManagment.js"></script>
 
 
 </body>

@@ -1,5 +1,10 @@
 <script>
   window.listOfDates = [
+    <#list dates>
+    <#items as date>
+    new Date(${date.year}, ${date.month}, ${date.day})
+    </#items>
+    </#list>
     new Date(2019,1,1),
     new Date(2019,4, 4),
     new Date(2019,5, 3),

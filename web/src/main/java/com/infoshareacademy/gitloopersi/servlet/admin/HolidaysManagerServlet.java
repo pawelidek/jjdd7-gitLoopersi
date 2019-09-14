@@ -35,6 +35,7 @@ public class HolidaysManagerServlet extends HttpServlet {
     logger.info("Request GET method");
     Map<String, Object> dataModel = new HashMap<>();
     List<Holiday> holidays = holidayService.findAllHolidays();
+
     dataModel.put("userType", req.getSession().getAttribute("userType"));
     dataModel.put("holidays", holidays);
     dataModel.put("function", "HolidaysManager");
