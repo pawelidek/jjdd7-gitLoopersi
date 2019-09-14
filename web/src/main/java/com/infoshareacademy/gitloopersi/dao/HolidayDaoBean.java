@@ -49,7 +49,8 @@ public class HolidayDaoBean {
         .getResultList();
     return foundHolidays;
   }
-  public List<Holiday> getHolidaysInRange(LocalDate dateStart,LocalDate dateEnd) {
+
+  public List<Holiday> getHolidaysInRange(LocalDate dateStart, LocalDate dateEnd) {
     logger.info("Holiday objects between dateStart={} and dateEnd={} are to be get from DB",
         dateStart, dateEnd);
     List<Holiday> foundHolidays = entityManager.createNamedQuery("Holiday.findHolidaysInRange")

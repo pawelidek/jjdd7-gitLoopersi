@@ -66,12 +66,14 @@ public class HolidayService {
     return holidayDaoBean.getAllHolidays();
   }
 
-  public List<Holiday> findHolidaysInRange(String date1,String date2) {
-    logger.info("Query findHolidaysInRange go to DAO to search holidays between dateStart={} and dateEnd={}",date1,date2);
+  public List<Holiday> findHolidaysInRange(String date1, String date2) {
+    logger.info(
+        "Query findHolidaysInRange go to DAO to search holidays between dateStart={} and dateEnd={}",
+        date1, date2);
     LocalDate dateStart = LocalDate
         .parse(date1, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     LocalDate dateEnd = LocalDate
         .parse(date2, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-    return holidayDaoBean.getHolidaysInRange(dateStart,dateEnd);
+    return holidayDaoBean.getHolidaysInRange(dateStart, dateEnd);
   }
 }

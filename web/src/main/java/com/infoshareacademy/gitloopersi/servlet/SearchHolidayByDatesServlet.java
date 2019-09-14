@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
     "/search/holiday/name"
 })
 public class SearchHolidayByDatesServlet extends HttpServlet {
+
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @Inject
@@ -35,9 +36,9 @@ public class SearchHolidayByDatesServlet extends HttpServlet {
     if (servletPath.equals("/search/holiday/dates")) {
       String startDate = req.getParameter("start_date");
       String endDate = req.getParameter("end_date");
-      List<Holiday> foundHolidays = holidayService.findHolidaysInRange(startDate,endDate);
-      dataModel.put("holidays",foundHolidays);
-    } else if (servletPath.equals("/search/holiday/name")){
+      List<Holiday> foundHolidays = holidayService.findHolidaysInRange(startDate, endDate);
+      dataModel.put("holidays", foundHolidays);
+    } else if (servletPath.equals("/search/holiday/name")) {
 
     }
   }
