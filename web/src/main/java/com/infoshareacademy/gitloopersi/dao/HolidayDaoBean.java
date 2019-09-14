@@ -1,6 +1,7 @@
 package com.infoshareacademy.gitloopersi.dao;
 
 import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
+import java.time.LocalDate;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -50,4 +51,15 @@ public class HolidayDaoBean {
         .createNamedQuery("Holiday.findAll");
     return query.getResultList();
   }
+
+  public List<Holiday> getHolidaysInRange(LocalDate dateStart, LocalDate dateEnd) {
+    logger.info("Holiday objects between dateStart={} and dateEnd={} are to be get from DB",
+        dateStart, dateEnd);
+    List<Holiday> foundHolidays = entityManager.createNamedQuery("Holiday.findHolidaysInRange")
+        .setParameter("dateStart", dateStart)
+        .setParameter("dateEnd", dateEnd)
+        .getResultList();
+    return foundHolidays;
+  }
 }
+
