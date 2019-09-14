@@ -1,6 +1,6 @@
 body {
   font-size: .875rem;
-  background-image: url("https://img.freepik.com/free-vector/elegant-white-background-with-shiny-lines_1017-17580.jpg?size=626&ext=jpg");
+  background-image: url(/img/background.jpg);
 }
 
 
@@ -110,11 +110,10 @@ body {
   bottom: 560px;
   float: top;
   margin-left: 1175px;
-
 }
 
 .footer {
-  position: absolute;
+  position: fixed;
   right: 0;
   bottom: 0;
   left: 0;
@@ -150,4 +149,3 @@ h1 {
   font-size: 16px;
   margin-right: 16px;
 }
-

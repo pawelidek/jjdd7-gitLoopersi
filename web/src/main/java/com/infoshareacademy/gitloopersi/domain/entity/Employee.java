@@ -11,9 +11,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+@NamedQueries({
+    @NamedQuery(
+        name = "Employee.findAll",
+        query = "SELECT e FROM Employee e"
+    )
+})
 @Entity
 @Table(name = "employee")
 public class Employee {
@@ -96,5 +104,23 @@ public class Employee {
 
   public List<Vacation> getEmployeeVacations() {
     return employeeVacations;
+  }
+
+  public void setEmployeeVacations(
+      List<Vacation> employeeVacations) {
+    this.employeeVacations = employeeVacations;
+  }
+
+  @Override
+  public String toString() {
+    return "EmployeeResponse{" +
+        "id=" + id +
+        ", firstName='" + firstName + '\'' +
+        ", secondName='" + secondName + '\'' +
+        ", team=" + team +
+        ", startDate=" + startDate +
+        ", startHireDate=" + startHireDate +
+        ", employeeVacations=" + employeeVacations +
+        '}';
   }
 }

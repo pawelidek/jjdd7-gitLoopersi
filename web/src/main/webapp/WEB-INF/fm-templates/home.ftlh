@@ -24,6 +24,7 @@
     <#include "/calendar.ftlh">
 </div>
 <#include "/footer.ftlh">
+
 <script src="/js/bootstrap.js"></script>
 <script src="/js/feather.js"></script>
 </body>

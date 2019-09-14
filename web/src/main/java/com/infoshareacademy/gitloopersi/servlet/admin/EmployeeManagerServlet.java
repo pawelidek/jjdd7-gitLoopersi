@@ -1,15 +1,19 @@
 package com.infoshareacademy.gitloopersi.servlet.admin;
 
+import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import com.infoshareacademy.gitloopersi.domain.entity.Team;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
+import com.infoshareacademy.gitloopersi.service.EmployeeService;
 import com.infoshareacademy.gitloopersi.service.TeamService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,15 +23,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet("/admin/team")
-public class TeamManagerServlet extends HttpServlet {
+@WebServlet("/admin/employee")
+public class EmployeeManagerServlet extends HttpServlet {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @Inject
   private TemplateProvider templateProvider;
 
-  @Inject
+  @EJB
+  private EmployeeService employeeService;
+
+  @EJB
   private TeamService teamService;
 
   @Override
@@ -37,11 +44,13 @@ public class TeamManagerServlet extends HttpServlet {
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
 
     Map<String, Object> dataModel = new HashMap<>();
+    List<Employee> employeeList = employeeService.getEmployeesList();
     List<Team> teamList = teamService.getTeamList();
 
     dataModel.put("userType", "admin");
+    dataModel.put("employees", employeeList);
     dataModel.put("teams", teamList);
-    dataModel.put("function", "TeamManager");
+    dataModel.put("function", "EmployeeManager");
     dataModel.put("method", "put");
 
     PrintWriter printWriter = resp.getWriter();
@@ -57,12 +66,12 @@ public class TeamManagerServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-    Team team = new Team();
+    Employee employee = new Employee();
+    String teamId = req.getParameter("team");
 
-    String name = req.getParameter("name");
+    setEmployeeFields(req, employee);
 
-    team.setName(name);
-    teamService.addTeam(team);
+    employeeService.addEmployee(employee, Long.parseLong(teamId));
   }
 
   @Override
@@ -70,12 +79,12 @@ public class TeamManagerServlet extends HttpServlet {
       throws ServletException, IOException {
 
     Long id = Long.parseLong(req.getParameter("id"));
-    Team team = teamService.getTeamById(id);
+    Employee employee = employeeService.getEmployeeById(id);
+    String teamId = req.getParameter("team");
 
-    String name = req.getParameter("name");
+    setEmployeeFields(req, employee);
 
-    team.setName(name);
-    teamService.editTeam(team);
+    employeeService.editEmployee(employee, Long.parseLong(teamId));
   }
 
   @Override
@@ -84,6 +93,19 @@ public class TeamManagerServlet extends HttpServlet {
 
     String idParam = req.getParameter("id");
     Long id = Long.parseLong(idParam);
-    teamService.deleteTeam(id);
+    employeeService.deleteEmployeeById(id);
+  }
+
+  private void setEmployeeFields(HttpServletRequest req, Employee employee) {
+
+    String name = req.getParameter("firstName");
+    String secondName = req.getParameter("secondName");
+    LocalDate startDate = LocalDate.parse(req.getParameter("startDate"));
+    LocalDate startHireDate = LocalDate.parse(req.getParameter("startHireDate"));
+
+    employee.setFirstName(name);
+    employee.setSecondName(secondName);
+    employee.setStartDate(startDate);
+    employee.setStartHireDate(startHireDate);
   }
 }
