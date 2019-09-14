@@ -1,8 +1,7 @@
 package com.infoshareacademy.gitloopersi.restapi.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
+import com.infoshareacademy.gitloopersi.domain.api.HolidayResponse;
 import com.infoshareacademy.gitloopersi.mapper.HolidayMapper;
 import com.infoshareacademy.gitloopersi.service.HolidayService;
 import javax.ejb.EJB;
@@ -19,11 +18,7 @@ public class HolidayApiService {
   private HolidayMapper holidayMapper;
 
   @Transactional
-  public String getHolidayJsonObjectById(int id) throws JsonProcessingException {
-    ObjectMapper objectMapper = new ObjectMapper();
-
-    Holiday holidayById = holidayService.findHolidayById(id);
-
-    return objectMapper.writeValueAsString(holidayMapper.mapEntityToApi(holidayById));
+  public HolidayResponse getHolidayJsonObjectById(Integer id) throws JsonProcessingException {
+    return holidayMapper.mapEntityToApi(holidayService.findHolidayById(id));
   }
 }
