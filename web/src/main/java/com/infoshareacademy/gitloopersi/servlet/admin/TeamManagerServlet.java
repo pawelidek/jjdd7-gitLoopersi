@@ -34,6 +34,8 @@ public class TeamManagerServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
+    logger.info("Request GET method");
+
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
 
     Map<String, Object> dataModel = new HashMap<>();
@@ -57,6 +59,8 @@ public class TeamManagerServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
+    logger.info("Request POST method");
+
     Team team = new Team();
 
     String name = req.getParameter("name");
@@ -68,6 +72,8 @@ public class TeamManagerServlet extends HttpServlet {
   @Override
   protected void doPut(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+
+    logger.info("Request PUT method");
 
     Long id = Long.parseLong(req.getParameter("id"));
     Team team = teamService.getTeamById(id);
@@ -81,6 +87,8 @@ public class TeamManagerServlet extends HttpServlet {
   @Override
   protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+
+    logger.info("Request DELETE method");
 
     String idParam = req.getParameter("id");
     Long id = Long.parseLong(idParam);

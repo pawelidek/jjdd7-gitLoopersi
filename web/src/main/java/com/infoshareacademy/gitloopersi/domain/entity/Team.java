@@ -57,13 +57,4 @@ public class Team {
       List<Employee> teamEmployees) {
     this.teamEmployees = teamEmployees;
   }
-
-  @Override
-  public String toString() {
-    return "TeamResponse{" +
-        "id=" + id +
-        ", name='" + name + '\'' +
-        ", teamEmployees=" + teamEmployees +
-        '}';
-  }
 }
