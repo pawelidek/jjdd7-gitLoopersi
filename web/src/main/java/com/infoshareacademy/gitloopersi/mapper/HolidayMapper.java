@@ -17,7 +17,6 @@ public class HolidayMapper {
 
   public List<Holiday> mapApiToEntity(List<HolidayResponse> holidayList) {
 
-    logger.info("Map API to entity");
     List<Holiday> holidays = new ArrayList<>();
 
     holidayList.forEach(holidayApi -> {
@@ -28,6 +27,9 @@ public class HolidayMapper {
       holiday.setHolidayType(holidayApi.getHolidayType().get(0));
       holidays.add(holiday);
     });
+
+    logger.info("Holiday response has been mapped to entity");
+
     return holidays;
   }
 
@@ -52,7 +54,7 @@ public class HolidayMapper {
     holidayToJSON.setHolidayType(List.of(holidayEntity.getHolidayType()));
     holidayToJSON.setDescription(holidayEntity.getDescription());
 
-    logger.info("HolidayResponse has been mapped to API");
+    logger.info("Holiday entity has been mapped to response");
 
     return holidayToJSON;
   }

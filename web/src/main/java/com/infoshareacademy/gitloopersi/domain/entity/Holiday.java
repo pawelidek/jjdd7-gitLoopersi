@@ -15,6 +15,10 @@ import javax.persistence.Table;
     @NamedQuery(
         name = "Holiday.findAll",
         query = "SELECT h FROM Holiday h"
+    ),
+    @NamedQuery(
+        name = "Holiday.findHolidaysInRange",
+        query = "SELECT h FROM Holiday h WHERE h.date between :dateStart and :dateEnd"
     )
 })
 @Entity

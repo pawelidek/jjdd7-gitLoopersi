@@ -57,12 +57,13 @@ public class VacationDefiningService {
         return true;
       } else {
         logger.warn("Number of remaining vacation days is {}", numberOfRemainingVacationDays);
+
         //error message
       }
     } else {
       //error message
     }
-    return true;
+    return false;
   }
 
   private int getNumberOfRemainingVacationDays(Long employeeId, int numberOfVacationBank,
