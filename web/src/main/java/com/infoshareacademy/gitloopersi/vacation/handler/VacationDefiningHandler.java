@@ -9,7 +9,10 @@ import com.infoshareacademy.gitloopersi.types.HolidayType;
 import com.infoshareacademy.gitloopersi.vacation.service.VacationDefiningService;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import org.slf4j.Logger;
@@ -100,7 +103,10 @@ public class VacationDefiningHandler {
       if (todayDate.getYear() == vacation.getDateFrom().getYear() && todayDate.getYear() == vacation
           .getDateTo().getYear()) {
 
-        workDaysNumber = workDaysNumber + vacation.getDaysCount();
+        int numberOfRemainingDays = Optional.ofNullable(vacation.getDaysCount())
+            .orElse(0);
+
+        workDaysNumber = workDaysNumber + numberOfRemainingDays;
       }
 
       if (numberOfVacationBank == 20 && employee.getStartHireDate().getYear() == todayDate

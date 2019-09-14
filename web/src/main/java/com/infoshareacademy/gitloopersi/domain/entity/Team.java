@@ -60,7 +60,7 @@ public class Team {
 
   @Override
   public String toString() {
-    return "TeamResponse{" +
+    return "Team{" +
         "id=" + id +
         ", name='" + name + '\'' +
         ", teamEmployees=" + teamEmployees +

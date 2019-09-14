@@ -1,12 +1,15 @@
 package com.infoshareacademy.gitloopersi.vacation.service;
 
 import com.infoshareacademy.gitloopersi.dao.VacationDaoBean;
+import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
+import com.infoshareacademy.gitloopersi.service.EmployeeService;
 import com.infoshareacademy.gitloopersi.vacation.validator.VacationDefiningValidator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,10 +21,16 @@ public class VacationDefiningService {
   @EJB
   private VacationDaoBean vacationDefiningDao;
 
+  @EJB
+  private EmployeeService employeeService;
+
   @Inject
   private VacationDefiningValidator vacationDefiningValidator;
 
-  public void addVacation(Vacation vacation) {
+  @Transactional
+  public void addVacation(Vacation vacation, Long employeeId) {
+    Employee employee = employeeService.getEmployeeById(employeeId);
+    vacation.setEmployee(employee);
     vacationDefiningDao.addVacation(vacation);
   }
 
@@ -37,21 +46,17 @@ public class VacationDefiningService {
 
     if (isValidOverlappingOfDates(employeeId, dateFrom, dateTo)) {
 
-      if (isValidTurnOfTheYear(dateFrom, dateTo)) {
+      int numberOfVacationBank = getNumberOfVacationBank(employeeId);
 
-        int numberOfVacationBank = getNumberOfVacationBank(employeeId);
+      int numberOfSelectedVacationDays = getNumberOfSelectedVacationDays(dateFrom, dateTo);
 
-        int numberOfSelectedVacationDays = getNumberOfSelectedVacationDays(dateFrom, dateTo);
+      int numberOfRemainingVacationDays = getNumberOfRemainingVacationDays(employeeId,
+          numberOfVacationBank, numberOfSelectedVacationDays);
 
-        int numberOfRemainingVacationDays = getNumberOfRemainingVacationDays(employeeId,
-            numberOfVacationBank, numberOfSelectedVacationDays);
-
-        if (numberOfRemainingVacationDays > 0) {
-          return true;
-        } else {
-          //error message
-        }
+      if (numberOfRemainingVacationDays > 0) {
+        return true;
       } else {
+        logger.warn("Number of remaining vacation days is {}", numberOfRemainingVacationDays);
         //error message
       }
     } else {
@@ -68,7 +73,7 @@ public class VacationDefiningService {
             numberOfVacationBank);
   }
 
-  private int getNumberOfSelectedVacationDays(String dateFrom, String dateTo) {
+  public int getNumberOfSelectedVacationDays(String dateFrom, String dateTo) {
 
     return vacationDefiningValidator
         .calculateNumberOfSelectedVacationDays(dateFrom, dateTo);
@@ -78,11 +83,6 @@ public class VacationDefiningService {
 
     return vacationDefiningValidator
         .calculateVacationBankForEmployee(employeeId);
-  }
-
-  private boolean isValidTurnOfTheYear(String dateFrom, String dateTo) {
-
-    return vacationDefiningValidator.isValidTurnOfTheYear(dateFrom, dateTo);
   }
 
   private boolean isValidOverlappingOfDates(Long employeeId, String dateFrom, String dateTo) {

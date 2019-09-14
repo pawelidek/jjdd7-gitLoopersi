@@ -18,12 +18,12 @@ public class VacationDaoBean {
   EntityManager entityManager;
 
   public void addVacation(Vacation vacation) {
-    logger.info("Object {} vacation persist to DB", vacation);
+    logger.info("Object {} vacation persist to DB", vacation.toString());
     entityManager.persist(vacation);
   }
 
   public void deleteVacation(Vacation vacation) {
-    logger.info("Object {} vacation delete from DB", vacation);
+    logger.info("Object {} vacation delete from DB", vacation.toString());
     entityManager.remove(vacation);
   }
 

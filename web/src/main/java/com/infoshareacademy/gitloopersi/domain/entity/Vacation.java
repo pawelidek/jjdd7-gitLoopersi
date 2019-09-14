@@ -47,7 +47,6 @@ public class Vacation {
   private Integer daysCount;
 
   @Column(name = "status_type")
-  @NotNull
   private StatusType statusType;
 
   public Long getId() {
