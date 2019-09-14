@@ -57,15 +57,4 @@ public class EmployeeResponse {
   public void setStartHireDate(Date startHireDate) {
     this.startHireDate = startHireDate;
   }
-
-  @Override
-  public String toString() {
-    return "EmployeeResponse{" +
-        "firstName='" + firstName + '\'' +
-        "secondName='" + secondName +
-        ", team=" + team +
-        ", startDate=" + startDate +
-        ", startHireDate='" + startHireDate + '\'' +
-        '}';
-  }
 }

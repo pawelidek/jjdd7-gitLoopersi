@@ -19,34 +19,32 @@ public class HolidayDaoBean {
   EntityManager entityManager;
 
   public void addHoliday(Holiday holiday) {
-    logger.info("HolidayResponse object {} is to be merged to DB", holiday.toString());
+    logger.info("Holiday object {} is to be merged to DB", holiday.toString());
     entityManager.merge(holiday);
   }
 
   public void editHoliday(Holiday holiday) {
-    logger.info("HolidayResponse object id={} is to be updated in DB", holiday.getId());
+    logger.info("Holiday object id={} is to be updated in DB", holiday.getId());
     entityManager.merge(holiday);
   }
 
   public Holiday getHolidayById(Integer id) {
-    logger.info("HolidayResponse object id={} is to be get from DB", id);
-
+    logger.info("Holiday object id={} is to be get from DB", id);
     return entityManager.find(Holiday.class, id);
   }
 
   public void deleteHoliday(Integer id) {
-    logger.info("HolidayResponse object id={} is to be deleted in DB", id);
+    logger.info("Holiday object id={} is to be deleted from DB", id);
     Holiday holidayToDelete = getHolidayById(id);
     if (holidayToDelete != null) {
       entityManager.remove(holidayToDelete);
     } else {
-      logger.warn("An attempt to delete non-existent holiday object id={} has been occured", id);
+      logger.warn("An attempt to delete non-existing holiday object id={} has occured", id);
     }
   }
 
   public List<Holiday> getHolidaysList() {
-    logger.info("HolidayResponse objects are to be get from DB");
-
+    logger.info("Holiday objects are to be get from DB");
     Query query = entityManager
         .createNamedQuery("Holiday.findAll");
     return query.getResultList();
@@ -62,4 +60,3 @@ public class HolidayDaoBean {
     return foundHolidays;
   }
 }
-

@@ -17,11 +17,4 @@ public class TeamResponse {
   public void setName(String name) {
     this.name = name;
   }
-
-  @Override
-  public String toString() {
-    return "TeamResponse{" +
-        "name='" + name + '\'' +
-        '}';
-  }
 }
