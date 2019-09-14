@@ -2,7 +2,6 @@ package com.infoshareacademy.gitloopersi.servlet.user;
 
 import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
-import com.infoshareacademy.gitloopersi.service.EmployeeService;
 import com.infoshareacademy.gitloopersi.vacation.service.VacationDefiningService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -14,7 +13,6 @@ import java.util.Map;
 import java.util.Objects;
 import javax.ejb.EJB;
 import javax.inject.Inject;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,9 +31,6 @@ public class MyVacationServlet extends HttpServlet {
   private TemplateProvider templateProvider;
 
   @EJB
-  private EmployeeService employeeService;
-
-  @EJB
   private VacationDefiningService vacationDefiningService;
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
@@ -51,7 +46,7 @@ public class MyVacationServlet extends HttpServlet {
     dataModel.put("userType", "user");
     dataModel.put("function", "VacationDefining");
 
-    if (req.getSession().getAttribute("errorMessage") != null ) {
+    if (req.getSession().getAttribute("errorMessage") != null) {
       errorMessage = (String) req.getSession().getAttribute("errorMessage");
       dataModel.put("errorMessage", errorMessage);
     }
@@ -71,13 +66,12 @@ public class MyVacationServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-
     Long employeeId = 1L;
     Vacation vacation = new Vacation();
 
     setVacationFields(req, vacation);
     vacationDefiningService.addVacation(vacation, employeeId);
-
+    logger.info("Vacation {} was added", vacation.toString());
     resp.sendRedirect("/user/vacation");
   }
 
@@ -103,7 +97,7 @@ public class MyVacationServlet extends HttpServlet {
   }
 
   private int getNumberOfSelectedVacationDays(HttpServletRequest req) {
-    return vacationDefiningService.getNumberOfSelectedVacationDays(req.getParameter("dateFrom"), req.getParameter("dateTo"));
+    return vacationDefiningService
+        .getNumberOfSelectedVacationDays(req.getParameter("dateFrom"), req.getParameter("dateTo"));
   }
-
 }

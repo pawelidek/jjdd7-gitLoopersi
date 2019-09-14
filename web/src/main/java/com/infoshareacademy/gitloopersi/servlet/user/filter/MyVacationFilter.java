@@ -1,5 +1,7 @@
 package com.infoshareacademy.gitloopersi.servlet.user.filter;
 
+import com.infoshareacademy.gitloopersi.exception.DatesOverlapException;
+import com.infoshareacademy.gitloopersi.exception.VacationOutOfPoolException;
 import com.infoshareacademy.gitloopersi.vacation.service.VacationDefiningService;
 import com.infoshareacademy.gitloopersi.vacation.validator.VacationDefiningValidator;
 import java.io.IOException;
@@ -57,40 +59,63 @@ public class MyVacationFilter implements Filter {
 
           if (isValidTurnOfTheYear(dateFrom, dateTo)) {
 
-            if (vacationDefiningService
-                .isValidVacationRequestByEmployee(employeeId, dateFrom, dateTo)) {
-              logger.info("Vacation request for employeeId: {} is valid", employeeId);
+            try {
 
+              if (isValidVacationRequestByEmployee(dateFrom, dateTo, employeeId)) {
 
-              chain.doFilter(request, response);
-            } else {
-              logger.warn("Vacation request for employeeId: {} is not valid", employeeId);
-              httpSession.setAttribute("errorMessage", "Vacation request is not valid");
+                logger.info("Vacation request for employeeId: {} is valid", employeeId);
+
+                chain.doFilter(request, response);
+              } else {
+                logger.warn("Vacation request for employeeId: {} is not valid", employeeId);
+                httpSession.setAttribute("errorMessage",
+                    "Vacation request is not valid. Please try again!");
+                httpResponse.sendRedirect("/user/vacation");
+              }
+
+            } catch (VacationOutOfPoolException e) {
+              logger.warn(e.getMessage());
+              httpSession.setAttribute("errorMessage",
+                  "Number of remaining vacation days is not sufficient. Please try again!");
+              httpResponse.sendRedirect("/user/vacation");
+            } catch (DatesOverlapException e) {
+              logger.warn(e.getMessage());
+              httpSession.setAttribute("errorMessage",
+                  "Dates overlap with vacations already notified. Please try again!");
               httpResponse.sendRedirect("/user/vacation");
             }
           } else {
             logger.warn("Vacation cannot be reported at the turn of the year {} - {}", dateFrom,
                 dateTo);
             httpSession.setAttribute("errorMessage",
-                "Vacation cannot be reported at the turn of the year");
+                "Vacation cannot be reported at the turn of the year. Please try again!");
             httpResponse.sendRedirect("/user/vacation");
           }
         } else {
           logger.warn("DateFrom {} is not before date to {}", dateFrom, dateTo);
-          httpSession.setAttribute("errorMessage", "DateFrom is not before date to");
+          httpSession
+              .setAttribute("errorMessage",
+                  "Date from is not before date to. Please try again!");
           httpResponse.sendRedirect("/user/vacation");
         }
       } else {
         logger.warn("Date from {} or date to {} is not from future", dateFrom, dateTo);
-        httpSession.setAttribute("errorMessage", "Date from or date to is not from future");
+        httpSession.setAttribute("errorMessage",
+            "Date from or date to is not from future. Please try again!");
         httpResponse.sendRedirect("/user/vacation");
       }
     } else {
       logger.warn("Date is not valid {} - {}", dateFrom, dateTo);
-      httpSession.setAttribute("errorMessage", "Date is not valid");
+      httpSession.setAttribute("errorMessage", "Date is not valid. Please try again!");
       httpResponse.sendRedirect("/user/vacation");
     }
-}
+  }
+
+  private boolean isValidVacationRequestByEmployee(String dateFrom, String dateTo, Long employeeId)
+      throws VacationOutOfPoolException, DatesOverlapException {
+    return vacationDefiningService
+        .isValidVacationRequestByEmployee(employeeId, dateFrom, dateTo);
+  }
 
   private boolean isValidTurnOfTheYear(String dateFrom, String dateTo) {
     return vacationDefiningValidator.isValidTurnOfTheYear(dateFrom, dateTo);

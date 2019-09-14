@@ -22,12 +22,23 @@ public class VacationDaoBean {
     entityManager.persist(vacation);
   }
 
-  public void deleteVacation(Vacation vacation) {
-    logger.info("Object {} vacation delete from DB", vacation.toString());
-    entityManager.remove(vacation);
+  public Vacation getEmployeeById(Long id) {
+    logger.info("Vacation object id={} is to be get from DB", id);
+    return entityManager.find(Vacation.class, id);
+  }
+
+  public void deleteVacation(Long id) {
+    logger.info("Object id = {} vacation delete from DB", id);
+    Vacation vacation = getEmployeeById(id);
+    if (vacation != null) {
+      entityManager.remove(vacation);
+    } else {
+      logger.warn("An attempt to delete non-existing vacation object id={} has occurred", id);
+    }
   }
 
   public List<Vacation> getVacationsList() {
+    logger.info("Vacation objects are to be get from DB");
     Query query = entityManager.createNamedQuery("Vacation.findAll");
     return query.getResultList();
   }
