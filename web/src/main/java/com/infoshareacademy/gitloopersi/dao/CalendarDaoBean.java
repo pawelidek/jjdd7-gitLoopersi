@@ -2,7 +2,6 @@ package com.infoshareacademy.gitloopersi.dao;
 
 
 import com.infoshareacademy.gitloopersi.domain.Calendar;
-import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,4 +24,9 @@ public class CalendarDaoBean {
     return foundHolidaysDates;
   }
 
+  public void saveHoliday(Calendar dateToSave) {
+    logger.info("Holiday object {} is to be merged to DB", dateToSave.toString());
+    entityManager.merge(dateToSave);
+
+  }
 }

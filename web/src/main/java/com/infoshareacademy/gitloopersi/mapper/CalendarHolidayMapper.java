@@ -17,7 +17,7 @@ public class CalendarHolidayMapper {
 
   public List<Calendar> mapHolidays(List<Holiday> holidayApiList) {
 
-    logger.info("Map");
+    logger.info("Map...");
     List<Calendar> holidays = new ArrayList<>();
     holidayApiList.forEach(holidayApi -> {
       Calendar date = new Calendar();
