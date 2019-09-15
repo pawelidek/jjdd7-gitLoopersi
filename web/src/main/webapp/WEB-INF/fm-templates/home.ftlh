@@ -11,21 +11,24 @@
   <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/dashboard/">
   <link href="/css/bootstrap.css" rel="stylesheet">
   <link href="/css/dashboard.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <link rel="stylesheet" href="/css/calendar.css">
 </head>
 <body>
 
-<div class="container">
-    <#include "/side_and_navbar${userType}.ftlh">
-</div>
-<div class="container">
-    <#include "/content${function}.ftlh">
-</div>
-<div class="container">
-    <#include "/calendar.ftlh">
-</div>
+<#include "/side_and_navbar${userType}.ftlh">
+
+<#include "/content${function}.ftlh">
+
+<#include "/calendar.ftlh">
 <#include "/footer.ftlh">
 
 <script src="/js/bootstrap.js"></script>
 <script src="/js/feather.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="/js/calendar.js"></script>
+<script src="/js/holidayManagment.js"></script>
+
+
 </body>
 </html>
