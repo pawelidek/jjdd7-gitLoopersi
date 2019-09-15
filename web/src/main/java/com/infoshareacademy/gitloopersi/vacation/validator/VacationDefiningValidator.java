@@ -33,7 +33,7 @@ public class VacationDefiningValidator {
   public boolean isValidDateFrom(String dateFrom) {
 
     try {
-      logger.info("Validate correct format dateFrom");
+      logger.info("Validate correct format dateFrom {}", dateFrom);
       simpleDateFormat.parse(dateFrom).toInstant()
           .atZone(ZoneId.systemDefault())
           .toLocalDate();
@@ -48,7 +48,7 @@ public class VacationDefiningValidator {
   public boolean isValidDateTo(String dateTo) {
 
     try {
-      logger.info("Validate correct format dateTo");
+      logger.info("Validate correct format dateTo {}", dateTo);
       simpleDateFormat.parse(dateTo).toInstant()
           .atZone(ZoneId.systemDefault())
           .toLocalDate();
@@ -62,7 +62,7 @@ public class VacationDefiningValidator {
 
   public boolean isValidDateFromFuture(String dateFrom) {
 
-    logger.info("Validate whether the dateFrom is from the future");
+    logger.info("Validate whether the dateFrom {} is from the future", dateFrom);
     LocalDate dateFromVacation = LocalDate.parse(dateFrom);
 
     Timestamp timestampDateFrom = Timestamp.valueOf(dateFromVacation.atTime(LocalTime.MIDNIGHT));
@@ -76,7 +76,7 @@ public class VacationDefiningValidator {
 
   public boolean isValidDateToFuture(String dateTo) {
 
-    logger.info("Validate whether the dateTo is from the future");
+    logger.info("Validate whether the dateTo {} is from the future", dateTo);
     LocalDate dateToVacation = LocalDate.parse(dateTo);
 
     Timestamp timestampDateTo = Timestamp.valueOf(dateToVacation.atTime(LocalTime.MIDNIGHT));
@@ -90,7 +90,7 @@ public class VacationDefiningValidator {
 
   public boolean isValidDateFromBeforeDateTo(String dateFrom, String dateTo) {
 
-    logger.info("Validate whether the dateFrom is before dateTo");
+    logger.info("Validate whether the dateFrom {} is before dateTo", dateFrom);
     LocalDate dateFromVacation = LocalDate.parse(dateFrom);
     LocalDate dateToVacation = LocalDate.parse(dateTo);
 
@@ -119,16 +119,17 @@ public class VacationDefiningValidator {
             definingDate = definingDate.plusDays(1)) {
           if (definingDate.equals(existDate)) {
             logger.info("The dates given overlap {} - {}", dateFromVacation, dateToVacation);
-            return true;
+            return false;
           }
         }
       }
     }
-    return false;
+    return true;
   }
 
   public boolean isValidTurnOfTheYear(String dateFrom, String dateTo) {
 
+    logger.info("The dates are at the turn of the year {} - {}", dateFrom, dateTo);
     LocalDate dateFromVacation = LocalDate.parse(dateFrom);
     LocalDate dateToVacation = LocalDate.parse(dateTo);
 
@@ -136,19 +137,19 @@ public class VacationDefiningValidator {
         && dateToday.getYear() == dateToVacation.getYear();
   }
 
-  public int calculateVacationBankForEmployee(Long employeeId) {
-    return vacationDefiningHandler.calculateVacationBankForEmployee(employeeId);
+  public int calculateVacationPoolForEmployee(Long employeeId) {
+    return vacationDefiningHandler.calculateVacationPoolForEmployee(employeeId);
   }
 
   public int calculateNumberOfSelectedVacationDays(String dateFrom, String dateTo) {
     return vacationDefiningHandler.calculateNumberOfSelectedVacationDays(dateFrom, dateTo);
   }
 
-  public int calculateRemainingVacationBank(Long employeeId, int numberOfSelectedVacationDays,
-      int numberOfVacationBank) {
+  public int calculateRemainingVacationPool(Long employeeId, int numberOfSelectedVacationDays,
+      int numberOfVacationPool) {
 
     return vacationDefiningHandler
-        .calculateRemainingVacationBank(employeeId, numberOfSelectedVacationDays,
-            numberOfVacationBank);
+        .calculateRemainingVacationPool(employeeId, numberOfSelectedVacationDays,
+            numberOfVacationPool);
   }
 }
