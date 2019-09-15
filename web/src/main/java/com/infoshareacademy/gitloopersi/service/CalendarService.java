@@ -1,10 +1,11 @@
 package com.infoshareacademy.gitloopersi.service;
 
-
-import com.infoshareacademy.gitloopersi.dao.CalendarDaoBean;
+import com.infoshareacademy.gitloopersi.dao.HolidayDaoBean;
 import com.infoshareacademy.gitloopersi.domain.Calendar;
 import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
 import com.infoshareacademy.gitloopersi.mapper.CalendarHolidayMapper;
+import com.infoshareacademy.gitloopersi.types.HolidayType;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -14,27 +15,31 @@ import org.slf4j.LoggerFactory;
 @Stateless
 public class CalendarService {
 
-  @EJB
-  CalendarDaoBean calendarDaoBean;
 
   @EJB
   CalendarHolidayMapper calendarHolidayMapper;
 
-
+  @EJB
+  HolidayDaoBean holidayDaoBean;
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
-  public void findAllHolidaysDates(List<Holiday> holidayList) {
-    logger.info("...");
+  public List<Calendar> findAllHolidaysDates() {
+    logger.info("Load dates of holidays");
 
-    List<Calendar> calendars = calendarHolidayMapper.mapHolidays(holidayList);
-    calendars.forEach(calendar -> calendarDaoBean.saveHoliday(calendar));
+    List<Holiday> holidayList = holidayDaoBean.getAllHolidays();
+
+    List<Holiday> holidayFilterList = new ArrayList<>();
+
+    for (Holiday holiday : holidayList) {
+      if (holiday.getHolidayType() == HolidayType.NATIONAL_HOLIDAY) {
+        holidayFilterList.add(holiday);
+      }
+    }
+
+    List<Calendar> calendars = calendarHolidayMapper.mapHolidaysDates(holidayFilterList);
+    return calendars;
+
   }
-
-
-  public List<Calendar> findAllHolidays() {
-    logger.info("...");
-    return calendarDaoBean.getAllHolidaysDates();
-  }
-
 }
+

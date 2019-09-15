@@ -38,13 +38,11 @@ public class HomeServlet extends HttpServlet {
 
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
 
-    List<Calendar> dates = calendarService.findAllHolidays();
+    List<Calendar> dates = calendarService.findAllHolidaysDates();
 
     Map<String, Object> dataModel = new HashMap<>();
     dataModel.put("userType", userType);
     dataModel.put("function", "HomePage");
-
-
     dataModel.put("dates", dates);
 
     PrintWriter printWriter = resp.getWriter();

@@ -1,7 +1,9 @@
 package com.infoshareacademy.gitloopersi.servlet.admin;
 
+import com.infoshareacademy.gitloopersi.domain.Calendar;
 import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
+import com.infoshareacademy.gitloopersi.service.CalendarService;
 import com.infoshareacademy.gitloopersi.service.HolidayService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -27,6 +29,9 @@ public class HolidaysManagerServlet extends HttpServlet {
   HolidayService holidayService;
 
   @Inject
+  private CalendarService calendarService;
+
+  @Inject
   TemplateProvider templateProvider;
 
   @Override
@@ -35,10 +40,12 @@ public class HolidaysManagerServlet extends HttpServlet {
     logger.info("Request GET method");
     Map<String, Object> dataModel = new HashMap<>();
     List<Holiday> holidays = holidayService.findAllHolidays();
+    List<Calendar> dates = calendarService.findAllHolidaysDates();
 
     dataModel.put("userType", req.getSession().getAttribute("userType"));
     dataModel.put("holidays", holidays);
     dataModel.put("function", "HolidaysManager");
+    dataModel.put("dates", dates);
     PrintWriter printWriter = resp.getWriter();
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
     try {

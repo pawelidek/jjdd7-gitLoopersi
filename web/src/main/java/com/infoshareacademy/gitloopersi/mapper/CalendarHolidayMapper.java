@@ -15,18 +15,18 @@ public class CalendarHolidayMapper {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
-  public List<Calendar> mapHolidays(List<Holiday> holidayApiList) {
+  public List<Calendar> mapHolidaysDates (List<Holiday> holidayDateslist) {
 
-    logger.info("Map...");
-    List<Calendar> holidays = new ArrayList<>();
-    holidayApiList.forEach(holidayApi -> {
+    logger.info("Holidays dates map on to individual parts of the date");
+    List<Calendar> holidaysList = new ArrayList<>();
+    holidayDateslist.forEach(dates -> {
       Calendar date = new Calendar();
-      date.setYear(holidayApi.getDate().getYear());
-      date.setMonth(holidayApi.getDate().getMonthValue());
-      date.setDay(holidayApi.getDate().getDayOfMonth());
-      holidays.add(date);
+      date.setYear(dates.getDate().getYear());
+      date.setMonth(dates.getDate().getMonthValue());
+      date.setDay(dates.getDate().getDayOfMonth());
+      holidaysList.add(date);
     });
-    return holidays;
+    return holidaysList;
   }
 
 }
