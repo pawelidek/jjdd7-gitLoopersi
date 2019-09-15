@@ -1,12 +1,15 @@
 package com.infoshareacademy.gitloopersi.servlet.admin;
 
+import com.infoshareacademy.gitloopersi.domain.Calendar;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
 import com.infoshareacademy.gitloopersi.handler.JsonFileHandler;
+import com.infoshareacademy.gitloopersi.service.CalendarService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -30,6 +33,9 @@ public class LoadFromJSONServlet extends HttpServlet {
   @EJB
   private JsonFileHandler jsonFileHandler;
 
+  @Inject
+  private CalendarService calendarService;
+
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @Override
@@ -47,10 +53,11 @@ public class LoadFromJSONServlet extends HttpServlet {
       throws ServletException, IOException {
 
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
-
+    List<Calendar> dates = calendarService.findAllHolidaysDates();
     Map<String, Object> dataModel = new HashMap<>();
     dataModel.put("userType", "admin");
     dataModel.put("function", "FileLoader");
+    dataModel.put("dates", dates);
 
     PrintWriter printWriter = resp.getWriter();
 

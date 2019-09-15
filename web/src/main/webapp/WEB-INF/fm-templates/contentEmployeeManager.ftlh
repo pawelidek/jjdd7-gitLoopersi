@@ -1,7 +1,7 @@
 <div>
   <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
   <script src="/js/employee.js"></script>
-  <article id="TRESC">
+  <article id="TRESC2">
 
     <table>
       <tr>
