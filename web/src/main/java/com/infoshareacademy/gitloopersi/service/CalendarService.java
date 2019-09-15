@@ -27,7 +27,7 @@ public class CalendarService {
   public List<Calendar> findAllHolidaysDates() {
     logger.info("Load dates of holidays");
 
-    List<Holiday> holidayList = holidayDaoBean.getAllHolidays();
+    List<Holiday> holidayList = holidayDaoBean.getHolidaysList();
 
     List<Holiday> holidayFilterList = new ArrayList<>();
 
