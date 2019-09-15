@@ -1,7 +1,7 @@
 package com.infoshareacademy.gitloopersi.mapper;
 
-import com.infoshareacademy.gitloopersi.domain.api.DateApi;
-import com.infoshareacademy.gitloopersi.domain.api.HolidayApi;
+import com.infoshareacademy.gitloopersi.domain.api.Date;
+import com.infoshareacademy.gitloopersi.domain.api.HolidayResponse;
 import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,12 +15,11 @@ public class HolidayMapper {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
-  public List<Holiday> mapApiToEntity(List<HolidayApi> holidayApiList) {
+  public List<Holiday> mapApiToEntity(List<HolidayResponse> holidayList) {
 
-    logger.info("Map API to entity");
     List<Holiday> holidays = new ArrayList<>();
 
-    holidayApiList.forEach(holidayApi -> {
+    holidayList.forEach(holidayApi -> {
       Holiday holiday = new Holiday();
       holiday.setName(holidayApi.getName());
       holiday.setDate(convertToDate(holidayApi.getDate().getIso()));
@@ -28,6 +27,9 @@ public class HolidayMapper {
       holiday.setHolidayType(holidayApi.getHolidayType().get(0));
       holidays.add(holiday);
     });
+
+    logger.info("Holiday response has been mapped to entity");
+
     return holidays;
   }
 
@@ -40,17 +42,20 @@ public class HolidayMapper {
     }
   }
 
-  public HolidayApi mapEntityToApi(Holiday holidayEntity) {
-    HolidayApi holidayToJSON = new HolidayApi();
+  public HolidayResponse mapEntityToApi(Holiday holidayEntity) {
+    HolidayResponse holidayToJSON = new HolidayResponse();
     holidayToJSON.setName(holidayEntity.getName());
 
-    DateApi dateApi = new DateApi();
-    dateApi.setIso(holidayEntity.getDate().toString());
+    Date date = new Date();
+    date.setIso(holidayEntity.getDate().toString());
 
-    holidayToJSON.setDate(dateApi);
+    holidayToJSON.setDate(date);
 
     holidayToJSON.setHolidayType(List.of(holidayEntity.getHolidayType()));
     holidayToJSON.setDescription(holidayEntity.getDescription());
+
+    logger.info("Holiday entity has been mapped to response");
+
     return holidayToJSON;
   }
 }

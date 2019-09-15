@@ -32,17 +32,17 @@ public class HolidayService {
     holidayToSave.setHolidayType(holidayType);
     holidayToSave.setDescription(description);
     holidayToSave.setCustom(true);
-    holidayDaoBean.saveHoliday(holidayToSave);
+    holidayDaoBean.addHoliday(holidayToSave);
   }
 
   public Holiday findHolidayById(Integer id) {
-    logger.info("Object holiday id={} go to DAO to be found in DB", id);
+    logger.info("Holiday object id={} go to DAO to be found in DB", id);
     return holidayDaoBean.getHolidayById(id);
   }
 
   public void modifyHoliday(Integer id, String name, String date, String type,
       String description) {
-    logger.info("Object holiday id={} go to DAO to be modified in DB", id);
+    logger.info("Holiday object id={} go to DAO to be modified in DB", id);
     Holiday holidayToChange = holidayDaoBean.getHolidayById(id);
     holidayToChange.setName(name);
     LocalDate holidayDate = LocalDate
@@ -52,17 +52,28 @@ public class HolidayService {
     holidayToChange.setHolidayType(holidayType);
     holidayToChange.setDescription(description);
     holidayToChange.setCustom(true);
-    holidayDaoBean.updateHoliday(holidayToChange);
+    holidayDaoBean.editHoliday(holidayToChange);
   }
 
   public void removeHoliday(String id) {
-    logger.info("Object holiday id={} go to DAO to be removed in DB", id);
+    logger.info("Holiday object id={} go to DAO to be removed in DB", id);
     Integer idToDelete = Integer.parseInt(id);
     holidayDaoBean.deleteHoliday(idToDelete);
   }
 
   public List<Holiday> findAllHolidays() {
     logger.info("Objects holidays go to DAO to be found in DB");
-    return holidayDaoBean.getAllHolidays();
+    return holidayDaoBean.getHolidaysList();
+  }
+
+  public List<Holiday> findHolidaysInRange(String date1, String date2) {
+    logger.info(
+        "Query findHolidaysInRange go to DAO to search holidays between dateStart={} and dateEnd={}",
+        date1, date2);
+    LocalDate dateStart = LocalDate
+        .parse(date1, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    LocalDate dateEnd = LocalDate
+        .parse(date2, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    return holidayDaoBean.getHolidaysInRange(dateStart, dateEnd);
   }
 }

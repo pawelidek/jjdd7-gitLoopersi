@@ -11,9 +11,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 
+@NamedQueries({
+    @NamedQuery(
+        name = "Employee.findAll",
+        query = "SELECT e FROM Employee e"
+    )
+})
 @Entity
 @Table(name = "employee")
 public class Employee {
@@ -28,6 +37,10 @@ public class Employee {
 
   @Column(name = "second_name")
   private String secondName;
+
+  @Column(name = "email")
+  @Email(message = "Email should be valid")
+  private String email;
 
   @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH,
       CascadeType.PERSIST})
@@ -70,6 +83,14 @@ public class Employee {
     this.secondName = secondName;
   }
 
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
   public Team getTeam() {
     return team;
   }
@@ -96,5 +117,10 @@ public class Employee {
 
   public List<Vacation> getEmployeeVacations() {
     return employeeVacations;
+  }
+
+  public void setEmployeeVacations(
+      List<Vacation> employeeVacations) {
+    this.employeeVacations = employeeVacations;
   }
 }

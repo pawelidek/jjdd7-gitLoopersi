@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -29,7 +30,7 @@ public class LoadFromJSONServlet extends HttpServlet {
   @Inject
   private TemplateProvider templateProvider;
 
-  @Inject
+  @EJB
   private JsonFileHandler jsonFileHandler;
 
   @Inject

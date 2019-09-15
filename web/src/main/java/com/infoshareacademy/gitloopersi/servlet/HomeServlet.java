@@ -34,6 +34,8 @@ public class HomeServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
+    logger.info("Request GET method");
+
     String userType = String.valueOf(req.getSession().getAttribute("userType"));
 
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
