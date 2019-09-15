@@ -24,6 +24,7 @@ public class EmployeeMapper {
     EmployeeResponse employeeToJSON = new EmployeeResponse();
     employeeToJSON.setFirstName(employee.getFirstName());
     employeeToJSON.setSecondName(employee.getSecondName());
+    employeeToJSON.setEmail(employee.getEmail());
     employeeToJSON.setTeam(teamMapper.mapEntityToApi(employee.getTeam()));
 
     Date startDate = new Date();

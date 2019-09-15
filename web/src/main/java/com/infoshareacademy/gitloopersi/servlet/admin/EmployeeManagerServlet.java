@@ -108,11 +108,13 @@ public class EmployeeManagerServlet extends HttpServlet {
 
     String name = req.getParameter("firstName");
     String secondName = req.getParameter("secondName");
+    String email = req.getParameter("email");
     LocalDate startDate = LocalDate.parse(req.getParameter("startDate"));
     LocalDate startHireDate = LocalDate.parse(req.getParameter("startHireDate"));
 
     employee.setFirstName(name);
     employee.setSecondName(secondName);
+    employee.setEmail(email);
     employee.setStartDate(startDate);
     employee.setStartHireDate(startHireDate);
   }
