@@ -19,7 +19,7 @@
       <div id="menu" class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="/home">
               Main Page
             </a>
           </li>
@@ -30,7 +30,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
-              Change of date format
+              Change date format
             </a>
           </li>
 

@@ -1,7 +1,9 @@
 package com.infoshareacademy.gitloopersi.servlet.user;
 
+import com.infoshareacademy.gitloopersi.domain.Calendar;
 import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
+import com.infoshareacademy.gitloopersi.service.CalendarService;
 import com.infoshareacademy.gitloopersi.service.UserMessagesService;
 import com.infoshareacademy.gitloopersi.vacation.service.VacationDefiningService;
 import freemarker.template.Template;
@@ -10,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import javax.ejb.EJB;
@@ -37,6 +40,9 @@ public class MyVacationServlet extends HttpServlet {
   @EJB
   private UserMessagesService userMessagesService;
 
+  @Inject
+  private CalendarService calendarService;
+
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @Override
@@ -46,8 +52,10 @@ public class MyVacationServlet extends HttpServlet {
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
 
     Map<String, Object> dataModel = new HashMap<>();
+    List<Calendar> dates = calendarService.findAllHolidaysDates();
     dataModel.put("userType", "user");
     dataModel.put("function", "VacationDefining");
+    dataModel.put("dates", dates);
 
     dataModel.put("errorMessage", userMessagesService
         .getErrorMessage(req.getSession(), "errorMessage"));

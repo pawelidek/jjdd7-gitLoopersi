@@ -1,16 +1,19 @@
 <div class="container">
   <article id="TRESC">
+
+    <div class="container-fluid">
+      <table class="table table-borderless">
+        <tr>
+          <td style="text-align: left"><h2>Vacation request</h2></td>
+        </tr>
+      </table>
+
       <#if errorMessage??>
-        <div class="alert alert-danger" role="alert">
-          <center><strong>${errorMessage}</strong></center>
+        <div class="alert alert-danger" role="alert" style="text-align: center">
+          <strong>${errorMessage}</strong>
         </div>
       </#if>
 
-    <table>
-      <tr>
-        <td style="text-align: left" width="100%"><h2>Vacation manager</h2></td>
-      </tr>
-    </table>
     <form method="post" action="/user/vacation/report">
       <div class="form-group">
         <label for="exampleInputDateFrom"><h5>From:</h5></label>
@@ -24,7 +27,7 @@
       </div>
       <table>
         <tr>
-          <td style="text-align: left" width="100%">
+          <td style="text-align: left" width="100%"><br>
             <button type="submit" class="btn btn-outline-secondary"
                     data-toggle="modal" data-target="#exampleModal" id="add_team_button">
               <img src="/img/button_add.svg" alt="Add"> Request your vacation
@@ -32,6 +35,7 @@
           </td>
         </tr>
       </table>
+      <br>
     </form>
   </article>
 </div>
