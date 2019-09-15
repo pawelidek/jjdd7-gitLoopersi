@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 @WebFilter(
     filterName = "HolidayValuesFilter",
-    urlPatterns = {"/admin/holiday/*"}
+    urlPatterns = {"/admin/holiday"}
 )
 public class HolidayValuesFilter implements Filter {
 
