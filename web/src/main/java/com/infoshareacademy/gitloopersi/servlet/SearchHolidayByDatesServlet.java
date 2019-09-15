@@ -33,7 +33,7 @@ public class SearchHolidayByDatesServlet extends HttpServlet {
 
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
-    logger.info("Request GET method");
+
     String servletPath = req.getServletPath();
 
     List<Calendar> dates = calendarService.findAllHolidaysDates();
