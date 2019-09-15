@@ -11,6 +11,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @NamedQueries({
     @NamedQuery(
@@ -28,6 +29,7 @@ public class Team {
   private Long id;
 
   @Column(name = "name")
+  @NotNull
   private String name;
 
   @OneToMany(mappedBy = "team")

@@ -37,7 +37,6 @@ public class HolidaysManagerServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
-    logger.info("Request GET method");
     Map<String, Object> dataModel = new HashMap<>();
     List<Holiday> holidays = holidayService.findAllHolidays();
     List<Calendar> dates = calendarService.findAllHolidaysDates();
@@ -57,7 +56,6 @@ public class HolidaysManagerServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
-    logger.info("Request POST method");
     String holidayName = req.getParameter("holiday_name");
     String holidayDate = req.getParameter("holiday_date");
     String holidayType = req.getParameter("holiday_type");
@@ -67,7 +65,6 @@ public class HolidaysManagerServlet extends HttpServlet {
 
   @Override
   protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
-    logger.info("Request PUT method");
     Integer id = Integer.parseInt(req.getParameter("id"));
     String holidayName = req.getParameter("holiday_name");
     String holidayDate = req.getParameter("holiday_date");
@@ -78,7 +75,6 @@ public class HolidaysManagerServlet extends HttpServlet {
 
   @Override
   protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
-    logger.info("Request DELETE method");
     String idToDelete = req.getParameter("id");
     holidayService.removeHoliday(idToDelete);
   }

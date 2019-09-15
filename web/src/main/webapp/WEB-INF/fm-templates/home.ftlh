@@ -20,8 +20,8 @@
 
 <#include "/content${function}.ftlh">
 
-<#include "/calendar.ftlh">
-<#include "/footer.ftlh">
+<#include "calendar.ftlh">
+<#include "footer.ftlh">
 
 <script src="/js/bootstrap.js"></script>
 <script src="/js/feather.js"></script>

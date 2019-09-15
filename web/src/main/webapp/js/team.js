@@ -65,8 +65,10 @@ $(function () {
         type: 'DELETE',
         success: function (result) {
           location.reload();
+        },
+        error: function (error) {
         }
-      });
+        });
     });
   });
 });
