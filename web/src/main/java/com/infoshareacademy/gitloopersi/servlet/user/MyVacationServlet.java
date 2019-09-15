@@ -2,6 +2,7 @@ package com.infoshareacademy.gitloopersi.servlet.user;
 
 import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
+import com.infoshareacademy.gitloopersi.service.UserMessagesService;
 import com.infoshareacademy.gitloopersi.vacation.service.VacationDefiningService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -33,6 +34,9 @@ public class MyVacationServlet extends HttpServlet {
   @EJB
   private VacationDefiningService vacationDefiningService;
 
+  @EJB
+  private UserMessagesService userMessagesService;
+
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @Override
@@ -44,8 +48,10 @@ public class MyVacationServlet extends HttpServlet {
     Map<String, Object> dataModel = new HashMap<>();
     dataModel.put("userType", "user");
     dataModel.put("function", "VacationDefining");
-
-    getErrorMessage(req, dataModel);
+    if (req.getSession().getAttribute("errorMessage") != null) {
+      dataModel.put("errorMessage", userMessagesService
+          .getErrorMessage(req.getSession(), "errorMessage"));
+    }
     removeErrorMessage(req);
 
     PrintWriter printWriter = resp.getWriter();
@@ -96,13 +102,6 @@ public class MyVacationServlet extends HttpServlet {
         .getNumberOfSelectedVacationDays(req.getParameter("dateFrom"), req.getParameter("dateTo"));
   }
 
-  private void getErrorMessage(HttpServletRequest req, Map<String, Object> dataModel) {
-
-    if (req.getSession().getAttribute("errorMessage") != null) {
-      String errorMessage = (String) req.getSession().getAttribute("errorMessage");
-      dataModel.put("errorMessage", errorMessage);
-    }
-  }
 
   private void removeErrorMessage(HttpServletRequest req) {
     Objects.requireNonNull(req.getSession()).removeAttribute("errorMessage");

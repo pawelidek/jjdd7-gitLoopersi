@@ -2,6 +2,7 @@ package com.infoshareacademy.gitloopersi.servlet.user.filter;
 
 import com.infoshareacademy.gitloopersi.exception.DatesOverlapException;
 import com.infoshareacademy.gitloopersi.exception.VacationOutOfPoolException;
+import com.infoshareacademy.gitloopersi.handler.UserMessageHandler;
 import com.infoshareacademy.gitloopersi.vacation.service.VacationDefiningService;
 import com.infoshareacademy.gitloopersi.vacation.validator.VacationDefiningValidator;
 import java.io.IOException;
@@ -32,6 +33,9 @@ public class MyVacationFilter implements Filter {
 
   @EJB
   private VacationDefiningService vacationDefiningService;
+
+  @EJB
+  private UserMessageHandler userMessageHandler;
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -68,45 +72,46 @@ public class MyVacationFilter implements Filter {
                 chain.doFilter(request, response);
               } else {
                 logger.warn("Vacation request for employeeId: {} is not valid", employeeId);
-                httpSession.setAttribute("errorMessage",
+                userMessageHandler.setErrorMessage(httpSession, "errorMessage",
                     "Vacation request is not valid. Please try again!");
                 httpResponse.sendRedirect("/user/vacation");
               }
 
             } catch (VacationOutOfPoolException e) {
               logger.warn(e.getMessage());
-              httpSession.setAttribute("errorMessage",
+              userMessageHandler.setErrorMessage(httpSession, "errorMessage",
                   "Number of remaining vacation days is not sufficient. Please try again!");
               httpResponse.sendRedirect("/user/vacation");
             } catch (DatesOverlapException e) {
               logger.warn(e.getMessage());
-              httpSession.setAttribute("errorMessage",
+              userMessageHandler.setErrorMessage(httpSession, "errorMessage",
                   "Dates overlap with vacations already notified. Please try again!");
               httpResponse.sendRedirect("/user/vacation");
             }
           } else {
             logger.warn("Vacation cannot be reported at the turn of the year {} - {}", dateFrom,
                 dateTo);
-            httpSession.setAttribute("errorMessage",
+            userMessageHandler.setErrorMessage(httpSession, "errorMessage",
                 "Vacation cannot be reported at the turn of the year. Please try again!");
             httpResponse.sendRedirect("/user/vacation");
           }
         } else {
           logger.warn("DateFrom {} is not before date to {}", dateFrom, dateTo);
-          httpSession
-              .setAttribute("errorMessage",
-                  "Date from is not before date to. Please try again!");
+          userMessageHandler.setErrorMessage(httpSession, "errorMessage",
+              "Date from is not before date to. Please try again!");
           httpResponse.sendRedirect("/user/vacation");
         }
       } else {
         logger.warn("Date from {} or date to {} is not from future", dateFrom, dateTo);
-        httpSession.setAttribute("errorMessage",
+        userMessageHandler.setErrorMessage(httpSession, "errorMessage",
             "Date from or date to is not from future. Please try again!");
         httpResponse.sendRedirect("/user/vacation");
       }
     } else {
       logger.warn("Date is not valid {} - {}", dateFrom, dateTo);
-      httpSession.setAttribute("errorMessage", "Date is not valid. Please try again!");
+      userMessageHandler.setErrorMessage
+          (httpSession, "errorMessage", "Date is not valid. Please try again!");
+
       httpResponse.sendRedirect("/user/vacation");
     }
   }
