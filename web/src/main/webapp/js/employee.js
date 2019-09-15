@@ -21,6 +21,7 @@ $(function () {
         $('#formMethod').val("put");
         $('#firstName').val(data.firstName);
         $('#secondName').val(data.secondName);
+        $('#email').val(data.email);
         $('#team').val(data.team);
         $('#startDate').val(data.startDate.iso);
         $('#startHireDate').val(data.startHireDate.iso);
@@ -38,6 +39,7 @@ $(function () {
       $('#formMethod').val("post");
       $('#firstName').val("");
       $('#secondName').val("");
+      $('#email').val("");
       $('#team').val("");
       $('#startDate').val("");
       $('#startHireDate').val("");
