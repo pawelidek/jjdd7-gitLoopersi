@@ -41,8 +41,6 @@ public class EmployeeManagerServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-    logger.info("Request GET method");
-
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
 
     Map<String, Object> dataModel = new HashMap<>();
@@ -68,8 +66,6 @@ public class EmployeeManagerServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-    logger.info("Request POST method");
-
     Employee employee = new Employee();
     String teamId = req.getParameter("team");
 
@@ -81,8 +77,6 @@ public class EmployeeManagerServlet extends HttpServlet {
   @Override
   protected void doPut(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-
-    logger.info("Request PUT method");
 
     Long id = Long.parseLong(req.getParameter("id"));
     Employee employee = employeeService.getEmployeeById(id);
@@ -97,8 +91,6 @@ public class EmployeeManagerServlet extends HttpServlet {
   protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-    logger.info("Request DELETE method");
-
     String idParam = req.getParameter("id");
     Long id = Long.parseLong(idParam);
     employeeService.deleteEmployeeById(id);
@@ -108,11 +100,13 @@ public class EmployeeManagerServlet extends HttpServlet {
 
     String name = req.getParameter("firstName");
     String secondName = req.getParameter("secondName");
+    String email = req.getParameter("email");
     LocalDate startDate = LocalDate.parse(req.getParameter("startDate"));
     LocalDate startHireDate = LocalDate.parse(req.getParameter("startHireDate"));
 
     employee.setFirstName(name);
     employee.setSecondName(secondName);
+    employee.setEmail(email);
     employee.setStartDate(startDate);
     employee.setStartHireDate(startHireDate);
   }

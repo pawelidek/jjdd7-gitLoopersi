@@ -21,14 +21,17 @@
 
       <thead>
       <tr>
+
         <th scope="col" style="width: 5%">#</th>
         <th scope="col" style="width: 5%">Id</th>
         <th scope="col" style="width: 15%">First name</th>
-        <th scope="col" style="width: 20%">Last name</th>
-        <th scope="col" style="width: 15%">Team</th>
+        <th scope="col" style="width: 15%">Last name</th>
+        <th scope="col" style="width: 10%">Email</th>
+        <th scope="col" style="width: 10%">Team</th>
         <th scope="col" style="width: 15%">Employed from</th>
         <th scope="col" style="width: 15%">First employment</th>
         <th scope="col" style="width: 10%">Manage</th>
+
       </tr>
       </thead>
       <tbody>
@@ -39,6 +42,7 @@
               <td>${employee.id}</td>
               <td>${employee.firstName}</td>
               <td>${employee.secondName}</td>
+              <td>${employee.email}</td>
               <td>${employee.team.name}</td>
               <td>${employee.startDate}</td>
               <td>${employee.startHireDate}</td>
@@ -83,6 +87,12 @@
                 <label for="secondName">Last name:
                   <input type="text" id="secondName" class="form-control" name="secondName"
                          placeholder="New last name" value="${(employee.secondName)!""}">
+                </label>
+              </div>
+              <div class="form-group">
+                <label for="email">Email:
+                  <input type="email" id="email" class="form-control" name="email"
+                         placeholder="example@email.com" value="${(employee.email)!""}">
                 </label>
               </div>
               <div class="form-group">

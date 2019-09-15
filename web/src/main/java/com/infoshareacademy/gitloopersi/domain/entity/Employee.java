@@ -15,6 +15,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 @NamedQueries({
     @NamedQuery(
@@ -32,10 +34,17 @@ public class Employee {
   private Long id;
 
   @Column(name = "first_name")
+  @NotNull
   private String firstName;
 
   @Column(name = "second_name")
+  @NotNull
   private String secondName;
+
+  @Column(name = "email")
+  @NotNull
+  @Email(message = "Email should be valid")
+  private String email;
 
   @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH,
       CascadeType.PERSIST})
@@ -43,9 +52,11 @@ public class Employee {
   private Team team;
 
   @Column(name = "start_date")
+  @NotNull
   private LocalDate startDate;
 
   @Column(name = "start_hire_date")
+  @NotNull
   private LocalDate startHireDate;
 
   @OneToMany(mappedBy = "employee",
@@ -76,6 +87,14 @@ public class Employee {
 
   public void setSecondName(String secondName) {
     this.secondName = secondName;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public Team getTeam() {

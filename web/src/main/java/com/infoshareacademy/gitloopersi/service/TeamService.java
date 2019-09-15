@@ -2,6 +2,7 @@ package com.infoshareacademy.gitloopersi.service;
 
 import com.infoshareacademy.gitloopersi.dao.TeamDaoBean;
 import com.infoshareacademy.gitloopersi.domain.entity.Team;
+import com.infoshareacademy.gitloopersi.exception.TeamNotEmptyException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -31,13 +32,21 @@ public class TeamService {
     return teamDaoBean.getTeamById(id);
   }
 
-  public void deleteTeam(Long id) {
+  public void deleteTeam(Long id) throws TeamNotEmptyException {
     logger.info("Team object id={} go to DAO to be removed in DB", id);
-    teamDaoBean.deleteTeamById(id);
+    if (isTeamEmpty(id)) {
+      teamDaoBean.deleteTeamById(id);
+    } else {
+      throw new TeamNotEmptyException();
+    }
   }
 
   public List<Team> getTeamList() {
     logger.info("Objects team go to DAO to be found in DB");
     return teamDaoBean.getTeamsList();
+  }
+
+  private boolean isTeamEmpty(Long id) {
+    return teamDaoBean.getTeamById(id).getTeamEmployees().size() == 0;
   }
 }

@@ -1,6 +1,7 @@
 package com.infoshareacademy.gitloopersi.servlet.admin;
 
 import com.infoshareacademy.gitloopersi.domain.entity.Team;
+import com.infoshareacademy.gitloopersi.exception.TeamNotEmptyException;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
 import com.infoshareacademy.gitloopersi.service.TeamService;
 import freemarker.template.Template;
@@ -34,17 +35,17 @@ public class TeamManagerServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-    logger.info("Request GET method");
-
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
 
     Map<String, Object> dataModel = new HashMap<>();
     List<Team> teamList = teamService.getTeamList();
+    String error = String.valueOf(req.getSession().getAttribute("errorMessage"));
 
     dataModel.put("userType", "admin");
     dataModel.put("teams", teamList);
     dataModel.put("function", "TeamManager");
     dataModel.put("method", "put");
+    dataModel.put("error", error);
 
     PrintWriter printWriter = resp.getWriter();
 
@@ -59,8 +60,6 @@ public class TeamManagerServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-    logger.info("Request POST method");
-
     Team team = new Team();
 
     String name = req.getParameter("name");
@@ -72,8 +71,6 @@ public class TeamManagerServlet extends HttpServlet {
   @Override
   protected void doPut(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-
-    logger.info("Request PUT method");
 
     Long id = Long.parseLong(req.getParameter("id"));
     Team team = teamService.getTeamById(id);
@@ -88,10 +85,14 @@ public class TeamManagerServlet extends HttpServlet {
   protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-    logger.info("Request DELETE method");
-
     String idParam = req.getParameter("id");
     Long id = Long.parseLong(idParam);
-    teamService.deleteTeam(id);
+    try {
+      teamService.deleteTeam(id);
+    } catch (TeamNotEmptyException e) {
+      req.getSession()
+          .setAttribute("errorMessage", "A team containing employees cannot be deleted!");
+      logger.info("A team with id={} contains employees and cannot be deleted!", id);
+    }
   }
 }
