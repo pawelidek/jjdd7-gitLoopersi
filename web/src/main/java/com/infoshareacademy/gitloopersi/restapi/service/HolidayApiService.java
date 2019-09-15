@@ -26,10 +26,13 @@ public class HolidayApiService {
   }
 
   @Transactional
-  public List<HolidayResponse> getHolidayJsonObjectsByPattern(String param) throws JsonProcessingException {
-    List<Holiday> foundHolidaysByPattern = holidayService.findHolidaysByPattern(param.toLowerCase());
+  public List<HolidayResponse> getHolidayJsonObjectsByPattern(String param)
+      throws JsonProcessingException {
+    List<Holiday> foundHolidaysByPattern = holidayService
+        .findHolidaysByPattern(param.toLowerCase());
     List<HolidayResponse> holidayReponses = new ArrayList<>();
-    foundHolidaysByPattern.forEach(holidayEntity-> holidayReponses.add(holidayMapper.mapEntityToApi(holidayEntity)));
+    foundHolidaysByPattern
+        .forEach(holidayEntity -> holidayReponses.add(holidayMapper.mapEntityToApi(holidayEntity)));
     return holidayReponses;
   }
 }

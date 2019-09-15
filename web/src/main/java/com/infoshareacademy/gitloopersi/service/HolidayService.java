@@ -77,13 +77,13 @@ public class HolidayService {
     return holidayDaoBean.getHolidaysInRange(dateStart, dateEnd);
   }
 
-  public List<Holiday> findHolidaysByPattern(String pattern){
+  public List<Holiday> findHolidaysByPattern(String pattern) {
     logger.info(
         "Query findHolidaysByPattern go to DAO to search holiday names in pattern={}", pattern);
     return holidayDaoBean.getHolidaysByPattern(pattern);
   }
 
-  public Holiday findHolidayByName(String name){
+  public Holiday findHolidayByName(String name) {
     logger.info(
         "Query findHolidayByName go to DAO to search holiday by name=", name);
     return holidayDaoBean.getHolidayByName(name);

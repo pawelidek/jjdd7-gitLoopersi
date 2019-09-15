@@ -60,18 +60,18 @@ public class HolidayDaoBean {
     return foundHolidays;
   }
 
-  public List<Holiday> getHolidaysByPattern(String pattern){
+  public List<Holiday> getHolidaysByPattern(String pattern) {
     logger.info("Holiday objects started in pattern={} are to be get from DB", pattern);
     List<Holiday> foundHolidays = entityManager.createNamedQuery("Holiday.findHolidaysByPattern")
-        .setParameter("pattern","%" + pattern)
+        .setParameter("pattern", "%" + pattern)
         .getResultList();
     return foundHolidays;
   }
 
-  public Holiday getHolidayByName(String name){
-    logger.info("Holiday object named={} are to be get from DB",name);
+  public Holiday getHolidayByName(String name) {
+    logger.info("Holiday object named={} are to be get from DB", name);
     Holiday foundHoliday = (Holiday) entityManager.createNamedQuery("Holiday.findHolidayByName")
-        .setParameter("name",name)
+        .setParameter("name", name)
         .getSingleResult();
     return foundHoliday;
   }
