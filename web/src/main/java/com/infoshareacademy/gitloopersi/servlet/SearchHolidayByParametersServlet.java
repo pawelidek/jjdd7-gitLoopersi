@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
     "/search/holiday/dates",
     "/search/holiday/name"
 })
-public class SearchHolidayByDatesServlet extends HttpServlet {
+public class SearchHolidayByParametersServlet extends HttpServlet {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
@@ -28,7 +28,6 @@ public class SearchHolidayByDatesServlet extends HttpServlet {
 
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
-    logger.info("Request GET method");
     String servletPath = req.getServletPath();
     Map<String, Object> dataModel = new HashMap<>();
     dataModel.put("userType", req.getSession().getAttribute("userType"));
@@ -39,7 +38,10 @@ public class SearchHolidayByDatesServlet extends HttpServlet {
       List<Holiday> foundHolidays = holidayService.findHolidaysInRange(startDate, endDate);
       dataModel.put("holidays", foundHolidays);
     } else if (servletPath.equals("/search/holiday/name")) {
-
+      String name = req.getParameter("name");
+      Holiday holiday = holidayService.findHolidayByName(name);
+      List<Holiday> foundHolidays = List.of(holiday);
+      dataModel.put("holidays", foundHolidays);
     }
   }
 }

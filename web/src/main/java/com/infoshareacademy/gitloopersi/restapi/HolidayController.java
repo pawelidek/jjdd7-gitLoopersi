@@ -31,4 +31,16 @@ public class HolidayController {
         .entity(holidayApiService.getHolidayJsonObjectById(id))
         .build();
   }
+
+  @GET
+  @Path("/param/{param}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getNotification(@PathParam("param") String param) throws JsonProcessingException {
+    logger.info(
+        "Process of prepare response on request find holidays like {} has been started",
+        param);
+    return Response.ok()
+        .entity(holidayApiService.getHolidayJsonObjectsByPattern(param))
+        .build();
+  }
 }
