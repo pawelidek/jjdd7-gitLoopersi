@@ -1,8 +1,10 @@
 package com.infoshareacademy.gitloopersi.servlet.admin;
 
+import com.infoshareacademy.gitloopersi.domain.Calendar;
 import com.infoshareacademy.gitloopersi.domain.entity.Team;
 import com.infoshareacademy.gitloopersi.exception.TeamNotEmptyException;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
+import com.infoshareacademy.gitloopersi.service.CalendarService;
 import com.infoshareacademy.gitloopersi.service.TeamService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -31,6 +33,9 @@ public class TeamManagerServlet extends HttpServlet {
   @Inject
   private TeamService teamService;
 
+  @Inject
+  private CalendarService calendarService;
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
@@ -41,11 +46,15 @@ public class TeamManagerServlet extends HttpServlet {
     List<Team> teamList = teamService.getTeamList();
     String error = String.valueOf(req.getSession().getAttribute("errorMessage"));
 
+    List<Calendar> dates = calendarService.findAllHolidaysDates();
+
+
     dataModel.put("userType", "admin");
     dataModel.put("teams", teamList);
     dataModel.put("function", "TeamManager");
     dataModel.put("method", "put");
     dataModel.put("error", error);
+    dataModel.put("dates", dates);
 
     PrintWriter printWriter = resp.getWriter();
 
