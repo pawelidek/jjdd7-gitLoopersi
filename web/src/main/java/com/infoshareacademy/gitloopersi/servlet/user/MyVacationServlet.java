@@ -48,10 +48,10 @@ public class MyVacationServlet extends HttpServlet {
     Map<String, Object> dataModel = new HashMap<>();
     dataModel.put("userType", "user");
     dataModel.put("function", "VacationDefining");
-    if (req.getSession().getAttribute("errorMessage") != null) {
-      dataModel.put("errorMessage", userMessagesService
-          .getErrorMessage(req.getSession(), "errorMessage"));
-    }
+
+    dataModel.put("errorMessage", userMessagesService
+        .getErrorMessage(req.getSession(), "errorMessage"));
+    
     removeErrorMessage(req);
 
     PrintWriter printWriter = resp.getWriter();
