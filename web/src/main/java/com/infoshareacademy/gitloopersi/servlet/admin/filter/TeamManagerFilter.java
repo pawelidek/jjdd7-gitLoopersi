@@ -36,43 +36,40 @@ public class TeamManagerFilter implements Filter {
     HttpSession httpSession = httpServletRequest.getSession(true);
 
     String name = httpServletRequest.getParameter("name");
+    String redirect = "/admin/team";
 
     if (isAddingOrEditing(httpServletRequest)) {
 
-      if (isNotNullEmptyOrWhitespaceOnly(name)) {
+      if (isNullEmptyOrWhitespaceOnly(name)) {
+        logger.warn("Team name {} is null, empty or whitespace only", name);
+        httpSession.setAttribute("errorMessage", "Fill team name field!");
+        httpServletResponse.sendRedirect(redirect);
+      } else {
 
         logger.info("Team name {} is not null, empty or whitespace only", name);
 
-        if (consistsOfLettersDigitsSpaces(name)) {
-
-          logger.info("Team name {} is in alphanumeric space", name);
-
-          if (!alreadyExists(name)) {
-
-            logger.info("Team name {} is unique in DB", name);
-
-            filterChain.doFilter(servletRequest, servletResponse);
-
-          } else {
-            logger.warn("Team name {} already exists in DB", name);
-            httpSession.setAttribute("errorMessage",
-                "Team already exists!");
-            httpServletResponse.sendRedirect("/admin/team");
-          }
-        } else {
+        if (!consistsOfLettersDigitsSpaces(name)) {
           logger.warn("Team name {} is not in alphanumeric space", name);
           httpSession.setAttribute("errorMessage",
               "Team name is not alphanumeric only!");
-          httpServletResponse.sendRedirect("/admin/team");
-        }
-      } else {
-        logger.warn("Team name {} is null, empty or whitespace only", name);
-        httpSession.setAttribute("errorMessage", "Fill team name field!");
-        httpServletResponse.sendRedirect("/admin/team");
-      }
-    }
+          httpServletResponse.sendRedirect(redirect);
+        } else {
 
-    if (isListingOrDeleting(httpServletRequest)) {
+          logger.info("Team name {} is in alphanumeric space", name);
+
+          if (alreadyExists(name)) {
+            logger.warn("Team name {} already exists in DB", name);
+            httpSession.setAttribute("errorMessage",
+                "Team already exists!");
+            httpServletResponse.sendRedirect(redirect);
+          } else {
+
+            logger.info("Team name {} is unique in DB", name);
+            filterChain.doFilter(servletRequest, servletResponse);
+          }
+        }
+      }
+    } else {
 
       filterChain.doFilter(servletRequest, servletResponse);
     }
@@ -83,11 +80,6 @@ public class TeamManagerFilter implements Filter {
         || httpServletRequest.getMethod().equals(HttpMethod.PUT);
   }
 
-  private boolean isListingOrDeleting(HttpServletRequest httpServletRequest) {
-    return httpServletRequest.getMethod().equals(HttpMethod.GET)
-        || httpServletRequest.getMethod().equals(HttpMethod.DELETE);
-  }
-
   private boolean alreadyExists(String name) {
     return teamValidator.alreadyExists(name);
   }
@@ -96,7 +88,7 @@ public class TeamManagerFilter implements Filter {
     return teamValidator.isAlphanumericSpace(name);
   }
 
-  private boolean isNotNullEmptyOrWhitespaceOnly(String name) {
-    return teamValidator.isNotBlank(name);
+  private boolean isNullEmptyOrWhitespaceOnly(String name) {
+    return teamValidator.isBlank(name);
   }
 }

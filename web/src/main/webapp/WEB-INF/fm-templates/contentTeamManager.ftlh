@@ -1,20 +1,20 @@
 <div>
   <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
   <script src="/js/team.js"></script>
-  <article id="TRESC">
+  <article id="TRESC2">
 
     <div class="container-fluid">
-    <table class="table table-borderless">
-      <tr>
-        <td style="text-align: left"><h2>Team manager</h2></td>
-        <td style="text-align: right">
-          <button type="button" class="btn btn-outline-secondary"
-                  data-toggle="modal" data-target="#exampleModal" id="add_team_button">
-            <img src="/img/button_add.svg" alt="Add"> Add Team
-          </button>
-        </td>
-      </tr>
-    </table>
+      <table class="table table-borderless">
+        <tr>
+          <td style="text-align: left"><h2>Team manager</h2></td>
+          <td style="text-align: right">
+            <button type="button" class="btn btn-outline-secondary"
+                    data-toggle="modal" data-target="#exampleModal" id="add_team_button">
+              <img src="/img/button_add.svg" alt="Add"> Add Team
+            </button>
+          </td>
+        </tr>
+      </table>
     </div>
 
     <table class="table table-sm table-hover" style="text-align: center">
@@ -70,7 +70,7 @@
                   <input type="text" id="name" class="form-control" name="name"
                          placeholder="New team name" value="${(team.name)!""}">
                 </label>
-
+              </div>
             </form>
 
           </div>

@@ -15,8 +15,8 @@ public class TeamValidator {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
-  public boolean isNotBlank(String name) {
-    return StringUtils.isNotBlank(name);
+  public boolean isBlank(String name) {
+    return StringUtils.isBlank(name);
   }
 
   public boolean isAlphanumericSpace(String name) {

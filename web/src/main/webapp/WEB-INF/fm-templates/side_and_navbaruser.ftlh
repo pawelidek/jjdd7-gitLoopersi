@@ -1,6 +1,6 @@
 <nav class="navbar navbar-light fixed-top bg-light flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><img
-        src="/img/logo.png" alt="Logo"
+        src="/img/logo.png" alt="Responsive image"
         width=150px height=65px></a>
 
   <ul class="navbar-nav px-3">
