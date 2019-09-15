@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -18,17 +19,29 @@ import javax.persistence.Table;
     ),
     @NamedQuery(
         name = "Holiday.findHolidaysInRange",
-        query = "SELECT h FROM Holiday h WHERE h.date between :dateStart and :dateEnd"
+        query = "SELECT h FROM Holiday h WHERE h.date BETWEEN :dateStart AND :dateEnd"
+    ),
+    @NamedQuery(
+        name = "Holiday.findHolidaysByPattern",
+        query = "SELECT h FROM Holiday h WHERE lower(h.name) LIKE CONCAT(:pattern,'%')"
+    ),
+    @NamedQuery(
+        name = "Holiday.findHolidayByName",
+        query = "SELECT h FROM Holiday h WHERE h.name=:name"
     )
 })
 @Entity
-@Table(name = "holiday")
+@Table(name = "holiday", indexes = {
+    @Index(columnList = "name", name = "name_hidx"),
+    @Index(columnList = "holiday_date", name = "holiday_date_hidx")
+})
 public class Holiday {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private Integer id;
+
 
   @Column(name = "name")
   private String name;
