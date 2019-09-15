@@ -126,12 +126,12 @@ public class MyVacationFilter implements Filter {
   }
 
   private boolean isValidDateFromFuture(String dateFrom, String dateTo) {
-    return vacationDefiningValidator.isValidDateFromFuture(dateFrom) && vacationDefiningValidator
-        .isValidDateToFuture(dateTo);
+    return vacationDefiningValidator.isValidDateFromFuture(dateFrom)
+        && vacationDefiningValidator.isValidDateToFuture(dateTo);
   }
 
   private boolean isValidDate(String dateFrom, String dateTo) {
-    return vacationDefiningValidator.isValidDateFrom(dateFrom) && vacationDefiningValidator
-        .isValidDateTo(dateTo);
+    return vacationDefiningValidator.isValidDateFrom(dateFrom)
+        && vacationDefiningValidator.isValidDateTo(dateTo);
   }
 }

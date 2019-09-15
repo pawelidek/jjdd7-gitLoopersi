@@ -34,7 +34,7 @@ public class VacationDefiningHandler {
   @EJB
   private VacationDefiningService vacationDefiningService;
 
-  public int calculateVacationBankForEmployee(Long employeeId) {
+  public int calculateVacationPoolForEmployee(Long employeeId) {
 
     return YEARS_OF_EXPERIENCE > calculateEmployeeExperience(employeeId)
         ? LESS_THAN_TEN_YEARS_EXPERIENCE : GREATER_THAN_TEN_YEARS_EXPERIENCE;
@@ -83,8 +83,8 @@ public class VacationDefiningHandler {
     return amountOfVacationDays - amountOfHolidays;
   }
 
-  public int calculateRemainingVacationBank(Long id, int numberOfSelectedVacationDays,
-      int numberOfVacationBank) {
+  public int calculateRemainingVacationPool(Long id, int numberOfSelectedVacationDays,
+      int numberOfVacationPool) {
 
     LocalDate todayDate = LocalDate.now();
     int workDaysNumber = 0;
@@ -107,12 +107,13 @@ public class VacationDefiningHandler {
         workDaysNumber = workDaysNumber + numberOfRemainingDays;
       }
 
-      if (numberOfVacationBank == 20 && employee.getStartHireDate().getYear() == todayDate
-          .minusYears(1).getYear()) {
+      if (numberOfVacationPool == LESS_THAN_TEN_YEARS_EXPERIENCE
+          && employee.getStartHireDate().getYear() == todayDate.minusYears(1).getYear()) {
 
         monthCount = monthCount - employee.getStartHireDate().getMonthValue();
         overdueDaysOff = (int) (overdueDaysOff - Math.floor(monthCount * 1.6));
-      } else if (numberOfVacationBank == 26 && employee.getStartHireDate().getYear() == todayDate
+      } else if (numberOfVacationPool == GREATER_THAN_TEN_YEARS_EXPERIENCE
+          && employee.getStartHireDate().getYear() == todayDate
           .minusYears(1).getYear()) {
 
         monthCount = monthCount - employee.getStartHireDate().getMonthValue();
@@ -122,11 +123,11 @@ public class VacationDefiningHandler {
       }
     }
 
-    overdueDaysOff = numberOfVacationBank - overdueDaysOff;
-    workDaysNumber = (numberOfVacationBank - workDaysNumber) + overdueDaysOff;
-    numberOfVacationBank = workDaysNumber - numberOfSelectedVacationDays;
+    overdueDaysOff = numberOfVacationPool - overdueDaysOff;
+    workDaysNumber = (numberOfVacationPool - workDaysNumber) + overdueDaysOff;
+    numberOfVacationPool = workDaysNumber - numberOfSelectedVacationDays;
 
-    return numberOfVacationBank;
+    return numberOfVacationPool;
   }
 
   private int calculateEmployeeExperience(Long employeeId) {

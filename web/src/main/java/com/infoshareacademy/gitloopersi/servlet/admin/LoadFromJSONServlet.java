@@ -40,6 +40,8 @@ public class LoadFromJSONServlet extends HttpServlet {
 
     jsonFileHandler.prepareFileToLoadToDataBase(jsonFile);
     logger.info("Json file {} loaded", jsonFile);
+
+    resp.sendRedirect("/admin/jsonLoader");
   }
 
   @Override

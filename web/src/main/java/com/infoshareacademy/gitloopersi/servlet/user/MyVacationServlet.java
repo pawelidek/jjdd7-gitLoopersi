@@ -41,17 +41,13 @@ public class MyVacationServlet extends HttpServlet {
 
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
 
-    String errorMessage;
     Map<String, Object> dataModel = new HashMap<>();
     dataModel.put("userType", "user");
     dataModel.put("function", "VacationDefining");
 
-    if (req.getSession().getAttribute("errorMessage") != null) {
-      errorMessage = (String) req.getSession().getAttribute("errorMessage");
-      dataModel.put("errorMessage", errorMessage);
-    }
+    getErrorMessage(req, dataModel);
+    removeErrorMessage(req);
 
-    Objects.requireNonNull(req.getSession()).removeAttribute("errorMessage");
     PrintWriter printWriter = resp.getWriter();
 
     try {
@@ -59,7 +55,6 @@ public class MyVacationServlet extends HttpServlet {
     } catch (TemplateException e) {
       logger.error(e.getMessage());
     }
-
   }
 
   @Override
@@ -99,5 +94,17 @@ public class MyVacationServlet extends HttpServlet {
   private int getNumberOfSelectedVacationDays(HttpServletRequest req) {
     return vacationDefiningService
         .getNumberOfSelectedVacationDays(req.getParameter("dateFrom"), req.getParameter("dateTo"));
+  }
+
+  private void getErrorMessage(HttpServletRequest req, Map<String, Object> dataModel) {
+
+    if (req.getSession().getAttribute("errorMessage") != null) {
+      String errorMessage = (String) req.getSession().getAttribute("errorMessage");
+      dataModel.put("errorMessage", errorMessage);
+    }
+  }
+
+  private void removeErrorMessage(HttpServletRequest req) {
+    Objects.requireNonNull(req.getSession()).removeAttribute("errorMessage");
   }
 }

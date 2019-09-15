@@ -52,12 +52,12 @@ public class VacationDefiningService {
 
     if (isValidOverlappingOfDates(employeeId, dateFrom, dateTo)) {
 
-      int numberOfVacationBank = getNumberOfVacationBank(employeeId);
+      int numberOfVacationPool = getNumberOfVacationPool(employeeId);
 
       int numberOfSelectedVacationDays = getNumberOfSelectedVacationDays(dateFrom, dateTo);
 
       int numberOfRemainingVacationDays = getNumberOfRemainingVacationDays(employeeId,
-          numberOfVacationBank, numberOfSelectedVacationDays);
+          numberOfVacationPool, numberOfSelectedVacationDays);
 
       if (numberOfRemainingVacationDays > 0) {
         return true;
@@ -71,12 +71,12 @@ public class VacationDefiningService {
     }
   }
 
-  private int getNumberOfRemainingVacationDays(Long employeeId, int numberOfVacationBank,
+  private int getNumberOfRemainingVacationDays(Long employeeId, int numberOfVacationPool,
       int numberOfSelectedVacationDays) {
 
     return vacationDefiningValidator
-        .calculateRemainingVacationBank(employeeId, numberOfSelectedVacationDays,
-            numberOfVacationBank);
+        .calculateRemainingVacationPool(employeeId, numberOfSelectedVacationDays,
+            numberOfVacationPool);
   }
 
   public int getNumberOfSelectedVacationDays(String dateFrom, String dateTo) {
@@ -85,10 +85,10 @@ public class VacationDefiningService {
         .calculateNumberOfSelectedVacationDays(dateFrom, dateTo);
   }
 
-  private int getNumberOfVacationBank(Long employeeId) {
+  private int getNumberOfVacationPool(Long employeeId) {
 
     return vacationDefiningValidator
-        .calculateVacationBankForEmployee(employeeId);
+        .calculateVacationPoolForEmployee(employeeId);
   }
 
   private boolean isValidOverlappingOfDates(Long employeeId, String dateFrom, String dateTo) {
