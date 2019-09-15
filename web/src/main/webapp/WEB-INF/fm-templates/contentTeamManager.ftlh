@@ -3,34 +3,35 @@
   <script src="/js/team.js"></script>
   <article id="TRESC">
 
-    <table>
+    <div class="container-fluid">
+    <table class="table table-borderless">
       <tr>
-        <td style="text-align: left" width="100%"><h2>Team manager</h2></td>
-        <td style="text-align: right" width="100%">
+        <td style="text-align: left"><h2>Team manager</h2></td>
+        <td style="text-align: right">
           <button type="button" class="btn btn-outline-secondary"
                   data-toggle="modal" data-target="#exampleModal" id="add_team_button">
-            <img src="/img/button_add.svg" alt="Add"> Add new team
+            <img src="/img/button_add.svg" alt="Add"> Add Team
           </button>
-
         </td>
       </tr>
     </table>
+    </div>
 
-    <table class="table table-sm" style="text-align: center">
+    <table class="table table-sm table-hover" style="text-align: center">
 
       <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">Id</th>
-        <th scope="col">Name</th>
-        <th scope="col">Manage</th>
+        <th scope="col" style="width: 5%">#</th>
+        <th scope="col" style="width: 5%">Id</th>
+        <th scope="col" style="width: 80%">Name</th>
+        <th scope="col" style="width: 10%">Manage</th>
       </tr>
       </thead>
       <tbody>
       <#list teams>
           <#items as team>
             <tr>
-              <td>${team_index + 1}</td>
+              <td>${team_index + 1}.</td>
               <td>${team.id}</td>
               <td>${team.name}</td>
               <td>

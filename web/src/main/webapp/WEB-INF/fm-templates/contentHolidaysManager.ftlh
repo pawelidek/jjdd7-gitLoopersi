@@ -2,27 +2,39 @@
   <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
   <script src="/js/holiday.js"></script>
   <article id="TRESC">
-    <button type="button" class="btn btn-secondary" id="add_user_button">
-      <img src="/img/button_add.svg"> Add Holiday
-    </button>
-    <br><br>
 
-    <table class="table table-sm" style="text-align: center">
+    <div class="container-fluid">
+      <table class="table table-borderless">
+        <tr>
+          <td style="text-align: left"><h2>Holiday manager</h2></td>
+          <td style="text-align: right">
+            <button type="button" class="btn btn-outline-secondary" id="add_user_button">
+              <img src="/img/button_add.svg" alt="Add"> Add Holiday
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <table class="table table-sm table-hover" style="text-align: center">
 
       <thead>
       <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Holiday name</th>
-        <th scope="col">Date</th>
-        <th scope="col">Type</th>
-        <th scope="col" style="width: 50%">Description</th>
+        <th scope="col" style="width: 5%">#</th>
+        <th scope="col" style="width: 5%">Id</th>
+        <th scope="col" style="width: 10%">Holiday name</th>
+        <th scope="col" style="width: 10%">Date</th>
+        <th scope="col" style="width: 10%">Type</th>
+        <th scope="col" style="width: 45%">Description</th>
+        <th scope="col" style="width: 15%">Manage</th>
       </tr>
       </thead>
       <tbody>
       <#list holidays>
           <#items as holiday>
             <tr>
-              <td>${holiday.id}.</td>
+              <td>${holiday_index + 1}.</td>
+              <td>${holiday.id}</td>
               <td>${holiday.name}</td>
               <td>${holiday.date}</td>
               <td>${(holiday.holidayType.type)!"National Holiday"}</td>
@@ -83,9 +95,9 @@
             </form>
           </div>
           <div class=" modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close
             </button>
-            <button type="button" class="btn btn-primary" id="add_holiday">Save changes
+            <button type="button" class="btn btn-outline-secondary" id="add_holiday">Save changes
             </button>
           </div>
         </div>
