@@ -11,6 +11,8 @@ public class EmployeeResponse {
   private String firstName;
   @JsonProperty("secondName")
   private String secondName;
+  @JsonProperty("email")
+  private String email;
   @JsonProperty("team")
   private TeamResponse team;
   @JsonProperty("startDate")
@@ -32,6 +34,14 @@ public class EmployeeResponse {
 
   public void setSecondName(String secondName) {
     this.secondName = secondName;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public TeamResponse getTeam() {

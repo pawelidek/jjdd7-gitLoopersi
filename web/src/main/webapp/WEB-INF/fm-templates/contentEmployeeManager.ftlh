@@ -1,7 +1,7 @@
 <div>
   <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
   <script src="/js/employee.js"></script>
-  <article id="TRESC">
+  <article id="TRESC2">
 
     <table>
       <tr>
@@ -24,6 +24,7 @@
         <th scope="col">Id</th>
         <th scope="col">First name</th>
         <th scope="col">Last name</th>
+        <th scope="col">Email</th>
         <th scope="col">Team</th>
         <th scope="col">Employed from</th>
         <th scope="col">First employment</th>
@@ -38,6 +39,7 @@
               <td>${employee.id}</td>
               <td>${employee.firstName}</td>
               <td>${employee.secondName}</td>
+              <td>${employee.email}</td>
               <td>${employee.team.name}</td>
               <td>${employee.startDate}</td>
               <td>${employee.startHireDate}</td>
@@ -82,6 +84,12 @@
                 <label for="secondName">Last name:
                   <input type="text" id="secondName" class="form-control" name="secondName"
                          placeholder="New last name" value="${(employee.secondName)!""}">
+                </label>
+              </div>
+              <div class="form-group">
+                <label for="email">Email:
+                  <input type="email" id="email" class="form-control" name="email"
+                         placeholder="example@email.com" value="${(employee.email)!""}">
                 </label>
               </div>
               <div class="form-group">
