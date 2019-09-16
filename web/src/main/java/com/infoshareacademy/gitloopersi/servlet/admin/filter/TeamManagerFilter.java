@@ -1,7 +1,10 @@
 package com.infoshareacademy.gitloopersi.servlet.admin.filter;
 
+import com.infoshareacademy.gitloopersi.handler.UserMessageHandler;
 import com.infoshareacademy.gitloopersi.team.validator.TeamValidator;
 import java.io.IOException;
+import java.util.Objects;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -27,6 +30,9 @@ public class TeamManagerFilter implements Filter {
   @Inject
   private TeamValidator teamValidator;
 
+//  @EJB
+//  private UserMessageHandler userMessageHandler;
+
   @Override
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
       FilterChain filterChain) throws IOException, ServletException {
@@ -41,8 +47,13 @@ public class TeamManagerFilter implements Filter {
     if (isAddingOrEditing(httpServletRequest)) {
 
       if (isNullEmptyOrWhitespaceOnly(name)) {
+
+//        userMessageHandler.setErrorMessage(httpSession, "errorMessage",
+//            "An empty team name cannot be set!!");
+//        httpServletResponse.sendRedirect(redirect);
+
         logger.warn("Team name {} is null, empty or whitespace only", name);
-        httpSession.setAttribute("errorMessage", "Fill team name field!");
+//        httpSession.setAttribute("errorMessage", "Fill team name field!");
         httpServletResponse.sendRedirect(redirect);
       } else {
 
@@ -50,8 +61,8 @@ public class TeamManagerFilter implements Filter {
 
         if (!consistsOfLettersDigitsSpaces(name)) {
           logger.warn("Team name {} is not in alphanumeric space", name);
-          httpSession.setAttribute("errorMessage",
-              "Team name is not alphanumeric only!");
+//          httpSession.setAttribute("errorMessage",
+//              "Team name is not alphanumeric only!");
           httpServletResponse.sendRedirect(redirect);
         } else {
 
@@ -59,8 +70,8 @@ public class TeamManagerFilter implements Filter {
 
           if (alreadyExists(name)) {
             logger.warn("Team name {} already exists in DB", name);
-            httpSession.setAttribute("errorMessage",
-                "Team already exists!");
+//            httpSession.setAttribute("errorMessage",
+//                "Team already exists!");
             httpServletResponse.sendRedirect(redirect);
           } else {
 
@@ -91,4 +102,6 @@ public class TeamManagerFilter implements Filter {
   private boolean isNullEmptyOrWhitespaceOnly(String name) {
     return teamValidator.isBlank(name);
   }
+
+
 }

@@ -4,17 +4,17 @@
   <article id="TRESC2">
 
     <div class="container-fluid">
-    <table class="table table-borderless">
-      <tr>
-        <td style="text-align: left"><h2>Employee manager</h2></td>
-        <td style="text-align: right">
-          <button type="button" class="btn btn-outline-secondary"
-                  data-toggle="modal" data-target="#exampleModal" id="add_user_button">
-            <img src="/img/button_add.svg" alt="Add"> Add Employee
-          </button>
-        </td>
-      </tr>
-    </table>
+      <table class="table table-borderless">
+        <tr>
+          <td style="text-align: left"><h2>Employee manager</h2></td>
+          <td style="text-align: right">
+            <button type="button" class="btn btn-outline-secondary"
+                    data-toggle="modal" data-target="#exampleModal" id="add_user_button">
+              <img src="/img/button_add.svg" alt="Add"> Add Employee
+            </button>
+          </td>
+        </tr>
+      </table>
     </div>
 
     <table class="table table-sm table-hover" style="text-align: center">
@@ -37,7 +37,7 @@
       <tbody>
       <#list employees>
           <#items as employee>
-            <tr>
+            <tr id="employee${employee.id}">
               <td>${employee_index + 1}.</td>
               <td>${employee.id}</td>
               <td>${employee.firstName}</td>
@@ -79,25 +79,32 @@
               <input type="hidden" id="id" name="id" value="${(employee.id)!""}"/>
               <div class="form-group">
                 <label for="firstName">First name:
-                  <input type="text" id="firstName" class="form-control" name="firstName"
+                  <input style="width: 475px" autocomplete="off" type="text" id="firstName"
+                         class="form-control"
+                         name="firstName"
                          placeholder="New first name" value="${(employee.firstName)!""}">
                 </label>
               </div>
               <div class="form-group">
                 <label for="secondName">Last name:
-                  <input type="text" id="secondName" class="form-control" name="secondName"
+                  <input style="width: 475px" autocomplete="off" type="text" id="secondName"
+                         class="form-control"
+                         name="secondName"
                          placeholder="New last name" value="${(employee.secondName)!""}">
                 </label>
               </div>
               <div class="form-group">
                 <label for="email">Email:
-                  <input type="email" id="email" class="form-control" name="email"
+                  <input style="width: 475px" autocomplete="off" type="email" id="email"
+                         class="form-control"
+                         name="email"
                          placeholder="example@email.com" value="${(employee.email)!""}">
                 </label>
               </div>
               <div class="form-group">
                 <label for="team">Team:
-                  <select id="team" class="form-control" name="team">
+                  <select style="width: 475px" autocomplete="off" id="team" class="form-control"
+                          name="team">
                       <#list teams>
                           <#items as team>
                             <option value="${(team.id)!""}">${team.name}</option>
@@ -108,13 +115,17 @@
               </div>
               <div class="form-group">
                 <label for="startDate">Employed from:
-                  <input type="date" id="startDate" class="form-control" name="startDate"
+                  <input style="width: 475px" autocomplete="off" type="date" id="startDate"
+                         class="form-control"
+                         name="startDate"
                          value="${(employee.startDate)!""}">
                 </label>
               </div>
               <div class="form-group">
                 <label for="startHireDate">First employment:
-                  <input type="date" id="startHireDate" class="form-control" name="startHireDate"
+                  <input style="width: 475px" autocomplete="off" type="date" id="startHireDate"
+                         class="form-control"
+                         name="startHireDate"
                          value="${(employee.startHireDate)!""}">
                 </label>
               </div>

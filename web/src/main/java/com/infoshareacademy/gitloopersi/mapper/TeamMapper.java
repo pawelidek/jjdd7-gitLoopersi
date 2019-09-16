@@ -14,6 +14,7 @@ public class TeamMapper {
   public TeamResponse mapEntityToApi(Team team) {
 
     TeamResponse teamToJSON = new TeamResponse();
+    teamToJSON.setId(team.getId());
     teamToJSON.setName(team.getName());
 
     logger.info("Team entity has been mapped to response");

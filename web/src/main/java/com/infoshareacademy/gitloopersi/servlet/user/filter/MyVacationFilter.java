@@ -68,8 +68,10 @@ public class MyVacationFilter implements Filter {
               if (isValidVacationRequestByEmployee(dateFrom, dateTo, employeeId)) {
 
                 logger.info("Vacation request for employeeId: {} is valid", employeeId);
-
+                userMessageHandler.setSuccessMessage(httpSession, "successMessage",
+                    "Vacation request send correctly");
                 chain.doFilter(request, response);
+
               } else {
                 logger.warn("Vacation request for employeeId: {} is not valid", employeeId);
                 userMessageHandler.setErrorMessage(httpSession, "errorMessage",

@@ -6,6 +6,7 @@ import com.infoshareacademy.gitloopersi.exception.TeamNotEmptyException;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
 import com.infoshareacademy.gitloopersi.service.CalendarService;
 import com.infoshareacademy.gitloopersi.service.TeamService;
+import com.infoshareacademy.gitloopersi.service.UserMessagesService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
@@ -13,6 +14,8 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,6 +39,9 @@ public class TeamManagerServlet extends HttpServlet {
   @Inject
   private CalendarService calendarService;
 
+//  @EJB
+//  private UserMessagesService userMessagesService;
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
@@ -55,6 +61,15 @@ public class TeamManagerServlet extends HttpServlet {
     dataModel.put("method", "put");
     dataModel.put("error", error);
     dataModel.put("dates", dates);
+
+//    dataModel.put("errorMessage", userMessagesService
+//        .getErrorMessage(req.getSession(), "errorMessage"));
+//
+//    dataModel.put("successMessage",
+//        userMessagesService.getSuccessMessage(req.getSession(), "successMessage"));
+
+//    removeErrorMessage(req);
+//    removeSuccessMessage(req);
 
     PrintWriter printWriter = resp.getWriter();
 
@@ -99,9 +114,18 @@ public class TeamManagerServlet extends HttpServlet {
     try {
       teamService.deleteTeam(id);
     } catch (TeamNotEmptyException e) {
-      req.getSession()
-          .setAttribute("errorMessage", "A team containing employees cannot be deleted!");
+//      req.getSession()
+//          .setAttribute("errorMessage", "A team containing employees cannot be deleted!");
       logger.info("A team with id={} contains employees and cannot be deleted!", id);
     }
   }
+
+//  private void removeErrorMessage(HttpServletRequest req) {
+//    Objects.requireNonNull(req.getSession()).removeAttribute("errorMessage");
+//
+//  }
+//
+//  private void removeSuccessMessage(HttpServletRequest req) {
+//    Objects.requireNonNull(req.getSession()).removeAttribute("successMessage");
+//  }
 }

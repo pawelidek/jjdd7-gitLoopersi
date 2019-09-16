@@ -9,4 +9,8 @@ public class UserMessagesService {
   public String getErrorMessage(HttpSession session, String key) {
     return (String) session.getAttribute(key);
   }
+
+  public String getSuccessMessage(HttpSession session, String key) {
+    return (String) session.getAttribute(key);
+  }
 }

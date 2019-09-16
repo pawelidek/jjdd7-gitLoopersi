@@ -11,4 +11,10 @@ public class UserMessageHandler {
       session.setAttribute(key, message);
     }
   }
+
+  public void setSuccessMessage(HttpSession session, String key, Object message) {
+    if (message != null) {
+      session.setAttribute(key, message);
+    }
+  }
 }

@@ -3,6 +3,9 @@ package com.infoshareacademy.gitloopersi.service;
 import com.infoshareacademy.gitloopersi.dao.EmployeeDaoBean;
 import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import com.infoshareacademy.gitloopersi.domain.entity.Team;
+import com.infoshareacademy.gitloopersi.domain.view.EmployeeView;
+import com.infoshareacademy.gitloopersi.viewmapper.EmployeeViewMapper;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -20,6 +23,9 @@ public class EmployeeService {
 
   @EJB
   private TeamService teamService;
+
+  @EJB
+  private EmployeeViewMapper employeeViewMapper;
 
   @Transactional
   public void addEmployee(Employee employee, Long teamId) {
@@ -53,5 +59,16 @@ public class EmployeeService {
   public List<Employee> getEmployeesList() {
     logger.info("Objects employee go to DAO to be found in DB");
     return employeeDaoBean.getEmployeesList();
+  }
+
+  @Transactional
+  public List<EmployeeView> getEmployeesWithTeamsList() {
+    List<EmployeeView> employeeViews = new ArrayList<>();
+
+    getEmployeesList().forEach(e -> {
+      employeeViews.add(employeeViewMapper.mapEntityToView(e));
+    });
+
+    return employeeViews;
   }
 }
