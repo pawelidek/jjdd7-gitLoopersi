@@ -7,10 +7,15 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
   version="3.1">
+
+  <welcome-file-list>
+    <welcome-file>/home</welcome-file>
+  </welcome-file-list>
+
   <data-source>
     <name>java:ds/evc</name>
     <class-name>com.mysql.cj.jdbc.MysqlDataSource</class-name>
-<!--    <url>jdbc:mysql://0.0.0.0:3308/calendar?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw</url>-->
+<!--        <url>jdbc:mysql://0.0.0.0:3308/calendar?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw</url>-->
     <url>jdbc:mysql://mysql/calendar?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw</url>
     <user>root</user>
     <password>rootpasswordgiven</password>
