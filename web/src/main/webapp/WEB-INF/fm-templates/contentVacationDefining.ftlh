@@ -1,16 +1,19 @@
-<div class="container">
-  <article id="TRESC">
+<article id="contentView">
 
-    <div class="container-fluid">
-      <table class="table table-borderless">
-        <tr>
-          <td style="text-align: left"><h2>Vacation request</h2></td>
-        </tr>
-      </table>
+  <div class="container-fluid">
+    <table class="table table-borderless">
+      <tr>
+        <td style="text-align: left"><h2>Vacation request</h2></td>
+      </tr>
+    </table>
 
       <#if errorMessage??>
         <div class="alert alert-danger" role="alert" style="text-align: center">
           <strong>${errorMessage}</strong>
+        </div>
+      <#elseif successMessage??>
+        <div class="alert alert-success" role="alert" style="text-align: center">
+          <strong>${successMessage}</strong>
         </div>
       </#if>
 
@@ -37,5 +40,4 @@
       </table>
       <br>
     </form>
-  </article>
-</div>
+</article>

@@ -59,8 +59,12 @@ public class MyVacationServlet extends HttpServlet {
 
     dataModel.put("errorMessage", userMessagesService
         .getErrorMessage(req.getSession(), "errorMessage"));
-    
+
+    dataModel.put("successMessage",
+        userMessagesService.getSuccessMessage(req.getSession(), "successMessage"));
+
     removeErrorMessage(req);
+    removeSuccessMessage(req);
 
     PrintWriter printWriter = resp.getWriter();
 
@@ -114,4 +118,9 @@ public class MyVacationServlet extends HttpServlet {
   private void removeErrorMessage(HttpServletRequest req) {
     Objects.requireNonNull(req.getSession()).removeAttribute("errorMessage");
   }
+
+  private void removeSuccessMessage(HttpServletRequest req) {
+    Objects.requireNonNull(req.getSession()).removeAttribute("successMessage");
+  }
+
 }

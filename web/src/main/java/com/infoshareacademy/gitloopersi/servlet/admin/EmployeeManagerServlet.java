@@ -3,6 +3,7 @@ package com.infoshareacademy.gitloopersi.servlet.admin;
 import com.infoshareacademy.gitloopersi.domain.Calendar;
 import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import com.infoshareacademy.gitloopersi.domain.entity.Team;
+import com.infoshareacademy.gitloopersi.domain.view.EmployeeView;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
 import com.infoshareacademy.gitloopersi.service.CalendarService;
 import com.infoshareacademy.gitloopersi.service.EmployeeService;
@@ -49,13 +50,12 @@ public class EmployeeManagerServlet extends HttpServlet {
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
 
     Map<String, Object> dataModel = new HashMap<>();
-    List<Employee> employeeList = employeeService.getEmployeesList();
+    List<EmployeeView> employeeViews = employeeService.getEmployeesWithTeamsList();
     List<Team> teamList = teamService.getTeamList();
     List<Calendar> dates = calendarService.findAllHolidaysDates();
 
-
     dataModel.put("userType", "admin");
-    dataModel.put("employees", employeeList);
+    dataModel.put("employees", employeeViews);
     dataModel.put("teams", teamList);
     dataModel.put("function", "EmployeeManager");
     dataModel.put("method", "put");

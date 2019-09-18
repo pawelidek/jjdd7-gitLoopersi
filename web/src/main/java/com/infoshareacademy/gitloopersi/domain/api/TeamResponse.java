@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TeamResponse {
 
+  Long id;
+
   @JsonProperty("name")
   private String name;
 
@@ -16,5 +18,13 @@ public class TeamResponse {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 }

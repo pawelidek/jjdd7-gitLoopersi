@@ -48,7 +48,6 @@ public class TeamManagerServlet extends HttpServlet {
 
     List<Calendar> dates = calendarService.findAllHolidaysDates();
 
-
     dataModel.put("userType", "admin");
     dataModel.put("teams", teamList);
     dataModel.put("function", "TeamManager");
@@ -75,6 +74,7 @@ public class TeamManagerServlet extends HttpServlet {
 
     team.setName(name);
     teamService.addTeam(team);
+    logger.info("A new team has been added!");
   }
 
   @Override
@@ -88,6 +88,7 @@ public class TeamManagerServlet extends HttpServlet {
 
     team.setName(name);
     teamService.editTeam(team);
+    logger.info("A team with id={} has been edited!", id);
   }
 
   @Override
@@ -98,10 +99,10 @@ public class TeamManagerServlet extends HttpServlet {
     Long id = Long.parseLong(idParam);
     try {
       teamService.deleteTeam(id);
+      logger.info("A team with id={} has been deleted!", id);
     } catch (TeamNotEmptyException e) {
-      req.getSession()
-          .setAttribute("errorMessage", "A team containing employees cannot be deleted!");
       logger.info("A team with id={} contains employees and cannot be deleted!", id);
     }
   }
+
 }

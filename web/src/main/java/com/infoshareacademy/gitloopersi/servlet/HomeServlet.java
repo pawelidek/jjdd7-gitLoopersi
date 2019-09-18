@@ -19,7 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet("/home")
+@WebServlet(urlPatterns = {
+    "",
+    "/home"})
 public class HomeServlet extends HttpServlet {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
@@ -34,9 +36,13 @@ public class HomeServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-    logger.info("Request GET method");
+    String userType;
 
-    String userType = String.valueOf(req.getSession().getAttribute("userType"));
+    if (req.getSession().getAttribute("userType") == null) {
+      userType = "guest";
+    } else {
+      userType = String.valueOf(req.getSession().getAttribute("userType"));
+    }
 
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
 

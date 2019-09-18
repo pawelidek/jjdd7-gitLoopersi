@@ -11,7 +11,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.HttpMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +32,6 @@ public class TeamManagerFilter implements Filter {
 
     HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
     HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-    HttpSession httpSession = httpServletRequest.getSession(true);
 
     String name = httpServletRequest.getParameter("name");
     String redirect = "/admin/team";
@@ -41,38 +39,35 @@ public class TeamManagerFilter implements Filter {
     if (isAddingOrEditing(httpServletRequest)) {
 
       if (isNullEmptyOrWhitespaceOnly(name)) {
+
         logger.warn("Team name {} is null, empty or whitespace only", name);
-        httpSession.setAttribute("errorMessage", "Fill team name field!");
         httpServletResponse.sendRedirect(redirect);
+        return;
       } else {
 
         logger.info("Team name {} is not null, empty or whitespace only", name);
 
         if (!consistsOfLettersDigitsSpaces(name)) {
           logger.warn("Team name {} is not in alphanumeric space", name);
-          httpSession.setAttribute("errorMessage",
-              "Team name is not alphanumeric only!");
           httpServletResponse.sendRedirect(redirect);
+          return;
         } else {
 
           logger.info("Team name {} is in alphanumeric space", name);
 
           if (alreadyExists(name)) {
             logger.warn("Team name {} already exists in DB", name);
-            httpSession.setAttribute("errorMessage",
-                "Team already exists!");
             httpServletResponse.sendRedirect(redirect);
+            return;
           } else {
 
             logger.info("Team name {} is unique in DB", name);
-            filterChain.doFilter(servletRequest, servletResponse);
           }
         }
       }
-    } else {
-
-      filterChain.doFilter(servletRequest, servletResponse);
     }
+
+    filterChain.doFilter(servletRequest, servletResponse);
   }
 
   private boolean isAddingOrEditing(HttpServletRequest httpServletRequest) {
@@ -91,4 +86,5 @@ public class TeamManagerFilter implements Filter {
   private boolean isNullEmptyOrWhitespaceOnly(String name) {
     return teamValidator.isBlank(name);
   }
+
 }

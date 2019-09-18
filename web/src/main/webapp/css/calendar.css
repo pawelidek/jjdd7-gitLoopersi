@@ -83,14 +83,6 @@ h1#year {
   width: 4em;
 }
 
-
-/* FLEXBOX styles*/
-
-
-/*.calendar {*/
-/*  font-size: 1.5em;*/
-/*}*/
-
 .calendar,
 .calendar * {
   display: flex;
@@ -131,13 +123,6 @@ section {
   justify-content: center;
 }
 
-
-/*for a Spanish like calendar
-  .month .day:nth-of-type(1){order:7!important;}
-  .month .day:nth-of-type(8){order:-1!important;}
-
-*/
-
 script {
   display: none;
 }
@@ -145,10 +130,7 @@ script {
 .cloneCont {
   display: block;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-left: -50em;
-  margin-top: -10.89em;
+  top: 220px;
   box-shadow: 0px 0px 5px 1px #ccc;
   transform: scale(2, 2);
   background: rgba(255, 255, 255, .9);

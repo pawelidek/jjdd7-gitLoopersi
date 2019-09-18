@@ -42,11 +42,17 @@ public class TeamService {
   }
 
   public List<Team> getTeamList() {
-    logger.info("Objects team go to DAO to be found in DB");
     return teamDaoBean.getTeamsList();
   }
 
   private boolean isTeamEmpty(Long id) {
-    return teamDaoBean.getTeamById(id).getTeamEmployees().size() == 0;
+    if (teamDaoBean.getEmployeeCountInTeam(id) == 0) {
+      logger.info("Team id={} is empty", id);
+      return true;
+    } else {
+      logger.info("Team id={} is not empty", id);
+      return false;
+    }
   }
+
 }
