@@ -1,9 +1,12 @@
 package com.infoshareacademy.gitloopersi.servlet.user;
 
 import com.infoshareacademy.gitloopersi.domain.Calendar;
+import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
 import com.infoshareacademy.gitloopersi.service.CalendarService;
+import com.infoshareacademy.gitloopersi.service.EmailBuilder;
+import com.infoshareacademy.gitloopersi.service.EmployeeService;
 import com.infoshareacademy.gitloopersi.service.UserMessagesService;
 import com.infoshareacademy.gitloopersi.vacation.service.VacationDefiningService;
 import freemarker.template.Template;
@@ -38,7 +41,13 @@ public class MyVacationServlet extends HttpServlet {
   private VacationDefiningService vacationDefiningService;
 
   @EJB
+  private EmployeeService employeeService;
+
+  @EJB
   private UserMessagesService userMessagesService;
+
+  @EJB
+  private EmailBuilder emailBuilder;
 
   @Inject
   private CalendarService calendarService;
@@ -82,8 +91,11 @@ public class MyVacationServlet extends HttpServlet {
     Long employeeId = 1L;
     Vacation vacation = new Vacation();
 
+    Employee employee = employeeService.getEmployeeById(employeeId);
+
     setVacationFields(req, vacation);
     vacationDefiningService.addVacation(vacation, employeeId);
+    emailBuilder.buildEmailMessage(vacation, employee);
     logger.info("Vacation {} was added", vacation.toString());
     resp.sendRedirect("/user/vacation");
   }
