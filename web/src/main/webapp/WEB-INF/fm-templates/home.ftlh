@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <meta name="google-signin-client_id" content="147273613156-lfrmpudlegslf28hs16mnsvdbjtqdbev.apps.googleusercontent.com">
   <link rel="icon" href="/img/icon.ico">
   <title>Home Page</title>
   <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/dashboard/">
@@ -28,6 +29,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="/js/calendar.js"></script>
 <script src="/js/holidayManagment.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
 
 
 </body>
