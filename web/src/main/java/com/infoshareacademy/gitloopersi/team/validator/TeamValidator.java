@@ -19,10 +19,6 @@ public class TeamValidator {
     return StringUtils.isBlank(name);
   }
 
-  public boolean isAlphanumericSpace(String name) {
-    return StringUtils.isAlphanumericSpace(name);
-  }
-
   public boolean alreadyExists(String name) {
     return teamService.getTeamList().stream().anyMatch(team -> team.getName().equals(name));
   }
