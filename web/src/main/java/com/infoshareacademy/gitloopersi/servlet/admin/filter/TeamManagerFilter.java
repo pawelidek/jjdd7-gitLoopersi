@@ -47,26 +47,16 @@ public class TeamManagerFilter implements Filter {
 
         logger.info("Team name {} is not null, empty or whitespace only", name);
 
-        if (!consistsOfLettersDigitsSpaces(name)) {
-          logger.warn("Team name {} is not in alphanumeric space", name);
+        if (alreadyExists(name)) {
+          logger.warn("Team name {} already exists in DB", name);
           httpServletResponse.sendRedirect(redirect);
           return;
         } else {
 
-          logger.info("Team name {} is in alphanumeric space", name);
-
-          if (alreadyExists(name)) {
-            logger.warn("Team name {} already exists in DB", name);
-            httpServletResponse.sendRedirect(redirect);
-            return;
-          } else {
-
-            logger.info("Team name {} is unique in DB", name);
-          }
+          logger.info("Team name {} is unique in DB", name);
         }
       }
     }
-
     filterChain.doFilter(servletRequest, servletResponse);
   }
 
@@ -77,10 +67,6 @@ public class TeamManagerFilter implements Filter {
 
   private boolean alreadyExists(String name) {
     return teamValidator.alreadyExists(name);
-  }
-
-  private boolean consistsOfLettersDigitsSpaces(String name) {
-    return teamValidator.isAlphanumericSpace(name);
   }
 
   private boolean isNullEmptyOrWhitespaceOnly(String name) {
