@@ -1,6 +1,6 @@
 <div>
   <script src="/js/holiday.js"></script>
-  <article id="TRESC2">
+  <article id="contentView">
 
     <div class="container-fluid">
       <table class="table table-borderless">

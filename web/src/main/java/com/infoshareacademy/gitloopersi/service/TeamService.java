@@ -46,7 +46,13 @@ public class TeamService {
   }
 
   private boolean isTeamEmpty(Long id) {
-    return teamDaoBean.getEmployeeCountInTeam(id) == 0;
+    if (teamDaoBean.getEmployeeCountInTeam(id) == 0) {
+      logger.info("Team id={} is empty", id);
+      return true;
+    } else {
+      logger.info("Team id={} is not empty", id);
+      return false;
+    }
   }
 
 }

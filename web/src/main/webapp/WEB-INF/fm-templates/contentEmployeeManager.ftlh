@@ -1,7 +1,7 @@
 <div>
   <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
   <script src="/js/employee.js"></script>
-  <article id="TRESC2">
+  <article id="contentView">
 
     <div class="container-fluid">
       <table class="table table-borderless">

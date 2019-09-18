@@ -50,7 +50,6 @@ public class EmployeeManagerServlet extends HttpServlet {
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
 
     Map<String, Object> dataModel = new HashMap<>();
-//    List<Employee> employeeList = employeeService.getEmployeesList();
     List<EmployeeView> employeeViews = employeeService.getEmployeesWithTeamsList();
     List<Team> teamList = teamService.getTeamList();
     List<Calendar> dates = calendarService.findAllHolidaysDates();

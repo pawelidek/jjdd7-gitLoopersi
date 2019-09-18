@@ -17,7 +17,6 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(
         name = "Team.findAll",
         query = "SELECT t FROM Team t"
-
     ),
     @NamedQuery(
         name = "Team.findEmployeeCountInTeam",

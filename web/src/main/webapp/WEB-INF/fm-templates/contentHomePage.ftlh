@@ -1,5 +1,5 @@
 <div>
-  <article id="TRESC2">
+  <article id="contentView">
     <h1> Welcome ${userType ! "visitor"}!</h1>
   </article>
 </div>

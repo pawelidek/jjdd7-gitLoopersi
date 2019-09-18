@@ -143,7 +143,7 @@ body {
   padding-left: 16px;
 }
 
-#TRESC2 {
+#contentView {
   box-sizing: content-box;
   width: 1000px;
   border-top: 1px solid rgba(0, 0, 0, .1);;

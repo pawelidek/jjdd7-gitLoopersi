@@ -6,7 +6,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.transaction.Transactional;
 
-
 @Stateless
 public class EmployeeViewMapper {
 

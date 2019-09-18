@@ -50,6 +50,8 @@ public class TeamDaoBean {
 
   public int getEmployeeCountInTeam(Long id) {
     Query query = entityManager.createNamedQuery("Team.findEmployeeCountInTeam");
-    return query.getFirstResult();
+    int employeeCount = query.getFirstResult();
+    logger.info("Employee count in team id={} is {}", id, employeeCount);
+    return employeeCount;
   }
 }
