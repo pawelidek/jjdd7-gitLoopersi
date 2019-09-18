@@ -17,15 +17,11 @@
       </table>
     </div>
 
-<#--      <#if errorMessage??>-->
-<#--        <div class="alert alert-danger" role="alert" style="text-align: center">-->
-<#--          <strong>${errorMessage}</strong>-->
-<#--        </div>-->
-<#--      <#elseif successMessage??>-->
-<#--        <div class="alert alert-success" role="alert" style="text-align: center">-->
-<#--          <strong>${successMessage}</strong>-->
-<#--        </div>-->
-<#--      </#if>-->
+            <#if successMessage??>
+              <div class="alert alert-success" role="alert" style="text-align: center">
+                <strong>${successMessage}</strong>
+              </div>
+            </#if>
 
     <table class="table table-sm table-hover" style="text-align: center">
 
@@ -41,7 +37,7 @@
       <#list teams>
           <#items as team>
             <tr>
-                <#--            <tr id="team${team.id}">-->
+            <tr id="team${team.id}">
               <td>${team_index + 1}.</td>
               <td>${team.id}</td>
               <td>${team.name}</td>

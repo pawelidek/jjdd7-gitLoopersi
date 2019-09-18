@@ -56,58 +56,18 @@ $(function () {
   });
 });
 
-// $(function () {
-//
-//   $(document).ready(function () {
-//     $(".delete-team").click(function () {
-//
-//       var teamId = $(this).attr('data-id');
-//
-//       $.ajax({
-//         url: '/admin/team?id=' + teamId,
-//         type: 'DELETE',
-//         success: function (result) {
-//           $('#team' + teamId).remove();
-//         },
-//         error: function (error) {
-//         }
-//         });
-//     });
-//   });
-// });
-
-//
-// $(function () {
-//
-//   $(document).ready(function () {
-//     $(".delete-team").click(function () {
-//
-//       var teamId = $(this).attr('data-id');
-//
-//       $.ajax({
-//         url: '/admin/team?id=' + teamId,
-//         type: 'DELETE',
-//         success: function (result) {
-//           $('#team' + teamId).remove();
-//         },
-//         error: function (error) {
-//         }
-//         });
-//     });
-//   });
-// });
-
 $(function () {
 
   $(document).ready(function () {
     $(".delete-team").click(function () {
+
+      var teamId = $(this).attr('data-id');
+
       $.ajax({
-        url: '/admin/team?id=' + $(this).attr('data-id'),
+        url: '/admin/team?id=' + teamId,
         type: 'DELETE',
         success: function (result) {
-          location.reload();
-        },
-        error: function (error) {
+          $('#team' + teamId).remove();
         }
       });
     });

@@ -17,6 +17,11 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(
         name = "Team.findAll",
         query = "SELECT t FROM Team t"
+
+    ),
+    @NamedQuery(
+        name = "Team.findEmployeeCountInTeam",
+        query = "SELECT count(e) FROM Employee e LEFT JOIN Team t ON (t.id=e.team.id) WHERE t.id=:id"
     )
 })
 @Entity

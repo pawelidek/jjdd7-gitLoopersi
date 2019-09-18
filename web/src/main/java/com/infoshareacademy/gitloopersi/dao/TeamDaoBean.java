@@ -43,9 +43,13 @@ public class TeamDaoBean {
   }
 
   public List<Team> getTeamsList() {
-    logger.info("Team objects are to be get from DB");
     Query query = entityManager
         .createNamedQuery("Team.findAll");
     return query.getResultList();
+  }
+
+  public int getEmployeeCountInTeam(Long id) {
+    Query query = entityManager.createNamedQuery("Team.findEmployeeCountInTeam");
+    return query.getFirstResult();
   }
 }
