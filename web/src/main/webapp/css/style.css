@@ -1,5 +1,6 @@
 /** code by webdevtrick ( https://webdevtrick.com ) **/
 @import url("https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap");
+
 body, html {
   width: 100%;
   height: 100%;
@@ -26,12 +27,15 @@ body, html {
   transition: all 0.195s ease;
   transform-style: preserve-3d;
 }
+
 .main.is-rotated-left {
   transform: translate(-50%, -50%) rotateY(-4deg);
 }
+
 .main.is-rotated-right {
   transform: translate(-50%, -50%) rotateY(4deg);
 }
+
 .main .sideb,
 .main .right-wrapper {
   background-color: white;
@@ -45,21 +49,25 @@ body, html {
   justify-content: flex-start;
   align-items: center;
 }
+
 .main .header {
   padding: 15px 0 20px;
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
+
 .main .header i {
   padding: 0 5px;
   cursor: pointer;
 }
+
 .main .header span {
   display: inline-block;
   margin: 0 3px;
   font-weight: 700;
 }
+
 .main .right-wrapper {
   background-color: #f05855;
   color: white;
@@ -67,26 +75,32 @@ body, html {
   transform: rotateY(110deg);
   transition: all 0.5s;
 }
+
 .main .right-wrapper.is-active {
   transform: rotateY(0deg);
 }
+
 .main .right-wrapper .header {
   text-align: left;
   justify-content: center;
 }
+
 .main .right-wrapper .day {
   font-size: 12em;
   text-indent: -12px;
   display: block;
 }
+
 .main .right-wrapper .month {
   font-size: 2.5em;
 }
+
 .main .sideb .showDate {
   color: white;
   text-align: right;
   width: 100%;
 }
+
 .main .sideb .showDate i {
   cursor: pointer;
   background: #f05855;
@@ -95,9 +109,11 @@ body, html {
   transform: scale(1);
   transition: all 0.3s;
 }
+
 .main .sideb .showDate i.is-active {
   transform: scale(-1);
 }
+
 .main .sideb table {
   text-align: center;
 
@@ -106,18 +122,21 @@ body, html {
   table-layout: fixed;
   border-collapse: collapse;
 }
+
 .main .sideb table tbody:before {
   content: "-";
   display: block;
   line-height: 0.75em;
   color: transparent;
 }
+
 .main .sideb table th {
   color: #f05855;
   font-size: 0.75em;
   text-transform: uppercase;
   margin-bottom: 10px;
 }
+
 .main .sideb table td {
   padding: 11px 5px;
   color: #ced0ce;
@@ -125,6 +144,7 @@ body, html {
   transition: all 0.3s;
   position: relative;
 }
+
 .main .sideb table td::before {
   content: "";
   display: none;
@@ -136,21 +156,26 @@ body, html {
   transform: translate(-50%, -8px);
   background-color: #f05855;
 }
+
 .main .sideb table td.currentDay::before {
   display: block;
 }
+
 .main .sideb table td.selectable {
   color: #303633;
   cursor: pointer;
 }
+
 .main .sideb table td.selectable:hover {
   background: #f05855;
   color: white;
 }
+
 .main .sideb table td.between {
   background-color: #333;
   color: white;
 }
+
 .main .sideb table td.active, .main .sideb table td.hover {
   background: #f05855;
   color: white;

@@ -15,7 +15,7 @@ public class CalendarHolidayMapper {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
-  public List<Calendar> mapHolidaysDates (List<Holiday> holidayDateslist) {
+  public List<Calendar> mapHolidaysDates(List<Holiday> holidayDateslist) {
 
     logger.info("Holidays dates map on to individual parts of the date");
     List<Calendar> holidaysList = new ArrayList<>();

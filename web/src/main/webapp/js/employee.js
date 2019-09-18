@@ -22,7 +22,8 @@ $(function () {
         $('#firstName').val(data.firstName);
         $('#secondName').val(data.secondName);
         $('#email').val(data.email);
-        $('#team option[value=' + data.team.id + ']').attr("selected", "selected");
+        $('#team option[value=' + data.team.id + ']').attr("selected",
+            "selected");
         $('#startDate').val(data.startDate.iso);
         $('#startHireDate').val(data.startHireDate.iso);
         $('#exampleModal').modal('toggle');
