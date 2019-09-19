@@ -1,8 +1,8 @@
 package com.infoshareacademy.gitloopersi.web.mapper;
 
+import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import com.infoshareacademy.gitloopersi.domain.jsonapi.Date;
 import com.infoshareacademy.gitloopersi.domain.jsonapi.EmployeeResponse;
-import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.transaction.Transactional;

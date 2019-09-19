@@ -1,6 +1,5 @@
 package com.infoshareacademy.gitloopersi.service.apimanager;
 
-import com.infoshareacademy.gitloopersi.service.apimanager.HolidayApiConsumer;
 import java.io.IOException;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;

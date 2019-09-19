@@ -1,7 +1,7 @@
 package com.infoshareacademy.gitloopersi.web.mapper;
 
-import com.infoshareacademy.gitloopersi.domain.jsonapi.TeamResponse;
 import com.infoshareacademy.gitloopersi.domain.entity.Team;
+import com.infoshareacademy.gitloopersi.domain.jsonapi.TeamResponse;
 import javax.ejb.Stateless;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

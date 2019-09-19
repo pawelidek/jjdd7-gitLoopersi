@@ -1,7 +1,7 @@
 package com.infoshareacademy.gitloopersi.web.servlet;
 
-import com.infoshareacademy.gitloopersi.domain.model.Calendar;
 import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
+import com.infoshareacademy.gitloopersi.domain.model.Calendar;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
 import com.infoshareacademy.gitloopersi.service.calendarmanager.CalendarService;
 import com.infoshareacademy.gitloopersi.service.holidaymanager.HolidayService;

@@ -3,7 +3,6 @@ package com.infoshareacademy.gitloopersi.service.teammanager;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.infoshareacademy.gitloopersi.domain.jsonapi.TeamResponse;
 import com.infoshareacademy.gitloopersi.web.mapper.TeamMapper;
-import com.infoshareacademy.gitloopersi.service.teammanager.TeamService;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.transaction.Transactional;

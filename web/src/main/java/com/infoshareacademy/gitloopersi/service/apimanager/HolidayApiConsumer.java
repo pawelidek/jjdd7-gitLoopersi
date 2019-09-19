@@ -1,8 +1,8 @@
 package com.infoshareacademy.gitloopersi.service.apimanager;
 
 import com.infoshareacademy.gitloopersi.dao.HolidayDaoBean;
-import com.infoshareacademy.gitloopersi.domain.jsonapi.HolidayResponse;
 import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
+import com.infoshareacademy.gitloopersi.domain.jsonapi.HolidayResponse;
 import com.infoshareacademy.gitloopersi.web.mapper.HolidayMapper;
 import java.io.IOException;
 import java.time.LocalDate;

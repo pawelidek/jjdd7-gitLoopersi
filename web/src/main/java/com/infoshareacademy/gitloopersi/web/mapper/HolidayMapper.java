@@ -1,8 +1,8 @@
 package com.infoshareacademy.gitloopersi.web.mapper;
 
+import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
 import com.infoshareacademy.gitloopersi.domain.jsonapi.Date;
 import com.infoshareacademy.gitloopersi.domain.jsonapi.HolidayResponse;
-import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

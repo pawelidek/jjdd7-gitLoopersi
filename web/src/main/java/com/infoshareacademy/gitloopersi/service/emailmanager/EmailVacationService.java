@@ -2,7 +2,6 @@ package com.infoshareacademy.gitloopersi.service.emailmanager;
 
 import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
-import com.infoshareacademy.gitloopersi.service.emailmanager.EmailSenderService;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.mail.MessagingException;

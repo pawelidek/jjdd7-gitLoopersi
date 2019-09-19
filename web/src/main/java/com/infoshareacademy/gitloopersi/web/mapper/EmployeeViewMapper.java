@@ -1,7 +1,6 @@
 package com.infoshareacademy.gitloopersi.web.mapper;
 
 import com.infoshareacademy.gitloopersi.domain.entity.Employee;
-import com.infoshareacademy.gitloopersi.web.mapper.TeamViewMapper;
 import com.infoshareacademy.gitloopersi.web.view.EmployeeView;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;

@@ -1,7 +1,7 @@
 package com.infoshareacademy.gitloopersi.web.mapper;
 
-import com.infoshareacademy.gitloopersi.domain.model.Calendar;
 import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
+import com.infoshareacademy.gitloopersi.domain.model.Calendar;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;

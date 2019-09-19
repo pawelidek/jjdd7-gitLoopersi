@@ -1,10 +1,10 @@
 package com.infoshareacademy.gitloopersi.service.calendarmanager;
 
 import com.infoshareacademy.gitloopersi.dao.HolidayDaoBean;
-import com.infoshareacademy.gitloopersi.domain.model.Calendar;
 import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
-import com.infoshareacademy.gitloopersi.web.mapper.CalendarHolidayMapper;
+import com.infoshareacademy.gitloopersi.domain.model.Calendar;
 import com.infoshareacademy.gitloopersi.types.HolidayType;
+import com.infoshareacademy.gitloopersi.web.mapper.CalendarHolidayMapper;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
