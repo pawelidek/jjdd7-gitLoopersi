@@ -46,6 +46,11 @@
               Load file
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              Vacation Configurator
+            </a>
+          </li>
         </ul>
         </ul>
       </div>
