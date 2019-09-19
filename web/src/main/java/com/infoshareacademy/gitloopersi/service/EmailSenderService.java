@@ -42,7 +42,7 @@ public class EmailSenderService {
       String server = propertiesLoaderService.loadServerProperties().getProperty("mail.smtp.host");
 
       logger.info("Email send to {}", username);
-      transport.connect("smtp.gmail.com", username, password);
+      transport.connect(server, username, password);
       transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
       transport.close();
     } catch (IOException e) {
