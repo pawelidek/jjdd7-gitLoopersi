@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 @Stateless
 public class EmailSenderService {
 
+  private static final String MAIL_TRANSPORT_PROTOCOL = "smtp";
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @EJB
@@ -32,12 +33,13 @@ public class EmailSenderService {
       generateMailMessage.setSubject(subject);
       generateMailMessage.setContent(emailContent, "text/html");
 
-      Transport transport = getMailSession.getTransport("smtp");
+      Transport transport = getMailSession.getTransport(MAIL_TRANSPORT_PROTOCOL);
 
       String username = propertiesLoaderService.loadCredentialsProperties()
           .getProperty("user.name");
       String password = propertiesLoaderService.loadCredentialsProperties()
           .getProperty("user.password");
+      String server = propertiesLoaderService.loadServerProperties().getProperty("mail.smtp.host");
 
       logger.info("Email send to {}", username);
       transport.connect("smtp.gmail.com", username, password);
