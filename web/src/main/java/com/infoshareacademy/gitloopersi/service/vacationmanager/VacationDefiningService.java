@@ -7,6 +7,9 @@ import com.infoshareacademy.gitloopersi.exception.DatesOverlapException;
 import com.infoshareacademy.gitloopersi.exception.VacationOutOfPoolException;
 import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
 import com.infoshareacademy.gitloopersi.validator.VacationDefiningValidator;
+import com.infoshareacademy.gitloopersi.web.mapper.VacationViewMapper;
+import com.infoshareacademy.gitloopersi.web.view.VacationView;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -25,6 +28,9 @@ public class VacationDefiningService {
 
   @EJB
   private EmployeeService employeeService;
+
+  @EJB
+  private VacationViewMapper vacationViewMapper;
 
   @Inject
   private VacationDefiningValidator vacationDefiningValidator;
@@ -45,6 +51,16 @@ public class VacationDefiningService {
   public List<Vacation> getVacationsList() {
     logger.info("Objects vacation go to DAO to be found in DB");
     return vacationDefiningDao.getVacationsList();
+  }
+
+  public List<VacationView> getVacationsWithEmployeesList() {
+    List<VacationView> vacationViews = new ArrayList<>();
+
+    getVacationsList().forEach(e -> {
+      vacationViews.add(vacationViewMapper.mapEntityToView(e));
+    });
+
+    return vacationViews;
   }
 
   public boolean isValidVacationRequestByEmployee(Long employeeId, String dateFrom, String dateTo)

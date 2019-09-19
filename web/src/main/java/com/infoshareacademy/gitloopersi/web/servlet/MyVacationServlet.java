@@ -9,6 +9,7 @@ import com.infoshareacademy.gitloopersi.service.calendarmanager.CalendarService;
 import com.infoshareacademy.gitloopersi.service.emailmanager.EmailVacationService;
 import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
 import com.infoshareacademy.gitloopersi.service.vacationmanager.VacationDefiningService;
+import com.infoshareacademy.gitloopersi.web.view.VacationView;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
@@ -62,7 +63,11 @@ public class MyVacationServlet extends HttpServlet {
 
     Map<String, Object> dataModel = new HashMap<>();
     List<Calendar> dates = calendarService.findAllHolidaysDates();
+    List<VacationView> vacationViews = vacationDefiningService.getVacationsWithEmployeesList();
+
     dataModel.put("userType", "user");
+    dataModel.put("vacations", vacationViews);
+
     dataModel.put("function", "VacationDefining");
     dataModel.put("dates", dates);
 
@@ -95,18 +100,19 @@ public class MyVacationServlet extends HttpServlet {
 
     setVacationFields(req, vacation);
     vacationDefiningService.addVacation(vacation, employeeId);
+
     emailVacationService.buildEmailMessage(vacation, employee);
+
     logger.info("Vacation {} was added", vacation.toString());
-    resp.sendRedirect("/user/vacation");
   }
 
   @Override
   protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
 
-    String dateFrom = req.getParameter("dateFrom");
-    String dateTo = req.getParameter("dateTo");
-    Long employeeId = 1L;
+    String idParam = req.getParameter("id");
+    Long id = Long.parseLong(idParam);
+    vacationDefiningService.deleteVacation(id);
   }
 
   private void setVacationFields(HttpServletRequest req, Vacation vacation) {
