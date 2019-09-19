@@ -11,7 +11,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.xml.transform.Source;
+import org.hibernate.validator.constraints.UniqueElements;
 
 @NamedQueries({
     @NamedQuery(
@@ -32,8 +35,8 @@ public class Team {
   @Column(name = "id")
   private Long id;
 
-  @Column(name = "name")
-  @NotNull
+  @Column(name = "name", unique = true)
+  @NotBlank(message = "Team name cannot be null")
   private String name;
 
   @OneToMany(mappedBy = "team")

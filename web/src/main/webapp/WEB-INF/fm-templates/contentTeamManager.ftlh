@@ -81,6 +81,12 @@
               </div>
             </form>
 
+              <#if errorMessage??>
+                <div class="alert alert-danger" role="alert" style="text-align: center">
+                  <strong>${errorMessage}</strong>
+                </div>
+              </#if>
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close
