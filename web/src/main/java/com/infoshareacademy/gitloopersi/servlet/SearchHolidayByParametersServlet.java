@@ -43,6 +43,6 @@ public class SearchHolidayByParametersServlet extends HttpServlet {
       List<Holiday> foundHolidays = List.of(holiday);
       dataModel.put("holidays", foundHolidays);
     }
-    logger.info("Method GET - servlet path {}",servletPath);
+    logger.info("Method GET - servlet path {}", servletPath);
   }
 }

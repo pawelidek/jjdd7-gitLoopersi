@@ -183,6 +183,7 @@ script {
 .main.is-rotated-left {
   transform: translate(-50%, -50%) rotateY(-4deg);
 }
+
 .main.is-rotated-right {
   transform: translate(-50%, -50%) rotateY(4deg);
 }

@@ -14,7 +14,9 @@ public class Calendar {
     this.year = year;
   }
 
-  public int getMonth() { return month; }
+  public int getMonth() {
+    return month;
+  }
 
   public void setMonth(int month) {
     this.month = month;

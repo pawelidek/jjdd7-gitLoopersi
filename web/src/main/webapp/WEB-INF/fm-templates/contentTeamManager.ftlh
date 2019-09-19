@@ -17,11 +17,11 @@
       </table>
     </div>
 
-            <#if successMessage??>
-              <div class="alert alert-success" role="alert" style="text-align: center">
-                <strong>${successMessage}</strong>
-              </div>
-            </#if>
+      <#if successMessage??>
+        <div class="alert alert-success" role="alert" style="text-align: center">
+          <strong>${successMessage}</strong>
+        </div>
+      </#if>
 
     <table class="table table-sm table-hover" style="text-align: center">
 
