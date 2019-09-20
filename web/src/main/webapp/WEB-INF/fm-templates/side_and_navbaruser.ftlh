@@ -5,7 +5,20 @@
 
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
-      <a id="sign out" class="nav-link" href="#">Sign out</a>
+<#--      <a id="sign out" class="nav-link" href="#">Sign out</a>-->
+      <a id ="sign out" class="nav-link" href="/home" onclick="signOut();">Sign out</a>
+      <script>
+        function signOut() {
+          var auth2 = gapi.auth2.getAuthInstance();
+          auth2.signOut().then(function () {
+            console.log('User signed out.');
+          });
+        }
+      </script>
+
+        <#--      <a id="sign out" class="nav-link" href="#"><img-->
+        <#--            src="/img/btn_google_signin_light_focus_web.png"-->
+        <#--            alt="Google" data-onsuccess="onSignIn"></a>-->
     </li>
   </ul>
 </nav>

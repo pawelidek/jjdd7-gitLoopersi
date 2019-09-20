@@ -5,7 +5,7 @@
 
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
-      <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+      <div class="g-signin2" data-onsuccess="onSignIn" data-theme="light"></div>
       <script>
         function onSignIn(googleUser) {
           // Useful data for your client-side scripts:
@@ -20,12 +20,11 @@
           // The ID token you need to pass to your backend:
           var id_token = googleUser.getAuthResponse().id_token;
           console.log("ID Token: " + id_token);
+
         }
       </script>
 
-        <#--      <a id="sign out" class="nav-link" href="#"><img-->
-<#--            src="/img/btn_google_signin_light_focus_web.png"-->
-<#--            alt="Google" data-onsuccess="onSignIn"></a>-->
+
     </li>
   </ul>
 </nav>
