@@ -39,7 +39,7 @@ public class EmployeeDaoBean {
     if (employee != null) {
       entityManager.remove(employee);
     } else {
-      logger.warn("An attempt to delete non-existing employee object id={} has occured", id);
+      logger.warn("An attempt to delete non-existing employee object id={} has occurred", id);
     }
   }
 

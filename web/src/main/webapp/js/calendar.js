@@ -43,11 +43,6 @@ function getPrevMonth() {
   createCalendar(month);
 }
 
-
-
-
-
-
 // var thisMonth = d.getMonth();// 0 - 11
 var today = d.getDate();// 1 -31
 //var nthday = d.getDay();// 0 - 7
@@ -91,16 +86,18 @@ function resetToDay(date) {
 
 function isHoliday(candidate) {
   resetToDay(candidate);
-  return window.listOfDates.some((holidayDate) => {
+  return window.listOfDates.some((holidayDate) = > {
     resetToDay(holidayDate);
 
-    console.log(holidayDate.getTime() === candidate.getTime(), holidayDate, candidate);
-    return holidayDate.getTime() === candidate.getTime();
-  });
+  console.log(holidayDate.getTime() === candidate.getTime(), holidayDate,
+      candidate);
+  return holidayDate.getTime() === candidate.getTime();
+})
+  ;
 }
 
 function createDay(month, counter, order, monthDiv) {
-  var candidate = new Date(2019, month +1, counter);
+  var candidate = new Date(2019, month + 1, counter);
 // if(order == 8){order = -1}
   var day = document.createElement("div");
   if (month == thisMonth && counter == today) {

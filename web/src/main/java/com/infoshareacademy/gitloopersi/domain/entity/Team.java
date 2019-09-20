@@ -11,11 +11,16 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @NamedQueries({
     @NamedQuery(
         name = "Team.findAll",
         query = "SELECT t FROM Team t"
+    ),
+    @NamedQuery(
+        name = "Team.findEmployeeCountInTeam",
+        query = "SELECT count(e) FROM Employee e LEFT JOIN Team t ON (t.id=e.team.id) WHERE t.id=:id"
     )
 })
 @Entity
@@ -28,6 +33,7 @@ public class Team {
   private Long id;
 
   @Column(name = "name")
+  @NotNull
   private String name;
 
   @OneToMany(mappedBy = "team")

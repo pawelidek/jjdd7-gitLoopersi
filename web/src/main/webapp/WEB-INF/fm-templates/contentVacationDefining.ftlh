@@ -1,17 +1,121 @@
-<div class="container">
-  <article id="TRESC">
-    <form method="post" action="/user/vacation">
-      <div class="form-group">
-        <label for="exampleInputDateFrom">From: </label>
-        <input type="date" name="dateFrom" class="form-control" id="exampleInputDateFrom"
-               aria-describedby="emailHelp" placeholder="Enter vacation date from">
+<div>
+  <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+  <script src="/js/vacation.js"></script>
+  <article id="contentView">
+
+    <div class="container-fluid">
+      <table class="table table-borderless">
+        <tr>
+          <td style="text-align: right"><h2>Vacation request</h2></td>
+          <td style="text-align: right">
+            <button type="button" class="btn btn-outline-secondary"
+                    data-toggle="modal" data-target="#exampleModal" id="add_vacation_button">
+              <img src="/img/button_add.svg" alt="Add"> Add Vacation
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+      <#if errorMessage??>
+        <div class="alert alert-danger" role="alert" style="text-align: center">
+          <strong>${errorMessage}</strong>
+        </div>
+      <#elseif successMessage??>
+        <div class="alert alert-success" role="alert" style="text-align: center">
+          <strong>${successMessage}</strong>
+        </div>
+      </#if>
+
+    <table class="table table-sm table-hover" style="text-align: center">
+      <thead>
+      <tr>
+        <th scope="col" style="width: 5%">#</th>
+        <th scope="col" style="width: 5%">Id</th>
+        <th scope="col" style="width: 15%">Date from</th>
+        <th scope="col" style="width: 15%">Date to</th>
+        <th scope="col" style="width: 10%">Amount of vacations</th>
+        <th scope="col" style="width: 15%">Vacation type</th>
+        <th scope="col" style="width: 15%">Status type</th>
+      </tr>
+      </thead>
+      <tbody>
+      <#list vacations>
+          <#items as vacation>
+            <tr id="vacation${vacation.id}">
+              <td>${vacation_index + 1}</td>
+              <td>${vacation.id}</td>
+              <td>${vacation.dateFrom}</td>
+              <td>${vacation.dateTo}</td>
+              <td>${vacation.daysCount}</td>
+              <td>${(vacation.vacationType)!"Vacation leave"}</td>
+              <td>${vacation.statusType}</td>
+              <td>
+                <div>
+                  <a class="delete-vacation" data-id="${vacation.id}" href="#">
+                    <img src="/img/button_delete.svg" alt="Delete" title="Delete">
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </#items>
+      </#list>
+      </tbody>
+    </table>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Vacation
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">x</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="settingForm" name="contact" role="form">
+              <input id="formMethod" type="hidden" name="method" value="${method!"post"}"/>
+              <input type="hidden" id="id" name="id" value="${(vacation.id)!""}"/>
+              <div class="form-group">
+                <label for="dateFrom">Date from:
+                  <input style="width: 475px" autocomplete="off" type="date" id="dateFrom"
+                         class="form-control"
+                         name="dateFrom"
+                         value="${(vacation.dateFrom)!""}">
+                </label>
+              </div>
+              <div class="form-group">
+                <label for="dateTo">Date to:
+                  <input style="width: 475px" autocomplete="off" type="date" id="dateTo"
+                         class="form-control"
+                         name="dateTo"
+                         value="${(vacation.dateTo)!""}">
+                </label>
+              </div>
+              <div class="form-group">
+                <label for="vacationType">Vacation type:
+                  <select style="width: 475px" autocomplete="off" id="vacationType"
+                          class="form-control"
+                          name="vacationType">
+                    <option value="Vacation leave" selected>Vacation leave</option>
+                    <option value="Childcare">Childcare</option>
+                    <option value="Special leave">Special leave</option>
+                  </select>
+                </label>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close
+            </button>
+            <button type="button" class="btn btn-outline-secondary" id="saveVacation">Save changes
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="exampleInputDateTo">To :</label>
-        <input type="date" name="dateTo" class="form-control" id="exampleInputDateTo"
-               placeholder="Enter vacation date to">
-      </div>
-      <button type="submit" class="btn btn-primary">Send</button>
-    </form>
+    </div>
   </article>
 </div>

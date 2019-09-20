@@ -1,41 +1,44 @@
 <div>
   <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
   <script src="/js/employee.js"></script>
-  <article id="TRESC2">
+  <article id="contentView">
 
-    <table>
-      <tr>
-        <td style="text-align: left" width="100%"><h2>Employee manager</h2></td>
-        <td style="text-align: right" width="100%">
-          <button type="button" class="btn btn-outline-secondary"
-                  data-toggle="modal" data-target="#exampleModal" id="add_user_button">
-            <img src="/img/button_add.svg" alt="Add"> Add new employee
-          </button>
+    <div class="container-fluid">
+      <table class="table table-borderless">
+        <tr>
+          <td style="text-align: left"><h2>Employee manager</h2></td>
+          <td style="text-align: right">
+            <button type="button" class="btn btn-outline-secondary"
+                    data-toggle="modal" data-target="#exampleModal" id="add_user_button">
+              <img src="/img/button_add.svg" alt="Add"> Add Employee
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
 
-        </td>
-      </tr>
-    </table>
-
-    <table class="table table-sm" style="text-align: center">
+    <table class="table table-sm table-hover" style="text-align: center">
 
       <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">Id</th>
-        <th scope="col">First name</th>
-        <th scope="col">Last name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Team</th>
-        <th scope="col">Employed from</th>
-        <th scope="col">First employment</th>
-        <th scope="col">Manage</th>
+
+        <th scope="col" style="width: 5%">#</th>
+        <th scope="col" style="width: 5%">Id</th>
+        <th scope="col" style="width: 15%">First name</th>
+        <th scope="col" style="width: 15%">Last name</th>
+        <th scope="col" style="width: 10%">Email</th>
+        <th scope="col" style="width: 10%">Team</th>
+        <th scope="col" style="width: 15%">Employed from</th>
+        <th scope="col" style="width: 15%">First employment</th>
+        <th scope="col" style="width: 10%">Manage</th>
+
       </tr>
       </thead>
       <tbody>
       <#list employees>
           <#items as employee>
-            <tr>
-              <td>${employee_index + 1}</td>
+            <tr id="employee${employee.id}">
+              <td>${employee_index + 1}.</td>
               <td>${employee.id}</td>
               <td>${employee.firstName}</td>
               <td>${employee.secondName}</td>
@@ -76,41 +79,53 @@
               <input type="hidden" id="id" name="id" value="${(employee.id)!""}"/>
               <div class="form-group">
                 <label for="firstName">First name:
-                  <input type="text" id="firstName" class="form-control" name="firstName"
+                  <input style="width: 475px" autocomplete="off" type="text" id="firstName"
+                         class="form-control"
+                         name="firstName"
                          placeholder="New first name" value="${(employee.firstName)!""}">
                 </label>
               </div>
               <div class="form-group">
                 <label for="secondName">Last name:
-                  <input type="text" id="secondName" class="form-control" name="secondName"
+                  <input style="width: 475px" autocomplete="off" type="text" id="secondName"
+                         class="form-control"
+                         name="secondName"
                          placeholder="New last name" value="${(employee.secondName)!""}">
                 </label>
               </div>
               <div class="form-group">
                 <label for="email">Email:
-                  <input type="email" id="email" class="form-control" name="email"
+                  <input style="width: 475px" autocomplete="off" type="email" id="email"
+                         class="form-control"
+                         name="email"
                          placeholder="example@email.com" value="${(employee.email)!""}">
                 </label>
               </div>
               <div class="form-group">
                 <label for="team">Team:
-                  <select id="team" class="form-control" name="team">
+                  <select style="width: 475px" autocomplete="off" id="team" class="form-control"
+                          name="team">
                       <#list teams>
                           <#items as team>
                             <option value="${(team.id)!""}">${team.name}</option>
                           </#items>
                       </#list>
                   </select>
+                </label>
               </div>
               <div class="form-group">
                 <label for="startDate">Employed from:
-                  <input type="date" id="startDate" class="form-control" name="startDate"
+                  <input style="width: 475px" autocomplete="off" type="date" id="startDate"
+                         class="form-control"
+                         name="startDate"
                          value="${(employee.startDate)!""}">
                 </label>
               </div>
               <div class="form-group">
                 <label for="startHireDate">First employment:
-                  <input type="date" id="startHireDate" class="form-control" name="startHireDate"
+                  <input style="width: 475px" autocomplete="off" type="date" id="startHireDate"
+                         class="form-control"
+                         name="startHireDate"
                          value="${(employee.startHireDate)!""}">
                 </label>
               </div>
