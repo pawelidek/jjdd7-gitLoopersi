@@ -10,9 +10,10 @@
       Search by pattern
     </button>
 
-    <button type="button" class="btn btn-secondary" id="searchByNames">
-      Search by Dates
-    </button>
+    <div align="center">
+      <input type="text" name="search" id="search" placeholder="Enter your" class="form-control" />
+    </div>
+    <ul class="list-group" id="result"></ul>
 
     <table class="table table-sm" style="text-align: center">
       <thead>
