@@ -96,7 +96,6 @@
                           value=""></textarea>
               </div>
           </form>
-
         </div>
         <div class=" modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close

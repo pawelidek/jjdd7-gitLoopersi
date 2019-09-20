@@ -5,7 +5,6 @@ $('#myModal').on('shown.bs.modal', function () {
 $(function () {
   $(document).ready(function () {
     $(".delete-holiday").click(function (event) {
-
       var buttonId = $(event.target).attr('data-id');
       $.ajax({
         url: "/admin/holiday",
@@ -83,26 +82,62 @@ $(function () {
   });
 });
 
-$(document).ready(function(){
-  $.ajaxSetup({ cache: false });
-  $('#search').keyup(function(){
-    $('#result').html('');
-    $('#state').val('');
-    var searchField = $('#search').val();
-    var expression = new RegExp(searchField, "i");
-    $.getJSON('data.json', function(data) {
-      $.each(data, function(key, value){
-        if (value.name.search(expression) != -1 || value.location.search(expression) != -1)
-        {
-          $('#result').append('<li class="list-group-item link-class"><img src="'+value.image+'" height="40" width="40" class="img-thumbnail" /> '+value.name+' | <span class="text-muted">'+value.location+'</span></li>');
+
+$(function () {
+  $(document).ready(function () {
+    $('#liveSearchHoliday').keyup(function () {
+      if (this.value.length < 2) return;
+      let substring = $('#liveSearchHoliday').val();
+      $.ajax({
+        url: '/api/holiday/param/' + substring,
+        type: 'GET',
+
+        success: function (data) {
+          console.log(data);
+          // let listOfNames = data;
+          let result = data.map(function (holiday) {
+            return holiday.name
+          });
+          $('#liveSearchHoliday').autocomplete({
+            source: result,
+            /*minLength: 3*/
+          });
+        }, error: function (error) {
+          alert('Error!');
         }
       });
     });
   });
+});
 
-  $('#result').on('click', 'li', function() {
-    var click_text = $(this).text().split('|');
-    $('#search').val($.trim(click_text[0]));
-    $("#result").html('');
+
+$(function () {
+  $(document).ready(function () {
+    $("#searchByPattern").click(function (event) {
+      let holName = $('#liveSearchHoliday').val();
+      $.ajax({
+        url: '/search/holiday/name?name=' + holName,
+        type: 'GET',
+         success: function(){
+           window.location.href = "/search/holiday/name?name="+holName
+         ;}
+      });
+    });
+  });
+});
+
+$(function () {
+  $(document).ready(function () {
+    $("#searchByDates").click(function (event) {
+      let startDate = $('#startDate').val();
+      let endDate = $('#endDate').val();
+      $.ajax({
+        url: '/search/holiday/dates?start_date=' + startDate + '&end_date=' +endDate,
+        type: 'GET',
+        success: function(){
+          window.location.href = '/search/holiday/dates?start_date=' + startDate + '&end_date=' +endDate
+          ;}
+      });
+    });
   });
 });
