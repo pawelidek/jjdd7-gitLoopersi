@@ -30,7 +30,7 @@
       </tr>
       </thead>
       <tbody>
-      <#list holidays>
+        <#list holidays>
           <#items as holiday>
             <tr>
               <td>${holiday_index + 1}.</td>
@@ -96,7 +96,6 @@
                           value=""></textarea>
               </div>
           </form>
-
         </div>
         <div class=" modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close

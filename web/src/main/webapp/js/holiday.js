@@ -5,7 +5,6 @@ $('#myModal').on('shown.bs.modal', function () {
 $(function () {
   $(document).ready(function () {
     $(".delete-holiday").click(function (event) {
-
       var buttonId = $(event.target).attr('data-id');
       $.ajax({
         url: "/admin/holiday",
@@ -79,6 +78,66 @@ $(function () {
       $('#holiday_type_input').val("National holiday");
       $('#holiday_description_input').val("");
       $('#exampleModal').modal('toggle');
+    });
+  });
+});
+
+
+$(function () {
+  $(document).ready(function () {
+    $('#liveSearchHoliday').keyup(function () {
+      if (this.value.length < 2) return;
+      let substring = $('#liveSearchHoliday').val();
+      $.ajax({
+        url: '/api/holiday/param/' + substring,
+        type: 'GET',
+
+        success: function (data) {
+          console.log(data);
+          // let listOfNames = data;
+          let result = data.map(function (holiday) {
+            return holiday.name
+          });
+          $('#liveSearchHoliday').autocomplete({
+            source: result,
+            /*minLength: 3*/
+          });
+        }, error: function (error) {
+          alert('Error!');
+        }
+      });
+    });
+  });
+});
+
+
+$(function () {
+  $(document).ready(function () {
+    $("#searchByPattern").click(function (event) {
+      let holName = $('#liveSearchHoliday').val();
+      $.ajax({
+        url: '/search/holiday/name?name=' + holName,
+        type: 'GET',
+         success: function(){
+           window.location.href = "/search/holiday/name?name="+holName
+         ;}
+      });
+    });
+  });
+});
+
+$(function () {
+  $(document).ready(function () {
+    $("#searchByDates").click(function (event) {
+      let startDate = $('#startDate').val();
+      let endDate = $('#endDate').val();
+      $.ajax({
+        url: '/search/holiday/dates?start_date=' + startDate + '&end_date=' +endDate,
+        type: 'GET',
+        success: function(){
+          window.location.href = '/search/holiday/dates?start_date=' + startDate + '&end_date=' +endDate
+          ;}
+      });
     });
   });
 });
