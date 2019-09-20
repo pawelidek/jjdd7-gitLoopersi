@@ -1,12 +1,11 @@
 package com.infoshareacademy.gitloopersi.domain.entity;
 
 import com.infoshareacademy.gitloopersi.types.StatusType;
+import com.infoshareacademy.gitloopersi.types.VacationType;
 import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +15,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import org.hibernate.annotations.ColumnDefault;
 
 @NamedQueries({
     @NamedQuery(
@@ -33,7 +31,8 @@ public class Vacation {
   @Column(name = "id")
   private Long id;
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH,
+      CascadeType.PERSIST})
   @JoinColumn(name = "employee_id")
   private Employee employee;
 
@@ -48,6 +47,9 @@ public class Vacation {
   @Column(name = "days_count")
   @NotNull
   private Integer daysCount;
+
+  @Column(name = "vacation_type")
+  private VacationType vacationType = VacationType.VACATION_LEAVE;
 
   @Column(name = "status_type")
   private StatusType statusType = StatusType.REQUESTED;
@@ -100,6 +102,14 @@ public class Vacation {
     this.statusType = statusType;
   }
 
+  public VacationType getVacationType() {
+    return vacationType;
+  }
+
+  public void setVacationType(VacationType vacationType) {
+    this.vacationType = vacationType;
+  }
+
   @Override
   public String toString() {
     return "Vacation{" +
@@ -108,6 +118,7 @@ public class Vacation {
         ", dateFrom=" + dateFrom +
         ", dateTo=" + dateTo +
         ", daysCount=" + daysCount +
+        ", vacationType=" + vacationType +
         ", statusType=" + statusType +
         '}';
   }

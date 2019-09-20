@@ -1,7 +1,7 @@
 <div>
   <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
   <script src="/js/team.js"></script>
-  <article id="TRESC2">
+  <article id="contentView">
 
     <div class="container-fluid">
       <table class="table table-borderless">
@@ -17,6 +17,12 @@
       </table>
     </div>
 
+      <#if successMessage??>
+        <div class="alert alert-success" role="alert" style="text-align: center">
+          <strong>${successMessage}</strong>
+        </div>
+      </#if>
+
     <table class="table table-sm table-hover" style="text-align: center">
 
       <thead>
@@ -31,6 +37,7 @@
       <#list teams>
           <#items as team>
             <tr>
+            <tr id="team${team.id}">
               <td>${team_index + 1}.</td>
               <td>${team.id}</td>
               <td>${team.name}</td>
@@ -54,7 +61,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
+            <h5 class="modal-title" id="label">
               Team
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -67,7 +74,8 @@
               <input type="hidden" id="id" name="id" value="${(team.id)!""}"/>
               <div class="form-group">
                 <label for="name">Name:
-                  <input type="text" id="name" class="form-control" name="name"
+                  <input style="width: 475px" autocomplete="off" type="text" id="name"
+                         class="form-control" name="name"
                          placeholder="New team name" value="${(team.name)!""}">
                 </label>
               </div>

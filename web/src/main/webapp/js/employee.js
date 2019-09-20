@@ -22,7 +22,8 @@ $(function () {
         $('#firstName').val(data.firstName);
         $('#secondName').val(data.secondName);
         $('#email').val(data.email);
-        $('#team').val(data.team);
+        $('#team option[value=' + data.team.id + ']').attr("selected",
+            "selected");
         $('#startDate').val(data.startDate.iso);
         $('#startHireDate').val(data.startHireDate.iso);
         $('#exampleModal').modal('toggle');
@@ -70,11 +71,14 @@ $(function () {
 
   $(document).ready(function () {
     $(".delete-employee").click(function () {
+
+      var employeeId = $(this).attr('data-id');
+
       $.ajax({
-        url: '/admin/employee?id=' + $(this).attr('data-id'),
+        url: '/admin/employee?id=' + employeeId,
         type: 'DELETE',
         success: function (result) {
-          location.reload();
+          $('#employee' + employeeId).remove();
         }
       });
     });

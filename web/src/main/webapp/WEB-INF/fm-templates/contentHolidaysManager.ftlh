@@ -1,7 +1,6 @@
 <div>
-  <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
   <script src="/js/holiday.js"></script>
-  <article id="TRESC2">
+  <article id="contentView">
 
     <div class="container-fluid">
       <table class="table table-borderless">
@@ -75,7 +74,7 @@
               <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" name="holiday_name" id="holiday_name_input" autocomplete="off"
-                       class="form-control value="">
+                       class="form-control" value="">
               </div>
               <div class="form-group">
                 <label for="name">Date</label>
