@@ -11,10 +11,10 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.ejb.EJB;
@@ -55,23 +55,20 @@ public class TeamManagerServlet extends HttpServlet {
 
     Map<String, Object> dataModel = new HashMap<>();
     List<Team> teamList = teamService.getTeamList();
-
     List<Calendar> dates = calendarService.findAllHolidaysDates();
+    List<String> errorMessages = userMessagesService.getErrorMessageList(req.getSession());
+    List<String> successMessages = userMessagesService.getSuccessMessageList(req.getSession());
 
     dataModel.put("userType", "admin");
     dataModel.put("teams", teamList);
     dataModel.put("function", "TeamManager");
     dataModel.put("method", "put");
     dataModel.put("dates", dates);
+    dataModel.put("error", errorMessages);
+    dataModel.put("success", successMessages);
 
-    dataModel.put("errorMessage", userMessagesService
-        .getErrorMessage(req.getSession(), "errorMessage"));
-
-    dataModel.put("successMessage",
-        userMessagesService.getSuccessMessage(req.getSession(), "successMessage"));
-
-    removeErrorMessage(req);
-    removeSuccessMessage(req);
+    userMessagesService.removeErrorMessages(req);
+    userMessagesService.removeSuccessMessages(req);
 
     PrintWriter printWriter = resp.getWriter();
 
@@ -94,22 +91,38 @@ public class TeamManagerServlet extends HttpServlet {
 
     Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
+    List<String> errorMessages = new ArrayList<>();
+    List<String> successMessages = new ArrayList<>();
+
+    if (teamService.getTeamByName(name) != null) {
+      errorMessages.add("Team \"" + name + "\" already exists, enter another team name!");
+    }
+
     Set<ConstraintViolation<Team>> constraintViolations = validator.validate(team);
 
-    if (constraintViolations.size() > 0) {
-      String errorMessages = constraintViolations
-          .stream()
-          .map(ConstraintViolation::getMessage)
-          .map(e->e.concat("\n"))
-          .collect(Collectors.joining());
+    if (doesErrorsOccur(errorMessages, constraintViolations)) {
 
+      if (constraintViolations.size() > 0) {
+        errorMessages.addAll(
+            constraintViolations
+                .stream()
+                .map(ConstraintViolation::getMessage)
+                .collect(Collectors.toList()));
+      }
+
+      logger.info("{}", successMessages);
       req.getSession().setAttribute("errorMessage", errorMessages);
     } else {
       teamService.addTeam(team);
-      String successMessage = "A new team \"" + team.getName() + "\" has been added!";
-      logger.info("{}", successMessage);
-      req.getSession().setAttribute("successMessage", successMessage);
+      successMessages.add("A new team \"" + name + "\" has been added!");
+      logger.info("{}", successMessages);
+      req.getSession().setAttribute("successMessage", successMessages);
     }
+  }
+
+  private boolean doesErrorsOccur(List<String> errorMessages,
+      Set<ConstraintViolation<Team>> constraintViolations) {
+    return constraintViolations.size() > 0 || errorMessages.size() > 0;
   }
 
   @Override
@@ -138,14 +151,6 @@ public class TeamManagerServlet extends HttpServlet {
     } catch (TeamNotEmptyException e) {
       logger.info("A team with id={} contains employees and cannot be deleted!", id);
     }
-  }
-
-  private void removeErrorMessage(HttpServletRequest req) {
-    Objects.requireNonNull(req.getSession()).removeAttribute("errorMessage");
-  }
-
-  private void removeSuccessMessage(HttpServletRequest req) {
-    Objects.requireNonNull(req.getSession()).removeAttribute("successMessage");
   }
 
 }

@@ -54,4 +54,10 @@ public class TeamDaoBean {
     logger.info("Employee count in team id={} is {}", id, employeeCount);
     return employeeCount;
   }
+
+  public Team getTeamByName(String name) {
+    Query query = entityManager.createNamedQuery("Team.findTeamByName");
+    query.setParameter("name", name);
+    return (Team) query.getResultList().stream().findFirst().orElse(null);
+  }
 }
