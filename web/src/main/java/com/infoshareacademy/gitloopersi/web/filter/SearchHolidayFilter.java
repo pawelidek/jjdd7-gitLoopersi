@@ -1,6 +1,5 @@
 package com.infoshareacademy.gitloopersi.web.filter;
 
-import com.infoshareacademy.gitloopersi.handler.UserMessageHandler;
 import com.infoshareacademy.gitloopersi.service.holidaymanager.HolidayService;
 import com.infoshareacademy.gitloopersi.validator.SearchHolidayValidator;
 import java.io.IOException;
@@ -31,9 +30,6 @@ public class SearchHolidayFilter implements Filter {
   @Inject
   SearchHolidayValidator searchHolidayValidator;
 
-  @Inject
-  private UserMessageHandler userMessageHandler;
-
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @Override
@@ -51,12 +47,12 @@ public class SearchHolidayFilter implements Filter {
       if (searchHolidayValidator.checkIsDateFormatValid(startDate, endDate)) {
         if (searchHolidayValidator.checkIsEndDateLaterThanStartDate(startDate, endDate)) {
         } else {
-          userMessageHandler.setErrorMessage(httpSession, "errorMessage",
+          httpSession.setAttribute("errorMessage",
               "Date from is after date to, check your dates!");
           httpServletResponse.sendRedirect("/search/holiday");
         }
       } else {
-        userMessageHandler.setErrorMessage(httpSession, "errorMessage",
+        httpSession.setAttribute("errorMessage",
             "Either of date or both are in incorrect format!");
         httpServletResponse.sendRedirect("/search/holiday");
       }

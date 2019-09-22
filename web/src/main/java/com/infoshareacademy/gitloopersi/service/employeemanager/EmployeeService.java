@@ -72,4 +72,8 @@ public class EmployeeService {
 
     return employeeViews;
   }
+
+  public Employee getEmployeeByEmail(String email) {
+    return employeeDaoBean.getEmployeeByEmail(email);
+  }
 }

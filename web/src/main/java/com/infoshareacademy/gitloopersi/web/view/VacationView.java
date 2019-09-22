@@ -11,6 +11,7 @@ public class VacationView {
   private LocalDate dateFrom;
   private LocalDate dateTo;
   private Integer daysCount;
+  private String deputy;
   private VacationType vacationType;
   private StatusType statusType;
 
@@ -68,5 +69,13 @@ public class VacationView {
 
   public void setStatusType(StatusType statusType) {
     this.statusType = statusType;
+  }
+
+  public String getDeputy() {
+    return deputy;
+  }
+
+  public void setDeputy(String deputy) {
+    this.deputy = deputy;
   }
 }

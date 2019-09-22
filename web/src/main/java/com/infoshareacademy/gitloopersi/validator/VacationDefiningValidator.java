@@ -2,7 +2,10 @@ package com.infoshareacademy.gitloopersi.validator;
 
 import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
 import com.infoshareacademy.gitloopersi.handler.VacationDefiningHandler;
+import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
 import com.infoshareacademy.gitloopersi.service.vacationmanager.VacationDefiningService;
+import com.infoshareacademy.gitloopersi.types.VacationType;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,6 +28,10 @@ public class VacationDefiningValidator {
   private VacationDefiningHandler vacationDefiningHandler;
   @EJB
   private VacationDefiningService vacationDefiningService;
+
+  @EJB
+  private EmployeeService employeeService;
+
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
   private LocalDate dateToday = LocalDate.now();
 
@@ -33,8 +40,7 @@ public class VacationDefiningValidator {
     try {
       logger.info("Validate correct format dateFrom {}", dateFrom);
       simpleDateFormat.parse(dateFrom).toInstant()
-          .atZone(ZoneId.systemDefault())
-          .toLocalDate();
+          .atZone(ZoneId.systemDefault());
 
     } catch (ParseException e) {
       logger.warn(e.getMessage());
@@ -48,8 +54,7 @@ public class VacationDefiningValidator {
     try {
       logger.info("Validate correct format dateTo {}", dateTo);
       simpleDateFormat.parse(dateTo).toInstant()
-          .atZone(ZoneId.systemDefault())
-          .toLocalDate();
+          .atZone(ZoneId.systemDefault());
 
     } catch (ParseException e) {
       logger.warn(e.getMessage());
@@ -135,7 +140,16 @@ public class VacationDefiningValidator {
         && dateToday.getYear() == dateToVacation.getYear();
   }
 
-  public int calculateVacationPoolForEmployee(Long employeeId) {
+  public boolean isValidVacationType(String vacationType) {
+
+    logger.info("Validating vacation type {}", vacationType);
+
+    return vacationType.equals(VacationType.VACATION_LEAVE.getType()) || vacationType
+        .equals(VacationType.SPECIAL_LEAVE.getType()) || vacationType
+        .equals(VacationType.CHILDCARE.getType());
+  }
+
+  public int calculateVacationPoolForEmployee(Long employeeId) throws IOException {
     return vacationDefiningHandler.calculateVacationPoolForEmployee(employeeId);
   }
 
@@ -144,7 +158,7 @@ public class VacationDefiningValidator {
   }
 
   public int calculateRemainingVacationPool(Long employeeId, int numberOfSelectedVacationDays,
-      int numberOfVacationPool) {
+      int numberOfVacationPool) throws IOException {
 
     return vacationDefiningHandler
         .calculateRemainingVacationPool(employeeId, numberOfSelectedVacationDays,
