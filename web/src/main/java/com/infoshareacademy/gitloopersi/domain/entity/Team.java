@@ -11,7 +11,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 @NamedQueries({
     @NamedQuery(
@@ -21,6 +21,10 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(
         name = "Team.findEmployeeCountInTeam",
         query = "SELECT count(e) FROM Employee e LEFT JOIN Team t ON (t.id=e.team.id) WHERE t.id=:id"
+    ),
+    @NamedQuery(
+        name = "Team.findTeamByName",
+        query = "SELECT t FROM Team t WHERE t.name LIKE :name"
     )
 })
 @Entity
@@ -32,8 +36,8 @@ public class Team {
   @Column(name = "id")
   private Long id;
 
-  @Column(name = "name")
-  @NotNull
+  @Column(name = "name", unique = true)
+  @NotBlank(message = "Team name cannot be empty or whitespace only!")
   private String name;
 
   @OneToMany(mappedBy = "team")

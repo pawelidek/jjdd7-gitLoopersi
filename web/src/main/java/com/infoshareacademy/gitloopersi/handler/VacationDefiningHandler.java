@@ -5,8 +5,10 @@ import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
 import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
 import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
 import com.infoshareacademy.gitloopersi.service.holidaymanager.HolidayService;
+import com.infoshareacademy.gitloopersi.service.propertiesmanager.PropertiesLoaderService;
 import com.infoshareacademy.gitloopersi.service.vacationmanager.VacationDefiningService;
 import com.infoshareacademy.gitloopersi.types.HolidayType;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -20,10 +22,11 @@ import org.slf4j.LoggerFactory;
 public class VacationDefiningHandler {
 
   private static final int YEARS_OF_EXPERIENCE = 10;
-  private static final int LESS_THAN_TEN_YEARS_EXPERIENCE = 20;
-  private static final int GREATER_THAN_TEN_YEARS_EXPERIENCE = 26;
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
+
+  @EJB
+  private PropertiesLoaderService propertiesLoaderService;
 
   @EJB
   private EmployeeService employeeService;
@@ -34,10 +37,10 @@ public class VacationDefiningHandler {
   @EJB
   private VacationDefiningService vacationDefiningService;
 
-  public int calculateVacationPoolForEmployee(Long employeeId) {
+  public int calculateVacationPoolForEmployee(Long employeeId) throws IOException {
 
     return YEARS_OF_EXPERIENCE > calculateEmployeeExperience(employeeId)
-        ? LESS_THAN_TEN_YEARS_EXPERIENCE : GREATER_THAN_TEN_YEARS_EXPERIENCE;
+        ? getPartVacationPool() : getFullVacationPool();
   }
 
   public int calculateNumberOfSelectedVacationDays(String dateFrom, String dateTo) {
@@ -84,7 +87,7 @@ public class VacationDefiningHandler {
   }
 
   public int calculateRemainingVacationPool(Long id, int numberOfSelectedVacationDays,
-      int numberOfVacationPool) {
+      int numberOfVacationPool) throws IOException {
 
     LocalDate todayDate = LocalDate.now();
     int workDaysNumber = 0;
@@ -107,23 +110,24 @@ public class VacationDefiningHandler {
         workDaysNumber = workDaysNumber + numberOfRemainingDays;
       }
 
-      if (numberOfVacationPool == LESS_THAN_TEN_YEARS_EXPERIENCE
+      if (numberOfVacationPool == getPartVacationPool()
           && employee.getStartHireDate().getYear() == todayDate.minusYears(1).getYear()) {
 
         monthCount = monthCount - employee.getStartHireDate().getMonthValue();
         overdueDaysOff = (int) (overdueDaysOff - Math.floor(monthCount * 1.6));
-      } else if (numberOfVacationPool == GREATER_THAN_TEN_YEARS_EXPERIENCE
+      } else if (numberOfVacationPool == getFullVacationPool()
           && employee.getStartHireDate().getYear() == todayDate
           .minusYears(1).getYear()) {
 
         monthCount = monthCount - employee.getStartHireDate().getMonthValue();
         overdueDaysOff = (int) (overdueDaysOff - Math.floor(monthCount * 2.2));
+
       } else if (todayDate.minusYears(1).getYear() == vacation.getDateFrom().getYear()) {
         overdueDaysOff = overdueDaysOff + vacation.getDaysCount();
       }
+      overdueDaysOff = numberOfVacationPool - overdueDaysOff;
     }
 
-    overdueDaysOff = numberOfVacationPool - overdueDaysOff;
     workDaysNumber = (numberOfVacationPool - workDaysNumber) + overdueDaysOff;
     numberOfVacationPool = workDaysNumber - numberOfSelectedVacationDays;
 
@@ -136,5 +140,20 @@ public class VacationDefiningHandler {
     LocalDate today = LocalDate.now();
 
     return today.getYear() - employee.getStartDate().getYear();
+  }
+
+  private Integer getFullVacationPool() throws IOException {
+    return Integer.valueOf(
+        propertiesLoaderService.loadVacationProperties().getProperty("full.vacation.pool"));
+  }
+
+  private Integer getPartVacationPool() throws IOException {
+    return Integer.valueOf(
+        propertiesLoaderService.loadVacationProperties().getProperty("part.vacation.pool"));
+  }
+
+  private Integer getChildcarePool() throws IOException {
+    return Integer.valueOf(
+        propertiesLoaderService.loadVacationProperties().getProperty("childcare"));
   }
 }

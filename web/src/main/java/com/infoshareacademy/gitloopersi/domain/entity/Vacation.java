@@ -48,8 +48,11 @@ public class Vacation {
   @NotNull
   private Integer daysCount;
 
+  @Column(name = "deputy")
+  private String deputy;
+
   @Column(name = "vacation_type")
-  private VacationType vacationType = VacationType.VACATION_LEAVE;
+  private VacationType vacationType;
 
   @Column(name = "status_type")
   private StatusType statusType = StatusType.REQUESTED;
@@ -110,6 +113,14 @@ public class Vacation {
     this.vacationType = vacationType;
   }
 
+  public String getDeputy() {
+    return deputy;
+  }
+
+  public void setDeputy(String deputy) {
+    this.deputy = deputy;
+  }
+
   @Override
   public String toString() {
     return "Vacation{" +
@@ -118,6 +129,7 @@ public class Vacation {
         ", dateFrom=" + dateFrom +
         ", dateTo=" + dateTo +
         ", daysCount=" + daysCount +
+        ", deputy='" + deputy + '\'' +
         ", vacationType=" + vacationType +
         ", statusType=" + statusType +
         '}';

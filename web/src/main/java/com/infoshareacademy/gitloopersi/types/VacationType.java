@@ -1,7 +1,7 @@
 package com.infoshareacademy.gitloopersi.types;
 
 public enum VacationType {
-  VACATION_LEAVE("Vacation leave"), CHILDCARE("Childcare"), SPECIAL_LEAVE("Special leave");
+  VACATION_LEAVE("VACATION_LEAVE"), CHILDCARE("CHILDCARE"), SPECIAL_LEAVE("SPECIAL_LEAVE");
 
   private String type;
 

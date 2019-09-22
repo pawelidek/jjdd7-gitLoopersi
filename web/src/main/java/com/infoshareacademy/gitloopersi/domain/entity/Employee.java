@@ -16,12 +16,18 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 
 @NamedQueries({
     @NamedQuery(
         name = "Employee.findAll",
         query = "SELECT e FROM Employee e"
+    ),
+    @NamedQuery(
+        name = "Employee.findEmployeeByEmail",
+        query = "SELECT e FROM Employee e WHERE e.email LIKE :email"
     )
 })
 @Entity
@@ -34,29 +40,32 @@ public class Employee {
   private Long id;
 
   @Column(name = "first_name")
-  @NotNull
+  @NotBlank(message = "First name is required!")
   private String firstName;
 
   @Column(name = "second_name")
-  @NotNull
+  @NotBlank(message = "Second name is required!")
   private String secondName;
 
-  @Column(name = "email")
-  @NotNull
-  @Email(message = "Email should be valid")
+  @Column(name = "email", unique = true)
+  @NotBlank(message = "Email is required!")
+  @Email(message = "Email should be valid!")
   private String email;
 
   @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH,
       CascadeType.PERSIST})
   @JoinColumn(name = "team_id")
+  @NotNull(message = "Selecting a team is required!")
   private Team team;
 
   @Column(name = "start_date")
-  @NotNull
+  @NotNull(message = "Employed from date is required!")
+  @PastOrPresent(message = "The employed from date should be past or present!")
   private LocalDate startDate;
 
   @Column(name = "start_hire_date")
-  @NotNull
+  @NotNull(message = "First employment date is required!")
+  @PastOrPresent(message = "The first employment date should be past or present!")
   private LocalDate startHireDate;
 
   @OneToMany(mappedBy = "employee",

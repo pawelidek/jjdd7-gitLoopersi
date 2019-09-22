@@ -18,37 +18,37 @@
         <ul class="nav flex-column">
           <li class="nav-item">
             <a class="nav-link" href="/home">
-              Main Page
+              Main page
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/admin/employee">
-              Employee
+              Employee manager
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/admin/team">
-              Teams
+              Team manager
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
-              Vacation
+              Vacation manager
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/admin/holiday">
-              Holidays
+              Holiday manager
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/admin/jsonLoader">
-              Load file
+              Load holidays from JSON file
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
-              Vacation Configurator
+              Vacation configurator
             </a>
           </li>
         </ul>

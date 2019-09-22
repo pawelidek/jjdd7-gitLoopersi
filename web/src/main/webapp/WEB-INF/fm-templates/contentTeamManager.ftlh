@@ -17,11 +17,23 @@
       </table>
     </div>
 
-      <#if successMessage??>
-        <div class="alert alert-success" role="alert" style="text-align: center">
-          <strong>${successMessage}</strong>
-        </div>
-      </#if>
+    <div>
+        <#if success??>
+          <div class="alert alert-success alert-dismissible fade show" role="alert"
+               style="text-align: center">
+            <strong>
+                <#list success>
+                    <#items as successMessages>
+                        ${successMessages}<br/>
+                    </#items>
+                </#list>
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </#if>
+    </div>
 
     <table class="table table-sm table-hover" style="text-align: center">
 
@@ -68,6 +80,19 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+
+            <#if error??>
+              <div class="alert alert-danger" role="alert" style="text-align: center">
+                <strong>
+                    <#list error>
+                        <#items as errorMessages>
+                            ${errorMessages}<br/>
+                        </#items>
+                    </#list>
+                </strong>
+              </div>
+            </#if>
+
           <div class="modal-body">
             <form id="settingForm" name="contact" role="form">
               <input id="formMethod" type="hidden" name="method" value="${method!"post"}"/>
@@ -80,17 +105,15 @@
                 </label>
               </div>
             </form>
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close
-            </button>
-            <button type="button" class="btn btn-outline-secondary" id="saveTeam">Save changes
-            </button>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close
+              </button>
+              <button type="button" class="btn btn-outline-secondary" id="saveTeam">Save changes
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
   </article>
 </div>
