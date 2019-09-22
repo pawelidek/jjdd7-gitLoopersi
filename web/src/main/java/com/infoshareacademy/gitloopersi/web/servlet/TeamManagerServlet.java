@@ -83,7 +83,7 @@ public class TeamManagerServlet extends HttpServlet {
 
     Team team = new Team();
 
-    String name = req.getParameter("name");
+    String name = req.getParameter("name").trim();
 
     team.setName(name);
 
@@ -116,7 +116,7 @@ public class TeamManagerServlet extends HttpServlet {
 
     Long id = Long.parseLong(req.getParameter("id"));
     Team team = teamService.getTeamById(id);
-    String name = req.getParameter("name");
+    String name = req.getParameter("name").trim();
 
     team.setName(name);
 
