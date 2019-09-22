@@ -55,4 +55,8 @@ public class TeamService {
     }
   }
 
+  public Team getTeamByName(String name) {
+    return teamDaoBean.getTeamByName(name);
+  }
+
 }
