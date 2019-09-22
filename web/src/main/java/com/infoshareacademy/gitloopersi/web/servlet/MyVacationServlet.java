@@ -1,5 +1,6 @@
 package com.infoshareacademy.gitloopersi.web.servlet;
 
+import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
 import com.infoshareacademy.gitloopersi.domain.model.Calendar;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
@@ -102,12 +103,12 @@ public class MyVacationServlet extends HttpServlet {
     Long employeeId = (Long) req.getSession().getAttribute("employeeId");
     Vacation vacation = new Vacation();
 
-//    Employee employee = employeeService.getEmployeeById(employeeId);
+    Employee employee = employeeService.getEmployeeById(employeeId);
 
     setVacationFields(req, vacation);
     vacationDefiningService.addVacation(vacation, employeeId);
 
-    //emailVacationService.buildEmailMessage(vacation, employee);
+    emailVacationService.buildEmailMessage(vacation, employee);
 
     logger.info("Vacation {} was added", vacation.toString());
   }
