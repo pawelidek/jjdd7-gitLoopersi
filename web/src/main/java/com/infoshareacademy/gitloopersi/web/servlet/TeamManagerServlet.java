@@ -7,16 +7,14 @@ import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
 import com.infoshareacademy.gitloopersi.service.alertmessage.UserMessagesService;
 import com.infoshareacademy.gitloopersi.service.calendarmanager.CalendarService;
 import com.infoshareacademy.gitloopersi.service.teammanager.TeamService;
+import com.infoshareacademy.gitloopersi.validator.TeamValidator;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -24,9 +22,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +35,9 @@ public class TeamManagerServlet extends HttpServlet {
 
   @Inject
   private TeamService teamService;
+
+  @Inject
+  private TeamValidator teamValidator;
 
   @Inject
   private CalendarService calendarService;
@@ -89,40 +87,27 @@ public class TeamManagerServlet extends HttpServlet {
 
     team.setName(name);
 
-    Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+    if (!teamValidator.isTeamDataValid(req, team)) {
 
-    List<String> errorMessages = new ArrayList<>();
-    List<String> successMessages = new ArrayList<>();
-
-    if (teamService.getTeamByName(name) != null) {
-      errorMessages.add("Team \"" + name + "\" already exists, enter another team name!");
+      logger.info("A team \"{}\" has not been added", name);
     }
 
-    Set<ConstraintViolation<Team>> constraintViolations = validator.validate(team);
+    if (!teamValidator.isTeamUnique(name)) {
 
-    if (doesErrorsOccur(errorMessages, constraintViolations)) {
+      userMessagesService.addErrorMessage(req.getSession(),
+          "Team \"" + name + "\" already exists, enter another team name!");
 
-      if (constraintViolations.size() > 0) {
-        errorMessages.addAll(
-            constraintViolations
-                .stream()
-                .map(ConstraintViolation::getMessage)
-                .collect(Collectors.toList()));
-      }
+      logger.info("Tried to add existing team \"{}\"", name);
+    }
 
-      logger.info("{}", successMessages);
-      req.getSession().setAttribute("errorMessage", errorMessages);
-    } else {
+    if (userMessagesService.getErrorMessageList(req.getSession()) == null) {
       teamService.addTeam(team);
-      successMessages.add("A new team \"" + name + "\" has been added!");
-      logger.info("{}", successMessages);
-      req.getSession().setAttribute("successMessage", successMessages);
-    }
-  }
 
-  private boolean doesErrorsOccur(List<String> errorMessages,
-      Set<ConstraintViolation<Team>> constraintViolations) {
-    return constraintViolations.size() > 0 || errorMessages.size() > 0;
+      userMessagesService
+          .addSuccessMessage(req.getSession(), "A team \"" + name + "\" has been added");
+
+      logger.info("A team \"{}\" has been added", name);
+    }
   }
 
   @Override
@@ -131,12 +116,33 @@ public class TeamManagerServlet extends HttpServlet {
 
     Long id = Long.parseLong(req.getParameter("id"));
     Team team = teamService.getTeamById(id);
-
     String name = req.getParameter("name");
 
     team.setName(name);
-    teamService.editTeam(team);
-    logger.info("A team with id={} has been edited!", id);
+
+    if (!teamValidator.isTeamDataValid(req, team)) {
+
+      logger.info("A team \"{}\" has not been edited", name);
+    }
+
+    if (!teamValidator.isTeamUnique(name)) {
+
+      userMessagesService.addErrorMessage(req.getSession(),
+          "Team \"" + name + "\" already exists, enter another team name!");
+
+      logger.info("Tried to set existing name to another team \"{}\"", name);
+    }
+
+    if (userMessagesService.getErrorMessageList(req.getSession()) == null) {
+
+      teamService.editTeam(team);
+
+      userMessagesService
+          .addSuccessMessage(req.getSession(),
+              "A team \"" + name + "\" has been successfully edited");
+
+      logger.info("A team \"{}\" has been edited", name);
+    }
   }
 
   @Override

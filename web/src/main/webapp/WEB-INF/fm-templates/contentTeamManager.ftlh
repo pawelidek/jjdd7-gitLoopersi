@@ -19,7 +19,8 @@
 
     <div>
         <#if success??>
-          <div class="alert alert-success alert-dismissible fade show" role="alert" style="text-align: center">
+          <div class="alert alert-success alert-dismissible fade show" role="alert"
+               style="text-align: center">
             <strong>
                 <#list success>
                     <#items as successMessages>
@@ -104,17 +105,15 @@
                 </label>
               </div>
             </form>
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close
-            </button>
-            <button type="button" class="btn btn-outline-secondary" id="saveTeam">Save changes
-            </button>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close
+              </button>
+              <button type="button" class="btn btn-outline-secondary" id="saveTeam">Save changes
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
   </article>
 </div>

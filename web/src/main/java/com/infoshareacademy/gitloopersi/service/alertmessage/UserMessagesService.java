@@ -1,5 +1,6 @@
 package com.infoshareacademy.gitloopersi.service.alertmessage;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.ejb.Stateless;
@@ -14,9 +15,15 @@ public class UserMessagesService {
   }
 
   public void addErrorMessage(HttpSession httpSession, String message) {
-    List<String> errorMessages = getErrorMessageList(httpSession);
-    errorMessages.add(message);
-    httpSession.setAttribute("errorMessage", errorMessages);
+    if (getErrorMessageList(httpSession) == null) {
+      List<String> errorMessages = new ArrayList<>();
+      errorMessages.add(message);
+      httpSession.setAttribute("errorMessage", errorMessages);
+    } else {
+      List<String> errorMessages = getErrorMessageList(httpSession);
+      errorMessages.add(message);
+      httpSession.setAttribute("errorMessage", errorMessages);
+    }
   }
 
   public List<String> getSuccessMessageList(HttpSession httpSession) {
@@ -24,17 +31,15 @@ public class UserMessagesService {
   }
 
   public void addSuccessMessage(HttpSession httpSession, String message) {
-    List<String> successMessages = getSuccessMessageList(httpSession);
-    successMessages.add(message);
-    httpSession.setAttribute("errorMessage", successMessages);
-  }
-
-  public String getErrorMessage(HttpSession session, String key) {
-    return (String) session.getAttribute(key);
-  }
-
-  public String getSuccessMessage(HttpSession session, String key) {
-    return (String) session.getAttribute(key);
+    if (getSuccessMessageList(httpSession) == null) {
+      List<String> successMessages = new ArrayList<>();
+      successMessages.add(message);
+      httpSession.setAttribute("successMessage", successMessages);
+    } else {
+      List<String> successMessages = getSuccessMessageList(httpSession);
+      successMessages.add(message);
+      httpSession.setAttribute("successMessage", successMessages);
+    }
   }
 
   public void removeErrorMessages(HttpServletRequest req) {
@@ -43,5 +48,13 @@ public class UserMessagesService {
 
   public void removeSuccessMessages(HttpServletRequest req) {
     Objects.requireNonNull(req.getSession()).removeAttribute("successMessage");
+  }
+
+  public String getErrorMessage(HttpSession session, String key) {
+    return (String) session.getAttribute(key);
+  }
+
+  public String getSuccessMessage(HttpSession session, String key) {
+    return (String) session.getAttribute(key);
   }
 }
