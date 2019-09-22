@@ -1,6 +1,5 @@
 package com.infoshareacademy.gitloopersi.web.servlet;
 
-import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
 import com.infoshareacademy.gitloopersi.domain.model.Calendar;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;

@@ -89,7 +89,7 @@ public class VacationDefiningService {
 
       int numberOfRemainingVacationDays = getNumberOfRemainingVacationDays(employeeId,
           numberOfVacationPool, numberOfSelectedVacationDays);
-        logger.info("Number of remaining vacation days is {}", numberOfRemainingVacationDays);
+      logger.info("Number of remaining vacation days is {}", numberOfRemainingVacationDays);
       if (numberOfRemainingVacationDays >= 0) {
         return true;
       } else {

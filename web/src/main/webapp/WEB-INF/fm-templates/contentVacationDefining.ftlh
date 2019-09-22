@@ -80,7 +80,7 @@
               Vacation
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">x</span>
+              <span aria-hidden="true">x</span>
             </button>
           </div>
 
