@@ -33,7 +33,7 @@ public class TeamManagerServlet extends HttpServlet {
   @Inject
   private TemplateProvider templateProvider;
 
-  @Inject
+  @EJB
   private TeamService teamService;
 
   @Inject
@@ -104,7 +104,7 @@ public class TeamManagerServlet extends HttpServlet {
     if (userMessagesService.getErrorMessageList(req.getSession()) == null) {
       teamService.addTeam(team);
 
-      String message = String.format("A team \"%s\" has been added", name);
+      String message = String.format("A team \"%s\" has been added!", name);
 
       userMessagesService
           .addSuccessMessage(req.getSession(), message);

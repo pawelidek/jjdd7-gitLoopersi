@@ -86,7 +86,7 @@ function resetToDay(date) {
 
 function isHoliday(candidate) {
   resetToDay(candidate);
-  return window.listOfDates.some((holidayDate) = > {
+  return window.listOfDates.some((holidayDate) => {
     resetToDay(holidayDate);
 
   console.log(holidayDate.getTime() === candidate.getTime(), holidayDate,
