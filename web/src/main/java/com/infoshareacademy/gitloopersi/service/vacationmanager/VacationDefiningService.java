@@ -6,9 +6,12 @@ import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
 import com.infoshareacademy.gitloopersi.exception.DatesOverlapException;
 import com.infoshareacademy.gitloopersi.exception.VacationOutOfPoolException;
 import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
+import com.infoshareacademy.gitloopersi.service.propertiesmanager.PropertiesLoaderService;
+import com.infoshareacademy.gitloopersi.types.VacationType;
 import com.infoshareacademy.gitloopersi.validator.VacationDefiningValidator;
 import com.infoshareacademy.gitloopersi.web.mapper.VacationViewMapper;
 import com.infoshareacademy.gitloopersi.web.view.VacationView;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -32,6 +35,9 @@ public class VacationDefiningService {
   @EJB
   private VacationViewMapper vacationViewMapper;
 
+  @EJB
+  private PropertiesLoaderService propertiesLoaderService;
+
   @Inject
   private VacationDefiningValidator vacationDefiningValidator;
 
@@ -53,6 +59,7 @@ public class VacationDefiningService {
     return vacationDefiningDao.getVacationsList();
   }
 
+  @Transactional
   public List<VacationView> getVacationsWithEmployeesList() {
     List<VacationView> vacationViews = new ArrayList<>();
 
@@ -63,19 +70,27 @@ public class VacationDefiningService {
     return vacationViews;
   }
 
-  public boolean isValidVacationRequestByEmployee(Long employeeId, String dateFrom, String dateTo)
-      throws VacationOutOfPoolException, DatesOverlapException {
+  public boolean isValidVacationRequestByEmployee(Long employeeId, String dateFrom, String dateTo,
+      String vacationType) throws VacationOutOfPoolException, DatesOverlapException, IOException {
 
     if (isValidOverlappingOfDates(employeeId, dateFrom, dateTo)) {
 
-      int numberOfVacationPool = getNumberOfVacationPool(employeeId);
+      int numberOfVacationPool = 0;
+
+      if (vacationType.equals(VacationType.VACATION_LEAVE.getType())) {
+        numberOfVacationPool = getNumberOfVacationPool(employeeId);
+      } else if (vacationType.equals(VacationType.CHILDCARE.getType())) {
+        numberOfVacationPool = getChildcare();
+      } else if (vacationType.equals(VacationType.SPECIAL_LEAVE.getType())) {
+        numberOfVacationPool = getSpecialLeave();
+      }
 
       int numberOfSelectedVacationDays = getNumberOfSelectedVacationDays(dateFrom, dateTo);
 
       int numberOfRemainingVacationDays = getNumberOfRemainingVacationDays(employeeId,
           numberOfVacationPool, numberOfSelectedVacationDays);
-
-      if (numberOfRemainingVacationDays > 0) {
+      logger.info("Number of remaining vacation days is {}", numberOfRemainingVacationDays);
+      if (numberOfRemainingVacationDays >= 0) {
         return true;
       } else {
         logger.warn("Number of remaining vacation days is {}", numberOfRemainingVacationDays);
@@ -87,8 +102,18 @@ public class VacationDefiningService {
     }
   }
 
+  private Integer getSpecialLeave() throws IOException {
+    return Integer
+        .valueOf(propertiesLoaderService.loadVacationProperties().getProperty("special.leave"));
+  }
+
+  private Integer getChildcare() throws IOException {
+    return Integer
+        .valueOf(propertiesLoaderService.loadVacationProperties().getProperty("childcare"));
+  }
+
   private int getNumberOfRemainingVacationDays(Long employeeId, int numberOfVacationPool,
-      int numberOfSelectedVacationDays) {
+      int numberOfSelectedVacationDays) throws IOException {
 
     return vacationDefiningValidator
         .calculateRemainingVacationPool(employeeId, numberOfSelectedVacationDays,
@@ -101,7 +126,7 @@ public class VacationDefiningService {
         .calculateNumberOfSelectedVacationDays(dateFrom, dateTo);
   }
 
-  private int getNumberOfVacationPool(Long employeeId) {
+  private int getNumberOfVacationPool(Long employeeId) throws IOException {
 
     return vacationDefiningValidator
         .calculateVacationPoolForEmployee(employeeId);

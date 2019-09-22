@@ -1,8 +1,7 @@
 package com.infoshareacademy.gitloopersi.types;
 
 public enum StatusType {
-
-  REQUESTED("REQUESTED"), ACCEPTED("ACCEPTED"), REJECTED("REJECTED");
+  REQUESTED("Requested"), ACCEPTED("Accepted"), REJECTED("Rejected");
   private String type;
 
   StatusType(String type) {

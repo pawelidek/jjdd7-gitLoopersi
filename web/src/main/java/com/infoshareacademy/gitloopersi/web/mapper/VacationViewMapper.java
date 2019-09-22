@@ -22,6 +22,7 @@ public class VacationViewMapper {
     vacationView.setDateFrom(vacation.getDateFrom());
     vacationView.setDateTo(vacation.getDateTo());
     vacationView.setDaysCount(vacation.getDaysCount());
+    vacationView.setDeputy(vacation.getDeputy());
     vacationView.setVacationType(vacation.getVacationType());
     vacationView.setStatusType(vacation.getStatusType());
 

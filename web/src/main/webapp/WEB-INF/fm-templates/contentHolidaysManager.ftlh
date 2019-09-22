@@ -95,6 +95,7 @@
                           id="holiday_description_input"
                           value=""></textarea>
               </div>
+            </div>
           </form>
         </div>
         <div class=" modal-footer">

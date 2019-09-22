@@ -9,6 +9,8 @@ import com.infoshareacademy.gitloopersi.service.calendarmanager.CalendarService;
 import com.infoshareacademy.gitloopersi.service.emailmanager.EmailVacationService;
 import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
 import com.infoshareacademy.gitloopersi.service.vacationmanager.VacationDefiningService;
+import com.infoshareacademy.gitloopersi.types.VacationType;
+import com.infoshareacademy.gitloopersi.web.view.EmployeeView;
 import com.infoshareacademy.gitloopersi.web.view.VacationView;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -18,14 +20,14 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.inject.Inject;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,28 +59,34 @@ public class MyVacationServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
+      throws IOException {
 
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
 
     Map<String, Object> dataModel = new HashMap<>();
     List<Calendar> dates = calendarService.findAllHolidaysDates();
     List<VacationView> vacationViews = vacationDefiningService.getVacationsWithEmployeesList();
+    List<EmployeeView> employeeViews = employeeService.getEmployeesWithTeamsList();
+    List<String> errorMessages = userMessagesService.getErrorMessageList(req.getSession());
+    List<String> successMessages = userMessagesService.getSuccessMessageList(req.getSession());
+    HttpSession httpSession = req.getSession(true);
+    httpSession.setAttribute("employeeId", 1L);
+    Long employeeId = (Long) req.getSession().getAttribute("employeeId");
+    List<EmployeeView> employeeViewList = employeeViews.stream()
+        .filter(employeeView -> employeeView.getId().equals(employeeId))
+        .collect(Collectors.toList());
+    employeeViews.remove(employeeViewList.get(0));
 
     dataModel.put("userType", "user");
     dataModel.put("vacations", vacationViews);
-
+    dataModel.put("employees", employeeViews);
+    dataModel.put("error", errorMessages);
+    dataModel.put("success", successMessages);
     dataModel.put("function", "VacationDefining");
     dataModel.put("dates", dates);
 
-    dataModel.put("errorMessage", userMessagesService
-        .getErrorMessage(req.getSession(), "errorMessage"));
-
-    dataModel.put("successMessage",
-        userMessagesService.getSuccessMessage(req.getSession(), "successMessage"));
-
-    removeErrorMessage(req);
-    removeSuccessMessage(req);
+    userMessagesService.removeErrorMessages(req);
+    userMessagesService.removeSuccessMessages(req);
 
     PrintWriter printWriter = resp.getWriter();
 
@@ -90,10 +98,9 @@ public class MyVacationServlet extends HttpServlet {
   }
 
   @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
 
-    Long employeeId = 1L;
+    Long employeeId = (Long) req.getSession().getAttribute("employeeId");
     Vacation vacation = new Vacation();
 
     Employee employee = employeeService.getEmployeeById(employeeId);
@@ -107,8 +114,7 @@ public class MyVacationServlet extends HttpServlet {
   }
 
   @Override
-  protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
+  protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
 
     String idParam = req.getParameter("id");
     Long id = Long.parseLong(idParam);
@@ -121,24 +127,19 @@ public class MyVacationServlet extends HttpServlet {
 
     LocalDate dateFrom = LocalDate.parse(req.getParameter("dateFrom"));
     LocalDate dateTo = LocalDate.parse(req.getParameter("dateTo"));
+    String vacationType = req.getParameter("vacationType");
+    String deputy = req.getParameter("deputy");
 
     vacation.setDateFrom(dateFrom);
     vacation.setDateTo(dateTo);
     vacation.setDaysCount(numberOfSelectedVacationDays);
+    vacation.setVacationType(VacationType.valueOf(vacationType));
+    vacation.setDeputy(deputy);
   }
 
   private int getNumberOfSelectedVacationDays(HttpServletRequest req) {
     return vacationDefiningService
-        .getNumberOfSelectedVacationDays(req.getParameter("dateFrom"), req.getParameter("dateTo"));
+        .getNumberOfSelectedVacationDays(req.getParameter("dateFrom"),
+            req.getParameter("dateTo"));
   }
-
-
-  private void removeErrorMessage(HttpServletRequest req) {
-    Objects.requireNonNull(req.getSession()).removeAttribute("errorMessage");
-  }
-
-  private void removeSuccessMessage(HttpServletRequest req) {
-    Objects.requireNonNull(req.getSession()).removeAttribute("successMessage");
-  }
-
 }
