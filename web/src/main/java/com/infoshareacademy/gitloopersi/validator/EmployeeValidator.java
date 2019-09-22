@@ -29,6 +29,11 @@ public class EmployeeValidator {
     return employeeService.getEmployeeByEmail(email) == null;
   }
 
+  public boolean isMailUniqueOrCurrentUser(String email, Long id) {
+    return (employeeService.getEmployeeByEmail(email) == null
+        || employeeService.getEmployeeById(id).getEmail().equals(email));
+  }
+
   public boolean isEmployeeDataValid(HttpServletRequest req, Employee employee) {
 
     Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -51,12 +56,14 @@ public class EmployeeValidator {
     }
   }
 
-  public boolean isStartHireDateEarlierThanOrEqualToStartDate(String startHireDate, String startDate) {
+  public boolean isStartHireDateEarlierThanOrEqualToStartDate(String startHireDate,
+      String startDate) {
 
     LocalDate startHireDateParsed = LocalDate.parse(startHireDate);
     LocalDate startDateParsed = LocalDate.parse(startDate);
 
-    Timestamp timestampStartHireDate = Timestamp.valueOf(startHireDateParsed.atTime(LocalTime.MIDNIGHT));
+    Timestamp timestampStartHireDate = Timestamp
+        .valueOf(startHireDateParsed.atTime(LocalTime.MIDNIGHT));
     Long startHireDateCount = timestampStartHireDate.getTime();
 
     Timestamp timestampStartDate = Timestamp.valueOf(startDateParsed.atTime(LocalTime.MIDNIGHT));

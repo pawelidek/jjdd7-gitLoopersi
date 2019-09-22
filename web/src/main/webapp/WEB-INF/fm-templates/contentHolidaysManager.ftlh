@@ -30,7 +30,7 @@
       </tr>
       </thead>
       <tbody>
-        <#list holidays>
+      <#list holidays>
           <#items as holiday>
             <tr>
               <td>${holiday_index + 1}.</td>

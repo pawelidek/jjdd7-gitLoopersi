@@ -98,27 +98,7 @@ public class EmployeeManagerServlet extends HttpServlet {
     String startDate = req.getParameter("startDate");
     String startHireDate = req.getParameter("startHireDate");
 
-    employee.setFirstName(name);
-    employee.setSecondName(secondName);
-    employee.setEmail(email);
-
-    if (teamId != null) {
-      employee.setTeam(teamService.getTeamById(Long.valueOf(teamId)));
-    } else {
-      employee.setTeam(null);
-    }
-
-    if (!startDate.equals("")) {
-      employee.setStartDate(LocalDate.parse(startDate));
-    } else {
-      employee.setStartDate(null);
-    }
-
-    if (!startHireDate.equals("")) {
-      employee.setStartHireDate(LocalDate.parse(startHireDate));
-    } else {
-      employee.setStartHireDate(null);
-    }
+    setFields(employee, teamId, name, secondName, email, startDate, startHireDate);
 
     if (!employeeValidator.isMailUnique(email)) {
 
@@ -171,29 +151,9 @@ public class EmployeeManagerServlet extends HttpServlet {
     String startDate = req.getParameter("startDate");
     String startHireDate = req.getParameter("startHireDate");
 
-    employee.setFirstName(name);
-    employee.setSecondName(secondName);
-    employee.setEmail(email);
+    setFields(employee, teamId, name, secondName, email, startDate, startHireDate);
 
-    if (teamId != null) {
-      employee.setTeam(teamService.getTeamById(Long.valueOf(teamId)));
-    } else {
-      employee.setTeam(null);
-    }
-
-    if (!startDate.equals("")) {
-      employee.setStartDate(LocalDate.parse(startDate));
-    } else {
-      employee.setStartDate(null);
-    }
-
-    if (!startHireDate.equals("")) {
-      employee.setStartHireDate(LocalDate.parse(startHireDate));
-    } else {
-      employee.setStartHireDate(null);
-    }
-
-    if (!employeeValidator.isMailUnique(email)) {
+    if (!employeeValidator.isMailUniqueOrCurrentUser(email, id)) {
 
       String message = String.format("Email address \"%s\" is already in use!", email);
 
@@ -227,6 +187,31 @@ public class EmployeeManagerServlet extends HttpServlet {
           .addSuccessMessage(req.getSession(), message);
 
       logger.info("An employee \"{} {}\" has been edited", name, secondName);
+    }
+  }
+
+  private void setFields(Employee employee, String teamId, String name, String secondName,
+      String email, String startDate, String startHireDate) {
+    employee.setFirstName(name);
+    employee.setSecondName(secondName);
+    employee.setEmail(email);
+
+    if (teamId != null) {
+      employee.setTeam(teamService.getTeamById(Long.valueOf(teamId)));
+    } else {
+      employee.setTeam(null);
+    }
+
+    if (!startDate.equals("")) {
+      employee.setStartDate(LocalDate.parse(startDate));
+    } else {
+      employee.setStartDate(null);
+    }
+
+    if (!startHireDate.equals("")) {
+      employee.setStartHireDate(LocalDate.parse(startHireDate));
+    } else {
+      employee.setStartHireDate(null);
     }
   }
 

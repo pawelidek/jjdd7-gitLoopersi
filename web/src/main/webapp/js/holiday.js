@@ -82,11 +82,12 @@ $(function () {
   });
 });
 
-
 $(function () {
   $(document).ready(function () {
     $('#liveSearchHoliday').keyup(function () {
-      if (this.value.length < 2) return;
+      if (this.value.length < 2) {
+        return;
+      }
       let substring = $('#liveSearchHoliday').val();
       $.ajax({
         url: '/api/holiday/param/' + substring,
@@ -110,7 +111,6 @@ $(function () {
   });
 });
 
-
 $(function () {
   $(document).ready(function () {
     $("#searchByPattern").click(function (event) {
@@ -118,9 +118,10 @@ $(function () {
       $.ajax({
         url: '/search/holiday/name?name=' + holName,
         type: 'GET',
-         success: function(){
-           window.location.href = "/search/holiday/name?name="+holName
-         ;}
+        success: function () {
+          window.location.href = "/search/holiday/name?name=" + holName
+          ;
+        }
       });
     });
   });
@@ -132,11 +133,14 @@ $(function () {
       let startDate = $('#startDate').val();
       let endDate = $('#endDate').val();
       $.ajax({
-        url: '/search/holiday/dates?start_date=' + startDate + '&end_date=' +endDate,
+        url: '/search/holiday/dates?start_date=' + startDate + '&end_date='
+            + endDate,
         type: 'GET',
-        success: function(){
-          window.location.href = '/search/holiday/dates?start_date=' + startDate + '&end_date=' +endDate
-          ;}
+        success: function () {
+          window.location.href = '/search/holiday/dates?start_date=' + startDate
+              + '&end_date=' + endDate
+          ;
+        }
       });
     });
   });
