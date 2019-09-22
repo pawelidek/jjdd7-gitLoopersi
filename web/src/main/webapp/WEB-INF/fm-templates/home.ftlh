@@ -30,7 +30,6 @@
 <script src="/js/bootstrap.js"></script>
 <script src="/js/feather.js"></script>
 <script src="/js/calendar.js"></script>
-<script src="/js/holidayManagment.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 
 
