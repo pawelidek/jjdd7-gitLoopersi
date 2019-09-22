@@ -14,6 +14,7 @@ public class TeamDaoBean {
 
   @PersistenceContext
   EntityManager entityManager;
+
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   public void addTeam(Team team) {

@@ -67,13 +67,6 @@ public class HolidayDaoBean {
     return foundHolidays;
   }
 
-  //  public Holiday getHolidayByName(String name) {
-//    logger.info("Holiday object named={} are to be get from DB", name);
-//    Holiday foundHoliday = (Holiday) entityManager.createNamedQuery("Holiday.findHolidayByName")
-//        .setParameter("name", name)
-//        .getSingleResult();
-//    return foundHoliday;
-//  }
   public Holiday getHolidayByName(String name) {
     logger.info("Holiday object named={} are to be get from DB", name);
     List<Holiday> foundHolidays = entityManager.createNamedQuery("Holiday.findHolidayByName")
