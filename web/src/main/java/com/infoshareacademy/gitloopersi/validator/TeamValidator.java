@@ -20,7 +20,7 @@ public class TeamValidator {
   private TeamService teamService;
 
   @EJB
-  UserMessagesService userMessagesService;
+  private UserMessagesService userMessagesService;
 
   public boolean isTeamUnique(String name) {
     return teamService.getTeamByName(name) == null;

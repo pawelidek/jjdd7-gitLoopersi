@@ -37,7 +37,7 @@ public class Team {
   private Long id;
 
   @Column(name = "name", unique = true)
-  @NotBlank(message = "Team name cannot be empty or whitespace only")
+  @NotBlank(message = "Team name cannot be empty or whitespace only!")
   private String name;
 
   @OneToMany(mappedBy = "team")

@@ -86,14 +86,14 @@ function resetToDay(date) {
 
 function isHoliday(candidate) {
   resetToDay(candidate);
-  return window.listOfDates.some((holidayDate) = > {
+  return window.listOfDates.some((holidayDate) => {
     resetToDay(holidayDate);
 
-  console.log(holidayDate.getTime() === candidate.getTime(), holidayDate,
-      candidate);
-  return holidayDate.getTime() === candidate.getTime();
-})
-  ;
+    console.log(holidayDate.getTime() === candidate.getTime(), holidayDate,
+        candidate);
+    return holidayDate.getTime() === candidate.getTime();
+  })
+      ;
 }
 
 function createDay(month, counter, order, monthDiv) {
