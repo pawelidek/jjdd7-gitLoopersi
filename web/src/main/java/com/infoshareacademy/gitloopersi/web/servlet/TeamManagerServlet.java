@@ -94,8 +94,9 @@ public class TeamManagerServlet extends HttpServlet {
 
     if (!teamValidator.isTeamUnique(name)) {
 
-      userMessagesService.addErrorMessage(req.getSession(),
-          "Team \"" + name + "\" already exists, enter another team name!");
+      String message = String.format("Team \"%s\" already exists, enter another team name!", name);
+
+      userMessagesService.addErrorMessage(req.getSession(), message);
 
       logger.info("Tried to add existing team \"{}\"", name);
     }
@@ -103,8 +104,10 @@ public class TeamManagerServlet extends HttpServlet {
     if (userMessagesService.getErrorMessageList(req.getSession()) == null) {
       teamService.addTeam(team);
 
+      String message = String.format("A team \"%s\" has been added", name);
+
       userMessagesService
-          .addSuccessMessage(req.getSession(), "A team \"" + name + "\" has been added");
+          .addSuccessMessage(req.getSession(), message);
 
       logger.info("A team \"{}\" has been added", name);
     }
@@ -127,8 +130,9 @@ public class TeamManagerServlet extends HttpServlet {
 
     if (!teamValidator.isTeamUnique(name)) {
 
-      userMessagesService.addErrorMessage(req.getSession(),
-          "Team \"" + name + "\" already exists, enter another team name!");
+      String message = String.format("Team \"%s\" already exists, enter another team name!", name);
+
+      userMessagesService.addErrorMessage(req.getSession(), message);
 
       logger.info("Tried to set existing name to another team \"{}\"", name);
     }
@@ -137,9 +141,10 @@ public class TeamManagerServlet extends HttpServlet {
 
       teamService.editTeam(team);
 
+      String message = String.format("A team \"%s\" has been successfully edited", name);
+
       userMessagesService
-          .addSuccessMessage(req.getSession(),
-              "A team \"" + name + "\" has been successfully edited");
+          .addSuccessMessage(req.getSession(), message);
 
       logger.info("A team \"{}\" has been edited", name);
     }
