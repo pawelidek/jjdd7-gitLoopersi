@@ -1,6 +1,6 @@
 <div>
   <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
-  <script src="/js/vacation.js"></script>
+  <script src="/js/vacation-user.js"></script>
   <article id="contentView">
 
     <div class="container-fluid">
@@ -41,9 +41,10 @@
         <th scope="col" style="width: 10%">Date from</th>
         <th scope="col" style="width: 10%">Date to</th>
         <th scope="col" style="width: 15%">Amount of vacations</th>
-        <th scope="col" style="width: 15%">Deputy</th>
+        <th scope="col" style="width: 10%">Deputy</th>
         <th scope="col" style="width: 15%">Vacation type</th>
-        <th scope="col" style="width: 15%">Status type</th>
+        <th scope="col" style="width: 10%">Status type</th>
+        <th scope="col" style="width: 15%">Manage</th>
       </tr>
       </thead>
       <tbody>
