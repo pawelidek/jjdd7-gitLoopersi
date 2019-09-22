@@ -81,10 +81,8 @@ public class HolidayDaoBean {
         .getResultList();
     logger.info("List of holidays{}", foundHolidays);
     if (!foundHolidays.isEmpty()) {
-      logger.info("dupa z chuje");
       return foundHolidays.get(0);
     } else {
-      logger.info("chuj z dupa");
       return null;
     }
   }

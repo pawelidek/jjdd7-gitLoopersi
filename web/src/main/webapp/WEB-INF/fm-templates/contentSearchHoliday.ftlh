@@ -1,28 +1,7 @@
 <div class="container">
-<<<<<<< HEAD
   <script src="/js/holiday.js"></script>
   <article id="TRESC">
     <br><br>
-=======
-    <#--  <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>-->
-  <script src="/js/holiday.js"></script>
-  <article id="TRESC">
-    <br><br>
-      <#--    <button type="button" class="btn btn-secondary" id="searchByDates">-->
-      <#--      Search by dates-->
-      <#--    </button>-->
-      <#--    <button type="button" class="btn btn-secondary" id="searchByPattern">-->
-      <#--      Search by pattern-->
-      <#--    </button>-->
-
-      <#--    <div align="center">-->
-      <#--      <input type="text" name="liveSearchHoliday" id="liveSearchHoliday" placeholder="Enter your" class="form-control" />-->
-      <#--      <input type="date" name="startDate" id="startDate" placeholder="Enter first date..." class="form-control" />-->
-      <#--      <input type="date" name="endDate" id="endDate" placeholder="Enter second date..." class="form-control" />-->
-      <#--    </div>-->
-
-
->>>>>>> 9ce7d80ac897ce2b213e45ce37edd2476f394869
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-4 text-right">
@@ -65,19 +44,6 @@
       </tr>
       </thead>
       <tbody>
-<<<<<<< HEAD
-      <#list holidays>
-          <#items as holiday>
-            <tr>
-              <td>${holiday.id}.</td>
-              <td>${holiday.name}</td>
-              <td>${holiday.date}</td>
-              <td>${(holiday.holidayType.type)!"National Holiday"}</td>
-              <td>${(holiday.description)!""}</td>
-            </tr>
-          </#items>
-      </#list>
-=======
       <#if holidays?? >
           <#list holidays>
               <#items as holiday>
@@ -91,7 +57,6 @@
               </#items>
           </#list>
       </#if>
->>>>>>> 9ce7d80ac897ce2b213e45ce37edd2476f394869
       </tbody>
         <#elseif errorMessage??>
           <div class="alert alert-danger" role="alert" style="text-align: center">
