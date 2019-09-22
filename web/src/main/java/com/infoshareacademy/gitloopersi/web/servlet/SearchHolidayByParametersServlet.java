@@ -1,8 +1,12 @@
 package com.infoshareacademy.gitloopersi.web.servlet;
 
 import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
+import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
 import com.infoshareacademy.gitloopersi.service.holidaymanager.HolidayService;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +30,9 @@ public class SearchHolidayByParametersServlet extends HttpServlet {
   @Inject
   HolidayService holidayService;
 
+  @Inject
+  TemplateProvider templateProvider;
+
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
     String servletPath = req.getServletPath();
@@ -43,6 +50,13 @@ public class SearchHolidayByParametersServlet extends HttpServlet {
       List<Holiday> foundHolidays = List.of(holiday);
       dataModel.put("holidays", foundHolidays);
     }
-    logger.info("Method GET - servlet path {}", servletPath);
+    logger.info("Method GET - servlet path {}",servletPath);
+    PrintWriter printWriter = resp.getWriter();
+    Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
+    try {
+      template.process(dataModel, printWriter);
+    } catch (TemplateException e) {
+      logger.error(e.getMessage());
+    }
   }
 }
