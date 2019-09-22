@@ -10,10 +10,10 @@ import org.slf4j.LoggerFactory;
 @Stateless
 public class PropertiesLoaderService {
 
-  private Logger logger = LoggerFactory.getLogger(getClass().getName());
   private static final String SENDMAIL_PROPERTIES = "sendmail.properties";
   private static final String CREDENTIALS_PROPERTIES = "credentials.properties";
   private static final String SERVER_PROPERTIES = "servermail.properties";
+  private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   public Properties loadMailProperties() throws IOException {
 

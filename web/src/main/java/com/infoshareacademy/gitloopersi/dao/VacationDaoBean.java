@@ -12,10 +12,9 @@ import org.slf4j.LoggerFactory;
 @Stateless
 public class VacationDaoBean {
 
-  private Logger logger = LoggerFactory.getLogger(getClass().getName());
-
   @PersistenceContext
   EntityManager entityManager;
+  private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   public void addVacation(Vacation vacation) {
     logger.info("Object {} vacation persist to DB", vacation.toString());

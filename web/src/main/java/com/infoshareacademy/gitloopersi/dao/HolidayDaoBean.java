@@ -13,10 +13,9 @@ import org.slf4j.LoggerFactory;
 @Stateless
 public class HolidayDaoBean {
 
-  private Logger logger = LoggerFactory.getLogger(getClass().getName());
-
   @PersistenceContext
   EntityManager entityManager;
+  private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   public void addHoliday(Holiday holiday) {
     logger.info("Holiday object {} is to be merged to DB", holiday.toString());
@@ -68,11 +67,25 @@ public class HolidayDaoBean {
     return foundHolidays;
   }
 
+  //  public Holiday getHolidayByName(String name) {
+//    logger.info("Holiday object named={} are to be get from DB", name);
+//    Holiday foundHoliday = (Holiday) entityManager.createNamedQuery("Holiday.findHolidayByName")
+//        .setParameter("name", name)
+//        .getSingleResult();
+//    return foundHoliday;
+//  }
   public Holiday getHolidayByName(String name) {
     logger.info("Holiday object named={} are to be get from DB", name);
-    Holiday foundHoliday = (Holiday) entityManager.createNamedQuery("Holiday.findHolidayByName")
+    List<Holiday> foundHolidays = entityManager.createNamedQuery("Holiday.findHolidayByName")
         .setParameter("name", name)
-        .getSingleResult();
-    return foundHoliday;
+        .getResultList();
+    logger.info("List of holidays{}", foundHolidays);
+    if (!foundHolidays.isEmpty()) {
+      logger.info("dupa z chuje");
+      return foundHolidays.get(0);
+    } else {
+      logger.info("chuj z dupa");
+      return null;
+    }
   }
 }

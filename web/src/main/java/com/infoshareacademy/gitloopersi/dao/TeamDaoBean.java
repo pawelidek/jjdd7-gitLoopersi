@@ -12,10 +12,9 @@ import org.slf4j.LoggerFactory;
 @Stateless
 public class TeamDaoBean {
 
-  private Logger logger = LoggerFactory.getLogger(getClass().getName());
-
   @PersistenceContext
   EntityManager entityManager;
+  private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   public void addTeam(Team team) {
     logger.info("Team object {} is to be merged to DB", team.getName());

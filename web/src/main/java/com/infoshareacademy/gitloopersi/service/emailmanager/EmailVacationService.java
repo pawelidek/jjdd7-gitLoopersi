@@ -11,12 +11,10 @@ import org.slf4j.LoggerFactory;
 @Stateless
 public class EmailVacationService {
 
+  private static final String RECIPIENT = "gitLoopersi@gmail.com";
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
-
   @EJB
   private EmailSenderService emailSenderService;
-
-  private static final String RECIPIENT = "gitLoopersi@gmail.com";
 
   public void buildEmailMessage(Vacation vacation, Employee employee) {
 

@@ -1,129 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-
-  <parent>
-    <groupId>com.infoshareacademy.jjdd7</groupId>
-    <artifactId>EmployeeVacationCalendar</artifactId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
-
-
-  <properties>
-    <resteasy.version>3.0.14.Final</resteasy.version>
-  </properties>
-
   <artifactId>VacationCalendarEngine</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
-
-  <name>vacation-calendar-engine</name>
-
-  <dependencies>
-    <dependency>
-      <groupId>javax</groupId>
-      <artifactId>javaee-api</artifactId>
-      <version>8.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-core</artifactId>
-      <version>5.4.2.Final</version>
-      <exclusions>
-        <exclusion>
-          <groupId>dom4j</groupId>
-          <artifactId>dom4j</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate.javax.persistence</groupId>
-      <artifactId>hibernate-jpa-2.1-api</artifactId>
-      <version>1.0.2.Final</version>
-      <exclusions>
-        <exclusion>
-          <groupId>dom4j</groupId>
-          <artifactId>dom4j</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-entitymanager</artifactId>
-      <version>5.4.2.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>com.infoshareacademy.jjdd7</groupId>
-      <artifactId>app</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.15</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.7.28</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-core</artifactId>
-      <version>2.9.9</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.9.9.3</version>
-    </dependency>
-    <dependency>
-      <groupId>org.freemarker</groupId>
-      <artifactId>freemarker</artifactId>
-      <version>2.3.29</version>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate.validator</groupId>
-      <artifactId>hibernate-validator</artifactId>
-      <version>6.0.2.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate.validator</groupId>
-      <artifactId>hibernate-validator-annotation-processor</artifactId>
-      <version>6.0.2.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>3.9</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
-    <dependency>
-      <groupId>javax.mail</groupId>
-      <artifactId>mail</artifactId>
-      <version>1.4.7</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.mail</groupId>
-      <artifactId>javax.mail-api</artifactId>
-      <version>1.6.2</version>
-    </dependency>
-  </dependencies>
 
   <build>
     <finalName>vacation-calendar-engine</finalName>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
         <version>3.2.3</version>
       </plugin>
     </plugins>
   </build>
+
+
+  <dependencies>
+    <dependency>
+      <artifactId>javaee-api</artifactId>
+      <groupId>javax</groupId>
+      <version>8.0</version>
+    </dependency>
+    <dependency>
+      <artifactId>hibernate-core</artifactId>
+      <exclusions>
+        <exclusion>
+          <artifactId>dom4j</artifactId>
+          <groupId>dom4j</groupId>
+        </exclusion>
+      </exclusions>
+      <groupId>org.hibernate</groupId>
+      <version>5.4.2.Final</version>
+    </dependency>
+    <dependency>
+      <artifactId>hibernate-jpa-2.1-api</artifactId>
+      <exclusions>
+        <exclusion>
+          <artifactId>dom4j</artifactId>
+          <groupId>dom4j</groupId>
+        </exclusion>
+      </exclusions>
+      <groupId>org.hibernate.javax.persistence</groupId>
+      <version>1.0.2.Final</version>
+    </dependency>
+    <dependency>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <groupId>org.hibernate</groupId>
+      <version>5.4.2.Final</version>
+    </dependency>
+    <dependency>
+      <artifactId>app</artifactId>
+      <groupId>com.infoshareacademy.jjdd7</groupId>
+      <scope>compile</scope>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <artifactId>mysql-connector-java</artifactId>
+      <groupId>mysql</groupId>
+      <version>8.0.15</version>
+    </dependency>
+    <dependency>
+      <artifactId>slf4j-api</artifactId>
+      <groupId>org.slf4j</groupId>
+      <version>1.7.28</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+    <dependency>
+      <artifactId>jackson-core</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <version>2.9.9</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+    <dependency>
+      <artifactId>jackson-databind</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <version>2.9.9.3</version>
+    </dependency>
+    <dependency>
+      <artifactId>freemarker</artifactId>
+      <groupId>org.freemarker</groupId>
+      <version>2.3.29</version>
+    </dependency>
+    <dependency>
+      <artifactId>hibernate-validator</artifactId>
+      <groupId>org.hibernate.validator</groupId>
+      <version>6.0.2.Final</version>
+    </dependency>
+    <dependency>
+      <artifactId>hibernate-validator-annotation-processor</artifactId>
+      <groupId>org.hibernate.validator</groupId>
+      <version>6.0.2.Final</version>
+    </dependency>
+    <dependency>
+      <artifactId>commons-lang3</artifactId>
+      <groupId>org.apache.commons</groupId>
+      <version>3.9</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+    <dependency>
+      <artifactId>mail</artifactId>
+      <groupId>javax.mail</groupId>
+      <version>1.4.7</version>
+    </dependency>
+    <dependency>
+      <artifactId>javax.mail-api</artifactId>
+      <groupId>javax.mail</groupId>
+      <version>1.6.2</version>
+    </dependency>
+  </dependencies>
+
+  <modelVersion>4.0.0</modelVersion>
+  <name>vacation-calendar-engine</name>
+  <packaging>war</packaging>
+
+  <parent>
+    <artifactId>EmployeeVacationCalendar</artifactId>
+    <groupId>com.infoshareacademy.jjdd7</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <properties>
+    <resteasy.version>3.0.14.Final</resteasy.version>
+  </properties>
+
+  <version>1.0-SNAPSHOT</version>
 </project>
