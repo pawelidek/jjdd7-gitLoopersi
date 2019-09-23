@@ -25,12 +25,12 @@ public class EmailVacationService {
 
     String emailContent = String.format("Dear Admin,<br><br>"
             + "I would like to kindly ask for vacation from %tF to %tF.<br><br>"
-            + "[colleague name] will cover for me on that day.<br><br>"
+            + "%s will cover for me on that day.<br><br>"
             + "Please count this day against my annual leave balance.<br><br>"
             + "Thank you for understanding.<br><br>"
             + "Best Regards,<br>"
-            + "%s %s", vacation.getDateFrom(), vacation.getDateTo(), employee.getFirstName(),
-        employee.getSecondName());
+            + "%s %s", vacation.getDateFrom(), vacation.getDateTo(), vacation.getDeputy(),
+        employee.getFirstName(), employee.getSecondName());
 
     try {
       logger.info("Email from {} {} was sent to boss", employee.getFirstName(),

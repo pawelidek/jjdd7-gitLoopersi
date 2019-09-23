@@ -20,7 +20,7 @@ $(function () {
   $(document).ready(function () {
     $("#saveVacation").click(function (event) {
       $.ajax({
-        url: "/user/vacation",
+        url: "/user/vacation/report",
         method: $('#formMethod').val(),
         data: $('form#settingForm').serialize(),
         success: function () {

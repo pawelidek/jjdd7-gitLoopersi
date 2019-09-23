@@ -90,8 +90,7 @@ function isHoliday(candidate) {
     resetToDay(holidayDate);
 
     return holidayDate.getTime() === candidate.getTime();
-  })
-      ;
+  });
 }
 
 function createDay(month, counter, order, monthDiv) {

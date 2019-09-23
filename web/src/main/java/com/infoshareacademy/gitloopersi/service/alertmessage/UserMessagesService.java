@@ -15,6 +15,7 @@ public class UserMessagesService {
   }
 
   public void addErrorMessage(HttpSession httpSession, String message) {
+
     if (getErrorMessageList(httpSession) == null) {
       List<String> errorMessages = new ArrayList<>();
       errorMessages.add(message);
@@ -31,6 +32,7 @@ public class UserMessagesService {
   }
 
   public void addSuccessMessage(HttpSession httpSession, String message) {
+
     if (getSuccessMessageList(httpSession) == null) {
       List<String> successMessages = new ArrayList<>();
       successMessages.add(message);

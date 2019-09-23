@@ -10,10 +10,12 @@ import org.slf4j.LoggerFactory;
 @Stateless
 public class PropertiesLoaderService {
 
-  private Logger logger = LoggerFactory.getLogger(getClass().getName());
+  private static final String VACATION_PROPERTIES = "vacation.properties";
   private static final String SENDMAIL_PROPERTIES = "sendmail.properties";
   private static final String CREDENTIALS_PROPERTIES = "credentials.properties";
   private static final String SERVER_PROPERTIES = "servermail.properties";
+
+  private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   public Properties loadMailProperties() throws IOException {
 
@@ -21,7 +23,7 @@ public class PropertiesLoaderService {
     mailProperties.load(Objects.requireNonNull(Thread.currentThread()
         .getContextClassLoader().getResource(SENDMAIL_PROPERTIES))
         .openStream());
-    logger.info("Load {}", SENDMAIL_PROPERTIES);
+    logger.info("Load mail properties {}", SENDMAIL_PROPERTIES);
     return mailProperties;
   }
 
@@ -31,7 +33,7 @@ public class PropertiesLoaderService {
     credentialsProperties.load(Objects.requireNonNull(Thread.currentThread()
         .getContextClassLoader().getResource(CREDENTIALS_PROPERTIES))
         .openStream());
-    logger.info("Load {}", CREDENTIALS_PROPERTIES);
+    logger.info("Load credential properties {}", CREDENTIALS_PROPERTIES);
     return credentialsProperties;
   }
 
@@ -41,7 +43,17 @@ public class PropertiesLoaderService {
     serverProperties.load(Objects.requireNonNull(Thread.currentThread()
         .getContextClassLoader().getResource(SERVER_PROPERTIES))
         .openStream());
-    logger.info("Load {}", SERVER_PROPERTIES);
+    logger.info("Load server properties {}", SERVER_PROPERTIES);
     return serverProperties;
+  }
+
+  public Properties loadVacationProperties() throws IOException {
+
+    Properties vacationProperties = new Properties();
+    vacationProperties.load(Objects.requireNonNull(Thread.currentThread()
+        .getContextClassLoader().getResource(VACATION_PROPERTIES))
+        .openStream());
+    logger.info("Load vacation properties {}", VACATION_PROPERTIES);
+    return vacationProperties;
   }
 }

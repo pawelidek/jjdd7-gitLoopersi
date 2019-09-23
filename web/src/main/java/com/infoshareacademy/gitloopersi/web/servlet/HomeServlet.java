@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 @WebServlet("/home")
 public class HomeServlet extends HttpServlet {
 
+  private static final String USER_TYPE = "userType";
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @Inject
@@ -36,7 +37,7 @@ public class HomeServlet extends HttpServlet {
 
     String userType;
 
-    if (req.getSession().getAttribute("userType") == null) {
+    if (req.getSession().getAttribute(USER_TYPE) == null) {
       userType = "guest";
     } else {
       userType = String.valueOf(req.getSession().getAttribute("userType"));
