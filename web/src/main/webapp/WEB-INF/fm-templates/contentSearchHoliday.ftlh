@@ -1,7 +1,7 @@
-<div class="container">
+<div>
     <#--  <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>-->
   <script src="/js/holiday.js"></script>
-  <article id="TRESC">
+  <article id="contentView">
     <br><br>
       <#--    <button type="button" class="btn btn-secondary" id="searchByDates">-->
       <#--      Search by dates-->

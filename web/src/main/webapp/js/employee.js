@@ -4,11 +4,15 @@ $('#myModal').on('shown.bs.modal', function () {
 
 $(function () {
   $(document).ready(function () {
-    $(".edit-employee").click(function (event) {
 
+    let errorsTag = $("#errors");
+    errorsTag.empty();
+    errorsTag.hide();
+
+    $(".edit-employee").click(function (event) {
       var buttonId = $(this).attr('data-id');
       $.ajax({
-        url: '/api/employee/id/' + buttonId,
+        url: '/api/admin/employee/id/' + buttonId,
         method: "GET",
         success: function () {
         },
@@ -91,7 +95,7 @@ $(function () {
       var employeeId = $(this).attr('data-id');
 
       $.ajax({
-        url: '/admin/employee?id=' + employeeId,
+        url: '/api/admin/employee?id=' + employeeId,
         type: 'DELETE',
         success: function (result) {
           $('#employee' + employeeId).remove();
@@ -100,3 +104,9 @@ $(function () {
     });
   });
 });
+
+window.setTimeout(function() {
+  $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
+    $(this).remove();
+  });
+}, 1500);
