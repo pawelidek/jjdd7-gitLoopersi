@@ -80,7 +80,6 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-
             <#if error??>
               <div class="alert alert-danger" role="alert" style="text-align: center">
                 <strong>
@@ -92,7 +91,6 @@
                 </strong>
               </div>
             </#if>
-
           <div class="modal-body">
             <form id="settingForm" name="contact" role="form">
               <input id="formMethod" type="hidden" name="method" value="${method!"post"}"/>
@@ -108,7 +106,7 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close
               </button>
-              <button type="button" class="btn btn-outline-secondary" id="saveTeam">Save changes
+              <button type="submit" class="btn btn-outline-secondary" id="saveTeam">Save changes
               </button>
             </div>
           </div>
