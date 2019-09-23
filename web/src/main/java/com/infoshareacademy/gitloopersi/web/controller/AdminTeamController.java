@@ -72,6 +72,14 @@ public class AdminTeamController {
 
     if (!teamValidator.isTeamDataValid(req, team)) {
 
+      List<String> errorsListFromValidator = (List<String>) req.getSession()
+          .getAttribute("errorsListFromValidator");
+
+      for (String s : errorsListFromValidator) {
+        userMessagesService
+            .addErrorMessage(req.getSession(), s);
+      }
+
       logger.info("A team \"{}\" has not been added", name);
     }
 
@@ -113,6 +121,14 @@ public class AdminTeamController {
     team.setName(name);
 
     if (!teamValidator.isTeamDataValid(req, team)) {
+
+      List<String> errorsListFromValidator = (List<String>) req.getSession()
+          .getAttribute("errorsListFromValidator");
+
+      for (String s : errorsListFromValidator) {
+        userMessagesService
+            .addErrorMessage(req.getSession(), s);
+      }
 
       logger.info("A team \"{}\" has not been edited", name);
     }

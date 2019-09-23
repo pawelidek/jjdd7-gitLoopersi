@@ -101,6 +101,14 @@ public class AdminEmployeeController {
 
     if (!employeeValidator.isEmployeeDataValid(req, employee)) {
 
+      List<String> errorsListFromValidator = (List<String>) req.getSession()
+          .getAttribute("errorsListFromValidator");
+
+      for (String s : errorsListFromValidator) {
+        userMessagesService
+            .addErrorMessage(req.getSession(), s);
+      }
+
       logger.info("An employee \"{} {}\" has not been added", name, secondName);
     }
 
@@ -158,6 +166,14 @@ public class AdminEmployeeController {
     }
 
     if (!employeeValidator.isEmployeeDataValid(req, employee)) {
+
+      List<String> errorsListFromValidator = (List<String>) req.getSession()
+          .getAttribute("errorsListFromValidator");
+
+      for (String s : errorsListFromValidator) {
+        userMessagesService
+            .addErrorMessage(req.getSession(), s);
+      }
 
       logger.info("An employee \"{} {}\" has not been edited", name, secondName);
     }
