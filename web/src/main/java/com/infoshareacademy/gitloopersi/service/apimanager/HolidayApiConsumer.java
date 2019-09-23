@@ -20,9 +20,9 @@ import org.slf4j.LoggerFactory;
 @Stateless
 public class HolidayApiConsumer {
 
-  private WebTarget webTarget;
   private static final String APIKEY = "93deab6507d4b12925ee610aafe48024f98ad8e5";
   private static final String URI = "http://isa-proxy.blueazurit.com/calendar/holidays";
+  private WebTarget webTarget;
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @Inject

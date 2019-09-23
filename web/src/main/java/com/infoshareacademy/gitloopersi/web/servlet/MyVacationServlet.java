@@ -37,6 +37,8 @@ import org.slf4j.LoggerFactory;
 })
 public class MyVacationServlet extends HttpServlet {
 
+  private static final String EMPLOYEE_ID = "employeeId";
+
   @Inject
   private TemplateProvider templateProvider;
 
@@ -70,8 +72,8 @@ public class MyVacationServlet extends HttpServlet {
     List<String> errorMessages = userMessagesService.getErrorMessageList(req.getSession());
     List<String> successMessages = userMessagesService.getSuccessMessageList(req.getSession());
     HttpSession httpSession = req.getSession(true);
-    httpSession.setAttribute("employeeId", 1L);
-    Long employeeId = (Long) req.getSession().getAttribute("employeeId");
+    httpSession.setAttribute(EMPLOYEE_ID, 1L);
+    Long employeeId = (Long) req.getSession().getAttribute(EMPLOYEE_ID);
     List<EmployeeView> employeeViewList = employeeViews.stream()
         .filter(employeeView -> employeeView.getId().equals(employeeId))
         .collect(Collectors.toList());
@@ -100,7 +102,7 @@ public class MyVacationServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
 
-    Long employeeId = (Long) req.getSession().getAttribute("employeeId");
+    Long employeeId = (Long) req.getSession().getAttribute(EMPLOYEE_ID);
     Vacation vacation = new Vacation();
 
     Employee employee = employeeService.getEmployeeById(employeeId);

@@ -1,22 +1,7 @@
 <div>
-    <#--  <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>-->
   <script src="/js/holiday.js"></script>
   <article id="contentView">
     <br><br>
-      <#--    <button type="button" class="btn btn-secondary" id="searchByDates">-->
-      <#--      Search by dates-->
-      <#--    </button>-->
-      <#--    <button type="button" class="btn btn-secondary" id="searchByPattern">-->
-      <#--      Search by pattern-->
-      <#--    </button>-->
-
-      <#--    <div align="center">-->
-      <#--      <input type="text" name="liveSearchHoliday" id="liveSearchHoliday" placeholder="Enter your" class="form-control" />-->
-      <#--      <input type="date" name="startDate" id="startDate" placeholder="Enter first date..." class="form-control" />-->
-      <#--      <input type="date" name="endDate" id="endDate" placeholder="Enter second date..." class="form-control" />-->
-      <#--    </div>-->
-
-
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-4 text-right">
@@ -47,7 +32,7 @@
     </div>
 
     <ul class="list-group" id="result"></ul>
-
+      <#if holidays?? >
     <table class="table table-sm" style="text-align: center">
       <thead>
       <tr>
@@ -73,5 +58,14 @@
           </#list>
       </#if>
       </tbody>
+        <#elseif errorMessage??>
+          <div class="alert alert-danger" role="alert" style="text-align: center">
+            <strong>${errorMessage}</strong>
+          </div>
+        <#else>
+          <div class="alert alert-success" role="alert" style="text-align: center">
+            <strong>Type a holiday name or dates interval to see the results</strong>
+          </div>
+        </#if>
   </article>
 </div>

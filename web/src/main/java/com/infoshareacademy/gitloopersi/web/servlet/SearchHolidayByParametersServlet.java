@@ -25,13 +25,11 @@ import org.slf4j.LoggerFactory;
 })
 public class SearchHolidayByParametersServlet extends HttpServlet {
 
-  private Logger logger = LoggerFactory.getLogger(getClass().getName());
-
   @Inject
   HolidayService holidayService;
-
   @Inject
   TemplateProvider templateProvider;
+  private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
@@ -39,16 +37,25 @@ public class SearchHolidayByParametersServlet extends HttpServlet {
     Map<String, Object> dataModel = new HashMap<>();
     dataModel.put("userType", req.getSession().getAttribute("userType"));
     dataModel.put("function", "SearchHoliday");
+    dataModel.put("errorMessage", req.getSession().getAttribute("errorMessage"));
     if (servletPath.equals("/search/holiday/dates")) {
       String startDate = req.getParameter("start_date");
       String endDate = req.getParameter("end_date");
       List<Holiday> foundHolidays = holidayService.findHolidaysInRange(startDate, endDate);
-      dataModel.put("holidays", foundHolidays);
+      if (foundHolidays.isEmpty() && dataModel.get("errorMessage") == null) {
+        dataModel.put("errorMessage", "No results, type another range of data to get holidays");
+      } else {
+        dataModel.put("holidays", foundHolidays);
+      }
     } else if (servletPath.equals("/search/holiday/name")) {
       String name = req.getParameter("name");
       Holiday holiday = holidayService.findHolidayByName(name);
-      List<Holiday> foundHolidays = List.of(holiday);
-      dataModel.put("holidays", foundHolidays);
+      if (holiday != null) {
+        List<Holiday> foundHolidays = List.of(holiday);
+        dataModel.put("holidays", foundHolidays);
+      } else {
+        dataModel.put("errorMessage", "No result, type another holiday name");
+      }
     }
     logger.info("Method GET - servlet path {}", servletPath);
     PrintWriter printWriter = resp.getWriter();
@@ -58,5 +65,6 @@ public class SearchHolidayByParametersServlet extends HttpServlet {
     } catch (TemplateException e) {
       logger.error(e.getMessage());
     }
+    req.getSession().removeAttribute("errorMessage");
   }
 }

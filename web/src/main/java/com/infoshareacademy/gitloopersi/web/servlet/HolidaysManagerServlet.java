@@ -23,16 +23,13 @@ import org.slf4j.LoggerFactory;
 @WebServlet("/admin/holiday")
 public class HolidaysManagerServlet extends HttpServlet {
 
-  private Logger logger = LoggerFactory.getLogger(getClass().getName());
-
   @Inject
   HolidayService holidayService;
-
-  @Inject
-  private CalendarService calendarService;
-
   @Inject
   TemplateProvider templateProvider;
+  private Logger logger = LoggerFactory.getLogger(getClass().getName());
+  @Inject
+  private CalendarService calendarService;
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)

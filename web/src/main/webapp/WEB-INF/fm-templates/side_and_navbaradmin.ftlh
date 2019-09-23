@@ -32,7 +32,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="/admin/vacation">
               Vacation manager
             </a>
           </li>
@@ -42,13 +42,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/admin/jsonLoader">
-              Load holidays from JSON file
+            <a class="nav-link" href="/search/holiday">
+              Holiday Search
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              Vacation configurator
+            <a class="nav-link" href="/admin/jsonLoader">
+              Load holidays from JSON file
             </a>
           </li>
         </ul>

@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 )
 public class MyVacationFilter implements Filter {
 
+  private static final String USER_VACATION = "/user/vacation";
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @Inject
@@ -81,51 +82,51 @@ public class MyVacationFilter implements Filter {
                   logger.warn("Vacation request for employeeId: {} is not valid", employeeId);
                   userMessagesService.addErrorMessage(httpRequest.getSession(),
                       "Vacation request is not valid. Please try again!");
-                  httpResponse.sendRedirect("/user/vacation");
+                  httpResponse.sendRedirect(USER_VACATION);
                 }
 
               } else {
                 logger.warn("Vacation type {} is not valid", vacationType);
                 userMessagesService.addErrorMessage(httpRequest.getSession(),
                     "Vacation type is not valid. Select correct type.");
-                httpResponse.sendRedirect("/user/vacation");
+                httpResponse.sendRedirect(USER_VACATION);
               }
 
             } catch (VacationOutOfPoolException e) {
               logger.warn(e.getMessage());
               userMessagesService.addErrorMessage(httpRequest.getSession(),
                   "Number of remaining vacation days is not sufficient. Please try again!");
-              httpResponse.sendRedirect("/user/vacation");
+              httpResponse.sendRedirect(USER_VACATION);
             } catch (DatesOverlapException e) {
               logger.warn(e.getMessage());
               userMessagesService.addErrorMessage(httpRequest.getSession(),
                   "Dates overlap with vacations already notified. Please try again!");
-              httpResponse.sendRedirect("/user/vacation");
+              httpResponse.sendRedirect(USER_VACATION);
             }
           } else {
             logger.warn("Vacation cannot be reported at the turn of the year {} - {}", dateFrom,
                 dateTo);
             userMessagesService.addErrorMessage(httpRequest.getSession(),
                 "Vacation cannot be reported at the turn of the year. Please try again!");
-            httpResponse.sendRedirect("/user/vacation");
+            httpResponse.sendRedirect(USER_VACATION);
           }
         } else {
           logger.warn("DateFrom {} is not before date to {}", dateFrom, dateTo);
           userMessagesService.addErrorMessage(httpRequest.getSession(),
               "Date from is not before date to. Please try again!");
-          httpResponse.sendRedirect("/user/vacation");
+          httpResponse.sendRedirect(USER_VACATION);
         }
       } else {
         logger.warn("Date from {} or date to {} is not from future", dateFrom, dateTo);
         userMessagesService.addErrorMessage(httpRequest.getSession(),
             "Date from or date to is not from future. Please try again!");
-        httpResponse.sendRedirect("/user/vacation");
+        httpResponse.sendRedirect(USER_VACATION);
       }
     } else {
       logger.warn("Date is not valid {} - {}", dateFrom, dateTo);
       userMessagesService
           .addErrorMessage(httpRequest.getSession(), "Date is not valid. Please try again!");
-      httpResponse.sendRedirect("/user/vacation");
+      httpResponse.sendRedirect(USER_VACATION);
     }
   }
 

@@ -12,10 +12,9 @@ import org.slf4j.LoggerFactory;
 @Stateless
 public class EmployeeDaoBean {
 
-  private Logger logger = LoggerFactory.getLogger(getClass().getName());
-
   @PersistenceContext
   EntityManager entityManager;
+  private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   public void addEmployee(Employee employee) {
     logger.info("Employee object [{} {}] is to be merged to DB", employee.getFirstName(),
