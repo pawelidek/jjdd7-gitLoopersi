@@ -50,10 +50,12 @@ public class UserMessagesService {
     Objects.requireNonNull(req.getSession()).removeAttribute("successMessage");
   }
 
+  @Deprecated
   public String getErrorMessage(HttpSession session, String key) {
     return (String) session.getAttribute(key);
   }
 
+  @Deprecated
   public String getSuccessMessage(HttpSession session, String key) {
     return (String) session.getAttribute(key);
   }

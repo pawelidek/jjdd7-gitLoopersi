@@ -1,6 +1,5 @@
 package com.infoshareacademy.gitloopersi.web.servlet;
 
-import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import com.infoshareacademy.gitloopersi.domain.entity.Team;
 import com.infoshareacademy.gitloopersi.domain.model.Calendar;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
@@ -14,7 +13,6 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,136 +80,6 @@ public class EmployeeManagerServlet extends HttpServlet {
       template.process(dataModel, printWriter);
     } catch (TemplateException e) {
       logger.error(e.getMessage());
-    }
-  }
-
-  @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
-
-    Employee employee = new Employee();
-
-    String teamId = req.getParameter("team");
-    String name = req.getParameter("firstName");
-    String secondName = req.getParameter("secondName");
-    String email = req.getParameter("email");
-    String startDate = req.getParameter("startDate");
-    String startHireDate = req.getParameter("startHireDate");
-
-    setFields(employee, teamId, name, secondName, email, startDate, startHireDate);
-
-    if (!employeeValidator.isMailUnique(email)) {
-
-      String message = String.format("Email address \"%s\" is already in use!", email);
-
-      userMessagesService.addErrorMessage(req.getSession(), message);
-
-      logger.info("Tried to use an existing email \"{}\"", email);
-    }
-
-    if (employeeValidator.areDatesParseable(startDate, startHireDate)) {
-      if (!employeeValidator
-          .isStartHireDateEarlierThanOrEqualToStartDate(startHireDate, startDate)) {
-        String message = "First employment date has to be earlier or equal to actual employment date!";
-
-        userMessagesService.addErrorMessage(req.getSession(), message);
-
-        logger.info("Tried to set actual employment date earlier than first employment date");
-      }
-    }
-
-    if (!employeeValidator.isEmployeeDataValid(req, employee)) {
-
-      logger.info("An employee \"{} {}\" has not been added", name, secondName);
-    }
-
-    if (userMessagesService.getErrorMessageList(req.getSession()) == null) {
-      employeeService.addEmployee(employee, Long.parseLong(teamId));
-
-      String message = String.format("An employee \"%s %s\" has been added!", name, secondName);
-
-      userMessagesService
-          .addSuccessMessage(req.getSession(), message);
-
-      logger.info("An employee \"{} {}\" has been added", name, secondName);
-    }
-  }
-
-  @Override
-  protected void doPut(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
-
-    Long id = Long.parseLong(req.getParameter("id"));
-    Employee employee = employeeService.getEmployeeById(id);
-
-    String teamId = req.getParameter("team");
-    String name = req.getParameter("firstName");
-    String secondName = req.getParameter("secondName");
-    String email = req.getParameter("email");
-    String startDate = req.getParameter("startDate");
-    String startHireDate = req.getParameter("startHireDate");
-
-    setFields(employee, teamId, name, secondName, email, startDate, startHireDate);
-
-    if (!employeeValidator.isMailUniqueOrCurrentUser(email, id)) {
-
-      String message = String.format("Email address \"%s\" is already in use!", email);
-
-      userMessagesService.addErrorMessage(req.getSession(), message);
-
-      logger.info("Tried to use an existing email \"{}\"", email);
-    }
-
-    if (employeeValidator.areDatesParseable(startDate, startHireDate)) {
-      if (!employeeValidator
-          .isStartHireDateEarlierThanOrEqualToStartDate(startHireDate, startDate)) {
-        String message = "First employment date has to be earlier or equal to actual employment date!";
-
-        userMessagesService.addErrorMessage(req.getSession(), message);
-
-        logger.info("Tried to set actual employment date earlier than first employment date");
-      }
-    }
-
-    if (!employeeValidator.isEmployeeDataValid(req, employee)) {
-
-      logger.info("An employee \"{} {}\" has not been edited", name, secondName);
-    }
-
-    if (userMessagesService.getErrorMessageList(req.getSession()) == null) {
-      employeeService.editEmployee(employee, Long.parseLong(teamId));
-
-      String message = String.format("An employee \"%s %s\" has been edited!", name, secondName);
-
-      userMessagesService
-          .addSuccessMessage(req.getSession(), message);
-
-      logger.info("An employee \"{} {}\" has been edited", name, secondName);
-    }
-  }
-
-  private void setFields(Employee employee, String teamId, String name, String secondName,
-      String email, String startDate, String startHireDate) {
-    employee.setFirstName(name);
-    employee.setSecondName(secondName);
-    employee.setEmail(email);
-
-    if (teamId != null) {
-      employee.setTeam(teamService.getTeamById(Long.valueOf(teamId)));
-    } else {
-      employee.setTeam(null);
-    }
-
-    if (!startDate.equals("")) {
-      employee.setStartDate(LocalDate.parse(startDate));
-    } else {
-      employee.setStartDate(null);
-    }
-
-    if (!startHireDate.equals("")) {
-      employee.setStartHireDate(LocalDate.parse(startHireDate));
-    } else {
-      employee.setStartHireDate(null);
     }
   }
 
