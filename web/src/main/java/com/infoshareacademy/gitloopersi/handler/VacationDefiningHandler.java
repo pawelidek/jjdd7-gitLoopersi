@@ -151,9 +151,4 @@ public class VacationDefiningHandler {
     return Integer.valueOf(
         propertiesLoaderService.loadVacationProperties().getProperty("part.vacation.pool"));
   }
-
-  private Integer getChildcarePool() throws IOException {
-    return Integer.valueOf(
-        propertiesLoaderService.loadVacationProperties().getProperty("childcare"));
-  }
 }
