@@ -40,7 +40,7 @@ public class HomeServlet extends HttpServlet {
     if (req.getSession().getAttribute(USER_TYPE) == null) {
       userType = "guest";
     } else {
-      userType = String.valueOf(req.getSession().getAttribute("userType"));
+      userType = String.valueOf(req.getSession().getAttribute(USER_TYPE));
     }
 
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
@@ -48,7 +48,7 @@ public class HomeServlet extends HttpServlet {
     List<Calendar> dates = calendarService.findAllHolidaysDates();
 
     Map<String, Object> dataModel = new HashMap<>();
-    dataModel.put("userType", userType);
+    dataModel.put(USER_TYPE, userType);
     dataModel.put("function", "HomePage");
     dataModel.put("dates", dates);
 

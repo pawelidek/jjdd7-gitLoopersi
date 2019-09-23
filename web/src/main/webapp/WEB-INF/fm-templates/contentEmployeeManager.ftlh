@@ -92,17 +92,9 @@
             </button>
           </div>
 
-            <#if error??>
-              <div class="alert alert-danger" role="alert" style="text-align: center">
-                <strong>
-                    <#list error>
-                        <#items as errorMessages>
-                            ${errorMessages}<br/>
-                        </#items>
-                    </#list>
-                </strong>
-              </div>
-            </#if>
+          <div id="errors" class="alert alert-danger" role="alert"
+               style="text-align: center; display: none;">
+          </div>
 
           <div class="modal-body">
             <form id="settingForm" name="contact" role="form">

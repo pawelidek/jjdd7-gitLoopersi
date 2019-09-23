@@ -2,7 +2,6 @@ package com.infoshareacademy.gitloopersi.validator;
 
 import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
 import com.infoshareacademy.gitloopersi.handler.VacationDefiningHandler;
-import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
 import com.infoshareacademy.gitloopersi.service.vacationmanager.VacationDefiningService;
 import com.infoshareacademy.gitloopersi.types.VacationType;
 import java.io.IOException;
@@ -11,7 +10,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.ejb.EJB;
@@ -29,9 +27,6 @@ public class VacationDefiningValidator {
   @EJB
   private VacationDefiningService vacationDefiningService;
 
-  @EJB
-  private EmployeeService employeeService;
-
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
   private LocalDate dateToday = LocalDate.now();
 
@@ -39,8 +34,7 @@ public class VacationDefiningValidator {
 
     try {
       logger.info("Validate correct format dateFrom {}", dateFrom);
-      simpleDateFormat.parse(dateFrom).toInstant()
-          .atZone(ZoneId.systemDefault());
+      simpleDateFormat.parse(dateFrom);
 
     } catch (ParseException e) {
       logger.warn(e.getMessage());
@@ -53,8 +47,7 @@ public class VacationDefiningValidator {
 
     try {
       logger.info("Validate correct format dateTo {}", dateTo);
-      simpleDateFormat.parse(dateTo).toInstant()
-          .atZone(ZoneId.systemDefault());
+      simpleDateFormat.parse(dateTo);
 
     } catch (ParseException e) {
       logger.warn(e.getMessage());
