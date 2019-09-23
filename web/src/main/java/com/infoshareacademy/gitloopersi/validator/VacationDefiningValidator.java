@@ -21,15 +21,14 @@ import org.slf4j.LoggerFactory;
 @RequestScoped
 public class VacationDefiningValidator {
 
+  private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
   @Inject
   private VacationDefiningHandler vacationDefiningHandler;
-
   @EJB
   private VacationDefiningService vacationDefiningService;
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
   private LocalDate dateToday = LocalDate.now();
-  private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
   public boolean isValidDateFrom(String dateFrom) {
 
