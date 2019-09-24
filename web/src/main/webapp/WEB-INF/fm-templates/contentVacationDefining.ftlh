@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <table class="table table-borderless">
         <tr>
-          <td style="text-align: right"><h2>Vacation request</h2></td>
+          <td style="text-align: left"><h2>Vacation request</h2></td>
           <td style="text-align: right">
             <button type="button" class="btn btn-outline-secondary"
                     data-toggle="modal" data-target="#exampleModal" id="add_vacation_button">
@@ -114,9 +114,9 @@
                   <select style="width: 475px" autocomplete="off" id="vacationType"
                           class="form-control"
                           name="vacationType">
-                    <option value="VACATION_LEAVE">Vacation leave</option>
-                    <option value="CHILDCARE">Childcare</option>
-                    <option value="SPECIAL_LEAVE">Special leave</option>
+                    <option value="Vacation leave">Vacation leave</option>
+                    <option value="Childcare">Childcare</option>
+                    <option value="Special leave">Special leave</option>
                   </select>
                 </label>
               </div>

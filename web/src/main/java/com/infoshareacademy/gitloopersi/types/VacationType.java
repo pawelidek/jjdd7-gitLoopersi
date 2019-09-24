@@ -1,9 +1,10 @@
 package com.infoshareacademy.gitloopersi.types;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public enum VacationType {
-  VACATION_LEAVE("VACATION_LEAVE"), CHILDCARE("CHILDCARE"), SPECIAL_LEAVE("SPECIAL_LEAVE");
+  VACATION_LEAVE("Vacation leave"), CHILDCARE("Childcare"), SPECIAL_LEAVE("Special leave");
 
   private String type;
 
@@ -12,8 +13,9 @@ public enum VacationType {
   }
 
   public static VacationType valueOfType(String value) {
-    return Arrays.stream(VacationType.values()).filter(vacationType -> vacationType.equals(value))
-        .findFirst().orElse(null);
+
+    return Optional.of(VacationType.values()).stream().flatMap(Arrays::stream)
+        .filter(vacationType -> vacationType.type.equals(value)).findFirst().orElse(null);
   }
 
   public String getType() {
