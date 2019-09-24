@@ -22,11 +22,10 @@ import org.slf4j.LoggerFactory;
 
 @WebFilter(
     filterName = "MyVacationFilter",
-    urlPatterns = {"/user/vacation/report"}
+    urlPatterns = {"/api/user/vacation"}
 )
 public class MyVacationFilter implements Filter {
 
-  private static final String USER_VACATION = "/user/vacation";
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @Inject
@@ -50,84 +49,59 @@ public class MyVacationFilter implements Filter {
     String vacationType = httpRequest.getParameter("vacationType");
     Long employeeId = (Long) httpSession.getAttribute("employeeId");
 
-    if (isValidDate(dateFrom, dateTo)) {
+    if (!isValidDate(dateFrom, dateTo)) {
 
-      logger.info("Date is valid {} - {}", dateFrom, dateTo);
-
-      if (isValidDateFromFuture(dateFrom, dateTo)) {
-
-        logger.info("Date is from the future {} - {}", dateFrom, dateTo);
-
-        if (isValidDateFromBeforeDateTo(dateFrom, dateTo)) {
-
-          logger.info("Date from {} is before date to {}", dateFrom, dateTo);
-
-          if (isValidTurnOfTheYear(dateFrom, dateTo)) {
-
-            try {
-
-              if (isValidVacationType(vacationType)) {
-
-                logger.info("Vacation type {} is valid", vacationType);
-
-                if (isValidVacationRequestByEmployee(dateFrom, dateTo, employeeId, vacationType)) {
-
-                  logger.info("Vacation request for employeeId: {} is valid", employeeId);
-                  userMessagesService.addSuccessMessage(httpRequest.getSession(),
-                      "Vacation request send correctly");
-
-                  chain.doFilter(request, response);
-
-                } else {
-                  logger.warn("Vacation request for employeeId: {} is not valid", employeeId);
-                  userMessagesService.addErrorMessage(httpRequest.getSession(),
-                      "Vacation request is not valid. Please try again!");
-                  httpResponse.sendRedirect(USER_VACATION);
-                }
-
-              } else {
-                logger.warn("Vacation type {} is not valid", vacationType);
-                userMessagesService.addErrorMessage(httpRequest.getSession(),
-                    "Vacation type is not valid. Select correct type.");
-                httpResponse.sendRedirect(USER_VACATION);
-              }
-
-            } catch (VacationOutOfPoolException e) {
-              logger.warn(e.getMessage());
-              userMessagesService.addErrorMessage(httpRequest.getSession(),
-                  "Number of remaining vacation days is not sufficient. Please try again!");
-              httpResponse.sendRedirect(USER_VACATION);
-            } catch (DatesOverlapException e) {
-              logger.warn(e.getMessage());
-              userMessagesService.addErrorMessage(httpRequest.getSession(),
-                  "Dates overlap with vacations already notified. Please try again!");
-              httpResponse.sendRedirect(USER_VACATION);
-            }
-          } else {
-            logger.warn("Vacation cannot be reported at the turn of the year {} - {}", dateFrom,
-                dateTo);
-            userMessagesService.addErrorMessage(httpRequest.getSession(),
-                "Vacation cannot be reported at the turn of the year. Please try again!");
-            httpResponse.sendRedirect(USER_VACATION);
-          }
-        } else {
-          logger.warn("DateFrom {} is not before date to {}", dateFrom, dateTo);
-          userMessagesService.addErrorMessage(httpRequest.getSession(),
-              "Date from is not before date to. Please try again!");
-          httpResponse.sendRedirect(USER_VACATION);
-        }
-      } else {
-        logger.warn("Date from {} or date to {} is not from future", dateFrom, dateTo);
-        userMessagesService.addErrorMessage(httpRequest.getSession(),
-            "Date from or date to is not from future. Please try again!");
-        httpResponse.sendRedirect(USER_VACATION);
-      }
-    } else {
       logger.warn("Date is not valid {} - {}", dateFrom, dateTo);
       userMessagesService
           .addErrorMessage(httpRequest.getSession(), "Date is not valid. Please try again!");
-      httpResponse.sendRedirect(USER_VACATION);
+
+    } else if (!isValidDateFromFuture(dateFrom, dateTo)) {
+
+      logger.warn("Date from {} or date to {} is not from future", dateFrom, dateTo);
+      userMessagesService.addErrorMessage(httpRequest.getSession(),
+          "Date from or date to is not from future. Please try again!");
+
+    } else if (!isValidDateFromBeforeDateTo(dateFrom, dateTo)) {
+
+      logger.warn("DateFrom {} is not before date to {}", dateFrom, dateTo);
+      userMessagesService.addErrorMessage(httpRequest.getSession(),
+          "Date from is not before date to. Please try again!");
+
+    } else if (!isValidTurnOfTheYear(dateFrom, dateTo)) {
+
+      logger.warn("Vacation cannot be reported at the turn of the year {} - {}", dateFrom, dateTo);
+      userMessagesService.addErrorMessage(httpRequest.getSession(),
+          "Vacation cannot be reported at the turn of the year. Please try again!");
+
+    } else if (!isValidVacationType(vacationType)) {
+
+      logger.warn("Vacation type {} is not valid", vacationType);
+      userMessagesService.addErrorMessage(httpRequest.getSession(),
+          "Vacation type is not valid. Select correct type.");
+
+    } else {
+      try {
+        if (!isValidVacationRequestByEmployee(dateFrom, dateTo, employeeId, vacationType)) {
+
+          logger.warn("Vacation request for employeeId: {} is not valid", employeeId);
+          userMessagesService.addErrorMessage(httpRequest.getSession(),
+              "Vacation request is not valid. Please try again!");
+        }
+      } catch (VacationOutOfPoolException e) {
+
+        logger.warn(e.getMessage());
+        userMessagesService.addErrorMessage(httpRequest.getSession(),
+            "Number of remaining vacation days is not sufficient. Please try again!");
+
+      } catch (DatesOverlapException e) {
+
+        logger.warn(e.getMessage());
+        userMessagesService.addErrorMessage(httpRequest.getSession(),
+            "Dates overlap with vacations already notified. Please try again!");
+      }
     }
+
+    chain.doFilter(httpRequest, httpResponse);
   }
 
   private boolean isValidVacationType(String vacationType) {

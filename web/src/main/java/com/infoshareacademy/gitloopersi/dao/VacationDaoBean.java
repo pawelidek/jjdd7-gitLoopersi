@@ -21,14 +21,14 @@ public class VacationDaoBean {
     entityManager.persist(vacation);
   }
 
-  public Vacation getByEmployeeId(Long id) {
+  public Vacation getByVacationId(Long id) {
     logger.info("Vacation object id={} is to be get from DB", id);
     return entityManager.find(Vacation.class, id);
   }
 
   public void deleteVacation(Long id) {
     logger.info("Object id = {} vacation delete from DB", id);
-    Vacation vacation = getByEmployeeId(id);
+    Vacation vacation = getByVacationId(id);
     if (vacation != null) {
       entityManager.remove(vacation);
     } else {

@@ -85,21 +85,12 @@
             </button>
           </div>
 
-            <#if error??>
-              <div class="alert alert-danger" role="alert" style="text-align: center">
-                <strong>
-                    <#list error>
-                        <#items as errorMessages>
-                            ${errorMessages}<br>
-                        </#items>
-                    </#list>
-                </strong>
-              </div>
-            </#if>
+          <div id="errors" class="alert alert-danger" role="alert"
+               style="text-align: center; display: none;">
+          </div>
 
           <div class="modal-body">
-            <form method="post" action="/user/vacation/report" id="settingForm" name="contact"
-                  role="form">
+            <form id="settingForm" name="contact" role="form">
               <input id="formMethod" type="hidden" name="method" value="${method!"post"}"/>
               <input type="hidden" id="id" name="id" value="${(vacation.id)!""}"/>
               <div class="form-group">
@@ -144,14 +135,14 @@
                   </select>
                 </label>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close
-                </button>
-                <button type="button" class="btn btn-outline-secondary" id="saveVacation">
-                  Save changes
-                </button>
-              </div>
             </form>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close
+              </button>
+              <button type="button" class="btn btn-outline-secondary" id="saveVacation">
+                Save changes
+              </button>
+            </div>
           </div>
         </div>
       </div>

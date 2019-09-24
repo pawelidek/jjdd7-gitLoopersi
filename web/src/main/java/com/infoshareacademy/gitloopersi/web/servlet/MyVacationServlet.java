@@ -1,7 +1,5 @@
 package com.infoshareacademy.gitloopersi.web.servlet;
 
-import com.infoshareacademy.gitloopersi.domain.entity.Employee;
-import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
 import com.infoshareacademy.gitloopersi.domain.model.Calendar;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
 import com.infoshareacademy.gitloopersi.service.alertmessage.UserMessagesService;
@@ -9,14 +7,12 @@ import com.infoshareacademy.gitloopersi.service.calendarmanager.CalendarService;
 import com.infoshareacademy.gitloopersi.service.emailmanager.EmailVacationService;
 import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
 import com.infoshareacademy.gitloopersi.service.vacationmanager.VacationDefiningService;
-import com.infoshareacademy.gitloopersi.types.VacationType;
 import com.infoshareacademy.gitloopersi.web.view.EmployeeView;
 import com.infoshareacademy.gitloopersi.web.view.VacationView;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,10 +27,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet(urlPatterns = {
-    "/user/vacation",
-    "/user/vacation/report"
-})
+@WebServlet("/user/vacation")
 public class MyVacationServlet extends HttpServlet {
 
   private static final String EMPLOYEE_ID = "employeeId";
@@ -99,7 +92,7 @@ public class MyVacationServlet extends HttpServlet {
     }
   }
 
-  @Override
+/*  @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
 
     Long employeeId = (Long) req.getSession().getAttribute(EMPLOYEE_ID);
@@ -113,7 +106,7 @@ public class MyVacationServlet extends HttpServlet {
     emailVacationService.buildEmailMessage(vacation, employee);
 
     logger.info("Vacation {} was added", vacation.toString());
-  }
+  }*/
 
   @Override
   protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
@@ -123,7 +116,7 @@ public class MyVacationServlet extends HttpServlet {
     vacationDefiningService.deleteVacation(id);
   }
 
-  private void setVacationFields(HttpServletRequest req, Vacation vacation) {
+/*  private void setVacationFields(HttpServletRequest req, Vacation vacation) {
 
     int numberOfSelectedVacationDays = getNumberOfSelectedVacationDays(req);
 
@@ -143,5 +136,5 @@ public class MyVacationServlet extends HttpServlet {
     return vacationDefiningService
         .getNumberOfSelectedVacationDays(req.getParameter("dateFrom"),
             req.getParameter("dateTo"));
-  }
+  }*/
 }
