@@ -1,6 +1,6 @@
-<div class="container">
+<div>
   <script src="/js/holiday.js"></script>
-  <article id="TRESC">
+  <article id="contentView">
     <br><br>
     <div class="container">
       <div class="row justify-content-center">

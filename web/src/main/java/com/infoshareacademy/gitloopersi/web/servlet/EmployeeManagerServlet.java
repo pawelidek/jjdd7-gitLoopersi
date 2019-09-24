@@ -7,7 +7,6 @@ import com.infoshareacademy.gitloopersi.service.alertmessage.UserMessagesService
 import com.infoshareacademy.gitloopersi.service.calendarmanager.CalendarService;
 import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
 import com.infoshareacademy.gitloopersi.service.teammanager.TeamService;
-import com.infoshareacademy.gitloopersi.validator.EmployeeValidator;
 import com.infoshareacademy.gitloopersi.web.view.EmployeeView;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -39,9 +38,6 @@ public class EmployeeManagerServlet extends HttpServlet {
 
   @EJB
   private TeamService teamService;
-
-  @Inject
-  private EmployeeValidator employeeValidator;
 
   @Inject
   private CalendarService calendarService;
@@ -81,14 +77,5 @@ public class EmployeeManagerServlet extends HttpServlet {
     } catch (TemplateException e) {
       logger.error(e.getMessage());
     }
-  }
-
-  @Override
-  protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
-
-    String idParam = req.getParameter("id");
-    Long id = Long.parseLong(idParam);
-    employeeService.deleteEmployeeById(id);
   }
 }

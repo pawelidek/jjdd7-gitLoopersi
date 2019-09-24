@@ -37,10 +37,7 @@ public class TeamValidator {
       List<String> errorsList = constraintViolations.stream().map(ConstraintViolation::getMessage)
           .collect(Collectors.toList());
 
-      for (int i = 0; i < constraintViolations.size(); i++) {
-        userMessagesService
-            .addErrorMessage(req.getSession(), errorsList.get(i));
-      }
+      req.getSession().setAttribute("errorsListFromValidator", errorsList);
 
       return false;
     } else {
