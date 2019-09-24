@@ -30,7 +30,7 @@ public class GoogleLogin {
   static GoogleAuthorizationCodeFlow buildFlow() {
     return new GoogleAuthorizationCodeFlow.Builder(
         new NetHttpTransport(),
-        JacksonFactory.getDefaultInstance(),getProperty("client.id"),
+        JacksonFactory.getDefaultInstance(), getProperty("client.id"),
         getProperty("secret"), SCOPES)
         .setAccessType("online")
         .build();

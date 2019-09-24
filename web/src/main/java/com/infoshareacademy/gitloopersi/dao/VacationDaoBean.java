@@ -21,6 +21,11 @@ public class VacationDaoBean {
     entityManager.persist(vacation);
   }
 
+  public Vacation editVacation(Vacation vacation) {
+    logger.info("Vacation object id={} is to be updated in DB", vacation.getId());
+    return entityManager.merge(vacation);
+  }
+
   public Vacation getByVacationId(Long id) {
     logger.info("Vacation object id={} is to be get from DB", id);
     return entityManager.find(Vacation.class, id);

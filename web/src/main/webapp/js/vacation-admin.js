@@ -1,14 +1,41 @@
 $(function () {
   $(document).ready(function () {
-    $(".reject-vacation").click(function () {
 
-      var vacationId = $(this).attr('data-id');
+    let errorsTag = $("#errors");
+    errorsTag.empty();
+    errorsTag.hide();
 
+    $(".reject-vacation").click(function (event) {
+      var buttonId = $(this).attr('data-id');
       $.ajax({
-        url: '/admin/vacation?id=' + vacationId,
-        type: 'DELETE',
-        success: function (result) {
-          $('#vacation' + vacationId).remove();
+        url: '/api/admin/vacation/reject/' + buttonId,
+        method: "PUT",
+        success: function () {
+        },
+        error: function (error) {
+          alert(buttonId);
+        }
+      });
+    });
+  });
+});
+
+$(function () {
+  $(document).ready(function () {
+
+    let errorsTag = $("#errors");
+    errorsTag.empty();
+    errorsTag.hide();
+
+    $(".accept-vacation").click(function (event) {
+      var buttonId = $(this).attr('data-id');
+      $.ajax({
+        url: '/api/admin/vacation/accept/' + buttonId,
+        method: "PUT",
+        success: function () {
+        },
+        error: function (error) {
+          alert(buttonId);
         }
       });
     });

@@ -13,7 +13,8 @@ public class OauthBuilder {
 
   public Oauth2 buildOauth(Credential credential) {
 
-    GoogleCredential gCredential = new GoogleCredential().setAccessToken(credential.getAccessToken());
+    GoogleCredential gCredential = new GoogleCredential()
+        .setAccessToken(credential.getAccessToken());
 
     Oauth2 oauth2 = new Oauth2.Builder(new NetHttpTransport(),
         JacksonFactory.getDefaultInstance(),
