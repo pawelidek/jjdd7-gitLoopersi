@@ -8,10 +8,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
+import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Stateless
 public class GoogleLogin {
 
 

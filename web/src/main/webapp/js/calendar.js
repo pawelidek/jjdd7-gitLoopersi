@@ -9,39 +9,9 @@ document.querySelector("#year").innerHTML = year;
 var months = ["January", "February", "March", "April", "May", "June", "July",
   "August", "September", "October", "November", "December"];
 
-// var d = new Date();
-
 var thisMonth = d.getMonth();
 
 var yearDirection = 0;
-
-function getNextMonth() {
-  yearDirection++;
-  var current;
-  var now = new Date();
-
-  current = new Date(now.getFullYear() + yearDirection);
-  // if (now.getMonth() == 11) {
-  //   current = new Date(now.getFullYear() + monthDirection, 0, 1);
-  // } else {
-  //   current = new Date(now.getFullYear(), now.getMonth() + monthDirection, 1);
-  // }
-  createCalendar(month);
-}
-
-function getPrevMonth() {
-  yearDirection--;
-  var current;
-  var now = new Date();
-
-  current = new Date(now.getFullYear() + yearDirection);
-  // if (now.getMonth() == 11) {
-  //   current = new Date(now.getFullYear() + monthDirection, 0, 1);
-  // } else {
-  //   current = new Date(now.getFullYear(), now.getMonth() + monthDirection, 1);
-  // }
-  createCalendar(month);
-}
 
 // var thisMonth = d.getMonth();// 0 - 11
 var today = d.getDate();// 1 -31
@@ -108,10 +78,6 @@ function createDay(month, counter, order, monthDiv) {
   day.setAttribute("style", "order:" + order);
   day.innerHTML = counter;
   monthDiv.appendChild(day);
-  /*
-  <div class="monthDiv">
-  <div class="day">5</div>
-  */
 }
 
 function createMonthHeader(month) {
@@ -136,21 +102,7 @@ function createMonthHeader(month) {
 
   return monthDiv;
 
-  /*
-  <div class="month">
 
-  <div class="monthHeader">
-  <div class="day OfWeek">Sun</div>
-  <div class="day OfWeek">Mon</div>
-  <div class="day OfWeek">Tue</div>
-  <div class="day OfWeek">Wed</div>
-  <div class="day OfWeek">Thu</div>
-  <div class="day OfWeek">Fri</div>
-  <div class="day OfWeek">Sat</div>
-  </div>
-
-  <div class="daysOfTheMonth">
-  */
 }
 
 function daysInMonth(year, month) {
@@ -160,16 +112,9 @@ function daysInMonth(year, month) {
 /*function leapYear(year){
   return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
 }
-
-function getNextMonth(month){
- if (month == 11) {
-    var nextMonth = 0;
-} else {
-    var nextMonth = month+1;
-}
-return nextMonth;
-}
 */
+
+
 function getMonthName(month) {
   return monthNamesRy[month];
 }

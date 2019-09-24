@@ -8,7 +8,7 @@ import com.google.api.services.oauth2.Oauth2;
 import javax.ejb.Stateless;
 
 @Stateless
-public class BuilderOauth {
+public class OauthBuilder {
 
 
   public Oauth2 buildOauth(Credential credential) {
