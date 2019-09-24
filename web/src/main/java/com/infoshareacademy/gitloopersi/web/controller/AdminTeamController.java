@@ -2,7 +2,6 @@ package com.infoshareacademy.gitloopersi.web.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.infoshareacademy.gitloopersi.domain.entity.Team;
-import com.infoshareacademy.gitloopersi.exception.TeamNotEmptyException;
 import com.infoshareacademy.gitloopersi.service.alertmessage.UserMessagesService;
 import com.infoshareacademy.gitloopersi.service.teammanager.TeamApiService;
 import com.infoshareacademy.gitloopersi.service.teammanager.TeamService;
@@ -60,7 +59,7 @@ public class AdminTeamController {
   @POST
   @Consumes("application/x-www-form-urlencoded")
   @Produces(MediaType.APPLICATION_JSON)
-  public Response addEmployee(final MultivaluedMap<String, String> formParams,
+  public Response addTeam(final MultivaluedMap<String, String> formParams,
       @Context HttpServletRequest req) {
     logger.info("Api team persistence: {}", formParams);
 
@@ -109,7 +108,7 @@ public class AdminTeamController {
   @PUT
   @Consumes("application/x-www-form-urlencoded")
   @Produces(MediaType.APPLICATION_JSON)
-  public Response editEmployee(final MultivaluedMap<String, String> formParams,
+  public Response editTeam(final MultivaluedMap<String, String> formParams,
       @Context HttpServletRequest req) {
     logger.info("Api team editing: {}", formParams);
 
@@ -170,14 +169,27 @@ public class AdminTeamController {
   }
 
   @DELETE
-  public Response deleteEmployee(@QueryParam("id") Long id) {
-    try {
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response deleteTeam(@QueryParam("id") Long id, @Context HttpServletRequest req) {
+    String name = teamService.getTeamById(id).getName();
+    if (teamService.isTeamEmpty(id)) {
       teamService.deleteTeam(id);
-      logger.info("A team with id={} has been deleted!", id);
-    } catch (TeamNotEmptyException e) {
-      logger.info("A team with id={} contains employees and cannot be deleted!", id);
-    }
-    return Response.ok().build();
-  }
+      String message = String.format("Team \"%s\" has been successfully deleted", name);
+      userMessagesService
+          .addSuccessMessage(req.getSession(), message);
+//      userMessagesService.getSuccessMessageList(req.getSession());
+//      userMessagesService.removeSuccessMessages(req);
+      logger.info("Deleted team \"{}\"", id);
+      return Response.ok().build();
+    } else {
+      String message = String.format("Team \"%s\" contains employees and cannot be deleted!", name);
+      userMessagesService.addErrorMessage(req.getSession(), message);
+      logger.info("Couldn't delete \"{}\"", id);
 
+      List<String> errors = userMessagesService.getErrorMessageList(req.getSession());
+      userMessagesService.removeErrorMessages(req);
+
+      return Response.status(HttpServletResponse.SC_CONFLICT).entity(errors).build();
+    }
+  }
 }

@@ -82,6 +82,10 @@ $(function () {
   $(document).ready(function () {
     $(".delete-team").click(function () {
 
+      let errorsTag = $("#errorsMain");
+      errorsTag.empty();
+      errorsTag.hide();
+
       var teamId = $(this).attr('data-id');
 
       $.ajax({
@@ -89,7 +93,22 @@ $(function () {
         type: 'DELETE',
         success: function (result) {
           $('#team' + teamId).remove();
-        }
+        },
+        error: function (error) {
+          var errors = JSON.parse(error.responseText);
+          var errorsHtml = "";
+          for (var i = 0; i < errors.length; i++) {
+            errorsHtml += "<strong>" + errors[i] + "</strong><br/>"
+          }
+
+          errorsTag.html(errorsHtml);
+          errorsTag.show();
+        },
+        window:setTimeout(function () {
+          errorsTag.fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+          });
+        }, 1500)
       });
     });
   });

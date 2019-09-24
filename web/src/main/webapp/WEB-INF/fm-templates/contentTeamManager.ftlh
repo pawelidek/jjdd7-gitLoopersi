@@ -32,6 +32,10 @@
         </#if>
     </div>
 
+    <div id="errorsMain" class="alert alert-danger fade show" role="alert"
+         style="text-align: center; display: none;">
+    </div>
+
     <table class="table table-sm table-hover" style="text-align: center">
 
       <thead>
