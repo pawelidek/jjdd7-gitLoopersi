@@ -33,7 +33,7 @@ public class StatusVacation {
 
   @Column(name = "quantity")
   @NotNull
-  private Integer quantity=0;
+  private Integer quantity = 0;
 
   public StatusVacation() {
   }
