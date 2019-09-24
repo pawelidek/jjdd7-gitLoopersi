@@ -18,14 +18,14 @@ section {
   max-width: 500px;
 }
 
-.day:nth-of-type(7n+1) {
-  color: red;
+.day:nth-of-type(7n+6) {
+  color: blue;
   width: 1.5em;
   height: 1.5em;
 }
 
 .day:nth-of-type(7n) {
-  color: blue;
+  color: red;
   width: 1.5em;
   height: 1.5em;
 }

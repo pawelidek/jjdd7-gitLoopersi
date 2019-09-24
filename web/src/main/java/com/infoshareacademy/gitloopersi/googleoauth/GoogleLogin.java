@@ -4,32 +4,45 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class GoogleLogin {
 
-  private static final List<String> scopes = List.of("openid", "email", "profile");
 
-  private static final String clientId = "147273613156-lfrmpudlegslf28hs16mnsvdbjtqdbev.apps.googleusercontent.com";
+  private static Logger logger = LoggerFactory.getLogger(GoogleLogin.class.getName());
+  private static final List<String> SCOPES = List.of("openid", "email", "profile");
+  private static final String OAUTH_FILE_NAME = "oauth.properties";
 
-  private static final String secret = "MTWE2s8QEYrJScF2c1xTl-Zf";
-
-  private static final String redirectUrl = "/oauth2callback";
-
-  public static String buildRedirectUri(HttpServletRequest req) {
+  static String buildRedirectUri(HttpServletRequest req) {
     GenericUrl url = new GenericUrl(req.getRequestURL().toString());
-    url.setRawPath(redirectUrl);
+    url.setRawPath(getProperty("redirect.url"));
     return url.build();
   }
 
-  public static GoogleAuthorizationCodeFlow buildFlow() {
+  static GoogleAuthorizationCodeFlow buildFlow() {
     return new GoogleAuthorizationCodeFlow.Builder(
         new NetHttpTransport(),
-        JacksonFactory.getDefaultInstance(),
-        clientId, secret, scopes)
+        JacksonFactory.getDefaultInstance(),getProperty("client.id"),
+        getProperty("secret"), SCOPES)
         .setAccessType("online")
         .build();
   }
 
+  private static String getProperty(String property) {
+    Properties properties = new Properties();
+    try {
+      properties.load(Objects.requireNonNull(Thread.currentThread()
+          .getContextClassLoader().getResource(OAUTH_FILE_NAME))
+          .openStream());
+    } catch (IOException e) {
+      logger.warn(e.getMessage());
+    }
+    return properties.getProperty(property);
+  }
 }

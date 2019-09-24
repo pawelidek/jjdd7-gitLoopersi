@@ -18,8 +18,8 @@ public class LogoutServlet extends HttpServlet {
     resp.setCharacterEncoding("UTF-8");
 
     HttpSession session = req.getSession();
-    String userEmail = (String) session.getAttribute("email");
-    logger.info("User " + userEmail + " log out successfully");
+    String userEmail = String.valueOf(session.getAttribute("email"));
+    logger.info("User {} log out successfully", userEmail);
     session.invalidate();
     try {
       resp.sendRedirect("/home");

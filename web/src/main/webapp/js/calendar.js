@@ -1,6 +1,6 @@
 var monthNamesRy = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
-var daysOfTheWeekRy = ["S", "M", "T", "W", "T", "F", "S"]
+var daysOfTheWeekRy = [ "M", "T", "W", "T", "F", "S", "S"]
 
 var d = new Date();
 var year = d.getFullYear();// 2019
@@ -56,10 +56,10 @@ function createCalendar(month) {
   var monthDiv = createMonthHeader(month);
 
   var firstDayOfTheMonth = getFirstDayOfTheMonth(year, month);
-  var daysinmonth = daysInMonth(year, month)
-  var counter = 0, order = 6;
+  var daysinmonth = daysInMonth(year, month);
+  var counter = 0, order = 7;
 
-  for (var i = 0; i < firstDayOfTheMonth + 7; i++) {
+  for (var i = 1; i < firstDayOfTheMonth + 7; i++) {
     order++;
     createDay(month, "&nbsp;", order, monthDiv);
   }

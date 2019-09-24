@@ -9,11 +9,9 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.oauth2.Oauth2;
 import com.google.api.services.oauth2.model.Userinfoplus;
-import com.infoshareacademy.gitloopersi.domain.entity.Employee;
-import com.infoshareacademy.gitloopersi.domain.entity.Team;
-import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
 import java.io.IOException;
 import java.util.UUID;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,20 +21,22 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/oauth2callback")
 public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServlet {
 
-  @Inject
-  EmployeeService employeeService;
-
+@EJB
+BuilderOauth builderOauth;
 
   @Override
   protected void onSuccess(HttpServletRequest req, HttpServletResponse resp, Credential credential)
       throws ServletException, IOException {
     GoogleCredential gCredential = new GoogleCredential().setAccessToken(credential.getAccessToken());
-    Oauth2 oauth2 = new Oauth2.Builder(
-        new NetHttpTransport(),
-        JacksonFactory.getDefaultInstance(),
-        gCredential)
-        .setApplicationName("Vacation Calendar")
-        .build();
+//    Oauth2 oauth2 = new Oauth2.Builder(
+//        new NetHttpTransport(),
+//        JacksonFactory.getDefaultInstance(),
+//        gCredential)
+//        .setApplicationName("Vacation Calendar")
+//        .build();
+
+    Oauth2 oauth2 = builderOauth.buildOauth(gCredential);
+
     Userinfoplus info = oauth2.userinfo().get().execute();
     String name = info.getName();
     String email = info.getEmail();
