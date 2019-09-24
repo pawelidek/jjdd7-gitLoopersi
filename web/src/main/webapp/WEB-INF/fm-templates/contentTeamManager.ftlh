@@ -19,7 +19,7 @@
 
     <div>
         <#if success??>
-          <div class="alert alert-success alert-dismissible fade show" role="alert"
+          <div class="alert alert-success fade show" role="alert"
                style="text-align: center">
             <strong>
                 <#list success>
@@ -28,9 +28,6 @@
                     </#items>
                 </#list>
             </strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
           </div>
         </#if>
     </div>
@@ -81,17 +78,9 @@
             </button>
           </div>
 
-            <#if error??>
-              <div class="alert alert-danger" role="alert" style="text-align: center">
-                <strong>
-                    <#list error>
-                        <#items as errorMessages>
-                            ${errorMessages}<br/>
-                        </#items>
-                    </#list>
-                </strong>
-              </div>
-            </#if>
+          <div id="errors" class="alert alert-danger" role="alert"
+               style="text-align: center; display: none;">
+          </div>
 
           <div class="modal-body">
             <form id="settingForm" name="contact" role="form">
@@ -105,15 +94,16 @@
                 </label>
               </div>
             </form>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close
-              </button>
-              <button type="button" class="btn btn-outline-secondary" id="saveTeam">Save changes
-              </button>
-            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close
+            </button>
+            <button type="button" class="btn btn-outline-secondary" id="saveTeam">Save changes
+            </button>
           </div>
         </div>
       </div>
     </div>
+
   </article>
 </div>

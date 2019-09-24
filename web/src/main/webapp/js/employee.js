@@ -4,11 +4,15 @@ $('#myModal').on('shown.bs.modal', function () {
 
 $(function () {
   $(document).ready(function () {
-    $(".edit-employee").click(function (event) {
 
+    let errorsTag = $("#errors");
+    errorsTag.empty();
+    errorsTag.hide();
+
+    $(".edit-employee").click(function (event) {
       var buttonId = $(this).attr('data-id');
       $.ajax({
-        url: '/api/employee/id/' + buttonId,
+        url: '/api/admin/employee/id/' + buttonId,
         method: "GET",
         success: function () {
         },
@@ -34,6 +38,11 @@ $(function () {
 
 $(function () {
   $(document).ready(function () {
+
+    let errorsTag = $("#errors");
+    errorsTag.empty();
+    errorsTag.hide();
+
     $("#add_user_button").click(function (event) {
       $('#id').val("");
       $('#label').html("Add employee");
@@ -52,15 +61,26 @@ $(function () {
 $(function () {
   $(document).ready(function () {
     $("#saveEmployee").click(function (event) {
+
+      let errorsTag = $("#errors");
+      errorsTag.empty();
+      errorsTag.hide();
+
       $.ajax({
-        url: "/admin/employee",
+        url: "/api/admin/employee",
         method: $('#formMethod').val(),
         data: $('form#settingForm').serialize(),
         success: function () {
           location.reload();
         },
         error: function (error) {
-          alert('Error! Can\'t save changes. Check form data');
+          var errors = JSON.parse(error.responseText);
+          var errorsHtml = "";
+          for (var i = 0; i < errors.length; i++) {
+            errorsHtml += "<strong>" + errors[i] + "</strong><br/>"
+          }
+          errorsTag.html(errorsHtml);
+          errorsTag.show();
         }
       });
     });
@@ -75,7 +95,7 @@ $(function () {
       var employeeId = $(this).attr('data-id');
 
       $.ajax({
-        url: '/admin/employee?id=' + employeeId,
+        url: '/api/admin/employee?id=' + employeeId,
         type: 'DELETE',
         success: function (result) {
           $('#employee' + employeeId).remove();
@@ -84,3 +104,9 @@ $(function () {
     });
   });
 });
+
+window.setTimeout(function () {
+  $(".alert-success").fadeTo(500, 0).slideUp(500, function () {
+    $(this).remove();
+  });
+}, 1500);

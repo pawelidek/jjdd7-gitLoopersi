@@ -70,6 +70,10 @@ public class Holiday {
     return name;
   }
 
+  public void setName(String name) {
+    this.name = name;
+  }
+
   public Boolean getCustom() {
     return isCustom;
   }
@@ -84,10 +88,6 @@ public class Holiday {
 
   public void setHolidayType(HolidayType holidayType) {
     this.holidayType = holidayType;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 
   public LocalDate getDate() {

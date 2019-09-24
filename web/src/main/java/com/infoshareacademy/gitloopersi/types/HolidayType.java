@@ -14,10 +14,6 @@ public enum HolidayType {
     this.type = type;
   }
 
-  public String getType() {
-    return this.type;
-  }
-
   @JsonCreator
   public static HolidayType deserialize(@JsonProperty("type") String type) {
     for (int i = 0; i < HolidayType.values().length; i++) {
@@ -26,6 +22,10 @@ public enum HolidayType {
       }
     }
     return null;
+  }
+
+  public String getType() {
+    return this.type;
   }
 
   @Override

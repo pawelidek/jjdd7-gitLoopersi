@@ -16,9 +16,8 @@ import org.slf4j.LoggerFactory;
 )
 public class CodingUTF8Filter implements Filter {
 
-  private Logger logger = LoggerFactory.getLogger(getClass().getName());
-
   private final String codingType = "UTF-8";
+  private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @Override
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,

@@ -85,7 +85,7 @@ public class HolidayService {
 
   public Holiday findHolidayByName(String name) {
     logger.info(
-        "Query findHolidayByName go to DAO to search holiday by name=", name);
+        "Query findHolidayByName go to DAO to search holiday by name={}", name);
     return holidayDaoBean.getHolidayByName(name);
   }
 }

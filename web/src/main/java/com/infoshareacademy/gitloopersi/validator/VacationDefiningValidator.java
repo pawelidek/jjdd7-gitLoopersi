@@ -2,7 +2,6 @@ package com.infoshareacademy.gitloopersi.validator;
 
 import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
 import com.infoshareacademy.gitloopersi.handler.VacationDefiningHandler;
-import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
 import com.infoshareacademy.gitloopersi.service.vacationmanager.VacationDefiningService;
 import com.infoshareacademy.gitloopersi.types.VacationType;
 import java.io.IOException;
@@ -11,7 +10,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.ejb.EJB;
@@ -23,25 +21,20 @@ import org.slf4j.LoggerFactory;
 @RequestScoped
 public class VacationDefiningValidator {
 
+  private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
   @Inject
   private VacationDefiningHandler vacationDefiningHandler;
-
   @EJB
   private VacationDefiningService vacationDefiningService;
 
-  @EJB
-  private EmployeeService employeeService;
-
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
   private LocalDate dateToday = LocalDate.now();
-  private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
   public boolean isValidDateFrom(String dateFrom) {
 
     try {
       logger.info("Validate correct format dateFrom {}", dateFrom);
-      simpleDateFormat.parse(dateFrom).toInstant()
-          .atZone(ZoneId.systemDefault());
+      simpleDateFormat.parse(dateFrom);
 
     } catch (ParseException e) {
       logger.warn(e.getMessage());
@@ -54,8 +47,7 @@ public class VacationDefiningValidator {
 
     try {
       logger.info("Validate correct format dateTo {}", dateTo);
-      simpleDateFormat.parse(dateTo).toInstant()
-          .atZone(ZoneId.systemDefault());
+      simpleDateFormat.parse(dateTo);
 
     } catch (ParseException e) {
       logger.warn(e.getMessage());

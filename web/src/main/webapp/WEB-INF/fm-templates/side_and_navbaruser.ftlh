@@ -53,6 +53,11 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="/search/holiday">
+              Holiday Search
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#">
               Change date format
             </a>
