@@ -92,22 +92,6 @@ public class MyVacationServlet extends HttpServlet {
     }
   }
 
-/*  @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
-
-    Long employeeId = (Long) req.getSession().getAttribute(EMPLOYEE_ID);
-    Vacation vacation = new Vacation();
-
-    Employee employee = employeeService.getEmployeeById(employeeId);
-
-    setVacationFields(req, vacation);
-    vacationDefiningService.addVacation(vacation, employeeId);
-
-    emailVacationService.buildEmailMessage(vacation, employee);
-
-    logger.info("Vacation {} was added", vacation.toString());
-  }*/
-
   @Override
   protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
 
@@ -115,26 +99,4 @@ public class MyVacationServlet extends HttpServlet {
     Long id = Long.parseLong(idParam);
     vacationDefiningService.deleteVacation(id);
   }
-
-/*  private void setVacationFields(HttpServletRequest req, Vacation vacation) {
-
-    int numberOfSelectedVacationDays = getNumberOfSelectedVacationDays(req);
-
-    LocalDate dateFrom = LocalDate.parse(req.getParameter("dateFrom"));
-    LocalDate dateTo = LocalDate.parse(req.getParameter("dateTo"));
-    String vacationType = req.getParameter("vacationType");
-    String deputy = req.getParameter("deputy");
-
-    vacation.setDateFrom(dateFrom);
-    vacation.setDateTo(dateTo);
-    vacation.setDaysCount(numberOfSelectedVacationDays);
-    vacation.setVacationType(VacationType.valueOf(vacationType));
-    vacation.setDeputy(deputy);
-  }
-
-  private int getNumberOfSelectedVacationDays(HttpServletRequest req) {
-    return vacationDefiningService
-        .getNumberOfSelectedVacationDays(req.getParameter("dateFrom"),
-            req.getParameter("dateTo"));
-  }*/
 }
