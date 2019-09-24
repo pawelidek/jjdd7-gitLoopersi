@@ -224,7 +224,7 @@ public class AdminEmployeeController {
       employee.setStartHireDate(null);
     }
 
-    if (admin.equals("true")) {
+    if (("true").equals(admin)) {
       employee.setAdmin(true);
     } else {
       employee.setAdmin(false);

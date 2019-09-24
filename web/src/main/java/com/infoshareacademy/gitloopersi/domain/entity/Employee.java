@@ -1,5 +1,6 @@
 package com.infoshareacademy.gitloopersi.domain.entity;
 
+import com.infoshareacademy.gitloopersi.domain.entity.statistic.EmployeeVacation;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -78,6 +80,10 @@ public class Employee {
       orphanRemoval = true
   )
   private List<Vacation> employeeVacations = new ArrayList<>();
+
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "employee_vacation_id", unique = true)
+  EmployeeVacation employeeVacation;
 
   public Long getId() {
     return id;

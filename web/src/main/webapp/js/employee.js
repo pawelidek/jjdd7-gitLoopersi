@@ -30,7 +30,19 @@ $(function () {
             "selected");
         $('#startDate').val(data.startDate.iso);
         $('#startHireDate').val(data.startHireDate.iso);
-        $('#admin').val();
+        $('#admin input[value=' + data.admin + ']');
+        $('#admin').val(data.admin).on('change', function () {
+          if ($(this).is(':checked')) {
+            $(this).attr('value', 'true');
+          }
+        });
+        $(function () {
+          if ($('#admin').val() === "true") {
+            $("input:checkbox").prop('checked', true);
+          } else {
+            $("input:checkbox").prop('checked', false);
+          }
+        });
         $('#exampleModal').modal('toggle');
       });
     });
@@ -54,7 +66,11 @@ $(function () {
       $('#team').val("");
       $('#startDate').val("");
       $('#startHireDate').val("");
-      $('#admin').val("");
+      $('#admin').on('change', function () {
+        if ($(this).is(':checked')) {
+          $(this).attr('value', 'true');
+        }
+      });
       $('#exampleModal').modal('toggle');
     });
   });

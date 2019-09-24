@@ -37,23 +37,23 @@
       <thead>
       <tr>
 
-        <th scope="col" style="width: 5%">#</th>
-        <th scope="col" style="width: 5%">Id</th>
-        <th scope="col" style="width: 15%">First name</th>
-        <th scope="col" style="width: 15%">Last name</th>
-        <th scope="col" style="width: 10%">Email</th>
-        <th scope="col" style="width: 10%">Team</th>
+        <th scope="col" style="width: 3%">#</th>
+        <th scope="col" style="width: 3%">Id</th>
+        <th scope="col" style="width: 9%">First name</th>
+        <th scope="col" style="width: 14%">Last name</th>
+        <th scope="col" style="width: 14%">Email</th>
+        <th scope="col" style="width: 23%">Team</th>
         <th scope="col" style="width: 10%">Employed from</th>
         <th scope="col" style="width: 10%">First employment</th>
-        <th scope="col" style="width: 10%">Admin</th>
-        <th scope="col" style="width: 10%">Manage</th>
+        <th scope="col" style="width: 6%">Admin</th>
+        <th scope="col" style="width: 8%">Manage</th>
 
       </tr>
       </thead>
       <tbody>
       <#list employees>
           <#items as employee>
-            <tr id="employee${employee.id}">
+            <tr id="employee${employee.id}" style="vertical-align: middle">
               <td>${employee_index + 1}.</td>
               <td>${employee.id}</td>
               <td>${employee.firstName}</td>
@@ -62,7 +62,10 @@
               <td>${employee.team.name}</td>
               <td>${employee.startDate}</td>
               <td>${employee.startHireDate}</td>
-              <td>${employee.admin}</td>
+              <td><#if employee.admin == true>
+                  <img src="/img/button_admin.svg" alt="Admin" title="Admin">
+                  </#if>
+              </td>
               <td>
                 <div>
                   <a class="edit-employee" data-id="${employee.id}" href="#" data-toggle="modal"
@@ -152,11 +155,10 @@
                 </label>
               </div>
               <div class="form-group">
-                <label for="admin">Set as admin:
-                  <input style="" autocomplete="off" type="checkbox" id="admin"
-                         class="form-control"
-                         name="admin"
-                         value="${(employee.admin)!""}">
+                <label for="admin">
+                  <input style="vertical-align: middle" autocomplete="off" type="checkbox"
+                         id="admin" name="admin" value="false">
+                  Set as admin
                 </label>
               </div>
 

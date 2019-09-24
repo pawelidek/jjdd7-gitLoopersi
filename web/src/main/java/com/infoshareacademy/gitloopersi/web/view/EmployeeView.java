@@ -11,6 +11,7 @@ public class EmployeeView {
   private TeamView team;
   private LocalDate startDate;
   private LocalDate startHireDate;
+  private boolean admin;
 
   public Long getId() {
     return id;
@@ -66,5 +67,13 @@ public class EmployeeView {
 
   public void setStartHireDate(LocalDate startHireDate) {
     this.startHireDate = startHireDate;
+  }
+
+  public boolean isAdmin() {
+    return admin;
+  }
+
+  public void setAdmin(boolean admin) {
+    this.admin = admin;
   }
 }

@@ -23,6 +23,7 @@ public class EmployeeViewMapper {
     employeeView.setEmail(employee.getEmail());
     employeeView.setStartDate(employee.getStartDate());
     employeeView.setStartHireDate(employee.getStartHireDate());
+    employeeView.setAdmin(employee.isAdmin());
     employeeView.setTeam(teamViewMapper.mapEntityToView(employee.getTeam()));
 
     return employeeView;
