@@ -28,7 +28,6 @@ public class EmployeeVacation {
   @Column(name = "id")
   private Long id;
 
-  @Column(name = "emplyee_id")
   @OneToOne(mappedBy = "employeeVacation")
   private Employee employee;
 

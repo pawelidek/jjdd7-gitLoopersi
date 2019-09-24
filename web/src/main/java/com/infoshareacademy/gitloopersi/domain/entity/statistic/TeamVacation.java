@@ -28,7 +28,6 @@ public class TeamVacation {
   @Column(name = "id")
   private Long id;
 
-  @Column(name = "team_id")
   @OneToOne(mappedBy = "teamVacation")
   private Team team;
 
