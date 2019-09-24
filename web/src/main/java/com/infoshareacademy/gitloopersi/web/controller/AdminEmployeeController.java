@@ -76,8 +76,9 @@ public class AdminEmployeeController {
     String email = formParams.getFirst("email").trim();
     String startDate = formParams.getFirst("startDate");
     String startHireDate = formParams.getFirst("startHireDate");
+    String admin = formParams.getFirst("admin");
 
-    setFields(employee, teamId, name, secondName, email, startDate, startHireDate);
+    setFields(employee, teamId, name, secondName, email, startDate, startHireDate, admin);
 
     if (!employeeValidator.isMailUnique(email)) {
 
@@ -142,8 +143,9 @@ public class AdminEmployeeController {
     String email = formParams.getFirst("email").trim();
     String startDate = formParams.getFirst("startDate");
     String startHireDate = formParams.getFirst("startHireDate");
+    String admin = formParams.getFirst("admin");
 
-    setFields(employee, teamId, name, secondName, email, startDate, startHireDate);
+    setFields(employee, teamId, name, secondName, email, startDate, startHireDate, admin);
 
     if (!employeeValidator.isMailUniqueOrCurrentUser(email, id)) {
 
@@ -199,7 +201,7 @@ public class AdminEmployeeController {
   }
 
   private void setFields(Employee employee, String teamId, String name, String secondName,
-      String email, String startDate, String startHireDate) {
+      String email, String startDate, String startHireDate, String admin) {
     employee.setFirstName(name);
     employee.setSecondName(secondName);
     employee.setEmail(email);
@@ -220,6 +222,12 @@ public class AdminEmployeeController {
       employee.setStartHireDate(LocalDate.parse(startHireDate));
     } else {
       employee.setStartHireDate(null);
+    }
+
+    if (admin.equals("true")) {
+      employee.setAdmin(true);
+    } else {
+      employee.setAdmin(false);
     }
   }
 

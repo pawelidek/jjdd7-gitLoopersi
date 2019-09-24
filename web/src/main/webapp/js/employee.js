@@ -30,6 +30,7 @@ $(function () {
             "selected");
         $('#startDate').val(data.startDate.iso);
         $('#startHireDate').val(data.startHireDate.iso);
+        $('#admin').val();
         $('#exampleModal').modal('toggle');
       });
     });
@@ -53,6 +54,7 @@ $(function () {
       $('#team').val("");
       $('#startDate').val("");
       $('#startHireDate').val("");
+      $('#admin').val("");
       $('#exampleModal').modal('toggle');
     });
   });

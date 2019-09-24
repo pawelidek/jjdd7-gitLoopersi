@@ -19,6 +19,8 @@ public class EmployeeResponse {
   private Date startDate;
   @JsonProperty("startHireDate")
   private Date startHireDate;
+  @JsonProperty("admin")
+  private boolean admin;
 
   public String getFirstName() {
     return firstName;
@@ -66,5 +68,13 @@ public class EmployeeResponse {
 
   public void setStartHireDate(Date startHireDate) {
     this.startHireDate = startHireDate;
+  }
+
+  public boolean isAdmin() {
+    return admin;
+  }
+
+  public void setAdmin(boolean admin) {
+    this.admin = admin;
   }
 }

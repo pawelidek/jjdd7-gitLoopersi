@@ -43,8 +43,9 @@
         <th scope="col" style="width: 15%">Last name</th>
         <th scope="col" style="width: 10%">Email</th>
         <th scope="col" style="width: 10%">Team</th>
-        <th scope="col" style="width: 15%">Employed from</th>
-        <th scope="col" style="width: 15%">First employment</th>
+        <th scope="col" style="width: 10%">Employed from</th>
+        <th scope="col" style="width: 10%">First employment</th>
+        <th scope="col" style="width: 10%">Admin</th>
         <th scope="col" style="width: 10%">Manage</th>
 
       </tr>
@@ -61,6 +62,7 @@
               <td>${employee.team.name}</td>
               <td>${employee.startDate}</td>
               <td>${employee.startHireDate}</td>
+              <td>${employee.admin}</td>
               <td>
                 <div>
                   <a class="edit-employee" data-id="${employee.id}" href="#" data-toggle="modal"
@@ -147,6 +149,14 @@
                          class="form-control"
                          name="startHireDate"
                          value="${(employee.startHireDate)!""}">
+                </label>
+              </div>
+              <div class="form-group">
+                <label for="admin">Set as admin:
+                  <input style="" autocomplete="off" type="checkbox" id="admin"
+                         class="form-control"
+                         name="admin"
+                         value="${(employee.admin)!""}">
                 </label>
               </div>
 
