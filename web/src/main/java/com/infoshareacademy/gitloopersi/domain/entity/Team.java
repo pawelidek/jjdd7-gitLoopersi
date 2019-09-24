@@ -1,15 +1,19 @@
 package com.infoshareacademy.gitloopersi.domain.entity;
 
+import com.infoshareacademy.gitloopersi.domain.entity.statistic.TeamVacation;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -43,6 +47,10 @@ public class Team {
   @OneToMany(mappedBy = "team")
   private List<Employee> teamEmployees = new ArrayList<>();
 
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "team_vacation_id", unique = true)
+  TeamVacation teamVacation;
+
   public Long getId() {
     return id;
   }
@@ -66,5 +74,14 @@ public class Team {
   public void setTeamEmployees(
       List<Employee> teamEmployees) {
     this.teamEmployees = teamEmployees;
+  }
+
+  public TeamVacation getTeamVacation() {
+    return teamVacation;
+  }
+
+  public void setTeamVacation(
+      TeamVacation teamVacation) {
+    this.teamVacation = teamVacation;
   }
 }

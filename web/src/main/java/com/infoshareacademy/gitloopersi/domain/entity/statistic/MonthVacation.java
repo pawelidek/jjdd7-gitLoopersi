@@ -5,9 +5,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+@NamedQueries({
+    @NamedQuery(
+        name = "MonthVacation.findAll",
+        query = "SELECT mv FROM MonthVacation mv"
+    )
+}
+)
 @Entity
 @Table(name = "month_vacation")
 public class MonthVacation {
@@ -23,7 +32,7 @@ public class MonthVacation {
 
   @Column(name = "quantity")
   @NotNull
-  private Integer quantity;
+  private Integer quantity=0;
 
   public MonthVacation() {
   }
@@ -52,5 +61,14 @@ public class MonthVacation {
 
   public void setQuantity(Integer quantity) {
     this.quantity = quantity;
+  }
+
+  @Override
+  public String toString() {
+    return "MonthVacation{" +
+        "id=" + id +
+        ", month='" + month + '\'' +
+        ", quantity=" + quantity +
+        '}';
   }
 }

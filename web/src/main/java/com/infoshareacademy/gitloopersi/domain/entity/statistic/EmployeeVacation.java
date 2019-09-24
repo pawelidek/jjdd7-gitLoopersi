@@ -1,13 +1,24 @@
 package com.infoshareacademy.gitloopersi.domain.entity.statistic;
 
+import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+@NamedQueries({
+    @NamedQuery(
+        name = "EmployeeVacation.findAll",
+        query = "SELECT ev FROM EmployeeVacation ev ORDER BY ev.quantity"
+    )
+}
+)
 @Entity
 @Table(name = "employee_vacation")
 public class EmployeeVacation {
@@ -17,20 +28,20 @@ public class EmployeeVacation {
   @Column(name = "id")
   private Long id;
 
-  @Column(name = "user_id", unique = true)
-  @NotNull
-  private Long userId;
+  @Column(name = "emplyee_id")
+  @OneToOne(mappedBy = "employeeVacation")
+  private Employee employee;
 
   @Column(name = "quantity")
   @NotNull
-  private Integer quantity;
+  private Integer quantity=0;
 
   public EmployeeVacation() {
   }
 
-  public EmployeeVacation(@NotNull Long userId,
-      @NotNull Integer quantity) {
-    this.userId = userId;
+  public EmployeeVacation(
+      @NotNull Employee employee, @NotNull Integer quantity) {
+    this.employee = employee;
     this.quantity = quantity;
   }
 
@@ -38,13 +49,12 @@ public class EmployeeVacation {
     return id;
   }
 
-
-  public Long getUserId() {
-    return userId;
+  public Employee getEmployee() {
+    return employee;
   }
 
-  public void setUserId(Long userId) {
-    this.userId = userId;
+  public void setEmployee(Employee employee) {
+    this.employee = employee;
   }
 
   public Integer getQuantity() {
@@ -59,7 +69,7 @@ public class EmployeeVacation {
   public String toString() {
     return "EmployeeVacation{" +
         "id=" + id +
-        ", userId=" + userId +
+        ", employee=" + employee +
         ", quantity=" + quantity +
         '}';
   }
