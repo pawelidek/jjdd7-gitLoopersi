@@ -128,6 +128,9 @@ public class UserVacationController {
           .entity(errors).build();
     } else {
 
+      String message = "Vacation request send correctly";
+      userMessagesService.addSuccessMessage(req.getSession(), message);
+
       setVacationFields(vacation, dateFrom, dateTo, vacationType, deputy);
 
       Employee employee = employeeService.getEmployeeById(employeeId);

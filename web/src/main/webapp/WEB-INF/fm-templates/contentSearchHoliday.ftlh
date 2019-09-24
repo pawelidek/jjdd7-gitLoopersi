@@ -67,5 +67,6 @@
             <strong>Type a holiday name or dates interval to see the results</strong>
           </div>
         </#if>
+    </table>
   </article>
 </div>

@@ -18,18 +18,15 @@
     </div>
     <div>
         <#if success??>
-          <div class="alert alert-success alert-dismissible fade show" role="alert"
+          <div class="alert alert-success fade show" role="alert"
                style="text-align: center">
             <strong>
                 <#list success>
                     <#items as successMessages>
-                        ${successMessages}<br>
+                        ${successMessages}<br/>
                     </#items>
                 </#list>
             </strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">x</span>
-            </button>
           </div>
         </#if>
     </div>
