@@ -199,9 +199,18 @@ public class AdminEmployeeController {
   }
 
   @DELETE
-  public Response deleteEmployee(@QueryParam("id") Long id) {
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response deleteEmployee(@QueryParam("id") Long id, @Context HttpServletRequest req) {
+    String firstName = employeeService.getEmployeeById(id).getFirstName();
+    String secondName = employeeService.getEmployeeById(id).getSecondName();
     employeeService.deleteEmployeeById(id);
-    return Response.ok().build();
+    String message = String.format("Employee \"%s %s\" has been successfully deleted", firstName, secondName);
+    userMessagesService
+        .addSuccessMessage(req.getSession(), message);
+    List<String> successMessageList = userMessagesService.getSuccessMessageList(req.getSession());
+    userMessagesService.removeSuccessMessages(req);
+    logger.info("Deleted employee \"{}\"", id);
+    return Response.ok().entity(successMessageList).build();
   }
 
   private void setFields(Employee employee, String teamId, String name, String secondName,

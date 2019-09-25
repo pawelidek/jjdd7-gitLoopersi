@@ -110,13 +110,32 @@ $(function () {
   $(document).ready(function () {
     $(".delete-employee").click(function () {
 
+      let successTag = $("#successMain");
+      successTag.empty();
+      successTag.hide();
+
       var employeeId = $(this).attr('data-id');
 
       $.ajax({
         url: '/api/admin/employee?id=' + employeeId,
         type: 'DELETE',
-        success: function (result) {
+        success: function (success) {
+
           $('#employee' + employeeId).remove();
+          var successesHtml = "";
+          for (let i = 0; i < success.length; i++) {
+            successesHtml += "<strong>" + success[i] + "</strong><br/>"
+          }
+
+          successTag.html(successesHtml);
+          successTag.show();
+
+          setTimeout(function () {
+            successTag.fadeTo(500, 0).slideUp(500, function () {
+              successTag.hide();
+              successTag.css('opacity', 1);
+            });
+          }, 1500)
         }
       });
     });
@@ -124,7 +143,7 @@ $(function () {
 });
 
 window.setTimeout(function () {
-  $(".alert-success").fadeTo(500, 0).slideUp(500, function () {
+  $("#successMessage").fadeTo(500, 0).slideUp(500, function () {
     $(this).remove();
   });
 }, 1500);
