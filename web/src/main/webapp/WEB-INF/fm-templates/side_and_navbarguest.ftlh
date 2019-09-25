@@ -5,9 +5,10 @@
 
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
+<#--      <a class="nav-link " href="#"  onclick="window.location.href = '/googlelogin';" >Log in</a>-->
       <a id="sign out" class="nav-link" href="#"><img
             src="/img/btn_google_signin_light_focus_web.png"
-            alt="Google"></a>
+            alt="Google" onclick="window.location.href = '/googlelogin';"></a>
     </li>
   </ul>
 </nav>
