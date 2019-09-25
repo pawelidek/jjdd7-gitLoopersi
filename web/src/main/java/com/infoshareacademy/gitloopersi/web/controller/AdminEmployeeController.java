@@ -69,40 +69,9 @@ public class AdminEmployeeController {
       @Context HttpServletRequest req) {
     logger.info("Api employee persistence: {}", formParams);
 
-    Employee employee = new Employee();
+    Employee employeeToCreate = createEmployee(formParams, req);
 
-    String teamId = formParams.getFirst("team");
-    String name = formParams.getFirst("firstName").trim();
-    String secondName = formParams.getFirst("secondName").trim();
-    String email = formParams.getFirst("email").trim();
-    String startDate = formParams.getFirst("startDate");
-    String startHireDate = formParams.getFirst("startHireDate");
-    boolean admin = Optional.ofNullable(formParams.getFirst("admin")).map(Boolean::parseBoolean)
-        .orElse(false);
-
-    setFields(employee, teamId, name, secondName, email, startDate, startHireDate, admin);
-
-    if (!employeeValidator.isMailUnique(email)) {
-
-      String message = String.format("Email address \"%s\" is already in use!", email);
-
-      userMessagesService.addErrorMessage(req.getSession(), message);
-
-      logger.info("Tried to use an existing email \"{}\"", email);
-    }
-
-    if (employeeValidator.areDatesParseable(startDate, startHireDate)) {
-      if (!employeeValidator
-          .isStartHireDateEarlierThanOrEqualToStartDate(startHireDate, startDate)) {
-        String message = "First employment date has to be earlier or equal to actual employment date!";
-
-        userMessagesService.addErrorMessage(req.getSession(), message);
-
-        logger.info("Tried to set actual employment date earlier than first employment date");
-      }
-    }
-
-    if (!employeeValidator.isEmployeeDataValid(req, employee)) {
+    if (!employeeValidator.isEmployeeDataValid(req, employeeToCreate)) {
 
       List<String> errorsListFromValidator = (List<String>) req.getSession()
           .getAttribute("errorsListFromValidator");
@@ -112,18 +81,46 @@ public class AdminEmployeeController {
             .addErrorMessage(req.getSession(), s);
       }
 
-      logger.info("An employee \"{} {}\" has not been added", name, secondName);
+      logger.info("An employee \"{} {}\" has not been added", employeeToCreate.getFirstName(),
+          employeeToCreate.getSecondName());
+    }
+
+    if (!employeeValidator.isMailUnique(employeeToCreate.getEmail())) {
+
+      String message = String
+          .format("Email address \"%s\" is already in use!", employeeToCreate.getEmail());
+
+      userMessagesService.addErrorMessage(req.getSession(), message);
+
+      logger.info("Tried to use an existing email \"{}\"", employeeToCreate.getEmail());
+    }
+
+    if (employeeValidator.isDateValid(employeeToCreate.getStartDate())
+        && employeeValidator.isDateValid(employeeToCreate.getStartHireDate())) {
+
+      if (!employeeValidator
+          .isStartHireDateEarlierThanOrEqualToStartDate(employeeToCreate.getStartHireDate(),
+              employeeToCreate.getStartDate())) {
+        String message = "First employment date has to be earlier or equal to actual employment date!";
+
+        userMessagesService.addErrorMessage(req.getSession(), message);
+
+        logger.info("Tried to set actual employment date earlier than first employment date");
+      }
     }
 
     if (userMessagesService.getErrorMessageList(req.getSession()) == null) {
-      employeeService.addEmployee(employee, Long.parseLong(teamId));
+      employeeService.addEmployee(employeeToCreate, employeeToCreate.getTeam().getId());
 
-      String message = String.format("An employee \"%s %s\" has been added!", name, secondName);
+      String message = String
+          .format("An employee \"%s %s\" has been added!", employeeToCreate.getFirstName(),
+              employeeToCreate.getSecondName());
 
       userMessagesService
           .addSuccessMessage(req.getSession(), message);
 
-      logger.info("An employee \"{} {}\" has been added", name, secondName);
+      logger.info("An employee \"{} {}\" has been added", employeeToCreate.getFirstName(),
+          employeeToCreate.getSecondName());
     }
 
     return checkForErrors(req);
@@ -136,42 +133,12 @@ public class AdminEmployeeController {
       @Context HttpServletRequest req) {
     logger.info("Api employee editing: {}", formParams);
 
+    Employee employeeToEdit = createEmployee(formParams, req);
+
     Long id = Long.parseLong(formParams.getFirst("id"));
-    Employee employee = employeeService.getEmployeeById(id);
+    employeeToEdit.setId(id);
 
-    String teamId = formParams.getFirst("team");
-    String name = formParams.getFirst("firstName").trim();
-    String secondName = formParams.getFirst("secondName").trim();
-    String email = formParams.getFirst("email").trim();
-    String startDate = formParams.getFirst("startDate");
-    String startHireDate = formParams.getFirst("startHireDate");
-
-    boolean admin = Optional.ofNullable(formParams.getFirst("admin")).map(Boolean::parseBoolean)
-        .orElse(false);
-
-    setFields(employee, teamId, name, secondName, email, startDate, startHireDate, admin);
-
-    if (!employeeValidator.isMailUniqueOrCurrentUser(email, id)) {
-
-      String message = String.format("Email address \"%s\" is already in use!", email);
-
-      userMessagesService.addErrorMessage(req.getSession(), message);
-
-      logger.info("Tried to use an existing email \"{}\"", email);
-    }
-
-    if (employeeValidator.areDatesParseable(startDate, startHireDate)) {
-      if (!employeeValidator
-          .isStartHireDateEarlierThanOrEqualToStartDate(startHireDate, startDate)) {
-        String message = "First employment date has to be earlier or equal to actual employment date!";
-
-        userMessagesService.addErrorMessage(req.getSession(), message);
-
-        logger.info("Tried to set actual employment date earlier than first employment date");
-      }
-    }
-
-    if (!employeeValidator.isEmployeeDataValid(req, employee)) {
+    if (!employeeValidator.isEmployeeDataValid(req, employeeToEdit)) {
 
       List<String> errorsListFromValidator = (List<String>) req.getSession()
           .getAttribute("errorsListFromValidator");
@@ -181,58 +148,78 @@ public class AdminEmployeeController {
             .addErrorMessage(req.getSession(), s);
       }
 
-      logger.info("An employee \"{} {}\" has not been edited", name, secondName);
+      logger.info("An employee \"{} {}\" has not been edited", employeeToEdit.getFirstName(),
+          employeeToEdit.getSecondName());
+    }
+
+    if (!employeeValidator.isMailUniqueOrCurrentUser(employeeToEdit.getEmail(), id)) {
+
+      String message = String
+          .format("Email address \"%s\" is already in use!", employeeToEdit.getEmail());
+
+      userMessagesService.addErrorMessage(req.getSession(), message);
+
+      logger.info("Tried to use an existing email \"{}\"", employeeToEdit.getEmail());
+    }
+
+    if (employeeValidator.isDateValid(employeeToEdit.getStartDate())
+        && employeeValidator.isDateValid(employeeToEdit.getStartHireDate())) {
+      if (!employeeValidator
+          .isStartHireDateEarlierThanOrEqualToStartDate(employeeToEdit.getStartHireDate(),
+              employeeToEdit.getStartDate())) {
+        String message = "First employment date has to be earlier or equal to actual employment date!";
+
+        userMessagesService.addErrorMessage(req.getSession(), message);
+
+        logger.info("Tried to set actual employment date earlier than first employment date");
+      }
     }
 
     if (userMessagesService.getErrorMessageList(req.getSession()) == null) {
-      employeeService.editEmployee(employee, Long.parseLong(teamId));
+      employeeService.editEmployee(employeeToEdit, employeeToEdit.getTeam().getId());
 
-      String message = String.format("An employee \"%s %s\" has been edited!", name, secondName);
+      String message = String
+          .format("An employee \"%s %s\" has been edited!", employeeToEdit.getFirstName(),
+              employeeToEdit.getSecondName());
 
       userMessagesService
           .addSuccessMessage(req.getSession(), message);
 
-      logger.info("An employee \"{} {}\" has been edited", name, secondName);
+      logger.info("An employee \"{} {}\" has been edited", employeeToEdit.getFirstName(),
+          employeeToEdit.getSecondName());
     }
 
     return checkForErrors(req);
   }
 
-  @DELETE
-  @Produces(MediaType.APPLICATION_JSON)
-  public Response deleteEmployee(@QueryParam("id") Long id, @Context HttpServletRequest req) {
-    String firstName = employeeService.getEmployeeById(id).getFirstName();
-    String secondName = employeeService.getEmployeeById(id).getSecondName();
-    employeeService.deleteEmployeeById(id);
-    String message = String.format("Employee \"%s %s\" has been successfully deleted", firstName, secondName);
-    userMessagesService
-        .addSuccessMessage(req.getSession(), message);
-    List<String> successMessageList = userMessagesService.getSuccessMessageList(req.getSession());
-    userMessagesService.removeSuccessMessages(req);
-    logger.info("Deleted employee \"{}\"", id);
-    return Response.ok().entity(successMessageList).build();
-  }
+  private Employee createEmployee(MultivaluedMap<String, String> formParams,
+      @Context HttpServletRequest req) {
 
-  private void setFields(Employee employee, String teamId, String name, String secondName,
-      String email, String startDate, String startHireDate, boolean admin) {
-    employee.setFirstName(name);
-    employee.setSecondName(secondName);
-    employee.setEmail(email);
+    Employee employee = new Employee();
 
-    if (teamId != null) {
-      employee.setTeam(teamService.getTeamById(Long.valueOf(teamId)));
+    String name = formParams.getFirst("firstName").trim();
+    String secondName = formParams.getFirst("secondName").trim();
+    String email = formParams.getFirst("email").trim();
+    boolean admin = Optional.ofNullable(formParams.getFirst("admin")).map(Boolean::parseBoolean)
+        .orElse(false);
+
+    if (formParams.getFirst("team") != null) {
+      Long teamId = Long.valueOf(formParams.getFirst("team"));
+      employee.setTeam(teamService.getTeamById(teamId));
     } else {
       employee.setTeam(null);
     }
 
-    if (!startDate.equals("")) {
-      employee.setStartDate(LocalDate.parse(startDate));
+    if (!formParams.getFirst("startDate").isEmpty()) {
+      LocalDate startDate = LocalDate.parse(formParams.getFirst("startDate"));
+      employee.setStartDate(startDate);
     } else {
       employee.setStartDate(null);
     }
 
-    if (!startHireDate.equals("")) {
-      employee.setStartHireDate(LocalDate.parse(startHireDate));
+    if (!formParams.getFirst("startHireDate").isEmpty()) {
+      LocalDate startHireDate = LocalDate.parse(formParams.getFirst("startHireDate"));
+      employee.setStartHireDate(startHireDate);
     } else {
       employee.setStartHireDate(null);
     }
@@ -242,6 +229,28 @@ public class AdminEmployeeController {
     } else {
       employee.unsetAdminPermissions();
     }
+
+    employee.setFirstName(name);
+    employee.setSecondName(secondName);
+    employee.setEmail(email);
+
+    return employee;
+  }
+
+  @DELETE
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response deleteEmployee(@QueryParam("id") Long id, @Context HttpServletRequest req) {
+    String firstName = employeeService.getEmployeeById(id).getFirstName();
+    String secondName = employeeService.getEmployeeById(id).getSecondName();
+    employeeService.deleteEmployeeById(id);
+    String message = String
+        .format("Employee \"%s %s\" has been successfully deleted", firstName, secondName);
+    userMessagesService
+        .addSuccessMessage(req.getSession(), message);
+    List<String> successMessageList = userMessagesService.getSuccessMessageList(req.getSession());
+    userMessagesService.removeSuccessMessages(req);
+    logger.info("Deleted employee \"{}\"", id);
+    return Response.ok().entity(successMessageList).build();
   }
 
   private Response checkForErrors(@Context HttpServletRequest req) {
