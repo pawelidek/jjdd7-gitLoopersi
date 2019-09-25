@@ -11,6 +11,25 @@
       </table>
     </div>
 
+    <div>
+        <#if success??>
+          <div class="successMessage" role="alert"
+               style="text-align: center">
+            <strong>
+                <#list success>
+                    <#items as successMessages>
+                        ${successMessages}<br/>
+                    </#items>
+                </#list>
+            </strong>
+          </div>
+        </#if>
+    </div>
+
+    <div id="successMain" class="alert alert-success fade show" role="alert"
+         style="text-align: center; display: none;">
+    </div>
+
     <table class="table table-sm table-hover" style="text-align: center">
       <thead>
       <tr>
@@ -38,7 +57,7 @@
               <td>${vacation.daysCount}</td>
               <td>${(vacation.deputy)!"Not stated"}</td>
               <td>${vacation.vacationType.type}</td>
-              <td>${vacation.statusType}</td>
+              <td class="status-type-${vacation.id}">${vacation.statusType}</td>
               <td>
                 <div>
                   <a class="reject-vacation" data-id="${vacation.id}" href="#">

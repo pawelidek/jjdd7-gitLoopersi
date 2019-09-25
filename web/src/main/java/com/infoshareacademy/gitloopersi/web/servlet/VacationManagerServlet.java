@@ -2,6 +2,7 @@ package com.infoshareacademy.gitloopersi.web.servlet;
 
 import com.infoshareacademy.gitloopersi.domain.model.Calendar;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
+import com.infoshareacademy.gitloopersi.service.alertmessage.UserMessagesService;
 import com.infoshareacademy.gitloopersi.service.calendarmanager.CalendarService;
 import com.infoshareacademy.gitloopersi.service.vacationmanager.VacationDefiningService;
 import com.infoshareacademy.gitloopersi.web.view.VacationView;
@@ -34,6 +35,9 @@ public class VacationManagerServlet extends HttpServlet {
   @EJB
   private VacationDefiningService vacationDefiningService;
 
+  @EJB
+  private UserMessagesService userMessagesService;
+
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @Override
@@ -45,11 +49,15 @@ public class VacationManagerServlet extends HttpServlet {
     Map<String, Object> dataModel = new HashMap<>();
     List<Calendar> dates = calendarService.findAllHolidaysDates();
     List<VacationView> vacationViews = vacationDefiningService.getVacationsWithEmployeesList();
+    List<String> successMessages = userMessagesService.getSuccessMessageList(req.getSession());
 
     dataModel.put("userType", "admin");
     dataModel.put("vacations", vacationViews);
+    dataModel.put("success", successMessages);
     dataModel.put("function", "VacationManager");
     dataModel.put("dates", dates);
+
+    userMessagesService.removeSuccessMessages(req);
 
     PrintWriter printWriter = resp.getWriter();
 

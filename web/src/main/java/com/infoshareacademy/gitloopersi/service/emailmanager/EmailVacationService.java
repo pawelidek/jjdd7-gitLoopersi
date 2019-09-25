@@ -38,4 +38,24 @@ public class EmailVacationService {
       logger.error(e.getMessage());
     }
   }
+
+  public void buildEmailVacationManage(Vacation vacation, Employee employee) {
+
+    String subject = String.format(
+        "%s %s %s your Vacation request", employee.getFirstName(), employee.getSecondName(),
+        vacation.getStatusType().getType());
+
+    String emailContent = String.format("Dear Employee,<br><br>"
+            + "Your request for leave from %tF to %tF was %s by your manager.<br><br>"
+            + "Thank you for understanding.<br><br>", vacation.getDateFrom(), vacation.getDateTo(),
+        vacation.getStatusType().getType());
+
+    try {
+      logger.info("Email from {} {} was sent to employee", employee.getFirstName(),
+          employee.getSecondName());
+      emailSenderService.sendMessage(RECIPIENT, emailContent, subject);
+    } catch (MessagingException e) {
+      logger.error(e.getMessage());
+    }
+  }
 }
