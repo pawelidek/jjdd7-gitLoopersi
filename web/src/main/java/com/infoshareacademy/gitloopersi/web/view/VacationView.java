@@ -3,6 +3,7 @@ package com.infoshareacademy.gitloopersi.web.view;
 import com.infoshareacademy.gitloopersi.types.StatusType;
 import com.infoshareacademy.gitloopersi.types.VacationType;
 import java.time.LocalDate;
+import java.util.Date;
 
 public class VacationView {
 
@@ -14,6 +15,7 @@ public class VacationView {
   private String deputy;
   private VacationType vacationType;
   private StatusType statusType;
+  private Date createDate;
 
   public Long getId() {
     return id;
@@ -77,5 +79,13 @@ public class VacationView {
 
   public void setDeputy(String deputy) {
     this.deputy = deputy;
+  }
+
+  public Date getCreateDate() {
+    return createDate;
+  }
+
+  public void setCreateDate(Date createDate) {
+    this.createDate = createDate;
   }
 }

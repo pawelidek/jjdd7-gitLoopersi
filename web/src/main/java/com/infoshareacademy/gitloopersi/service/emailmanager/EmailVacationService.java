@@ -2,6 +2,8 @@ package com.infoshareacademy.gitloopersi.service.emailmanager;
 
 import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
+import com.infoshareacademy.gitloopersi.web.view.VacationView;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.mail.MessagingException;
@@ -53,6 +55,22 @@ public class EmailVacationService {
     try {
       logger.info("Email from {} {} was sent to employee", employee.getFirstName(),
           employee.getSecondName());
+      emailSenderService.sendMessage(RECIPIENT, emailContent, subject);
+    } catch (MessagingException e) {
+      logger.error(e.getMessage());
+    }
+  }
+
+  public void buildEmailVacationScheduler(List<VacationView> vacationViews) {
+
+    String subject = "A reminder of unacceptable vacations";
+
+    String emailContent = "Dear Admin,<br><br>"
+            + "A list of unacceptable holidays:<br><br>"
+            + " " + vacationViews + " ";
+
+    try {
+      logger.info("Email was sent to admin");
       emailSenderService.sendMessage(RECIPIENT, emailContent, subject);
     } catch (MessagingException e) {
       logger.error(e.getMessage());
