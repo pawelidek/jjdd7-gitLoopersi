@@ -19,7 +19,7 @@
 
     <div>
         <#if success??>
-          <div class="alert alert-success fade show" role="alert"
+          <div id="successMessage" class="alert alert-success fade show" role="alert"
                style="text-align: center">
             <strong>
                 <#list success>
@@ -30,6 +30,10 @@
             </strong>
           </div>
         </#if>
+    </div>
+
+    <div id="successMain" class="alert alert-success fade show" role="alert"
+         style="text-align: center; display: none;">
     </div>
 
     <div id="errorsMain" class="alert alert-danger fade show" role="alert"

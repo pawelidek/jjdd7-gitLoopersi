@@ -86,36 +86,56 @@ $(function () {
       errorsTag.empty();
       errorsTag.hide();
 
+      let successTag = $("#successMain");
+      successTag.empty();
+      successTag.hide();
+
       var teamId = $(this).attr('data-id');
 
       $.ajax({
         url: '/api/admin/team?id=' + teamId,
         type: 'DELETE',
-        success: function (result) {
+        success: function (success) {
+
           $('#team' + teamId).remove();
+          var successesHtml = "";
+          for (let i = 0; i < success.length; i++) {
+            successesHtml += "<strong>" + success[i] + "</strong><br/>"
+
+          }
+
+          successTag.html(successesHtml);
+          successTag.show();
+
+          setTimeout(function () {
+            successTag.fadeTo(500, 0).slideUp(500, function () {
+              successTag.hide();
+              successTag.css('opacity', 1);
+            });
+          }, 1500)
         },
         error: function (error) {
           var errors = JSON.parse(error.responseText);
           var errorsHtml = "";
-          for (var i = 0; i < errors.length; i++) {
+          for (let i = 0; i < errors.length; i++) {
             errorsHtml += "<strong>" + errors[i] + "</strong><br/>"
           }
 
           errorsTag.html(errorsHtml);
           errorsTag.show();
+
+          setTimeout(function () {
+            errorsTag.fadeTo(500, 0).slideUp(500, function () {
+            });
+          }, 1500)
         },
-        window:setTimeout(function () {
-          errorsTag.fadeTo(500, 0).slideUp(500, function () {
-            $(this).remove();
-          });
-        }, 1500)
       });
     });
   });
 });
 
 window.setTimeout(function () {
-  $(".alert-success").fadeTo(500, 0).slideUp(500, function () {
+  $("#successMessage").fadeTo(500, 0).slideUp(500, function () {
     $(this).remove();
   });
 }, 1500);

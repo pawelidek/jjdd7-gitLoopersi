@@ -177,10 +177,10 @@ public class AdminTeamController {
       String message = String.format("Team \"%s\" has been successfully deleted", name);
       userMessagesService
           .addSuccessMessage(req.getSession(), message);
-//      userMessagesService.getSuccessMessageList(req.getSession());
-//      userMessagesService.removeSuccessMessages(req);
+      List<String> successMessageList = userMessagesService.getSuccessMessageList(req.getSession());
+      userMessagesService.removeSuccessMessages(req);
       logger.info("Deleted team \"{}\"", id);
-      return Response.ok().build();
+      return Response.ok().entity(successMessageList).build();
     } else {
       String message = String.format("Team \"%s\" contains employees and cannot be deleted!", name);
       userMessagesService.addErrorMessage(req.getSession(), message);
