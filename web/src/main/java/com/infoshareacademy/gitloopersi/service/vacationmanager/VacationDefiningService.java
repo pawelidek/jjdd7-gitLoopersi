@@ -49,6 +49,19 @@ public class VacationDefiningService {
     vacationDefiningDao.addVacation(vacation);
   }
 
+  @Transactional
+  public Vacation editVacation(Vacation vacation) {
+    logger.info("Vacation ID[{}] go to DAO to be modified in DB", vacation.getId());
+
+    return vacationDefiningDao.editVacation(vacation);
+  }
+
+  @Transactional
+  public Vacation getByVacationId(Long id) {
+    logger.info("Vacation object id={} go to DAO to be found in DB", id);
+    return vacationDefiningDao.getVacationById(id);
+  }
+
   public void deleteVacation(Long vacationId) {
     logger.info("Vacation object id={} go to DAO to be removed in DB", vacationId);
     vacationDefiningDao.deleteVacation(vacationId);

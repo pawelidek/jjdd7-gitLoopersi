@@ -4,7 +4,6 @@ import com.infoshareacademy.gitloopersi.domain.model.Calendar;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
 import com.infoshareacademy.gitloopersi.service.alertmessage.UserMessagesService;
 import com.infoshareacademy.gitloopersi.service.calendarmanager.CalendarService;
-import com.infoshareacademy.gitloopersi.service.emailmanager.EmailVacationService;
 import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
 import com.infoshareacademy.gitloopersi.service.vacationmanager.VacationDefiningService;
 import com.infoshareacademy.gitloopersi.web.view.EmployeeView;
@@ -43,9 +42,6 @@ public class MyVacationServlet extends HttpServlet {
 
   @EJB
   private UserMessagesService userMessagesService;
-
-  @EJB
-  private EmailVacationService emailVacationService;
 
   @Inject
   private CalendarService calendarService;
