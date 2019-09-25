@@ -137,9 +137,7 @@ public class VacationDefiningValidator {
 
     logger.info("Validating vacation type {}", vacationType);
 
-    return vacationType.equals(VacationType.VACATION_LEAVE.getType()) || vacationType
-        .equals(VacationType.SPECIAL_LEAVE.getType()) || vacationType
-        .equals(VacationType.CHILDCARE.getType());
+    return VacationType.containsValueType(vacationType);
   }
 
   public int calculateVacationPoolForEmployee(Long employeeId) throws IOException {

@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <table class="table table-borderless">
         <tr>
-          <td style="text-align: center"><h2>Vacation manager</h2></td>
+          <td style="text-align: left"><h2>Vacation manager</h2></td>
         </tr>
       </table>
     </div>
