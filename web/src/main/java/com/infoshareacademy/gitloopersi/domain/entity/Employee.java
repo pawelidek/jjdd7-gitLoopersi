@@ -54,6 +54,7 @@ public class Employee {
   @Email(message = "Email should be valid!")
   private String email;
 
+
   @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH,
       CascadeType.PERSIST})
   @JoinColumn(name = "team_id")
@@ -69,6 +70,10 @@ public class Employee {
   @NotNull(message = "First employment date is required!")
   @PastOrPresent(message = "The first employment date should be past or present!")
   private LocalDate startHireDate;
+
+  @Column(name = "admin", columnDefinition = "Boolean")
+  @NotNull(message = "Admin check have to be true or false")
+  private boolean admin;
 
   @OneToMany(mappedBy = "employee",
       cascade = CascadeType.ALL,
@@ -134,6 +139,18 @@ public class Employee {
 
   public void setStartHireDate(LocalDate startHireDate) {
     this.startHireDate = startHireDate;
+  }
+
+  public boolean isAdmin() {
+    return admin;
+  }
+
+  public void setAdminPermissions() {
+    this.admin = true;
+  }
+
+  public void unsetAdminPermissions() {
+    this.admin = false;
   }
 
   public List<Vacation> getEmployeeVacations() {

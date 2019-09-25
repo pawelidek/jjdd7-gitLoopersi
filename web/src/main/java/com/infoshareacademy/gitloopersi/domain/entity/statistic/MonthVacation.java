@@ -32,7 +32,7 @@ public class MonthVacation {
 
   @Column(name = "quantity")
   @NotNull
-  private Integer quantity=0;
+  private Integer quantity = 0;
 
   public MonthVacation() {
   }

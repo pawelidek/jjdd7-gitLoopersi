@@ -126,6 +126,8 @@ $(function () {
 
           setTimeout(function () {
             errorsTag.fadeTo(500, 0).slideUp(500, function () {
+              errorsTag.hide();
+              errorsTag.css('opacity', 1);
             });
           }, 1500)
         },

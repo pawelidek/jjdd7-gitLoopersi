@@ -1,7 +1,6 @@
 package com.infoshareacademy.gitloopersi.validator;
 
 import com.infoshareacademy.gitloopersi.domain.entity.Employee;
-import com.infoshareacademy.gitloopersi.service.alertmessage.UserMessagesService;
 import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -21,9 +20,6 @@ public class EmployeeValidator {
 
   @EJB
   private EmployeeService employeeService;
-
-  @EJB
-  private UserMessagesService userMessagesService;
 
   public boolean isMailUnique(String email) {
     return employeeService.getEmployeeByEmail(email) == null;
@@ -53,24 +49,21 @@ public class EmployeeValidator {
     }
   }
 
-  public boolean isStartHireDateEarlierThanOrEqualToStartDate(String startHireDate,
-      String startDate) {
-
-    LocalDate startHireDateParsed = LocalDate.parse(startHireDate);
-    LocalDate startDateParsed = LocalDate.parse(startDate);
+  public boolean isStartHireDateEarlierThanOrEqualToStartDate(LocalDate startHireDate,
+      LocalDate startDate) {
 
     Timestamp timestampStartHireDate = Timestamp
-        .valueOf(startHireDateParsed.atTime(LocalTime.MIDNIGHT));
+        .valueOf(startHireDate.atTime(LocalTime.MIDNIGHT));
     Long startHireDateCount = timestampStartHireDate.getTime();
 
-    Timestamp timestampStartDate = Timestamp.valueOf(startDateParsed.atTime(LocalTime.MIDNIGHT));
+    Timestamp timestampStartDate = Timestamp.valueOf(startDate.atTime(LocalTime.MIDNIGHT));
     Long startDateCount = timestampStartDate.getTime();
 
     return startHireDateCount <= startDateCount;
   }
 
-  public boolean areDatesParseable(String startDate, String startHireDate) {
-    return !((startDate.equals("") || startDate.equals(null))
-        || (startHireDate.equals("") || startHireDate.equals(null)));
+  public boolean areFormDatesValid(LocalDate startHireDate, LocalDate startDate) {
+
+    return (startHireDate != null && startDate != null);
   }
 }

@@ -20,13 +20,13 @@
 
       <thead>
       <tr>
-        <th scope="col" style="width: 5%">#</th>
-        <th scope="col" style="width: 5%">Id</th>
+        <th scope="col" style="width: 3%">#</th>
+        <th scope="col" style="width: 3%">Id</th>
         <th scope="col" style="width: 10%">Holiday name</th>
         <th scope="col" style="width: 10%">Date</th>
         <th scope="col" style="width: 10%">Type</th>
-        <th scope="col" style="width: 45%">Description</th>
-        <th scope="col" style="width: 15%">Manage</th>
+        <th scope="col" style="width: 56%">Description</th>
+        <th scope="col" style="width: 8%">Manage</th>
       </tr>
       </thead>
       <tbody>

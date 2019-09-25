@@ -33,15 +33,15 @@
     <table class="table table-sm table-hover" style="text-align: center">
       <thead>
       <tr>
-        <th scope="col" style="width: 5%">#</th>
-        <th scope="col" style="width: 5%">Id</th>
+        <th scope="col" style="width: 3%">#</th>
+        <th scope="col" style="width: 3%">Id</th>
         <th scope="col" style="width: 10%">Date from</th>
         <th scope="col" style="width: 10%">Date to</th>
         <th scope="col" style="width: 15%">Amount of vacations</th>
-        <th scope="col" style="width: 10%">Deputy</th>
-        <th scope="col" style="width: 15%">Vacation type</th>
-        <th scope="col" style="width: 10%">Status type</th>
-        <th scope="col" style="width: 15%">Manage</th>
+        <th scope="col" style="width: 13%">Deputy</th>
+        <th scope="col" style="width: 26%">Vacation type</th>
+        <th scope="col" style="width: 12%">Status type</th>
+        <th scope="col" style="width: 8%">Manage</th>
       </tr>
       </thead>
       <tbody>
