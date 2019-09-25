@@ -9,6 +9,7 @@ import com.infoshareacademy.gitloopersi.service.teammanager.TeamService;
 import com.infoshareacademy.gitloopersi.validator.EmployeeValidator;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -76,7 +77,8 @@ public class AdminEmployeeController {
     String email = formParams.getFirst("email").trim();
     String startDate = formParams.getFirst("startDate");
     String startHireDate = formParams.getFirst("startHireDate");
-    String admin = formParams.getFirst("admin");
+    boolean admin = Optional.ofNullable(formParams.getFirst("admin")).map(Boolean::parseBoolean)
+        .orElse(false);
 
     setFields(employee, teamId, name, secondName, email, startDate, startHireDate, admin);
 
@@ -143,7 +145,9 @@ public class AdminEmployeeController {
     String email = formParams.getFirst("email").trim();
     String startDate = formParams.getFirst("startDate");
     String startHireDate = formParams.getFirst("startHireDate");
-    String admin = formParams.getFirst("admin");
+
+    boolean admin = Optional.ofNullable(formParams.getFirst("admin")).map(Boolean::parseBoolean)
+        .orElse(false);
 
     setFields(employee, teamId, name, secondName, email, startDate, startHireDate, admin);
 
@@ -201,7 +205,7 @@ public class AdminEmployeeController {
   }
 
   private void setFields(Employee employee, String teamId, String name, String secondName,
-      String email, String startDate, String startHireDate, String admin) {
+      String email, String startDate, String startHireDate, boolean admin) {
     employee.setFirstName(name);
     employee.setSecondName(secondName);
     employee.setEmail(email);
@@ -224,10 +228,10 @@ public class AdminEmployeeController {
       employee.setStartHireDate(null);
     }
 
-    if (("true").equals(admin)) {
-      employee.setAdmin(true);
+    if (admin) {
+      employee.setAdminPermissions();
     } else {
-      employee.setAdmin(false);
+      employee.unsetAdminPermissions();
     }
   }
 

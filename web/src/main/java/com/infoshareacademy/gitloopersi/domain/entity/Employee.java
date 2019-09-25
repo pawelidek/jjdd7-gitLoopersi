@@ -71,7 +71,7 @@ public class Employee {
   @PastOrPresent(message = "The first employment date should be past or present!")
   private LocalDate startHireDate;
 
-  @Column(name = "admin")
+  @Column(name = "admin", columnDefinition = "Boolean")
   @NotNull(message = "Admin check have to be true or false")
   private boolean admin;
 
@@ -145,8 +145,12 @@ public class Employee {
     return admin;
   }
 
-  public void setAdmin(boolean admin) {
-    this.admin = admin;
+  public void setAdminPermissions() {
+    this.admin = true;
+  }
+
+  public void unsetAdminPermissions() {
+    this.admin = false;
   }
 
   public List<Vacation> getEmployeeVacations() {
