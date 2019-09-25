@@ -59,7 +59,7 @@ public class VacationDefiningService {
   @Transactional
   public Vacation getByVacationId(Long id) {
     logger.info("Vacation object id={} go to DAO to be found in DB", id);
-    return vacationDefiningDao.getByVacationId(id);
+    return vacationDefiningDao.getVacationById(id);
   }
 
   public void deleteVacation(Long vacationId) {
