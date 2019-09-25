@@ -95,8 +95,8 @@ public class AdminEmployeeController {
       logger.info("Tried to use an existing email \"{}\"", employeeToCreate.getEmail());
     }
 
-    if (employeeValidator.isDateValid(employeeToCreate.getStartDate())
-        && employeeValidator.isDateValid(employeeToCreate.getStartHireDate())) {
+    if (employeeValidator
+        .areFormDatesValid(employeeToCreate.getStartDate(), employeeToCreate.getStartHireDate())) {
 
       if (!employeeValidator
           .isStartHireDateEarlierThanOrEqualToStartDate(employeeToCreate.getStartHireDate(),
@@ -162,8 +162,8 @@ public class AdminEmployeeController {
       logger.info("Tried to use an existing email \"{}\"", employeeToEdit.getEmail());
     }
 
-    if (employeeValidator.isDateValid(employeeToEdit.getStartDate())
-        && employeeValidator.isDateValid(employeeToEdit.getStartHireDate())) {
+    if (employeeValidator
+        .areFormDatesValid(employeeToEdit.getStartHireDate(), employeeToEdit.getStartDate())) {
       if (!employeeValidator
           .isStartHireDateEarlierThanOrEqualToStartDate(employeeToEdit.getStartHireDate(),
               employeeToEdit.getStartDate())) {

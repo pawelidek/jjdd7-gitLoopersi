@@ -62,8 +62,8 @@ public class EmployeeValidator {
     return startHireDateCount <= startDateCount;
   }
 
-  public boolean isDateValid(LocalDate date) {
+  public boolean areFormDatesValid(LocalDate startHireDate, LocalDate startDate) {
 
-    return date != null;
+    return (startHireDate != null && startDate != null);
   }
 }
