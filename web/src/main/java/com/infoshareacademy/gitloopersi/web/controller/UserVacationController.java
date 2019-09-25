@@ -25,6 +25,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -156,17 +157,27 @@ public class UserVacationController {
 
     vacation.setVacationType(VacationType.valueOfType(vacationType));
 
-    if (!dateFrom.equals("")) {
+    if (!StringUtils.isEmpty(dateFrom)) {
       vacation.setDateFrom(LocalDate.parse(dateFrom));
     } else {
-      vacation.setDateFrom(null);
+      cleanDateFrom();
     }
 
-    if (!dateTo.equals("")) {
+    if (!StringUtils.isEmpty(dateTo)) {
       vacation.setDateTo(LocalDate.parse(dateTo));
     } else {
-      vacation.setDateTo(null);
+      cleanDateTo();
     }
+  }
+
+  private void cleanDateTo() {
+    Vacation vacation = new Vacation();
+    vacation.setDateTo(null);
+  }
+
+  private void cleanDateFrom() {
+    Vacation vacation = new Vacation();
+    vacation.setDateFrom(null);
   }
 
   private int getNumberOfSelectedVacationDays(String dateFrom, String dateTo) {
