@@ -137,7 +137,7 @@ public class VacationDefiningValidator {
 
     logger.info("Validating vacation type {}", vacationType);
 
-    return containsValue(vacationType);
+    return VacationType.containsValueType(vacationType);
   }
 
   public int calculateVacationPoolForEmployee(Long employeeId) throws IOException {
@@ -154,10 +154,5 @@ public class VacationDefiningValidator {
     return vacationDefiningHandler
         .calculateRemainingVacationPool(employeeId, numberOfSelectedVacationDays,
             numberOfVacationPool);
-  }
-
-  private static boolean containsValue(String vacationType) {
-    return VacationType.VACATION_LEAVE.getType().equals(vacationType) || VacationType.SPECIAL_LEAVE
-        .getType().equals(vacationType) || VacationType.CHILDCARE.getType().equals(vacationType);
   }
 }

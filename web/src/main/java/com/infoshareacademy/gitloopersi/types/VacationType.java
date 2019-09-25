@@ -18,6 +18,12 @@ public enum VacationType {
         .filter(vacationType -> vacationType.type.equals(value)).findFirst().orElse(null);
   }
 
+  public static boolean containsValueType(String value) {
+
+    return Optional.of(VacationType.values()).stream().flatMap(Arrays::stream)
+        .anyMatch(vacationType -> vacationType.type.equals(value));
+  }
+
   public String getType() {
     return type;
   }
