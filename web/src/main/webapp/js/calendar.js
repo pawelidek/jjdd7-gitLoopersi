@@ -1,6 +1,6 @@
 var monthNamesRy = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
-var daysOfTheWeekRy = [ "M", "T", "W", "T", "F", "S", "S"]
+var daysOfTheWeekRy = ["M", "T", "W", "T", "F", "S", "S"]
 
 var d = new Date();
 var year = d.getFullYear();// 2019
@@ -102,7 +102,6 @@ function createMonthHeader(month) {
 
   return monthDiv;
 
-
 }
 
 function daysInMonth(year, month) {
@@ -113,7 +112,6 @@ function daysInMonth(year, month) {
   return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
 }
 */
-
 
 function getMonthName(month) {
   return monthNamesRy[month];

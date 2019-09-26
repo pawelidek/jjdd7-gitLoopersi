@@ -35,7 +35,8 @@ public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServl
   @Override
   protected void onSuccess(HttpServletRequest req, HttpServletResponse resp, Credential credential)
       throws ServletException, IOException {
-    GoogleCredential gCredential = new GoogleCredential().setAccessToken(credential.getAccessToken());
+    GoogleCredential gCredential = new GoogleCredential()
+        .setAccessToken(credential.getAccessToken());
 
     Oauth2 oauth2 = builderOauth.buildOauth(gCredential);
 

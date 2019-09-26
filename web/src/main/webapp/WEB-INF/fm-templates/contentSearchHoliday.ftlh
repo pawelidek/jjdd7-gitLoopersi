@@ -63,9 +63,10 @@
             <strong>${errorMessage}</strong>
           </div>
         <#else>
-          <div class="alert alert-success" role="alert" style="text-align: center">
+          <div class="alert alert-secondary" role="alert" style="text-align: center">
             <strong>Type a holiday name or dates interval to see the results</strong>
           </div>
         </#if>
+    </table>
   </article>
 </div>

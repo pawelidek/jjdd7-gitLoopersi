@@ -35,6 +35,8 @@ public class EmployeeMapper {
     startHireDate.setIso(employee.getStartHireDate().toString());
     employeeToJSON.setStartHireDate(startHireDate);
 
+    employeeToJSON.setAdmin(employee.isAdmin());
+
     logger.info("Employee entity has been mapped to response");
 
     return employeeToJSON;

@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <table class="table table-borderless">
         <tr>
-          <td style="text-align: right"><h2>Vacation request</h2></td>
+          <td style="text-align: left"><h2>Vacation request</h2></td>
           <td style="text-align: right">
             <button type="button" class="btn btn-outline-secondary"
                     data-toggle="modal" data-target="#exampleModal" id="add_vacation_button">
@@ -18,33 +18,30 @@
     </div>
     <div>
         <#if success??>
-          <div class="alert alert-success alert-dismissible fade show" role="alert"
+          <div class="alert alert-success fade show" role="alert"
                style="text-align: center">
             <strong>
                 <#list success>
                     <#items as successMessages>
-                        ${successMessages}<br>
+                        ${successMessages}<br/>
                     </#items>
                 </#list>
             </strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">x</span>
-            </button>
           </div>
         </#if>
     </div>
     <table class="table table-sm table-hover" style="text-align: center">
       <thead>
       <tr>
-        <th scope="col" style="width: 5%">#</th>
-        <th scope="col" style="width: 5%">Id</th>
+        <th scope="col" style="width: 3%">#</th>
+        <th scope="col" style="width: 3%">Id</th>
         <th scope="col" style="width: 10%">Date from</th>
         <th scope="col" style="width: 10%">Date to</th>
         <th scope="col" style="width: 15%">Amount of vacations</th>
-        <th scope="col" style="width: 10%">Deputy</th>
-        <th scope="col" style="width: 15%">Vacation type</th>
-        <th scope="col" style="width: 10%">Status type</th>
-        <th scope="col" style="width: 15%">Manage</th>
+        <th scope="col" style="width: 13%">Deputy</th>
+        <th scope="col" style="width: 26%">Vacation type</th>
+        <th scope="col" style="width: 12%">Status type</th>
+        <th scope="col" style="width: 8%">Manage</th>
       </tr>
       </thead>
       <tbody>
@@ -85,21 +82,12 @@
             </button>
           </div>
 
-            <#if error??>
-              <div class="alert alert-danger" role="alert" style="text-align: center">
-                <strong>
-                    <#list error>
-                        <#items as errorMessages>
-                            ${errorMessages}<br>
-                        </#items>
-                    </#list>
-                </strong>
-              </div>
-            </#if>
+          <div id="errors" class="alert alert-danger" role="alert"
+               style="text-align: center; display: none;">
+          </div>
 
           <div class="modal-body">
-            <form method="post" action="/user/vacation/report" id="settingForm" name="contact"
-                  role="form">
+            <form id="settingForm" name="contact" role="form">
               <input id="formMethod" type="hidden" name="method" value="${method!"post"}"/>
               <input type="hidden" id="id" name="id" value="${(vacation.id)!""}"/>
               <div class="form-group">
@@ -123,9 +111,9 @@
                   <select style="width: 475px" autocomplete="off" id="vacationType"
                           class="form-control"
                           name="vacationType">
-                    <option value="VACATION_LEAVE">Vacation leave</option>
-                    <option value="CHILDCARE">Childcare</option>
-                    <option value="SPECIAL_LEAVE">Special leave</option>
+                    <option value="Vacation leave">Vacation leave</option>
+                    <option value="Childcare">Childcare</option>
+                    <option value="Special leave">Special leave</option>
                   </select>
                 </label>
               </div>
@@ -144,14 +132,14 @@
                   </select>
                 </label>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close
-                </button>
-                <button type="button" class="btn btn-outline-secondary" id="saveVacation">
-                  Save changes
-                </button>
-              </div>
             </form>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close
+              </button>
+              <button type="button" class="btn btn-outline-secondary" id="saveVacation">
+                Save changes
+              </button>
+            </div>
           </div>
         </div>
       </div>

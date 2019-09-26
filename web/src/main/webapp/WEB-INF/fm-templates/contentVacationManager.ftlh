@@ -6,24 +6,43 @@
     <div class="container-fluid">
       <table class="table table-borderless">
         <tr>
-          <td style="text-align: center"><h2>Vacation manager</h2></td>
+          <td style="text-align: left"><h2>Vacation manager</h2></td>
         </tr>
       </table>
+    </div>
+
+    <div>
+        <#if success??>
+          <div class="successMessage" role="alert"
+               style="text-align: center">
+            <strong>
+                <#list success>
+                    <#items as successMessages>
+                        ${successMessages}<br/>
+                    </#items>
+                </#list>
+            </strong>
+          </div>
+        </#if>
+    </div>
+
+    <div id="successMain" class="alert alert-success fade show" role="alert"
+         style="text-align: center; display: none;">
     </div>
 
     <table class="table table-sm table-hover" style="text-align: center">
       <thead>
       <tr>
-        <th scope="col" style="width: 5%">#</th>
-        <th scope="col" style="width: 5%">Id</th>
-        <th scope="col" style="width: 10%">Requester</th>
+        <th scope="col" style="width: 3%">#</th>
+        <th scope="col" style="width: 3%">Id</th>
+        <th scope="col" style="width: 13%">Requester</th>
         <th scope="col" style="width: 10%">Date from</th>
         <th scope="col" style="width: 10%">Date to</th>
         <th scope="col" style="width: 15%">Amount of vacations</th>
-        <th scope="col" style="width: 10%">Deputy</th>
+        <th scope="col" style="width: 13%">Deputy</th>
         <th scope="col" style="width: 15%">Vacation type</th>
         <th scope="col" style="width: 10%">Status type</th>
-        <th scope="col" style="width: 10%">Manage</th>
+        <th scope="col" style="width: 8%">Manage</th>
       </tr>
       </thead>
       <tbody>
@@ -38,7 +57,7 @@
               <td>${vacation.daysCount}</td>
               <td>${(vacation.deputy)!"Not stated"}</td>
               <td>${vacation.vacationType.type}</td>
-              <td>${vacation.statusType}</td>
+              <td class="status-type-${vacation.id}">${vacation.statusType}</td>
               <td>
                 <div>
                   <a class="reject-vacation" data-id="${vacation.id}" href="#">

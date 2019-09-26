@@ -44,10 +44,10 @@
 
       <thead>
       <tr>
-        <th scope="col" style="width: 5%">#</th>
-        <th scope="col" style="width: 5%">Id</th>
-        <th scope="col" style="width: 80%">Name</th>
-        <th scope="col" style="width: 10%">Manage</th>
+        <th scope="col" style="width: 3%">#</th>
+        <th scope="col" style="width: 3%">Id</th>
+        <th scope="col" style="width: 86%">Name</th>
+        <th scope="col" style="width: 8%">Manage</th>
       </tr>
       </thead>
       <tbody>
