@@ -1,7 +1,9 @@
 package com.infoshareacademy.gitloopersi.web.servlet;
 
 import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
+import com.infoshareacademy.gitloopersi.domain.model.Calendar;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
+import com.infoshareacademy.gitloopersi.service.calendarmanager.CalendarService;
 import com.infoshareacademy.gitloopersi.service.holidaymanager.HolidayService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -25,25 +27,39 @@ import org.slf4j.LoggerFactory;
 })
 public class SearchHolidayByParametersServlet extends HttpServlet {
 
+  private static final String ERROR_MESSAGE = "errorMessage";
   @Inject
-  HolidayService holidayService;
+  private HolidayService holidayService;
+
   @Inject
-  TemplateProvider templateProvider;
+  private CalendarService calendarService;
+
+  @Inject
+  private TemplateProvider templateProvider;
+
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
-    String servletPath = req.getServletPath();
+
+    Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
+
     Map<String, Object> dataModel = new HashMap<>();
+    List<Calendar> dates = calendarService.findAllHolidaysDates();
+
     dataModel.put("userType", req.getSession().getAttribute("userType"));
     dataModel.put("function", "SearchHoliday");
-    dataModel.put("errorMessage", req.getSession().getAttribute("errorMessage"));
-    if (servletPath.equals("/search/holiday/dates")) {
+    dataModel.put("dates", dates);
+    dataModel.put(ERROR_MESSAGE, req.getSession().getAttribute(ERROR_MESSAGE));
+
+    String servletPath = req.getServletPath();
+    if (servletPath.equals("/search/holiday/dates")
+        && req.getSession().getAttribute(ERROR_MESSAGE) == null) {
       String startDate = req.getParameter("start_date");
       String endDate = req.getParameter("end_date");
       List<Holiday> foundHolidays = holidayService.findHolidaysInRange(startDate, endDate);
-      if (foundHolidays.isEmpty() && dataModel.get("errorMessage") == null) {
-        dataModel.put("errorMessage", "No results, type another range of data to get holidays");
+      if (foundHolidays.isEmpty()) {
+        dataModel.put(ERROR_MESSAGE, "No results, type another range of data to get holidays");
       } else {
         dataModel.put("holidays", foundHolidays);
       }
@@ -54,17 +70,17 @@ public class SearchHolidayByParametersServlet extends HttpServlet {
         List<Holiday> foundHolidays = List.of(holiday);
         dataModel.put("holidays", foundHolidays);
       } else {
-        dataModel.put("errorMessage", "No result, type another holiday name");
+        dataModel.put(ERROR_MESSAGE, "No result, type another holiday name");
       }
     }
-    logger.info("Method GET - servlet path {}", servletPath);
+
     PrintWriter printWriter = resp.getWriter();
-    Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
+
     try {
       template.process(dataModel, printWriter);
     } catch (TemplateException e) {
       logger.error(e.getMessage());
     }
-    req.getSession().removeAttribute("errorMessage");
+    req.getSession().removeAttribute(ERROR_MESSAGE);
   }
 }

@@ -7,7 +7,12 @@ import com.google.api.client.extensions.servlet.auth.oauth2.AbstractAuthorizatio
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.services.oauth2.Oauth2;
 import com.google.api.services.oauth2.model.Userinfoplus;
+import com.infoshareacademy.gitloopersi.domain.entity.Employee;
+import com.infoshareacademy.gitloopersi.domain.entity.Team;
+import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
+import com.infoshareacademy.gitloopersi.service.teammanager.TeamService;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.UUID;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -19,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServlet {
 
   @EJB
-  OauthBuilder builderOauth;
+  private OauthBuilder builderOauth;
 
   @Override
   protected void onSuccess(HttpServletRequest req, HttpServletResponse resp, Credential credential)
@@ -34,7 +39,9 @@ public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServl
     String email = info.getEmail();
     req.getSession().setAttribute("google_name", name);
     req.getSession().setAttribute("email", email);
+    req.getSession().setAttribute("userType", "user");
     resp.sendRedirect("/home");
+
 
   }
 

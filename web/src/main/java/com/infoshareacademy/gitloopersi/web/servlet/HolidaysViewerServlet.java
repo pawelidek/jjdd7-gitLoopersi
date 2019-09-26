@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet("/admin/holiday")
-public class HolidaysManagerServlet extends HttpServlet {
+@WebServlet("/holiday")
+public class HolidaysViewerServlet extends HttpServlet {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
@@ -43,7 +43,7 @@ public class HolidaysManagerServlet extends HttpServlet {
 
     dataModel.put("userType", req.getSession().getAttribute("userType"));
     dataModel.put("holidays", holidays);
-    dataModel.put("function", "HolidaysManager");
+    dataModel.put("function", "HolidaysViewer");
     dataModel.put("dates", dates);
     PrintWriter printWriter = resp.getWriter();
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
@@ -52,31 +52,6 @@ public class HolidaysManagerServlet extends HttpServlet {
     } catch (TemplateException e) {
       logger.error(e.getMessage());
     }
-  }
-
-  @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
-    String holidayName = req.getParameter("holiday_name");
-    String holidayDate = req.getParameter("holiday_date");
-    String holidayType = req.getParameter("holiday_type");
-    String holidayDescription = req.getParameter("holiday_description");
-    holidayService.addHoliday(holidayName, holidayDate, holidayType, holidayDescription);
-  }
-
-  @Override
-  protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
-    Integer id = Integer.parseInt(req.getParameter("id"));
-    String holidayName = req.getParameter("holiday_name");
-    String holidayDate = req.getParameter("holiday_date");
-    String holidayType = req.getParameter("holiday_type");
-    String holidayDescription = req.getParameter("holiday_description");
-    holidayService.modifyHoliday(id, holidayName, holidayDate, holidayType, holidayDescription);
-  }
-
-  @Override
-  protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
-    String idToDelete = req.getParameter("id");
-    holidayService.removeHoliday(idToDelete);
   }
 
 }

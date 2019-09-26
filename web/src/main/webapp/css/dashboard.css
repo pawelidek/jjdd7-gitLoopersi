@@ -68,17 +68,9 @@ body {
   text-transform: uppercase;
 }
 
-/*
- * Content
- */
-
 [role="main"] {
   padding-top: 48px; /* Space for fixed navbar */
 }
-
-/*
- * Navbar
- */
 
 .navbar-brand {
   padding-top: .75rem;
@@ -137,7 +129,7 @@ body {
   float: top;
   margin-top: 175px;
   margin-left: 355px;
-  margin-bottom: 110px;
+  margin-bottom: 130px;
   font-family: 'Century Gothic', serif;
   padding-left: 16px;
   padding-right: 16px;
