@@ -38,11 +38,12 @@ public class SearchHolidayByParametersServlet extends HttpServlet {
     dataModel.put("userType", req.getSession().getAttribute("userType"));
     dataModel.put("function", "SearchHoliday");
     dataModel.put("errorMessage", req.getSession().getAttribute("errorMessage"));
-    if (servletPath.equals("/search/holiday/dates")) {
+    if (servletPath.equals("/search/holiday/dates")
+        && req.getSession().getAttribute("errorMessage") == null) {
       String startDate = req.getParameter("start_date");
       String endDate = req.getParameter("end_date");
       List<Holiday> foundHolidays = holidayService.findHolidaysInRange(startDate, endDate);
-      if (foundHolidays.isEmpty() && dataModel.get("errorMessage") == null) {
+      if (foundHolidays.isEmpty()) {
         dataModel.put("errorMessage", "No results, type another range of data to get holidays");
       } else {
         dataModel.put("holidays", foundHolidays);
@@ -57,7 +58,6 @@ public class SearchHolidayByParametersServlet extends HttpServlet {
         dataModel.put("errorMessage", "No result, type another holiday name");
       }
     }
-    logger.info("Method GET - servlet path {}", servletPath);
     PrintWriter printWriter = resp.getWriter();
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
     try {
