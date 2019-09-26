@@ -24,10 +24,10 @@ import org.slf4j.LoggerFactory;
 public class AdminInitializer {
 
   @EJB
-  EmployeeService employeeService;
+  private EmployeeService employeeService;
 
   @EJB
-  TeamService teamService;
+  private TeamService teamService;
 
   private Logger logger = LoggerFactory.getLogger(GoogleLogin.class.getName());
   private final String ADMIN_FILE_NAME = "admin.properties";
