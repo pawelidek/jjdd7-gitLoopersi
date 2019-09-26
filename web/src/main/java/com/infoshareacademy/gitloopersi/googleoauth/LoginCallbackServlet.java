@@ -39,6 +39,7 @@ public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServl
     String email = info.getEmail();
     req.getSession().setAttribute("google_name", name);
     req.getSession().setAttribute("email", email);
+    req.getSession().setAttribute("userType", "user");
     resp.sendRedirect("/home");
 
 
