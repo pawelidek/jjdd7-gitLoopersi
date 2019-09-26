@@ -23,11 +23,14 @@ import org.slf4j.LoggerFactory;
 @WebServlet("/admin/holiday")
 public class HolidaysManagerServlet extends HttpServlet {
 
-  @Inject
-  HolidayService holidayService;
-  @Inject
-  TemplateProvider templateProvider;
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
+
+  @Inject
+  private HolidayService holidayService;
+
+  @Inject
+  private TemplateProvider templateProvider;
+
   @Inject
   private CalendarService calendarService;
 
