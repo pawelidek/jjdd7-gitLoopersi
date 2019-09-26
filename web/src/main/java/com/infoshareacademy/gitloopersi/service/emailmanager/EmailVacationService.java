@@ -65,9 +65,7 @@ public class EmailVacationService {
 
     String subject = "A reminder of unacceptable vacations";
 
-    String emailContent = "Dear Admin,<br><br>"
-            + "A list of unacceptable holidays:<br><br>"
-            + " " + vacationViews + " ";
+    String emailContent = String.valueOf(buildTableOfVacations(vacationViews));
 
     try {
       logger.info("Email was sent to admin");
@@ -75,5 +73,39 @@ public class EmailVacationService {
     } catch (MessagingException e) {
       logger.error(e.getMessage());
     }
+  }
+
+  private StringBuilder buildTableOfVacations(List<VacationView> vacationViews) {
+
+    StringBuilder stringBuilder = new StringBuilder();
+
+    stringBuilder.append("Dear Admin,<br><br>" +
+        "A list of unacceptable holidays:<br><br>");
+
+    stringBuilder.append("<table border='1'>" +
+        "<tr align='center'><th>ID</th>" +
+        "<th>Date from</th>" +
+        "<th>Date to</th>" +
+        "<th>Days count</th>" +
+        "<th>Deputy</th>" +
+        "<th>Vacation type</th>" +
+        "<th>Status type</th></tr>");
+
+    for (VacationView vacationView : vacationViews) {
+      stringBuilder.append(
+          String.format("<tr align='center'><td>%o</td>" +
+                  "<td>%tF</td>" +
+                  "<td>%tF</td>" +
+                  "<td>%o</td>" +
+                  "<td>%s</td>" +
+                  "<td>%s</td>" +
+                  "<td>%s</td></tr>", vacationView.getId(), vacationView.getDateFrom(),
+              vacationView.getDateTo(), vacationView.getDaysCount(), vacationView.getDeputy(),
+              vacationView.getVacationType().getType(), vacationView.getStatusType())
+      );
+    }
+    stringBuilder.append("</table>");
+
+    return stringBuilder;
   }
 }

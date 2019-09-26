@@ -20,6 +20,8 @@ import org.slf4j.LoggerFactory;
 @Startup
 public class VacationStatusScheduler {
 
+  private static final long THRESHOLD = 900000L;
+
   @EJB
   private VacationDefiningService vacationDefiningService;
 
@@ -39,21 +41,25 @@ public class VacationStatusScheduler {
 
     if (!vacationViews.isEmpty()) {
 
-      for (int i = 1; i <= vacationViews.size(); i++) {
+      for (VacationView vacationView : vacationViews) {
 
         Timestamp timestampToday = Timestamp.valueOf(todayDate.atTime(LocalTime.now()));
         Long todayCount = timestampToday.getTime();
 
-        Long createCount = vacationViews.get(i).getCreateDate().getTime();
+        Long createCount = vacationView.getCreateDate().getTime();
 
         long resultTimeCount = todayCount - createCount;
 
-        if (vacationViews.get(i).getStatusType().equals(StatusType.REQUESTED)
-            && resultTimeCount > 15000L) {
+        if (vacationView.getStatusType().equals(StatusType.REQUESTED)
+            && resultTimeCount > THRESHOLD) {
 
-          vacationViewList.add(i, vacationViews.get(i));
-          emailVacationService.buildEmailVacationScheduler(vacationViewList);
+          vacationViewList.add(vacationView);
         }
+      }
+
+      if (!vacationViewList.isEmpty()) {
+        logger.info("Email sent to admin");
+        emailVacationService.buildEmailVacationScheduler(vacationViewList);
       }
     }
   }

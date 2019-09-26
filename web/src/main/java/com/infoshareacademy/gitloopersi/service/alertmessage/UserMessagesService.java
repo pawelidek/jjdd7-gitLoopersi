@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 public class UserMessagesService {
 
   private static final String ERROR_MESSAGE = "errorMessage";
-  public static final String SUCCESS_MESSAGE = "successMessage";
+  private static final String SUCCESS_MESSAGE = "successMessage";
 
   public List<String> getErrorMessageList(HttpSession httpSession) {
     return (List<String>) httpSession.getAttribute(ERROR_MESSAGE);
@@ -53,15 +53,5 @@ public class UserMessagesService {
 
   public void removeSuccessMessages(HttpServletRequest req) {
     Objects.requireNonNull(req.getSession()).removeAttribute(SUCCESS_MESSAGE);
-  }
-
-  @Deprecated
-  public String getErrorMessage(HttpSession session, String key) {
-    return (String) session.getAttribute(key);
-  }
-
-  @Deprecated
-  public String getSuccessMessage(HttpSession session, String key) {
-    return (String) session.getAttribute(key);
   }
 }
