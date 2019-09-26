@@ -63,12 +63,12 @@ public class EmailVacationService {
 
   public void buildEmailVacationScheduler(List<VacationView> vacationViews) {
 
-    String subject = "A reminder of unacceptable vacations";
+    String subject = "Reminder of notified vacations";
 
     String emailContent = String.valueOf(buildTableOfVacations(vacationViews));
 
     try {
-      logger.info("Email was sent to admin");
+      logger.info("An email has been sent to admin");
       emailSenderService.sendMessage(RECIPIENT, emailContent, subject);
     } catch (MessagingException e) {
       logger.error(e.getMessage());

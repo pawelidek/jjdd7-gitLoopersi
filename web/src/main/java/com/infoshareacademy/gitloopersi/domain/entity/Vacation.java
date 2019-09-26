@@ -63,8 +63,9 @@ public class Vacation {
 
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "create_date")
-  private Date createDate;
+  @Column(name = "creating_date")
+  @NotNull
+  private Date creatingDate;
 
   public Long getId() {
     return id;
@@ -130,12 +131,12 @@ public class Vacation {
     this.deputy = deputy;
   }
 
-  public Date getCreateDate() {
-    return createDate;
+  public Date getCreatingDate() {
+    return creatingDate;
   }
 
-  public void setCreateDate(Date createDate) {
-    this.createDate = createDate;
+  public void setCreatingDate(Date createDate) {
+    this.creatingDate = createDate;
   }
 
   @Override
@@ -149,7 +150,7 @@ public class Vacation {
         ", deputy='" + deputy + '\'' +
         ", vacationType=" + vacationType +
         ", statusType=" + statusType +
-        ", createDate=" + createDate +
+        ", createDate=" + creatingDate +
         '}';
   }
 }

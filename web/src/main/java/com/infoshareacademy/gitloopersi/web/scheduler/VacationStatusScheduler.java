@@ -13,8 +13,6 @@ import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Singleton
 @Startup
@@ -27,8 +25,6 @@ public class VacationStatusScheduler {
 
   @EJB
   private EmailVacationService emailVacationService;
-
-  private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @Schedule(hour = "*", minute = "*/1", info = "Every 1 minute timer")
   public void checkStatusOfVacation() {
@@ -58,7 +54,6 @@ public class VacationStatusScheduler {
       }
 
       if (!vacationViewList.isEmpty()) {
-        logger.info("Email sent to admin");
         emailVacationService.buildEmailVacationScheduler(vacationViewList);
       }
     }
