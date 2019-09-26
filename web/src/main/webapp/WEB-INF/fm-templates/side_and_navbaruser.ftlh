@@ -1,5 +1,5 @@
 <nav class="navbar navbar-light fixed-top bg-light flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><img
+  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/home"><img
         src="/img/logo.png" alt="Responsive image"
         width=150px height=65px></a>
 
@@ -42,14 +42,14 @@
               My Vacation
             </a>
           </li>
+            <#--          <li class="nav-item">-->
+            <#--            <a class="nav-link" href="#">-->
+            <#--              My Team's Vacation-->
+            <#--            </a>-->
+            <#--          </li>-->
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              My Team's Vacation
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Holidays
+            <a class="nav-link" href="/holiday">
+              Holiday List
             </a>
           </li>
           <li class="nav-item">

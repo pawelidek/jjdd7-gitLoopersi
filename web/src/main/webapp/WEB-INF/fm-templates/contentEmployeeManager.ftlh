@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <table class="table table-borderless">
         <tr>
-          <td style="text-align: left"><h2>Employee manager</h2></td>
+          <td style="text-align: left"><h2>Employee Manager</h2></td>
           <td style="text-align: right">
             <button type="button" class="btn btn-outline-secondary"
                     data-toggle="modal" data-target="#exampleModal" id="add_user_button">
