@@ -24,7 +24,11 @@
 </head>
 <body>
 
-<#include "/side_and_navbar${userType}.ftlh">
+<#if userType??>
+    <#include "/side_and_navbar${userType}.ftlh">
+<#else>
+    <#include "side_and_navbarguest.ftlh">
+</#if>
 
 <#include "/content${function}.ftlh">
 
@@ -35,7 +39,6 @@
 <script src="/js/feather.js"></script>
 <script src="/js/calendar.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-
 
 </body>
 </html>
