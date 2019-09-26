@@ -46,8 +46,9 @@ public class AdminInitializer {
     employee.setSecondName(getProperty("employee.surname"));
     employee.setStartDate(LocalDate.parse("2019-08-24"));
     employee.setStartHireDate(LocalDate.parse("2019-08-24"));
+    employee.setAdminPermissions();
     employee.setTeam(team);
-    employeeService.addEmployee(employee, 1L);
+    employeeService.addEmployee(employee, team.getId());
 
   }
 

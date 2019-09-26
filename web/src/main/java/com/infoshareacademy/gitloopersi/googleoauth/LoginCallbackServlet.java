@@ -26,12 +26,6 @@ public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServl
   @EJB
   private OauthBuilder builderOauth;
 
-  @EJB
-  private EmployeeService employeeService;
-
-  @EJB
-  private TeamService teamService;
-
   @Override
   protected void onSuccess(HttpServletRequest req, HttpServletResponse resp, Credential credential)
       throws ServletException, IOException {
@@ -43,31 +37,9 @@ public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServl
     Userinfoplus info = oauth2.userinfo().get().execute();
     String name = info.getName();
     String email = info.getEmail();
-    String surname = info.getGivenName();
     req.getSession().setAttribute("google_name", name);
     req.getSession().setAttribute("email", email);
     resp.sendRedirect("/home");
-
-    if(employeeService.getEmployeeByEmail(email) == null) {
-      Team team = new Team();
-      team.setName("Unkown");
-      teamService.addTeam(team);
-
-      Employee employee = new Employee();
-      employee.setFirstName(name);
-      employee.setSecondName(surname);
-      employee.setEmail(email);
-      employee.setStartDate(LocalDate.parse("2019-08-24"));
-      employee.setStartHireDate(LocalDate.parse("2019-08-24"));
-      employee.setTeam(team);
-      employeeService.addEmployee(employee, team.getId());
-    }
-
-    Employee verifiedEmployee = employeeService.getEmployeeByEmail(email);
-
-    req.getSession().setAttribute("email", verifiedEmployee.getEmail());
-//    req.getSession().setAttribute("userType", verifiedEmployee.getUserType());
-
 
 
   }
