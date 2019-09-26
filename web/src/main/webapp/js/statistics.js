@@ -1,123 +1,139 @@
-/////////////////////////////////////////////////
-///////////////////Char 1////////////////////////
-/////////////////////////////////////////////////
+google.charts.load('current', {'packages': ['corechart']});
+google.charts.setOnLoadCallback(drawChart);
 
-var dataset1 = [
-  {"month": "January", "quantity": 4},
-  {"month": "February", "quantity": 5},
-  {"month": "March", "quantity": 5},
-  {"month": "April", "quantity": 7},
-  {"month": "May", "quantity": 15},
-  {"month": "June", "quantity": 20},
-  {"month": "July", "quantity": 35},
-  {"month": "August", "quantity": 40},
-  {"month": "October", "quantity": 10},
-  {"month": "November", "quantity": 5},
-  {"month": "December", "quantity": 10}
-];
+function drawChart() {
 
-var svgWidth1 = 800, svgHeight1 = 800, radius1 = Math.min(svgWidth1, svgHeight1)/2;
+  let dataset1 = [
+    {"month": "January", "quantity": 4},
+    {"month": "February", "quantity": 5},
+    {"month": "March", "quantity": 5},
+    {"month": "April", "quantity": 7},
+    {"month": "May", "quantity": 15},
+    {"month": "June", "quantity": 20},
+    {"month": "July", "quantity": 35},
+    {"month": "August", "quantity": 40},
+    {"month": "October", "quantity": 10},
+    {"month": "November", "quantity": 5},
+    {"month": "December", "quantity": 10}
+  ];
 
-var svg1 = d3.select('#char1')
-.attr("width", svgWidth1)
-.attr("height", svgHeight1);
+  let monthsAndQuantitiesArrayChart1 = [['Month', 'Quantity',],];
 
-var g1 = svg1.append("g")
-.attr("transform", "translate(" + radius1 + "," + radius1 + ")");
+  for (let i = 0; i < dataset1.length; i++) {
+    let pairMonthQuantity = dataset1[i];
+    let monthAndQuantityArray = [pairMonthQuantity.month,
+      pairMonthQuantity.quantity];
+    monthsAndQuantitiesArrayChart1.push(monthAndQuantityArray);
+  }
 
-var color1 = d3.scaleOrdinal(d3.schemeCategory10);
+  let dataChart1 = google.visualization.arrayToDataTable(
+      monthsAndQuantitiesArrayChart1);
 
-var pie1 = d3.pie().value(function(d){
-  return d.quantity;
-})
+  const optionsChart1 = {
+    title: 'Months Vacation Rank'
+  };
 
-var path1 = d3.arc()
-.outerRadius(radius1)
-.innerRadius(0)
+  let chart1 = new google.visualization.PieChart(
+      document.getElementById('piechart1'));
 
-var arc1 = g1.selectAll("arc")
-.data(pie1(dataset1))
-.enter()
-.append("g");
-
-arc1.append("path")
-.attr("d",path1)
-.attr("fill", function(d) {
-  return color1(d.data.quantity); });
-
-var label1 = d3.arc()
-.outerRadius(radius1)
-.innerRadius(radius1-250);
-
-arc1.append("text")
-.attr("transform", function(d) {
-  return "translate(" + label1.centroid(d) + ")";
-})
-.attr("text-anchor", "middle")
-.text(function(d) { return d.data.month+": "+d.data.quantity; })
-.style("font-size", 30)
+  chart1.draw(dataChart1, optionsChart1);
 
 
 
-/////////////////////////////////////////////////
-///////////////////Char 2////////////////////////
-/////////////////////////////////////////////////
 
-var dataset2 = [3, 2, 3, 3, 5];
-dataset2.sort();
-var rgbValue2 = 180 / (Math.max.apply(null, dataset2));
-var svgWidth = 800, svgHeight = 300, barPadding = 5;
-var barWidth = (svgWidth / dataset2.length);
 
-var svg2 = d3.select("#char2")
-.attr("width", svgWidth)
-.attr("height", svgHeight);
+  let dataset2 = [
+    {"fullName": "Marek Sitarski", "quantity": 8},
+    {"fullName": "Arek Lewandowski", "quantity": 6},
+    {"fullName": "Wiesław Niedzielan", "quantity": 3},
+    {"fullName": "Jurek Dawidziuk", "quantity": 2},
+    {"fullName": "Marek Wieckiewicz", "quantity": 1}
+  ];
 
-var yScale2 = d3.scaleLinear()
-.domain([0, d3.max(dataset2)])
-.range([0, svgHeight]);
+  let fullNameAndQuantitiesArrayChart2 = [['Full name', 'Quantity',],];
 
-var barChart = svg2.selectAll("rect")
-.data(dataset2)
-.enter()
-.append("rect")
-.attr("y", function (d) {
-  return svgHeight - yScale2(d);
-})
-.attr("height", function (d) {
-  return yScale2(d);
-})
-.attr("width", barWidth - barPadding)
-.attr("transform", function (d, i) {
-  let translate = [barWidth * i, 0];
-  return "translate(" + translate + ")";
-})
-.attr("fill", function (d) {
-  return "rgb(" + rgbValue2 * d + "," + rgbValue2 * d + "," + rgbValue2 * d
-      + ")";
-});
+  for (let i = 0; i < dataset2.length; i++) {
+    let pairFullNameQuantity = dataset2[i];
+    let fullNameAndQuantityArray = [pairFullNameQuantity.fullName,
+      pairFullNameQuantity.quantity];
+    fullNameAndQuantitiesArrayChart2.push(fullNameAndQuantityArray);
+  }
 
-var text2 = svg2.selectAll("text")
-.data(dataset2)
-.enter()
-.append("text")
-.text(function (d) {
-  return d;
-})
-.attr("y", function (d, i) {
-  return svgHeight + 2;
-})
-.attr("x", function (d, i) {
-  return barWidth * i;
-})
-.attr("fill", "#A64C38")
+  let dataChart2 = google.visualization.arrayToDataTable(
+      fullNameAndQuantitiesArrayChart2);
 
-/////////////////////////////////////////////////
-///////////////////Char 3////////////////////////
-/////////////////////////////////////////////////
+  const optionsChart2 = {
+    title: 'Employee Vacation Rank',
+    legend: {position: "none"}
+  };
+
+  let chart2 = new google.visualization.BarChart(
+      document.getElementById('barchart2'));
+
+  chart2.draw(dataChart2, optionsChart2);
 
 
 
-/////////////////////////////////////////////////
-///////////////////Char 4////////////////////////
-/////////////////////////////////////////////////
+
+
+  let dataset3 = [
+    {"status": "accepted", "quantity": 4},
+    {"status": "refused", "quantity": 5}
+  ];
+
+  let statusesAndQuantitiesArrayChart3 = [['Status', 'Quantity',],];
+
+  for (let i = 0; i < dataset3.length; i++) {
+    let pairStatusQuantity = dataset3[i];
+    let statusAndQuantityArray = [pairStatusQuantity.status,
+      pairStatusQuantity.quantity];
+    statusesAndQuantitiesArrayChart3.push(statusAndQuantityArray);
+  }
+
+  let dataChart3 = google.visualization.arrayToDataTable(
+      statusesAndQuantitiesArrayChart3);
+
+  const optionsChart3 = {
+    title: 'Accepted/Refused Vacations'
+  };
+
+  let chart3 = new google.visualization.PieChart(
+      document.getElementById('piechart3'));
+
+  chart3.draw(dataChart3, optionsChart3);
+
+
+
+
+
+  let dataset4 = [
+    {"teamName": "GitLoopersi", "quantity": 45,},
+    {"teamName": "Javengersi", "quantity": 24},
+    {"teamName": "Wojownicy Klawiatury", "quantity": 17},
+    {"teamName": "Zajavieni", "quantity": 5}
+  ];
+
+  let teamNamesAndQuantitiesArrayChart4 = [['Team name', 'Quantity',
+    {role: 'style'}],];
+
+  for (let i = 0; i < dataset4.length; i++) {
+    let pairTeamNameQuantity = dataset4[i];
+    let teamNameAndQuantityArray = [pairTeamNameQuantity.teamName,
+      pairTeamNameQuantity.quantity,
+      'color: #' + Math.floor(Math.random() * 16777215).toString(16)];
+    teamNamesAndQuantitiesArrayChart4.push(teamNameAndQuantityArray);
+  }
+
+  let dataChart4 = google.visualization.arrayToDataTable(
+      teamNamesAndQuantitiesArrayChart4);
+
+  const optionsChart4 = {
+    title: 'Team Vacation Rank',
+    legend: {position: "none"}
+  };
+
+  let chart4 = new google.visualization.ColumnChart(
+      document.getElementById('columnchart4'));
+
+  chart4.draw(dataChart4, optionsChart4);
+}

@@ -26,11 +26,14 @@ public class StatisticsServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
-    Map<String, Object> dataModel = new HashMap<>();
+
     PrintWriter printWriter = resp.getWriter();
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
+
+    Map<String, Object> dataModel = new HashMap<>();
     dataModel.put("userType", req.getSession().getAttribute("userType"));
     dataModel.put("function", "Statistics");
+
     try {
       template.process(dataModel, printWriter);
     } catch (TemplateException e) {
