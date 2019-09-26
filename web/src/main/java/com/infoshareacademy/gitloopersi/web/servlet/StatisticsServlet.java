@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class StatisticsServlet extends HttpServlet {
 
   @Inject
-  TemplateProvider templateProvider;
+  private TemplateProvider templateProvider;
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
