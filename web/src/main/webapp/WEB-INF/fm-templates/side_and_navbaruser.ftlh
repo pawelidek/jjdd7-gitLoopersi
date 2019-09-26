@@ -44,7 +44,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
-              My team's vacation
+              My Team's Vacation
             </a>
           </li>
           <li class="nav-item">
@@ -57,12 +57,6 @@
               Holiday Search
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Change date format
-            </a>
-          </li>
-
         </ul>
         </ul>
       </div>

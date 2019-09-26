@@ -1,7 +1,15 @@
 <div>
   <script src="/js/holiday.js"></script>
   <article id="contentView">
-    <br><br>
+
+    <div class="container-fluid">
+      <table class="table table-borderless">
+        <tr>
+          <td style="text-align: left"><h2>Holiday search</h2></td>
+        </tr>
+      </table>
+    </div>
+
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-4 text-right">

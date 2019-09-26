@@ -1,7 +1,9 @@
 package com.infoshareacademy.gitloopersi.web.servlet;
 
 import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
+import com.infoshareacademy.gitloopersi.domain.model.Calendar;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
+import com.infoshareacademy.gitloopersi.service.calendarmanager.CalendarService;
 import com.infoshareacademy.gitloopersi.service.holidaymanager.HolidayService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -27,17 +29,29 @@ public class SearchHolidayByParametersServlet extends HttpServlet {
 
   @Inject
   HolidayService holidayService;
+
+  @Inject
+  private CalendarService calendarService;
+
   @Inject
   TemplateProvider templateProvider;
+
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
-    String servletPath = req.getServletPath();
+
+    Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
+
     Map<String, Object> dataModel = new HashMap<>();
+    List<Calendar> dates = calendarService.findAllHolidaysDates();
+
     dataModel.put("userType", req.getSession().getAttribute("userType"));
     dataModel.put("function", "SearchHoliday");
+    dataModel.put("dates", dates);
     dataModel.put("errorMessage", req.getSession().getAttribute("errorMessage"));
+
+    String servletPath = req.getServletPath();
     if (servletPath.equals("/search/holiday/dates")
         && req.getSession().getAttribute("errorMessage") == null) {
       String startDate = req.getParameter("start_date");
@@ -58,8 +72,9 @@ public class SearchHolidayByParametersServlet extends HttpServlet {
         dataModel.put("errorMessage", "No result, type another holiday name");
       }
     }
+
     PrintWriter printWriter = resp.getWriter();
-    Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
+
     try {
       template.process(dataModel, printWriter);
     } catch (TemplateException e) {

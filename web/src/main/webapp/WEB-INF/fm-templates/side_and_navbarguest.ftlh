@@ -5,7 +5,6 @@
 
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
-        <#--      <a class="nav-link " href="#"  onclick="window.location.href = '/googlelogin';" >Log in</a>-->
       <a id="sign out" class="nav-link" href="#"><img
             src="/img/btn_google_signin_light_focus_web.png"
             alt="Google" onclick="window.location.href = '/googlelogin';"></a>
@@ -32,11 +31,6 @@
           <li class="nav-item">
             <a class="nav-link" href="/search/holiday">
               Holiday Search
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Change date format
             </a>
           </li>
         </ul>

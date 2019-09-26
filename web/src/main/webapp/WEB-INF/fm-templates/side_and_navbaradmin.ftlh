@@ -18,27 +18,27 @@
         <ul class="nav flex-column">
           <li class="nav-item">
             <a class="nav-link" href="/home">
-              Main page
+              Main Page
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/admin/employee">
-              Employee manager
+              Employee Manager
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/admin/team">
-              Team manager
+              Team Manager
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/admin/vacation">
-              Vacation manager
+              Vacation Manager
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/admin/holiday">
-              Holiday manager
+              Holiday Manager
             </a>
           </li>
           <li class="nav-item">
@@ -48,7 +48,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/admin/jsonLoader">
-              Load holidays from JSON file
+              Load Holidays From JSON File
             </a>
           </li>
         </ul>
