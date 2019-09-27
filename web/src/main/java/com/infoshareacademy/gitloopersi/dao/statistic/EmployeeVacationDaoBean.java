@@ -1,4 +1,4 @@
-package com.infoshareacademy.gitloopersi.dao;
+package com.infoshareacademy.gitloopersi.dao.statistic;
 
 import com.infoshareacademy.gitloopersi.domain.entity.statistic.EmployeeVacation;
 import java.util.List;
@@ -20,11 +20,18 @@ public class EmployeeVacationDaoBean {
   public List<EmployeeVacation> getEmployeeVacations() {
 
     logger.info("EmployeeVacation objects are to be get from DB");
+
     Query query = entityManager
         .createNamedQuery("EmployeeVacation.findAll");
 
     return query.getResultList();
   }
 
+  public void updateEmployeeVacationIncrementQuantity(Long id) {
 
+    logger.info("EmployeeVacation object id={} is to be updated in DB",id);
+
+    Query query = entityManager.createNamedQuery("EmployeeVacation.incrementQuantity");
+    query.setParameter("id", id).executeUpdate();
+  }
 }

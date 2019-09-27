@@ -1,4 +1,4 @@
-package com.infoshareacademy.gitloopersi.dao;
+package com.infoshareacademy.gitloopersi.dao.statistic;
 
 import com.infoshareacademy.gitloopersi.domain.entity.statistic.TeamVacation;
 import java.util.List;
@@ -24,5 +24,13 @@ public class TeamVacationDaoBean {
         .createNamedQuery("TeamVacation.findAll");
 
     return query.getResultList();
+  }
+
+  public void updateTeamVacationIncrementQuantity(Long id) {
+
+
+
+    Query query = entityManager.createNamedQuery("TeamVacation.incrementQuantity");
+    query.setParameter("id", id).executeUpdate();
   }
 }

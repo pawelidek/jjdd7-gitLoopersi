@@ -1,4 +1,4 @@
-package com.infoshareacademy.gitloopersi.dao;
+package com.infoshareacademy.gitloopersi.dao.statistic;
 
 import com.infoshareacademy.gitloopersi.domain.entity.statistic.MonthVacation;
 import java.util.List;
@@ -24,5 +24,13 @@ public class MonthVacationDaoBean {
         .createNamedQuery("MonthVacation.findAll");
 
     return query.getResultList();
+  }
+
+  public void updateMonthVacationIncrementQuantity(String month) {
+
+    logger.info("MonthVacation object month={} is to be updated in DB",month);
+
+    Query query = entityManager.createNamedQuery("MonthVacation.incrementQuantity");
+    query.setParameter("month", month).executeUpdate();
   }
 }

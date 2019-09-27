@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
         query = "SELECT tv FROM TeamVacation tv ORDER BY tv.quantity DESC"
     ),
     @NamedQuery(
-        name = "StatusVacation.incrementQuantity",
+        name = "TeamVacation.incrementQuantity",
         query = "UPDATE TeamVacation tv SET tv.quantity=tv.quantity+1 WHERE tv.id=:id"
     )
 }

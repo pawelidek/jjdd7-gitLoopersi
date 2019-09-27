@@ -1,6 +1,7 @@
-package com.infoshareacademy.gitloopersi.dao;
+package com.infoshareacademy.gitloopersi.dao.statistic;
 
 import com.infoshareacademy.gitloopersi.domain.entity.statistic.StatusVacation;
+import com.infoshareacademy.gitloopersi.types.StatusType;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -24,5 +25,13 @@ public class StatusVacationDaoBean {
         .createNamedQuery("StatusVacation.findAll");
 
     return query.getResultList();
+  }
+
+  public void updateStatusVacationIncrementQuantity(StatusType statusType) {
+
+    logger.info("EmployeeVacation object statusType={} is to be updated in DB",statusType.getType());
+
+    Query query = entityManager.createNamedQuery("StatusVacation.incrementQuantity");
+    query.setParameter("statusType", statusType).executeUpdate();
   }
 }
