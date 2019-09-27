@@ -23,7 +23,6 @@ public class CodingUTF8Filter implements Filter {
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
       FilterChain filterChain) throws IOException, ServletException {
 
-    logger.info("Coding type is to set");
     servletResponse.setCharacterEncoding(codingType);
     filterChain.doFilter(servletRequest, servletResponse);
   }

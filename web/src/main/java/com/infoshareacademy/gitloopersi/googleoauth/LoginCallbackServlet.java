@@ -81,7 +81,13 @@ public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServl
     } else {
       req.getSession().setAttribute("userType", "user");
     }
+//=======
+//    req.getSession().setAttribute("google_name", name);
+//    req.getSession().setAttribute("email", email);
+//    req.getSession().setAttribute("userType", "user");
+//>>>>>>> dc91c57adafe6379de73608de89ea13da2a74767
     resp.sendRedirect("/home");
+
 
   }
 

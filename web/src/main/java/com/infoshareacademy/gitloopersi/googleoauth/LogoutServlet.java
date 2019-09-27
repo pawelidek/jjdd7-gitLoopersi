@@ -1,6 +1,7 @@
 package com.infoshareacademy.gitloopersi.googleoauth;
 
 import java.io.IOException;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,8 @@ public class LogoutServlet extends HttpServlet {
 
   private static final Logger logger = LoggerFactory.getLogger(LogoutServlet.class.getName());
 
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException {
     resp.setCharacterEncoding("UTF-8");
 
     HttpSession session = req.getSession();

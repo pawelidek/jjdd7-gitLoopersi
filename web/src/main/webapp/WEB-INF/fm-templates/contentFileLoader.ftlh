@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <table class="table table-borderless">
       <tr>
-        <td style="text-align: left"><h2>Load holidays from JSON file</h2></td>
+        <td style="text-align: left"><h2>Load Holidays from JSON File</h2></td>
       </tr>
     </table>
   </div>
