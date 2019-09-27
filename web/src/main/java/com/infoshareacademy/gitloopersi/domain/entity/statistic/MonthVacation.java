@@ -14,6 +14,10 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(
         name = "MonthVacation.findAll",
         query = "SELECT mv FROM MonthVacation mv"
+    ),
+    @NamedQuery(
+        name = "MonthVacation.incrementQuantity",
+        query = "UPDATE MonthVacation mv SET mv.quantity=mv.quantity+1 WHERE mv.month=:month"
     )
 }
 )

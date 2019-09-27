@@ -15,7 +15,11 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
     @NamedQuery(
         name = "EmployeeVacation.findAll",
-        query = "SELECT ev FROM EmployeeVacation ev ORDER BY ev.quantity"
+        query = "SELECT ev FROM EmployeeVacation ev ORDER BY ev.quantity DESC"
+    ),
+    @NamedQuery(
+        name = "EmployeeVacation.incrementQuantity",
+        query = "UPDATE EmployeeVacation ev SET ev.quantity=ev.quantity+1 WHERE ev.id=:id"
     )
 }
 )

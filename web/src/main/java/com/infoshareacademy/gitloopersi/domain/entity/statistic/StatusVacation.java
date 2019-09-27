@@ -15,6 +15,10 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(
         name = "StatusVacation.findAll",
         query = "SELECT sv FROM StatusVacation sv"
+    ),
+    @NamedQuery(
+        name = "StatusVacation.incrementQuantity",
+        query = "UPDATE StatusVacation sv SET sv.quantity=sv.quantity+1 WHERE sv.statusType=:statusType"
     )
 }
 )
