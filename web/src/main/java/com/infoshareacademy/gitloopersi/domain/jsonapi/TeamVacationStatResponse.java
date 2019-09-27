@@ -8,12 +8,12 @@ public class TeamVacationStatResponse {
   private String teamName;
 
   @JsonProperty("quantity")
-  private String quantity;
+  private Integer quantity;
 
   public TeamVacationStatResponse() {
   }
 
-  public TeamVacationStatResponse(String teamName, String quantity) {
+  public TeamVacationStatResponse(String teamName, Integer quantity) {
     this.teamName = teamName;
     this.quantity = quantity;
   }
@@ -26,11 +26,11 @@ public class TeamVacationStatResponse {
     this.teamName = teamName;
   }
 
-  public String getQuantity() {
+  public Integer getQuantity() {
     return quantity;
   }
 
-  public void setQuantity(String quantity) {
+  public void setQuantity(Integer quantity) {
     this.quantity = quantity;
   }
 }
