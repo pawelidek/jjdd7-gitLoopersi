@@ -7,7 +7,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,20 +14,17 @@ import org.slf4j.LoggerFactory;
 public class UserDaoBean {
 
   @PersistenceContext
-  EntityManager entityManager;
+  private EntityManager entityManager;
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
-  @Transactional
   public void save(User user) {
     entityManager.persist(user);
   }
 
-  @Transactional
   public User updateUser(User user) {
     return entityManager.merge(user);
   }
 
-  @Transactional
   public User getUserById(Integer id) {
     return entityManager.find(User.class, id);
   }
@@ -44,7 +40,6 @@ public class UserDaoBean {
     return query.getResultList();
   }
 
-  @Transactional
   public User findUserByEmail(String email) {
     Query query = entityManager.createNamedQuery("User.findUserByEmail");
     query.setParameter("email", email);

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -22,7 +23,9 @@ import javax.validation.constraints.NotNull;
         query = "SELECT u FROM User u WHERE u.email like :email")
 })
 @Entity
-@Table(name = "user")
+@Table(name = "user", indexes = {
+    @Index(columnList = "email", name = "email_index")
+})
 public class User {
 
   @Id
@@ -44,7 +47,7 @@ public class User {
 
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(name = "employee_id", unique = true)
-  Employee employee;
+  private Employee employee;
 
   public Long getId() {
     return id;
