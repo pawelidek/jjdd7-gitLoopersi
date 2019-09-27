@@ -25,4 +25,6 @@ public class EmployeeVacationDaoBean {
 
     return query.getResultList();
   }
+
+
 }
