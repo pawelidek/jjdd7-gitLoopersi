@@ -9,6 +9,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Stateless
 public class StatusVacationStatApiService {
@@ -19,8 +21,12 @@ public class StatusVacationStatApiService {
   @Inject
   private StatusVacationStatDaoBean statusVacationStatDaoBean;
 
+  private Logger logger = LoggerFactory.getLogger(getClass().getName());
+
   @Transactional
   public List<StatusVacationStatResponse> getStatusVacationStatJsonObjects() {
+
+    logger.info("StatusVacationStat list is to be converted to StatusVacationStatResponse");
 
     List<StatusVacationStat> statusVacationStats = statusVacationStatDaoBean.getStatusVacations();
 

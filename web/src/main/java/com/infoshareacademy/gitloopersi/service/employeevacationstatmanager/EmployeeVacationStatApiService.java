@@ -9,6 +9,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Stateless
 public class EmployeeVacationStatApiService {
@@ -19,15 +21,21 @@ public class EmployeeVacationStatApiService {
   @Inject
   private EmployeeVacationStatDaoBean employeeVacationStatDaoBean;
 
+  private Logger logger = LoggerFactory.getLogger(getClass().getName());
+
   @Transactional
   public List<EmployeeVacationStatResponse> getEmployeeVacationStatJsonObjects() {
 
-    List<EmployeeVacationStat> employeeVacationStats = employeeVacationStatDaoBean.getEmployeeVacations();
+    logger.info("EmployeeVacationStat list is to be converted to EmployeeVacationStatResponse");
+
+    List<EmployeeVacationStat> employeeVacationStats = employeeVacationStatDaoBean
+        .getEmployeeVacations();
 
     List<EmployeeVacationStatResponse> employeeVacationStatResponses = new ArrayList<>();
 
     employeeVacationStats.forEach(employeeVacationStat -> {
-      EmployeeVacationStatResponse employeeVacationStatResponse = employeeVacationStatMapper.mapEmplyeeVacationStatEntityToApi(employeeVacationStat);
+      EmployeeVacationStatResponse employeeVacationStatResponse = employeeVacationStatMapper
+          .mapEmplyeeVacationStatEntityToApi(employeeVacationStat);
       employeeVacationStatResponses.add(employeeVacationStatResponse);
     });
 
