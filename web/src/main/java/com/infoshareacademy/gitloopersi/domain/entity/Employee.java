@@ -81,7 +81,7 @@ public class Employee {
   private List<Vacation> employeeVacations = new ArrayList<>();
 
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "employee_vacation_id", unique = true)
+  @JoinColumn(name = "employee_vacation_stat_id", unique = true)
   EmployeeVacationStat employeeVacationStat;
 
   public Long getId() {
@@ -159,5 +159,14 @@ public class Employee {
   public void setEmployeeVacations(
       List<Vacation> employeeVacations) {
     this.employeeVacations = employeeVacations;
+  }
+
+  public EmployeeVacationStat getEmployeeVacationStat() {
+    return employeeVacationStat;
+  }
+
+  public void setEmployeeVacationStat(
+      EmployeeVacationStat employeeVacationStat) {
+    this.employeeVacationStat = employeeVacationStat;
   }
 }

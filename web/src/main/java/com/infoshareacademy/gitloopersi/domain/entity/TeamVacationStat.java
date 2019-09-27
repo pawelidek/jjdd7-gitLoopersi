@@ -32,7 +32,7 @@ public class TeamVacationStat {
   @Column(name = "id")
   private Long id;
 
-  @OneToOne(mappedBy = "teamVacation")
+  @OneToOne(mappedBy = "teamVacationStat")
   private Team team;
 
   @Column(name = "quantity")

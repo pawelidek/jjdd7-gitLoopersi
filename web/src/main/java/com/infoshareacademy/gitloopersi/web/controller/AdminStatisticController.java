@@ -11,8 +11,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Path("/admin/statistics")
 public class AdminStatisticController {
@@ -29,14 +27,39 @@ public class AdminStatisticController {
   @Inject
   private TeamVacationStatApiService teamVacationStatApiService;
 
-  private Logger logger = LoggerFactory.getLogger(getClass().getName());
-
   @GET
   @Path("/employeevacation")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getEmployeeVacationStats() throws JsonProcessingException {
     return Response.ok()
-        .entity(holidayApiService.getHolidayJsonObjectsByPattern(param))
+        .entity(employeeVacationStatApiService.getEmployeeVacationStatJsonObjects())
+        .build();
+  }
+
+  @GET
+  @Path("/monthvacation")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getMonthVacationStats() throws JsonProcessingException {
+    return Response.ok()
+        .entity(monthVacationStatApiService.getMonthVacationJsonObjects())
+        .build();
+  }
+
+  @GET
+  @Path("/statusvacation")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getStatusVacationStats() throws JsonProcessingException {
+    return Response.ok()
+        .entity(statusVacationStatApiService.getStatusVacationStatJsonObjects())
+        .build();
+  }
+
+  @GET
+  @Path("/teamvacation")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getTeamVacationStats() throws JsonProcessingException {
+    return Response.ok()
+        .entity(teamVacationStatApiService.getTeamVacationStatJsonObjects())
         .build();
   }
 }

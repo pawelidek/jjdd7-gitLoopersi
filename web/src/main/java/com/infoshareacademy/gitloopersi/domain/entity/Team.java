@@ -47,7 +47,7 @@ public class Team {
   private List<Employee> teamEmployees = new ArrayList<>();
 
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "team_vacation_id", unique = true)
+  @JoinColumn(name = "team_vacation_stat_id", unique = true)
   TeamVacationStat teamVacationStat;
 
   public Long getId() {

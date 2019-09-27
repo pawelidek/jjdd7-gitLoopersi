@@ -32,7 +32,7 @@ public class EmployeeVacationStat {
   @Column(name = "id")
   private Long id;
 
-  @OneToOne(mappedBy = "employeeVacation")
+  @OneToOne(mappedBy = "employeeVacationStat")
   private Employee employee;
 
   @Column(name = "quantity")
