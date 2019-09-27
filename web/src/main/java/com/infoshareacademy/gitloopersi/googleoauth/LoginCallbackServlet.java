@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/oauth2callback")
 public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServlet {
 
-
   @EJB
   private UserService userService;
 
@@ -47,11 +46,9 @@ public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServl
     Oauth2 oauth2 = builderOauth.buildOauth(gCredential);
 
     Userinfoplus info = oauth2.userinfo().get().execute();
-    String name = info.getName();
+    String name = info.getGivenName();
     String email = info.getEmail();
-    String surname = info.getGivenName();
-//    req.getSession().setAttribute("google_name", name);
-//    req.getSession().setAttribute("email", email);
+    String surname = info.getFamilyName();
 
     if(userService.findUserByEmail(email) == null){
       User user = new User();
@@ -65,8 +62,8 @@ public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServl
       employee.setEmail(email);
       employee.setFirstName(name);
       employee.setSecondName(surname);
-      employee.setStartHireDate(LocalDate.parse("2019-08-24"));
-      employee.setStartDate(LocalDate.parse("2019-08-24"));
+      employee.setStartHireDate(LocalDate.now());
+      employee.setStartDate(LocalDate.now());
       employee.unsetAdminPermissions();
       employee.setTeam(team);
       teamService.addTeam(team);
@@ -81,14 +78,7 @@ public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServl
     } else {
       req.getSession().setAttribute("userType", "user");
     }
-//=======
-//    req.getSession().setAttribute("google_name", name);
-//    req.getSession().setAttribute("email", email);
-//    req.getSession().setAttribute("userType", "user");
-//>>>>>>> dc91c57adafe6379de73608de89ea13da2a74767
     resp.sendRedirect("/home");
-
-
   }
 
   @Override

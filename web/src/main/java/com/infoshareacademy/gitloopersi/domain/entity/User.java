@@ -15,9 +15,6 @@ import javax.validation.constraints.NotNull;
 
 @NamedQueries({
     @NamedQuery(
-        name = "User.findUserByName",
-        query = "SELECT u FROM User u WHERE u.name like :name"),
-    @NamedQuery(
         name = "User.getUserList",
         query = "SELECT u FROM User u"),
     @NamedQuery(
@@ -40,12 +37,6 @@ public class User {
   @Column(name = "surname")
   @NotNull
   private String surname;
-
-  @Column(name = "login")
-  private String login;
-
-  @Column(name = "password")
-  private String password;
 
   @Column(name = "email")
   @NotNull
@@ -71,28 +62,8 @@ public class User {
     this.name = name;
   }
 
-  public String getSurname() {
-    return surname;
-  }
-
   public void setSurname(String surname) {
     this.surname = surname;
-  }
-
-  public String getLogin() {
-    return login;
-  }
-
-  public void setLogin(String login) {
-    this.login = login;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
   }
 
   public Employee getEmployee() {
@@ -109,5 +80,9 @@ public class User {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public String getSurname() {
+    return surname;
   }
 }

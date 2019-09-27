@@ -44,19 +44,10 @@ public class UserDaoBean {
     return query.getResultList();
   }
 
-  public User findUserByName(String name) {
-    Query query = entityManager.createNamedQuery("User.findUserByName");
-    query.setParameter("name", name);
-    return (User) query.getResultList().stream().findFirst().orElse(null);
-  }
-
   @Transactional
   public User findUserByEmail(String email) {
     Query query = entityManager.createNamedQuery("User.findUserByEmail");
     query.setParameter("email", email);
     return (User) query.getResultList().stream().findFirst().orElse(null);
   }
-
-
-
 }
