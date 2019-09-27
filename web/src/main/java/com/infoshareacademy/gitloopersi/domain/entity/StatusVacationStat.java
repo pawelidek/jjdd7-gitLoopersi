@@ -1,6 +1,6 @@
-package com.infoshareacademy.gitloopersi.domain.entity.statistic;
+package com.infoshareacademy.gitloopersi.domain.entity;
 
-import com.infoshareacademy.gitloopersi.domain.entity.Team;
+import com.infoshareacademy.gitloopersi.types.StatusType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,42 +8,44 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @NamedQueries({
     @NamedQuery(
-        name = "TeamVacation.findAll",
-        query = "SELECT tv FROM TeamVacation tv ORDER BY tv.quantity DESC"
+        name = "StatusVacation.findAll",
+        query = "SELECT sv FROM StatusVacationStat sv"
     ),
     @NamedQuery(
-        name = "TeamVacation.incrementQuantity",
-        query = "UPDATE TeamVacation tv SET tv.quantity=tv.quantity+1 WHERE tv.id=:id"
+        name = "StatusVacation.incrementQuantity",
+        query = "UPDATE StatusVacationStat sv SET sv.quantity=sv.quantity+1 WHERE sv.statusType=:statusType"
     )
 }
 )
 @Entity
-@Table(name = "team_vacation")
-public class TeamVacation {
+@Table(name = "status_vacation")
+public class StatusVacationStat {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private Long id;
 
-  @OneToOne(mappedBy = "teamVacation")
-  private Team team;
+  @Column(name = "status_type")
+  @NotNull
+  private StatusType statusType;
 
   @Column(name = "quantity")
   @NotNull
   private Integer quantity = 0;
 
-  public TeamVacation() {
+  public StatusVacationStat() {
   }
 
-  public TeamVacation(Team team, @NotNull Integer quantity) {
-    this.team = team;
+  public StatusVacationStat(
+      @NotNull StatusType statusType,
+      @NotNull Integer quantity) {
+    this.statusType = statusType;
     this.quantity = quantity;
   }
 
@@ -51,12 +53,12 @@ public class TeamVacation {
     return id;
   }
 
-  public Team getTeam() {
-    return team;
+  public StatusType getStatusType() {
+    return statusType;
   }
 
-  public void setTeam(Team team) {
-    this.team = team;
+  public void setStatusType(StatusType statusType) {
+    this.statusType = statusType;
   }
 
   public Integer getQuantity() {
@@ -69,9 +71,9 @@ public class TeamVacation {
 
   @Override
   public String toString() {
-    return "TeamVacation{" +
+    return "StatusVacationStat{" +
         "id=" + id +
-        ", team=" + team +
+        ", statusType=" + statusType +
         ", quantity=" + quantity +
         '}';
   }

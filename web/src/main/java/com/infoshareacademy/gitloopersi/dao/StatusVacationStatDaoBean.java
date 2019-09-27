@@ -1,6 +1,6 @@
-package com.infoshareacademy.gitloopersi.dao.statistic;
+package com.infoshareacademy.gitloopersi.dao;
 
-import com.infoshareacademy.gitloopersi.domain.entity.statistic.StatusVacation;
+import com.infoshareacademy.gitloopersi.domain.entity.StatusVacationStat;
 import com.infoshareacademy.gitloopersi.types.StatusType;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -11,16 +11,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Stateless
-public class StatusVacationDaoBean {
+public class StatusVacationStatDaoBean {
 
   @PersistenceContext
   private EntityManager entityManager;
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
-  public List<StatusVacation> getStatusVacations() {
+  public List<StatusVacationStat> getStatusVacations() {
 
-    logger.info("StatusVacation objects are to be get from DB");
+    logger.info("StatusVacationStat objects are to be get from DB");
     Query query = entityManager
         .createNamedQuery("StatusVacation.findAll");
 
@@ -29,7 +29,7 @@ public class StatusVacationDaoBean {
 
   public void updateStatusVacationIncrementQuantity(StatusType statusType) {
 
-    logger.info("EmployeeVacation object statusType={} is to be updated in DB",statusType.getType());
+    logger.info("EmployeeVacationStat object statusType={} is to be updated in DB",statusType.getType());
 
     Query query = entityManager.createNamedQuery("StatusVacation.incrementQuantity");
     query.setParameter("statusType", statusType).executeUpdate();

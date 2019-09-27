@@ -1,6 +1,6 @@
-package com.infoshareacademy.gitloopersi.dao.statistic;
+package com.infoshareacademy.gitloopersi.dao;
 
-import com.infoshareacademy.gitloopersi.domain.entity.statistic.TeamVacation;
+import com.infoshareacademy.gitloopersi.domain.entity.TeamVacationStat;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -10,16 +10,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Stateless
-public class TeamVacationDaoBean {
+public class TeamVacationStatDaoBean {
 
   @PersistenceContext
   private EntityManager entityManager;
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
-  public List<TeamVacation> getTeamVacations() {
+  public List<TeamVacationStat> getTeamVacations() {
 
-    logger.info("TeamVacation objects are to be get from DB");
+    logger.info("TeamVacationStat objects are to be get from DB");
     Query query = entityManager
         .createNamedQuery("TeamVacation.findAll");
 

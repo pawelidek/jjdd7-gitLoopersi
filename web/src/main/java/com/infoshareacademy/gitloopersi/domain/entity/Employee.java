@@ -1,6 +1,5 @@
 package com.infoshareacademy.gitloopersi.domain.entity;
 
-import com.infoshareacademy.gitloopersi.domain.entity.statistic.EmployeeVacation;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +82,7 @@ public class Employee {
 
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(name = "employee_vacation_id", unique = true)
-  EmployeeVacation employeeVacation;
+  EmployeeVacationStat employeeVacationStat;
 
   public Long getId() {
     return id;

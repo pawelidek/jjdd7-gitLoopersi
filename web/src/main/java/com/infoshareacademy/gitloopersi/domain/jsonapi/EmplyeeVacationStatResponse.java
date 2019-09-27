@@ -1,8 +1,8 @@
-package com.infoshareacademy.gitloopersi.domain.jsonapi.statistic;
+package com.infoshareacademy.gitloopersi.domain.jsonapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class EmplyeeVacationResponse {
+public class EmplyeeVacationStatResponse {
 
   @JsonProperty("fullName")
   private String fullName;
@@ -26,10 +26,10 @@ public class EmplyeeVacationResponse {
     this.quantity = quantity;
   }
 
-  public EmplyeeVacationResponse() {
+  public EmplyeeVacationStatResponse() {
   }
 
-  public EmplyeeVacationResponse(String fullName, String quantity) {
+  public EmplyeeVacationStatResponse(String fullName, String quantity) {
     this.fullName = fullName;
     this.quantity = quantity;
   }

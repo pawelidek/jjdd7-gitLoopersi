@@ -1,6 +1,6 @@
-package com.infoshareacademy.gitloopersi.domain.entity.statistic;
+package com.infoshareacademy.gitloopersi.domain.entity;
 
-import com.infoshareacademy.gitloopersi.domain.entity.Employee;
+import com.infoshareacademy.gitloopersi.domain.entity.Team;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,37 +14,36 @@ import javax.validation.constraints.NotNull;
 
 @NamedQueries({
     @NamedQuery(
-        name = "EmployeeVacation.findAll",
-        query = "SELECT ev FROM EmployeeVacation ev ORDER BY ev.quantity DESC"
+        name = "TeamVacation.findAll",
+        query = "SELECT tv FROM TeamVacationStat tv ORDER BY tv.quantity DESC"
     ),
     @NamedQuery(
-        name = "EmployeeVacation.incrementQuantity",
-        query = "UPDATE EmployeeVacation ev SET ev.quantity=ev.quantity+1 WHERE ev.id=:id"
+        name = "TeamVacation.incrementQuantity",
+        query = "UPDATE TeamVacationStat tv SET tv.quantity=tv.quantity+1 WHERE tv.id=:id"
     )
 }
 )
 @Entity
-@Table(name = "employee_vacation")
-public class EmployeeVacation {
+@Table(name = "team_vacation")
+public class TeamVacationStat {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private Long id;
 
-  @OneToOne(mappedBy = "employeeVacation")
-  private Employee employee;
+  @OneToOne(mappedBy = "teamVacation")
+  private Team team;
 
   @Column(name = "quantity")
   @NotNull
   private Integer quantity = 0;
 
-  public EmployeeVacation() {
+  public TeamVacationStat() {
   }
 
-  public EmployeeVacation(
-      @NotNull Employee employee, @NotNull Integer quantity) {
-    this.employee = employee;
+  public TeamVacationStat(Team team, @NotNull Integer quantity) {
+    this.team = team;
     this.quantity = quantity;
   }
 
@@ -52,12 +51,12 @@ public class EmployeeVacation {
     return id;
   }
 
-  public Employee getEmployee() {
-    return employee;
+  public Team getTeam() {
+    return team;
   }
 
-  public void setEmployee(Employee employee) {
-    this.employee = employee;
+  public void setTeam(Team team) {
+    this.team = team;
   }
 
   public Integer getQuantity() {
@@ -70,9 +69,9 @@ public class EmployeeVacation {
 
   @Override
   public String toString() {
-    return "EmployeeVacation{" +
+    return "TeamVacationStat{" +
         "id=" + id +
-        ", employee=" + employee +
+        ", team=" + team +
         ", quantity=" + quantity +
         '}';
   }

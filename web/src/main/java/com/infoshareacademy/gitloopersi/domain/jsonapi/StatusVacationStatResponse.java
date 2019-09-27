@@ -1,8 +1,8 @@
-package com.infoshareacademy.gitloopersi.domain.jsonapi.statistic;
+package com.infoshareacademy.gitloopersi.domain.jsonapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class StatusVacationResponse {
+public class StatusVacationStatResponse {
 
   @JsonProperty("status")
   private String status;
@@ -10,10 +10,10 @@ public class StatusVacationResponse {
   @JsonProperty("quantity")
   private String quantity;
 
-  public StatusVacationResponse() {
+  public StatusVacationStatResponse() {
   }
 
-  public StatusVacationResponse(String status, String quantity) {
+  public StatusVacationStatResponse(String status, String quantity) {
     this.status = status;
     this.quantity = quantity;
   }

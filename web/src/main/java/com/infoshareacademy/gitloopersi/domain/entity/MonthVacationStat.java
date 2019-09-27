@@ -1,6 +1,5 @@
-package com.infoshareacademy.gitloopersi.domain.entity.statistic;
+package com.infoshareacademy.gitloopersi.domain.entity;
 
-import com.infoshareacademy.gitloopersi.types.StatusType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,39 +12,38 @@ import javax.validation.constraints.NotNull;
 
 @NamedQueries({
     @NamedQuery(
-        name = "StatusVacation.findAll",
-        query = "SELECT sv FROM StatusVacation sv"
+        name = "MonthVacation.findAll",
+        query = "SELECT mv FROM MonthVacationStat mv"
     ),
     @NamedQuery(
-        name = "StatusVacation.incrementQuantity",
-        query = "UPDATE StatusVacation sv SET sv.quantity=sv.quantity+1 WHERE sv.statusType=:statusType"
+        name = "MonthVacation.incrementQuantity",
+        query = "UPDATE MonthVacationStat mv SET mv.quantity=mv.quantity+1 WHERE mv.month=:month"
     )
 }
 )
 @Entity
-@Table(name = "status_vacation")
-public class StatusVacation {
+@Table(name = "month_vacation")
+public class MonthVacationStat {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private Long id;
 
-  @Column(name = "status_type")
+  @Column(name = "month", unique = true)
   @NotNull
-  private StatusType statusType;
+  private String month;
 
   @Column(name = "quantity")
   @NotNull
   private Integer quantity = 0;
 
-  public StatusVacation() {
+  public MonthVacationStat() {
   }
 
-  public StatusVacation(
-      @NotNull StatusType statusType,
+  public MonthVacationStat(@NotNull String month,
       @NotNull Integer quantity) {
-    this.statusType = statusType;
+    this.month = month;
     this.quantity = quantity;
   }
 
@@ -53,12 +51,12 @@ public class StatusVacation {
     return id;
   }
 
-  public StatusType getStatusType() {
-    return statusType;
+  public String getMonth() {
+    return month;
   }
 
-  public void setStatusType(StatusType statusType) {
-    this.statusType = statusType;
+  public void setMonth(String month) {
+    this.month = month;
   }
 
   public Integer getQuantity() {
@@ -71,9 +69,9 @@ public class StatusVacation {
 
   @Override
   public String toString() {
-    return "StatusVacation{" +
+    return "MonthVacationStat{" +
         "id=" + id +
-        ", statusType=" + statusType +
+        ", month='" + month + '\'' +
         ", quantity=" + quantity +
         '}';
   }

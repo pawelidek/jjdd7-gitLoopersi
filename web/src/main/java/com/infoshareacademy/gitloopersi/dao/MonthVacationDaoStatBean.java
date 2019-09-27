@@ -1,6 +1,6 @@
-package com.infoshareacademy.gitloopersi.dao.statistic;
+package com.infoshareacademy.gitloopersi.dao;
 
-import com.infoshareacademy.gitloopersi.domain.entity.statistic.MonthVacation;
+import com.infoshareacademy.gitloopersi.domain.entity.MonthVacationStat;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -10,16 +10,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Stateless
-public class MonthVacationDaoBean {
+public class MonthVacationDaoStatBean {
 
   @PersistenceContext
   private EntityManager entityManager;
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
-  public List<MonthVacation> getMonthVacations() {
+  public List<MonthVacationStat> getMonthVacations() {
 
-    logger.info("MonthVacation objects are to be get from DB");
+    logger.info("MonthVacationStat objects are to be get from DB");
     Query query = entityManager
         .createNamedQuery("MonthVacation.findAll");
 
@@ -28,7 +28,7 @@ public class MonthVacationDaoBean {
 
   public void updateMonthVacationIncrementQuantity(String month) {
 
-    logger.info("MonthVacation object month={} is to be updated in DB",month);
+    logger.info("MonthVacationStat object month={} is to be updated in DB",month);
 
     Query query = entityManager.createNamedQuery("MonthVacation.incrementQuantity");
     query.setParameter("month", month).executeUpdate();

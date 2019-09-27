@@ -1,6 +1,6 @@
-package com.infoshareacademy.gitloopersi.dao.statistic;
+package com.infoshareacademy.gitloopersi.dao;
 
-import com.infoshareacademy.gitloopersi.domain.entity.statistic.EmployeeVacation;
+import com.infoshareacademy.gitloopersi.domain.entity.EmployeeVacationStat;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -10,16 +10,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Stateless
-public class EmployeeVacationDaoBean {
+public class EmployeeVacationStatDaoBean {
 
   @PersistenceContext
   private EntityManager entityManager;
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
-  public List<EmployeeVacation> getEmployeeVacations() {
+  public List<EmployeeVacationStat> getEmployeeVacations() {
 
-    logger.info("EmployeeVacation objects are to be get from DB");
+    logger.info("EmployeeVacationStat objects are to be get from DB");
 
     Query query = entityManager
         .createNamedQuery("EmployeeVacation.findAll");
@@ -29,7 +29,7 @@ public class EmployeeVacationDaoBean {
 
   public void updateEmployeeVacationIncrementQuantity(Long id) {
 
-    logger.info("EmployeeVacation object id={} is to be updated in DB",id);
+    logger.info("EmployeeVacationStat object id={} is to be updated in DB",id);
 
     Query query = entityManager.createNamedQuery("EmployeeVacation.incrementQuantity");
     query.setParameter("id", id).executeUpdate();

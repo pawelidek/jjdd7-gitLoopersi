@@ -1,5 +1,6 @@
-package com.infoshareacademy.gitloopersi.domain.entity.statistic;
+package com.infoshareacademy.gitloopersi.domain.entity;
 
+import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,43 +8,43 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @NamedQueries({
     @NamedQuery(
-        name = "MonthVacation.findAll",
-        query = "SELECT mv FROM MonthVacation mv"
+        name = "EmployeeVacation.findAll",
+        query = "SELECT ev FROM EmployeeVacationStat ev ORDER BY ev.quantity DESC"
     ),
     @NamedQuery(
-        name = "MonthVacation.incrementQuantity",
-        query = "UPDATE MonthVacation mv SET mv.quantity=mv.quantity+1 WHERE mv.month=:month"
+        name = "EmployeeVacation.incrementQuantity",
+        query = "UPDATE EmployeeVacationStat ev SET ev.quantity=ev.quantity+1 WHERE ev.id=:id"
     )
 }
 )
 @Entity
-@Table(name = "month_vacation")
-public class MonthVacation {
+@Table(name = "employee_vacation")
+public class EmployeeVacationStat {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private Long id;
 
-  @Column(name = "month", unique = true)
-  @NotNull
-  private String month;
+  @OneToOne(mappedBy = "employeeVacation")
+  private Employee employee;
 
   @Column(name = "quantity")
   @NotNull
   private Integer quantity = 0;
 
-  public MonthVacation() {
+  public EmployeeVacationStat() {
   }
 
-  public MonthVacation(@NotNull String month,
-      @NotNull Integer quantity) {
-    this.month = month;
+  public EmployeeVacationStat(
+      @NotNull Employee employee, @NotNull Integer quantity) {
+    this.employee = employee;
     this.quantity = quantity;
   }
 
@@ -51,12 +52,12 @@ public class MonthVacation {
     return id;
   }
 
-  public String getMonth() {
-    return month;
+  public Employee getEmployee() {
+    return employee;
   }
 
-  public void setMonth(String month) {
-    this.month = month;
+  public void setEmployee(Employee employee) {
+    this.employee = employee;
   }
 
   public Integer getQuantity() {
@@ -69,9 +70,9 @@ public class MonthVacation {
 
   @Override
   public String toString() {
-    return "MonthVacation{" +
+    return "EmployeeVacationStat{" +
         "id=" + id +
-        ", month='" + month + '\'' +
+        ", employee=" + employee +
         ", quantity=" + quantity +
         '}';
   }
