@@ -28,20 +28,20 @@ public class AdminStatisticController {
   private TeamVacationStatApiService teamVacationStatApiService;
 
   @GET
-  @Path("/employeevacation")
-  @Produces(MediaType.APPLICATION_JSON)
-  public Response getEmployeeVacationStats() throws JsonProcessingException {
-    return Response.ok()
-        .entity(employeeVacationStatApiService.getEmployeeVacationStatJsonObjects())
-        .build();
-  }
-
-  @GET
   @Path("/monthvacation")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getMonthVacationStats() throws JsonProcessingException {
     return Response.ok()
         .entity(monthVacationStatApiService.getMonthVacationJsonObjects())
+        .build();
+  }
+
+  @GET
+  @Path("/employeevacation")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getEmployeeVacationStats() throws JsonProcessingException {
+    return Response.ok()
+        .entity(employeeVacationStatApiService.getEmployeeVacationStatJsonObjects())
         .build();
   }
 

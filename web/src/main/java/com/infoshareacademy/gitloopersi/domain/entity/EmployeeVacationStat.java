@@ -1,6 +1,5 @@
 package com.infoshareacademy.gitloopersi.domain.entity;
 
-import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
