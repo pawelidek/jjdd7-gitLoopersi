@@ -54,4 +54,10 @@ public class EmployeeDaoBean {
     query.setParameter("email", email);
     return (Employee) query.getResultList().stream().findFirst().orElse(null);
   }
+
+  public List<Employee> getEmployeeListFromTeam(Long id) {
+    Query query = entityManager.createNamedQuery("Employee.findEmployeesFromTeam");
+    query.setParameter("id", id);
+    return query.getResultList();
+  }
 }
