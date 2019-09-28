@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -29,10 +30,15 @@ import javax.validation.constraints.NotBlank;
     @NamedQuery(
         name = "Team.findTeamByName",
         query = "SELECT t FROM Team t WHERE t.name LIKE :name"
+    ),
+    @NamedQuery(
+        name = "Team.findTeamByEmployeeId",
+        query = "SELECT t FROM Team t LEFT JOIN Employee e ON (t.id=e.team.id) WHERE e.id=:id"
     )
 })
 @Entity
-@Table(name = "team")
+@Table(name = "team", indexes = {
+    @Index(columnList = "name", name = "name_index")})
 public class Team {
 
   @Id
@@ -49,7 +55,7 @@ public class Team {
 
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(name = "team_vacation_id", unique = true)
-  TeamVacation teamVacation;
+  private TeamVacation teamVacation;
 
   public Long getId() {
     return id;
