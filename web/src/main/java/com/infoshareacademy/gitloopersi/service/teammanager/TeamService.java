@@ -2,9 +2,15 @@ package com.infoshareacademy.gitloopersi.service.teammanager;
 
 import com.infoshareacademy.gitloopersi.dao.TeamDaoBean;
 import com.infoshareacademy.gitloopersi.domain.entity.Team;
+import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
+import com.infoshareacademy.gitloopersi.web.mapper.EmployeeViewMapper;
+import com.infoshareacademy.gitloopersi.web.mapper.TeamViewMapper;
+import com.infoshareacademy.gitloopersi.web.view.EmployeeView;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +21,15 @@ public class TeamService {
 
   @EJB
   private TeamDaoBean teamDaoBean;
+
+  @EJB
+  private EmployeeService employeeService;
+
+  @EJB
+  private TeamViewMapper teamViewMapper;
+
+  @EJB
+  private EmployeeViewMapper employeeViewMapper;
 
   public void addTeam(Team team) {
     logger.info("New team object [{}] go to DAO to be saved in DB", team.getName());
@@ -49,6 +64,25 @@ public class TeamService {
       logger.info("Team id={} is not empty", id);
       return false;
     }
+  }
+
+  public Team getTeamByEmployeeId(Long id) {
+    logger.info("Team object for employee with id={} go to DAO to be found in DB", id);
+    return teamDaoBean.getTeamByEmployeeId(id);
+  }
+
+  @Transactional
+  public List<EmployeeView> getTeamWithEmployeesList(Long id) {
+    List<EmployeeView> teamView = new ArrayList<>();
+
+    getTeamById(employeeService
+        .getEmployeeById(id)
+        .getTeam()
+        .getId())
+        .getTeamEmployees()
+        .forEach(employee -> teamView.add(employeeViewMapper.mapEntityToView(employee)));
+
+    return teamView;
   }
 
   public Team getTeamByName(String name) {

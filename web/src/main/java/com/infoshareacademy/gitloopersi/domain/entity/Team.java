@@ -29,6 +29,10 @@ import javax.validation.constraints.NotBlank;
     @NamedQuery(
         name = "Team.findTeamByName",
         query = "SELECT t FROM Team t WHERE t.name LIKE :name"
+    ),
+    @NamedQuery(
+        name = "Team.findTeamByEmployeeId",
+        query = "SELECT t FROM Team t LEFT JOIN Employee e ON (t.id=e.team.id) WHERE e.id=:id"
     )
 })
 @Entity

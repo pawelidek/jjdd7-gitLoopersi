@@ -73,6 +73,18 @@ public class EmployeeService {
     return employeeViews;
   }
 
+  @Transactional
+  public List<EmployeeView> getEmployeesFromTeam(Long id) {
+    List<EmployeeView> employeeViewsFromTeam = new ArrayList<>();
+
+    getEmployeesList().stream().filter(employee -> employee.getTeam().getId().equals(id))
+        .forEach(e -> {
+          employeeViewsFromTeam.add(employeeViewMapper.mapEntityToView(e));
+        });
+
+    return employeeViewsFromTeam;
+  }
+
   public Employee getEmployeeByEmail(String email) {
     return employeeDaoBean.getEmployeeByEmail(email);
   }
