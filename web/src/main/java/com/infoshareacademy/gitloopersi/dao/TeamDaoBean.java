@@ -61,4 +61,10 @@ public class TeamDaoBean {
     query.setParameter("name", name);
     return (Team) query.getResultList().stream().findFirst().orElse(null);
   }
+
+  public Team getTeamByEmployeeId (Long id) {
+    Query query = entityManager.createNamedQuery("Team.findTeamByEmployeeId");
+    query.setParameter("id", id);
+    return (Team) query.getResultList().stream().findFirst().orElse(null);
+  }
 }

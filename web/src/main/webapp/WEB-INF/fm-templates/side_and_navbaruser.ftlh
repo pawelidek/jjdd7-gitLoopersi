@@ -27,6 +27,11 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="/user/vacation/team">
+              My Team's Vacation
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="/holiday">
               Holiday List
             </a>
