@@ -77,7 +77,7 @@
               <td>
                 <div>
                     <#if (employee.id) == 1>
-                  <img src="/img/button_edit_inactive.svg" id="label" alt="Edit" title="Can't edit">
+                  <img src="/img/button_edit_inactive.svg" id="label" alt="Can't edit" title="Can't edit">
                     <#else>
                   <a class="edit-employee" data-id="${employee.id}" href="#" data-toggle="modal"
                      data-target="#exampleModal">
