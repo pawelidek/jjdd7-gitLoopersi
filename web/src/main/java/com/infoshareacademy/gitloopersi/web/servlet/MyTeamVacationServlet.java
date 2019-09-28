@@ -1,9 +1,9 @@
 package com.infoshareacademy.gitloopersi.web.servlet;
 
+import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import com.infoshareacademy.gitloopersi.domain.entity.Team;
 import com.infoshareacademy.gitloopersi.domain.model.Calendar;
 import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
-import com.infoshareacademy.gitloopersi.service.alertmessage.UserMessagesService;
 import com.infoshareacademy.gitloopersi.service.calendarmanager.CalendarService;
 import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
 import com.infoshareacademy.gitloopersi.service.teammanager.TeamService;
@@ -23,14 +23,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @WebServlet("/user/vacation/team")
 public class MyTeamVacationServlet extends HttpServlet {
-
-  private static final String EMPLOYEE_ID = "employeeId";
 
   @Inject
   private TemplateProvider templateProvider;
@@ -54,12 +51,13 @@ public class MyTeamVacationServlet extends HttpServlet {
       throws IOException {
 
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
-
+    String email = String.valueOf(req.getSession().getAttribute("email"));
     Map<String, Object> dataModel = new HashMap<>();
     List<Calendar> dates = calendarService.findAllHolidaysDates();
-    HttpSession httpSession = req.getSession(true);
-    httpSession.setAttribute(EMPLOYEE_ID, 1L);
-    Long employeeId = (Long) req.getSession().getAttribute(EMPLOYEE_ID);
+    Employee employee = employeeService.getEmployeeByEmail(email);
+    req.getSession().setAttribute("employeeId", employee.getId());
+    Long employeeId = (Long) req.getSession().getAttribute("employeeId");
+    logger.info("{}", employee.getFirstName());
     Long myTeamId = teamService.getTeamByEmployeeId(employeeId).getId();
     Team team = teamService.getTeamByEmployeeId(employeeId);
     List<VacationView> vacationViews = vacationDefiningService.getVacationsListForTeam(myTeamId);

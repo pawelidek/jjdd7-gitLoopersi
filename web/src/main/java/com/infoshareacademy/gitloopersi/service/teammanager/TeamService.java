@@ -71,20 +71,6 @@ public class TeamService {
     return teamDaoBean.getTeamByEmployeeId(id);
   }
 
-  @Transactional
-  public List<EmployeeView> getTeamWithEmployeesList(Long id) {
-    List<EmployeeView> teamView = new ArrayList<>();
-
-    getTeamById(employeeService
-        .getEmployeeById(id)
-        .getTeam()
-        .getId())
-        .getTeamEmployees()
-        .forEach(employee -> teamView.add(employeeViewMapper.mapEntityToView(employee)));
-
-    return teamView;
-  }
-
   public Team getTeamByName(String name) {
     return teamDaoBean.getTeamByName(name);
   }

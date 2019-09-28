@@ -35,7 +35,7 @@
               <td>${employee.secondName}</td>
               <td>${employee.email}</td>
               <td><#if employee.admin == true>
-                  <img src="/img/button_admin.svg" alt="Admin" title="Admin">
+                  <img src="/img/button_admin.svg" alt="Manager" title="Manager">
                   </#if>
               </td>
             </tr>
