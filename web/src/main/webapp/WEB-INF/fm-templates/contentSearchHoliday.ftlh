@@ -13,7 +13,8 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-4 text-right">
-          <button type="button" class="btn btn-secondary" id="searchByPattern">Search by pattern
+          <button type="button" class="btn btn-outline-secondary" id="searchByPattern">
+            <img src="/img/button_search.svg" alt="Search by pattern"> Search by pattern
           </button>
         </div>
         <div class="col-4 mb-5">
@@ -26,7 +27,8 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-4 text-right">
-          <button type="button" class="btn btn-secondary pull-right" id="searchByDates">Search by
+          <button type="button" class="btn btn-outline-secondary pull-right" id="searchByDates">
+            <img src="/img/button_search.svg" alt="Search by dates"> Search by
             dates
           </button>
         </div>
