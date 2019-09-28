@@ -3,11 +3,19 @@
         src="/img/logo.png" alt="Responsive image"
         width=150px height=65px></a>
 
-  <ul class="navbar-nav px-3">
-    <li class="nav-item text-nowrap">
-      <a class="nav-link " href="#" onclick="window.location.href = '/logout';">Log out</a>
-    </li>
-  </ul>
+  <div class="navbar-nav px-3 nav-item text-nowrap">
+    <table class="table table-borderless" style="margin-bottom: 0">
+      <tr>
+        <td style="text-align: right">
+          <a class="nav-link " href="#" onclick="window.location.href = '/logout';">
+            <button type="button" class="btn btn-outline-secondary btn-sm">
+              <img src="/img/button_logout.svg" alt="Log Out"> Log out
+            </button>
+          </a>
+        </td>
+      </tr>
+    </table>
+  </div>
 </nav>
 
 <div class="container-fluid">
@@ -41,7 +49,6 @@
               Holiday Search
             </a>
           </li>
-        </ul>
         </ul>
       </div>
     </nav>
