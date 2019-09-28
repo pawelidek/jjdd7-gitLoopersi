@@ -50,10 +50,16 @@ public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServl
     String email = info.getEmail();
     String surname = info.getFamilyName();
 
-    if(userService.findUserByEmail(email) == null){
+    if(teamService.getTeamByName("Unkown") == null) {
+      Team team = new Team();
+      team.setName("Unkown");
+      teamService.addTeam(team);
+    }
+
+    if(userService.findUserByEmail(email) == null) {
+      Team team = teamService.getTeamByName("Unkown");
       User user = new User();
       Employee employee = new Employee();
-      Team team = new Team();
       team.setName("Unkown");
       user.setName(name);
       user.setSurname(surname);
@@ -66,10 +72,55 @@ public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServl
       employee.setStartDate(LocalDate.now());
       employee.unsetAdminPermissions();
       employee.setTeam(team);
-      teamService.addTeam(team);
+      teamService.editTeam(team);
       employeeService.addEmployee(employee, team.getId());
       userService.updateUser(user);
+
     }
+
+//    if (userService.findUserByEmail(email) == null) {
+//      if (teamService.getTeamById(2L) == null) {
+//        Team team = new Team();
+//        team.setName("Unkown");
+//        User user = new User();
+//        Employee employee = new Employee();
+//        team.setName("Unkown");
+//        user.setName(name);
+//        user.setSurname(surname);
+//        user.setEmail(email);
+//        user.setEmployee(employee);
+//        employee.setEmail(email);
+//        employee.setFirstName(name);
+//        employee.setSecondName(surname);
+//        employee.setStartHireDate(LocalDate.now());
+//        employee.setStartDate(LocalDate.now());
+//        employee.unsetAdminPermissions();
+//        employee.setTeam(team);
+//        teamService.addTeam(team);
+//        employeeService.addEmployee(employee, team.getId());
+//        userService.updateUser(user);
+//      } else {
+//
+//      Team team = teamService.getTeamById(2L);
+//      User user = new User();
+//      Employee employee = new Employee();
+//      team.setName("Unkown");
+//      user.setName(name);
+//      user.setSurname(surname);
+//      user.setEmail(email);
+//      user.setEmployee(employee);
+//      employee.setEmail(email);
+//      employee.setFirstName(name);
+//      employee.setSecondName(surname);
+//      employee.setStartHireDate(LocalDate.now());
+//      employee.setStartDate(LocalDate.now());
+//      employee.unsetAdminPermissions();
+//      employee.setTeam(team);
+//      teamService.editTeam(team);
+//      employeeService.addEmployee(employee, team.getId());
+//      userService.updateUser(user);
+//    }
+//  }
 
     User user = userService.findUserByEmail(email);
     req.getSession().setAttribute("email", user.getEmail());
