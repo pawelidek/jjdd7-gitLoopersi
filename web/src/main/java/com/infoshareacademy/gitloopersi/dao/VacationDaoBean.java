@@ -53,4 +53,13 @@ public class VacationDaoBean {
     query.setParameter("id", id);
     return query.getResultList();
   }
+
+  public List<Vacation> getVacationsListForTeamEmployee(Long teamId, Long employeeId) {
+    logger.info("Vacation objects for employee id={} from team id={} are to be get from DB",
+        employeeId, teamId);
+    Query query = entityManager.createNamedQuery("Vacation.findForEmployeeInTeam");
+    query.setParameter("teamId", teamId);
+    query.setParameter("employeeId", employeeId);
+    return query.getResultList();
+  }
 }

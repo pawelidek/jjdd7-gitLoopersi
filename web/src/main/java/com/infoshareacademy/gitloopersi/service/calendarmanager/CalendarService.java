@@ -1,7 +1,9 @@
 package com.infoshareacademy.gitloopersi.service.calendarmanager;
 
 import com.infoshareacademy.gitloopersi.dao.HolidayDaoBean;
+import com.infoshareacademy.gitloopersi.dao.VacationDaoBean;
 import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
+import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
 import com.infoshareacademy.gitloopersi.domain.model.Calendar;
 import com.infoshareacademy.gitloopersi.types.HolidayType;
 import com.infoshareacademy.gitloopersi.web.mapper.CalendarHolidayMapper;
@@ -22,10 +24,13 @@ public class CalendarService {
   @EJB
   HolidayDaoBean holidayDaoBean;
 
+  @EJB
+  VacationDaoBean vacationDaoBean;
+
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   public List<Calendar> findAllHolidaysDates() {
-    logger.info("Load dates of holidays");
+    logger.info("Load holiday dates");
 
     List<Holiday> holidayList = holidayDaoBean.getHolidaysList();
 
@@ -37,9 +42,43 @@ public class CalendarService {
       }
     }
 
-    List<Calendar> calendars = calendarHolidayMapper.mapHolidaysDates(holidayFilterList);
-    return calendars;
+    return calendarHolidayMapper.mapHolidaysDates(holidayFilterList);
 
   }
+
+  public List<Calendar> findTeamEmployeesVacation(Long teamId) {
+    logger.info("Load vacation dates");
+
+    List<Vacation> employeeVacationList = vacationDaoBean
+        .getVacationsListForTeam(teamId);
+
+    return calendarHolidayMapper.mapVacationDates(employeeVacationList);
+  }
+
+//    public List<Calendar> findTeamEmployeeVacation(Long teamId, Long employeeId) {
+//    logger.info("Load vacation dates");
+//
+//    List<Vacation> employeeVacationList = vacationDaoBean
+//        .getVacationsListForTeamEmployee(teamId, employeeId);
+//
+//    return calendarHolidayMapper.mapVacationDates(employeeVacationList);
+//  }
+
+//  public List<List<Calendar>> findTeamEmployeesVacation(Long teamId) {
+//    logger.info("Load vacation dates");
+//
+//    List<Vacation> employeeVacationList = vacationDaoBean
+//        .getVacationsListForTeam(teamId);
+//
+//    List<Calendar> vacationCalendar = calendarHolidayMapper.mapVacationDates(employeeVacationList);
+//
+//    List<List<Calendar>> vacationList = new ArrayList<>();
+//
+//    for (Calendar calendar : vacationCalendar) {
+//      vacationList.add(vacationCalendar);
+//    }
+//
+//    return vacationList;
+//  }
 }
 
