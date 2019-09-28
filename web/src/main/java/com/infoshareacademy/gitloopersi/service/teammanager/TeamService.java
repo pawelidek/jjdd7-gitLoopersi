@@ -59,6 +59,11 @@ public class TeamService {
     }
   }
 
+  public Team getTeamByEmployeeId(Long id) {
+    logger.info("Team object for employee with id={} go to DAO to be found in DB", id);
+    return teamDaoBean.getTeamByEmployeeId(id);
+  }
+
   public Team getTeamByName(String name) {
     return teamDaoBean.getTeamByName(name);
   }

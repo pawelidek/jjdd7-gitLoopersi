@@ -110,6 +110,10 @@ $(function () {
   $(document).ready(function () {
     $(".delete-employee").click(function () {
 
+      let errorsTag = $("#errorsMain");
+      errorsTag.empty();
+      errorsTag.hide();
+
       let successTag = $("#successMain");
       successTag.empty();
       successTag.hide();
@@ -136,7 +140,24 @@ $(function () {
               successTag.css('opacity', 1);
             });
           }, 1500)
-        }
+        },
+        error: function (error) {
+          var errors = JSON.parse(error.responseText);
+          var errorsHtml = "";
+          for (let i = 0; i < errors.length; i++) {
+            errorsHtml += "<strong>" + errors[i] + "</strong><br/>"
+          }
+
+          errorsTag.html(errorsHtml);
+          errorsTag.show();
+
+          setTimeout(function () {
+            errorsTag.fadeTo(500, 0).slideUp(500, function () {
+              errorsTag.hide();
+              errorsTag.css('opacity', 1);
+            });
+          }, 1500)
+        },
       });
     });
   });

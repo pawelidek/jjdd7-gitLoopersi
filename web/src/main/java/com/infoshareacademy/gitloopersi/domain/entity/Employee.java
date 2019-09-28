@@ -29,6 +29,10 @@ import javax.validation.constraints.PastOrPresent;
     @NamedQuery(
         name = "Employee.findEmployeeByEmail",
         query = "SELECT e FROM Employee e WHERE e.email LIKE :email"
+    ),
+    @NamedQuery(
+        name = "Employee.findEmployeesFromTeam",
+        query = "SELECT e FROM Employee e LEFT JOIN Team t ON (e.team.id=t.id) WHERE t.id=:id"
     )
 })
 @Entity
