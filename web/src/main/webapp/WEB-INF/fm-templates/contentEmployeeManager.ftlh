@@ -36,6 +36,10 @@
          style="text-align: center; display: none;">
     </div>
 
+    <div id="errorsMain" class="alert alert-danger fade show" role="alert"
+         style="text-align: center; display: none;">
+    </div>
+
     <table class="table table-sm table-hover" style="text-align: center">
 
       <thead>
@@ -75,8 +79,12 @@
                   <a class="edit-employee" data-id="${employee.id}" href="#" data-toggle="modal"
                      data-target="#exampleModal">
                     <img src="/img/button_edit.svg" id="label" alt="Edit" title="Edit"></a>
+                    <#if (employee.id) == 1>
+                      <img src="/img/button_delete_inactive.svg" alt="Can't delete" title="Can't delete">
+                    <#else>
                   <a class="delete-employee" data-id="${employee.id}" href="#">
                     <img src="/img/button_delete.svg" alt="Delete" title="Delete"></a>
+                </#if>
                 </div>
               </td>
             </tr>
