@@ -57,7 +57,7 @@ public class EmployeeService {
     employeeDaoBean.deleteEmployeeById(id);
   }
 
-  public List<Employee> getEmployeesList() {
+  private List<Employee> getEmployeesList() {
     logger.info("Objects employee go to DAO to be found in DB");
     return employeeDaoBean.getEmployeesList();
   }
@@ -71,6 +71,17 @@ public class EmployeeService {
     });
 
     return employeeViews;
+  }
+
+  @Transactional
+  public List<EmployeeView> getEmployeesFromTeam(Long id) {
+    List<EmployeeView> employeeViewsFromTeam = new ArrayList<>();
+
+    employeeDaoBean.getEmployeeListFromTeam(id).forEach(e -> {
+      employeeViewsFromTeam.add(employeeViewMapper.mapEntityToView(e));
+    });
+
+    return employeeViewsFromTeam;
   }
 
   public Employee getEmployeeByEmail(String email) {

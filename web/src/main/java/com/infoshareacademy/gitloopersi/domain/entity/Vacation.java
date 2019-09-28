@@ -20,6 +20,15 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(
         name = "Vacation.findAll",
         query = "SELECT v FROM Vacation v"
+    ),
+    @NamedQuery(
+        name = "Vacation.findAllInTeam",
+        query = "SELECT v FROM Vacation v "
+            + "LEFT JOIN Employee e "
+            + "ON v.employee.id = e.id "
+            + "LEFT JOIN Team t "
+            + "ON e.team.id = t.id "
+            + "WHERE t.id=:id"
     )
 })
 @Entity
