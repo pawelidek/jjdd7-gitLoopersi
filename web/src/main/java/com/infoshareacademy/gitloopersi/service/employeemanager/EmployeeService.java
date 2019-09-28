@@ -1,7 +1,9 @@
 package com.infoshareacademy.gitloopersi.service.employeemanager;
 
 import com.infoshareacademy.gitloopersi.dao.EmployeeDaoBean;
+import com.infoshareacademy.gitloopersi.dao.EmployeeVacationStatDaoBean;
 import com.infoshareacademy.gitloopersi.domain.entity.Employee;
+import com.infoshareacademy.gitloopersi.domain.entity.EmployeeVacationStat;
 import com.infoshareacademy.gitloopersi.domain.entity.Team;
 import com.infoshareacademy.gitloopersi.service.teammanager.TeamService;
 import com.infoshareacademy.gitloopersi.web.mapper.EmployeeViewMapper;
@@ -28,12 +30,16 @@ public class EmployeeService {
   @EJB
   private EmployeeViewMapper employeeViewMapper;
 
+  @EJB
+  private EmployeeVacationStatDaoBean employeeVacationStatDaoBean;
+
   @Transactional
   public void addEmployee(Employee employee, Long teamId) {
     logger.info("New employee object [{},{}] go to DAO to be saved in DB", employee.getFirstName(),
         employee.getSecondName());
     Team team = teamService.getTeamById(teamId);
     employee.setTeam(team);
+    employee.setEmployeeVacationStat(new EmployeeVacationStat());
     employeeDaoBean.addEmployee(employee);
   }
 
