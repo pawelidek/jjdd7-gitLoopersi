@@ -1,5 +1,5 @@
 <nav class="navbar navbar-light fixed-top bg-light flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><img
+  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/home"><img
         src="/img/logo.png" alt="Responsive image"
         width=150px height=65px></a>
 
@@ -18,27 +18,27 @@
         <ul class="nav flex-column">
           <li class="nav-item">
             <a class="nav-link" href="/home">
-              Main page
+              Main Page
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/admin/employee">
-              Employee manager
+              Employee Manager
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/admin/team">
-              Team manager
+              Team Manager
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/admin/vacation">
-              Vacation manager
+              Vacation Manager
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/admin/holiday">
-              Holiday manager
+              Holiday Manager
             </a>
           </li>
           <li class="nav-item">
@@ -48,7 +48,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/admin/jsonLoader">
-              Load holidays from JSON file
+              Load Holidays from JSON File
             </a>
           </li>
         </ul>
