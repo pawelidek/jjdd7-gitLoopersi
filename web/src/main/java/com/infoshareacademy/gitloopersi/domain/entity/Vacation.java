@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,7 +37,7 @@ public class Vacation {
   private Long id;
 
   @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH,
-      CascadeType.PERSIST})
+      CascadeType.PERSIST}, fetch = FetchType.EAGER)
   @JoinColumn(name = "employee_id")
   private Employee employee;
 
@@ -64,7 +65,6 @@ public class Vacation {
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "creating_date")
-  @NotNull
   private Date creatingDate;
 
   public Long getId() {
