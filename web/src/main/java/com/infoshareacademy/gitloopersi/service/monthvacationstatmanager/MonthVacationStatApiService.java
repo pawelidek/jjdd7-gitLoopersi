@@ -1,6 +1,6 @@
 package com.infoshareacademy.gitloopersi.service.monthvacationstatmanager;
 
-import com.infoshareacademy.gitloopersi.dao.MonthVacationDaoStatBean;
+import com.infoshareacademy.gitloopersi.dao.MonthVacationStatDaoBean;
 import com.infoshareacademy.gitloopersi.domain.entity.MonthVacationStat;
 import com.infoshareacademy.gitloopersi.domain.jsonapi.MonthVacationStatResponse;
 import com.infoshareacademy.gitloopersi.web.mapper.MonthVacationStatMapper;
@@ -19,7 +19,7 @@ public class MonthVacationStatApiService {
   private MonthVacationStatMapper monthVacationStatMapper;
 
   @Inject
-  private MonthVacationDaoStatBean monthVacationDaoStatBean;
+  private MonthVacationStatDaoBean monthVacationDaoStatBean;
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 

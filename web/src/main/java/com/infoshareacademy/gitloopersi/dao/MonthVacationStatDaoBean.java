@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Stateless
-public class MonthVacationDaoStatBean {
+public class MonthVacationStatDaoBean {
 
   @PersistenceContext
   private EntityManager entityManager;
@@ -28,9 +28,16 @@ public class MonthVacationDaoStatBean {
 
   public void updateMonthVacationIncrementQuantity(String month) {
 
-    logger.info("MonthVacationStat object month={} is to be updated in DB",month);
+    logger.info("MonthVacationStat object month={} is to be incremented in DB",month);
 
     Query query = entityManager.createNamedQuery("MonthVacation.incrementQuantity");
     query.setParameter("month", month).executeUpdate();
+  }
+
+  public void addMonthVacationStat(MonthVacationStat monthVacationStat){
+
+    logger.info("MonthVacationStat object month={} is to be saved in DB",monthVacationStat.getMonth());
+
+    entityManager.persist(monthVacationStat);
   }
 }

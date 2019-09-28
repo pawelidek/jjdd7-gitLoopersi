@@ -29,9 +29,16 @@ public class StatusVacationStatDaoBean {
 
   public void updateStatusVacationIncrementQuantity(StatusType statusType) {
 
-    logger.info("EmployeeVacationStat object statusType={} is to be updated in DB",statusType.getType());
+    logger.info("StatusVacationStat object statusType={} is to be incremented in DB",statusType.getType());
 
     Query query = entityManager.createNamedQuery("StatusVacation.incrementQuantity");
     query.setParameter("statusType", statusType).executeUpdate();
+  }
+
+  public void addStatusVacation(StatusVacationStat statusVacationStat){
+
+    logger.info("StatusVacationStat object statusType={} is to be created in DB",statusVacationStat.getStatusType().getType());
+
+    entityManager.persist(statusVacationStat);
   }
 }

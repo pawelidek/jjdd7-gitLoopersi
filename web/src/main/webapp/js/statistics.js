@@ -106,7 +106,7 @@ function drawChart() {
 
   });
 
-  $.getJSON('http://localhost:8080/api/admin/statistics/statusvacation', function(dataset4) {
+  $.getJSON('http://localhost:8080/api/admin/statistics/teamvacation', function(dataset4) {
 
     // let dataset4 = [
     //   {"teamName": "GitLoopersi", "quantity": 45,},
