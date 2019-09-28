@@ -18,7 +18,7 @@ function drawChart() {
   //   {"month": "November", "quantity": 5},
   //   {"month": "December", "quantity": 10}
   // ];
-  $.getJSON('http://localhost:8080/api/admin/statistics/monthvacation', function(dataset1) {
+  $.getJSON('/api/admin/statistics/monthvacation', function(dataset1) {
 
     let monthsAndQuantitiesArrayChart1 = [['Month', 'Quantity',],];
 
@@ -42,7 +42,7 @@ function drawChart() {
     chart1.draw(dataChart1, optionsChart1);
   });
 
-  $.getJSON('http://localhost:8080/api/admin/statistics/employeevacation', function(dataset2) {
+  $.getJSON('/api/admin/statistics/employeevacation', function(dataset2) {
 
     // let dataset2 = [
     //   {"fullName": "Marek Sitarski", "quantity": 8},
@@ -76,7 +76,7 @@ function drawChart() {
 
   });
 
-  $.getJSON('http://localhost:8080/api/admin/statistics/statusvacation', function(dataset3) {
+  $.getJSON('/api/admin/statistics/statusvacation', function(dataset3) {
 
     // let dataset3 = [
     //   {"status": "accepted", "quantity": 4},
@@ -106,7 +106,7 @@ function drawChart() {
 
   });
 
-  $.getJSON('http://localhost:8080/api/admin/statistics/teamvacation', function(dataset4) {
+  $.getJSON('/api/admin/statistics/teamvacation', function(dataset4) {
 
     // let dataset4 = [
     //   {"teamName": "GitLoopersi", "quantity": 45,},
