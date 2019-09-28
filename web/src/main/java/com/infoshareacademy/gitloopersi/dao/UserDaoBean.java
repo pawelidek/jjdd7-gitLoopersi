@@ -25,11 +25,11 @@ public class UserDaoBean {
     return entityManager.merge(user);
   }
 
-  public User getUserById(Integer id) {
+  public User getUserById(Long id) {
     return entityManager.find(User.class, id);
   }
 
-  public void deleteUserById(Integer id) {
+  public void deleteUserById(Long id) {
     User user = getUserById(id);
     if (user != null) {
       entityManager.remove(user);

@@ -30,11 +30,11 @@ public class UserService {
     return userDaoBean.findUserByEmail(email);
   }
 
-  public User getUserById(Integer id) {
+  public User getUserById(Long id) {
     return userDaoBean.getUserById(id);
   }
 
-  public void deleteUserById(Integer id) {
+  public void deleteUserById(Long id) {
     userDaoBean.deleteUserById(id);
   }
 }
