@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -23,7 +24,9 @@ import javax.validation.constraints.NotNull;
 }
 )
 @Entity
-@Table(name = "status_vacation")
+@Table(name = "status_vacation", indexes = {
+    @Index(columnList = "status_type", name = "status_type_hidx")
+})
 public class StatusVacationStat {
 
   @Id

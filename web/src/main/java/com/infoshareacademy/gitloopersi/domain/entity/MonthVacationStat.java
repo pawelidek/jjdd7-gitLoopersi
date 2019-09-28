@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -22,7 +23,9 @@ import javax.validation.constraints.NotNull;
 }
 )
 @Entity
-@Table(name = "month_vacation")
+@Table(name = "month_vacation", indexes = {
+    @Index(columnList = "month", name = "month_hidx")
+})
 public class MonthVacationStat {
 
   @Id
