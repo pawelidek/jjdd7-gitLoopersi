@@ -1,10 +1,12 @@
 package com.infoshareacademy.gitloopersi.service.employeevacationstatmanager;
 
 import com.infoshareacademy.gitloopersi.dao.EmployeeVacationStatDaoBean;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Stateless
 public class EmployeeVacationStatService {
 
   @Inject

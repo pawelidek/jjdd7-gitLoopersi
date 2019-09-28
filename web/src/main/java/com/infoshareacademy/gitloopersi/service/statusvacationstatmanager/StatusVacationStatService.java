@@ -3,10 +3,12 @@ package com.infoshareacademy.gitloopersi.service.statusvacationstatmanager;
 import com.infoshareacademy.gitloopersi.dao.StatusVacationStatDaoBean;
 import com.infoshareacademy.gitloopersi.domain.entity.StatusVacationStat;
 import com.infoshareacademy.gitloopersi.types.StatusType;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Stateless
 public class StatusVacationStatService {
 
   @Inject

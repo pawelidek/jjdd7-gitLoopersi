@@ -2,10 +2,12 @@ package com.infoshareacademy.gitloopersi.service.monthvacationstatmanager;
 
 import com.infoshareacademy.gitloopersi.dao.MonthVacationStatDaoBean;
 import com.infoshareacademy.gitloopersi.domain.entity.MonthVacationStat;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Stateless
 public class MonthVacationStatService {
 
   @Inject
