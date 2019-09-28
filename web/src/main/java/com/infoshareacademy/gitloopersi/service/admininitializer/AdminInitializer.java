@@ -3,9 +3,11 @@ package com.infoshareacademy.gitloopersi.service.admininitializer;
 
 import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import com.infoshareacademy.gitloopersi.domain.entity.Team;
+import com.infoshareacademy.gitloopersi.domain.entity.User;
 import com.infoshareacademy.gitloopersi.googleoauth.GoogleLogin;
 import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
 import com.infoshareacademy.gitloopersi.service.teammanager.TeamService;
+import com.infoshareacademy.gitloopersi.service.usermanager.UserService;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -29,6 +31,9 @@ public class AdminInitializer {
   @EJB
   private TeamService teamService;
 
+  @EJB
+  private UserService userService;
+
   private Logger logger = LoggerFactory.getLogger(GoogleLogin.class.getName());
   private final String ADMIN_FILE_NAME = "admin.properties";
 
@@ -39,8 +44,12 @@ public class AdminInitializer {
     team.setName("Admin");
 
     teamService.addTeam(team);
-
+    User user = new User();
     Employee employee = new Employee();
+    user.setEmployee(employee);
+    user.setEmail(getProperty("employee.email"));
+    user.setName("employee.name");
+    user.setSurname("employee.surname");
     employee.setFirstName(getProperty("employee.name"));
     employee.setEmail(getProperty("employee.email"));
     employee.setSecondName(getProperty("employee.surname"));
@@ -49,6 +58,7 @@ public class AdminInitializer {
     employee.setAdminPermissions();
     employee.setTeam(team);
     employeeService.addEmployee(employee, team.getId());
+    userService.updateUser(user);
 
   }
 
