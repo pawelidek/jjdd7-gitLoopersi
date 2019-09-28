@@ -242,15 +242,27 @@ public class AdminEmployeeController {
   public Response deleteEmployee(@QueryParam("id") Long id, @Context HttpServletRequest req) {
     String firstName = employeeService.getEmployeeById(id).getFirstName();
     String secondName = employeeService.getEmployeeById(id).getSecondName();
-    employeeService.deleteEmployeeById(id);
-    String message = String
-        .format("Employee \"%s %s\" has been successfully deleted", firstName, secondName);
-    userMessagesService
-        .addSuccessMessage(req.getSession(), message);
-    List<String> successMessageList = userMessagesService.getSuccessMessageList(req.getSession());
-    userMessagesService.removeSuccessMessages(req);
-    logger.info("Deleted employee \"{}\"", id);
-    return Response.ok().entity(successMessageList).build();
+    boolean isSuperAdmin = employeeService.getEmployeeById(1L).isAdmin();
+    if(isSuperAdmin) {
+      String message = String.format("Admin \"%s\" contains employees and cannot be deleted!");
+      userMessagesService.addErrorMessage(req.getSession(), message);
+      logger.info("Couldn't delete \"{}\"", id);
+
+      List<String> errors = userMessagesService.getErrorMessageList(req.getSession());
+      userMessagesService.removeErrorMessages(req);
+
+      return Response.status(HttpServletResponse.SC_CONFLICT).entity(errors).build();
+    } else {
+      employeeService.deleteEmployeeById(id);
+      String message = String
+          .format("Employee \"%s %s\" has been successfully deleted", firstName, secondName);
+      userMessagesService
+          .addSuccessMessage(req.getSession(), message);
+      List<String> successMessageList = userMessagesService.getSuccessMessageList(req.getSession());
+      userMessagesService.removeSuccessMessages(req);
+      logger.info("Deleted employee \"{}\"", id);
+      return Response.ok().entity(successMessageList).build();
+    }
   }
 
   private Response checkForErrors(@Context HttpServletRequest req) {
