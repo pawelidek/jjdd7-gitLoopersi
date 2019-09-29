@@ -70,6 +70,14 @@ function isVacation(candidate) {
   })
 }
 
+function isMyVacation(candidate) {
+  resetToDay(candidate);
+  return window.listOfMyVacations.some((vacationDate) => {
+    resetToDay(vacationDate);
+    return vacationDate.getTime() === candidate.getTime();
+  })
+}
+
 function createDay(month, counter, order, monthDiv) {
 
   var candidate = new Date(2019, month + 1, counter);
@@ -79,6 +87,9 @@ function createDay(month, counter, order, monthDiv) {
     day.setAttribute("class", "to day");
   } else if (isHoliday(candidate)) {
     day.setAttribute("class", "holiday");
+    day.setAttribute("style", "order:" + order);
+  } else if (isMyVacation(candidate)) {
+    day.setAttribute("class", "myVacation");
     day.setAttribute("style", "order:" + order);
   } else if (isVacation(candidate)) {
     day.setAttribute("class", "vacation");
