@@ -45,7 +45,7 @@ import org.hibernate.annotations.CreationTimestamp;
             + "AND e.id=:employeeId"
     ),
     @NamedQuery(
-        name = "Vacation.findAllInEmployee",
+        name = "Vacation.findAllForEmployee",
         query = "SELECT v FROM Vacation v "
             + "LEFT JOIN Employee e "
             + "ON v.employee.id = e.id "
