@@ -25,3 +25,5 @@ services:
     ports:
       - 4370:8080
       - 4372:9990
+    environment:
+      - TZ=Europe/Warsaw
