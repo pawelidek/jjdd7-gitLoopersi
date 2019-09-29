@@ -80,9 +80,9 @@ public class HolidayDaoBean {
     }
   }
 
-  public boolean checkHolidayByDate(LocalDate date) {
+  public boolean checkIfNationalHolidayByDate(LocalDate date) {
     logger.info("Checking if Holiday object dated={} exists", date);
-    Query query = entityManager.createNamedQuery("Holiday.checkHolidayByDate");
+    Query query = entityManager.createNamedQuery("Holiday.checkIfNationalHolidayByDate");
     query.setParameter("date", date);
     long holidayCheck = (long) query.getSingleResult();
     return holidayCheck != 0;

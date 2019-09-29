@@ -58,7 +58,7 @@ public class CalendarVacationMapper {
         if (changedDate.getDayOfWeek() == DayOfWeek.SATURDAY
             || changedDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
           counter++;
-        } else if (calendarService.checkHolidayByDate(changedDate)) {
+        } else if (calendarService.checkIfNationalHolidayByDate(changedDate)) {
           counter++;
         } else {
           vacationList.add(date);

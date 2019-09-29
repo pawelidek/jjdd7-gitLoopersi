@@ -51,9 +51,9 @@ public class CalendarService {
 
   }
 
-  public boolean checkHolidayByDate(LocalDate date) {
+  public boolean checkIfNationalHolidayByDate(LocalDate date) {
     logger.info("Check if Holiday dated={} exists", date);
-    return holidayDaoBean.checkHolidayByDate(date);
+    return holidayDaoBean.checkIfNationalHolidayByDate(date);
   }
 
   public List<Calendar> findTeamEmployeesVacation(Long teamId) {

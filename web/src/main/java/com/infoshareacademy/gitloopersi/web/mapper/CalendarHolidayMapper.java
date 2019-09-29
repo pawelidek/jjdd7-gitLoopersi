@@ -1,7 +1,6 @@
 package com.infoshareacademy.gitloopersi.web.mapper;
 
 import com.infoshareacademy.gitloopersi.domain.entity.Holiday;
-import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
 import com.infoshareacademy.gitloopersi.domain.model.Calendar;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +24,7 @@ public class CalendarHolidayMapper {
       date.setDay(dates.getDate().getDayOfMonth());
       holidaysList.add(date);
     });
+
     return holidaysList;
   }
 }

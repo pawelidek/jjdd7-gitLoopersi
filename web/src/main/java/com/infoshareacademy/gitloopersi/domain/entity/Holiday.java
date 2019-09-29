@@ -30,8 +30,9 @@ import javax.persistence.Table;
         query = "SELECT h FROM Holiday h WHERE h.name=:name"
     ),
     @NamedQuery(
-        name = "Holiday.checkHolidayByDate",
-        query = "SELECT COUNT(h) FROM Holiday h WHERE h.date=:date"
+        name = "Holiday.checkIfNationalHolidayByDate",
+        query = "SELECT COUNT(h) FROM Holiday h WHERE  h.date=:date "
+            + "AND h.holidayType=com.infoshareacademy.gitloopersi.types.HolidayType.NATIONAL_HOLIDAY"
     )
 })
 @Entity
