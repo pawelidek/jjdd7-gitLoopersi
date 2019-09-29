@@ -1,6 +1,5 @@
 package com.infoshareacademy.gitloopersi.domain.entity;
 
-import com.infoshareacademy.gitloopersi.domain.entity.statistic.TeamVacation;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -54,8 +53,8 @@ public class Team {
   private List<Employee> teamEmployees = new ArrayList<>();
 
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "team_vacation_id", unique = true)
-  private TeamVacation teamVacation;
+  @JoinColumn(name = "team_vacation_stat_id", unique = true)
+  TeamVacationStat teamVacationStat;
 
   public Long getId() {
     return id;
@@ -82,12 +81,12 @@ public class Team {
     this.teamEmployees = teamEmployees;
   }
 
-  public TeamVacation getTeamVacation() {
-    return teamVacation;
+  public TeamVacationStat getTeamVacationStat() {
+    return teamVacationStat;
   }
 
-  public void setTeamVacation(
-      TeamVacation teamVacation) {
-    this.teamVacation = teamVacation;
+  public void setTeamVacationStat(
+      TeamVacationStat teamVacationStat) {
+    this.teamVacationStat = teamVacationStat;
   }
 }

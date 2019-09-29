@@ -6,7 +6,12 @@ import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
 import com.infoshareacademy.gitloopersi.exception.DatesOverlapException;
 import com.infoshareacademy.gitloopersi.exception.VacationOutOfPoolException;
 import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
+import com.infoshareacademy.gitloopersi.service.employeevacationstatmanager.EmployeeVacationStatService;
+import com.infoshareacademy.gitloopersi.service.monthvacationstatmanager.MonthVacationStatService;
 import com.infoshareacademy.gitloopersi.service.propertiesmanager.PropertiesLoaderService;
+import com.infoshareacademy.gitloopersi.service.statusvacationstatmanager.StatusVacationStatService;
+import com.infoshareacademy.gitloopersi.service.teamvacationstatmanager.TeamVacationStatService;
+import com.infoshareacademy.gitloopersi.types.StatusType;
 import com.infoshareacademy.gitloopersi.types.VacationType;
 import com.infoshareacademy.gitloopersi.validator.VacationDefiningValidator;
 import com.infoshareacademy.gitloopersi.web.mapper.VacationViewMapper;
@@ -46,6 +51,18 @@ public class VacationDefiningService {
   @Inject
   private VacationDefiningValidator vacationDefiningValidator;
 
+  @EJB
+  private EmployeeVacationStatService employeeVacationStatService;
+
+  @EJB
+  private MonthVacationStatService monthVacationStatService;
+
+  @EJB
+  private StatusVacationStatService statusVacationStatService;
+
+  @EJB
+  private TeamVacationStatService teamVacationStatService;
+
   @Transactional
   public void addVacation(Vacation vacation, Long employeeId) {
     logger.info("New vacation object id = [{}] go to DAO to be saved in DB", vacation.getId());
@@ -57,7 +74,7 @@ public class VacationDefiningService {
   @Transactional
   public Vacation editVacation(Vacation vacation) {
     logger.info("Vacation ID[{}] go to DAO to be modified in DB", vacation.getId());
-
+    prepareStatistics(vacation);
     return vacationDefiningDao.editVacation(vacation);
   }
 
@@ -186,5 +203,28 @@ public class VacationDefiningService {
   private boolean isValidOverlappingOfDates(Long employeeId, String dateFrom, String dateTo) {
 
     return vacationDefiningValidator.isValidOverlappingOfDates(employeeId, dateFrom, dateTo);
+  }
+
+  @Transactional
+  private void prepareStatistics(Vacation vacation) {
+    if (vacation.getStatusType().equals(StatusType.REJECTED)) {
+      statusVacationStatService.addQuantityStatusVacationStat(StatusType.REJECTED);
+    } else if (vacation.getStatusType().equals(StatusType.ACCEPTED)) {
+      statusVacationStatService.incrementQuantityStatusVacationStat(StatusType.ACCEPTED);
+      monthVacationStatService
+          .incrementQuantityMonthVacationStat(vacation.getDateFrom().getMonth().toString());
+      if (!vacation.getDateFrom().getMonth().toString()
+          .equals(vacation.getDateTo().getMonth().toString())) {
+        monthVacationStatService
+            .incrementQuantityMonthVacationStat(vacation.getDateTo().getMonth().toString());
+      }
+
+      employeeVacationStatService.incrementQuantityEmployeeVacationStat(
+          vacation.getEmployee().getEmployeeVacationStat().getId());
+      logger.info("%d",vacation.getEmployee().getEmployeeVacationStat().getId());
+      teamVacationStatService.incrementQuantityTeamVacationStat(
+          vacation.getEmployee().getTeam().getTeamVacationStat().getId());
+      logger.info("%d",vacation.getEmployee().getTeam().getTeamVacationStat().getId());
+    }
   }
 }

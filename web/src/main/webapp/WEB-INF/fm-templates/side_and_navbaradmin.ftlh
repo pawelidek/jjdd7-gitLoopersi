@@ -45,6 +45,11 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="/admin/statistics">
+              Vacation Statistics
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="/admin/holiday">
               Holiday Manager
             </a>
