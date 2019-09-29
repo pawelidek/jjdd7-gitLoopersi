@@ -6,6 +6,7 @@ import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import com.infoshareacademy.gitloopersi.domain.entity.EmployeeVacationStat;
 import com.infoshareacademy.gitloopersi.domain.entity.Team;
 import com.infoshareacademy.gitloopersi.service.teammanager.TeamService;
+import com.infoshareacademy.gitloopersi.service.usermanager.UserService;
 import com.infoshareacademy.gitloopersi.web.mapper.EmployeeViewMapper;
 import com.infoshareacademy.gitloopersi.web.view.EmployeeView;
 import java.util.ArrayList;
@@ -33,6 +34,9 @@ public class EmployeeService {
   @EJB
   private EmployeeVacationStatDaoBean employeeVacationStatDaoBean;
 
+  @EJB
+  private UserService userService;
+
   @Transactional
   public void addEmployee(Employee employee, Long teamId) {
     logger.info("New employee object [{},{}] go to DAO to be saved in DB", employee.getFirstName(),
@@ -58,8 +62,12 @@ public class EmployeeService {
     return employeeDaoBean.getEmployeeById(id);
   }
 
+  @Transactional
   public void deleteEmployeeById(Long id) {
     logger.info("Employee object id={} go to DAO to be removed in DB", id);
+
+    userService.deleteUserById(id);
+
     employeeDaoBean.deleteEmployeeById(id);
   }
 
