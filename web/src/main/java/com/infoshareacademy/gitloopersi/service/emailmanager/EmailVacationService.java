@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.mail.MessagingException;
-import javax.transaction.Transactional;
 
 @Stateless
 public class EmailVacationService {
@@ -14,7 +13,6 @@ public class EmailVacationService {
   @EJB
   private EmailSenderService emailSenderService;
 
-  @Transactional
   public void prepareEmailAndSendMessage(Map<String, Object> messageParams,
       EmailMessageBuilder emailMessageBuilder, String subject, List<String> recipients)
       throws IOException, MessagingException {

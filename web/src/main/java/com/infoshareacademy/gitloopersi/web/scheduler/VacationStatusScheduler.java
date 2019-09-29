@@ -1,10 +1,12 @@
 package com.infoshareacademy.gitloopersi.web.scheduler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.infoshareacademy.gitloopersi.service.emailmanager.EmailVacationService;
 import com.infoshareacademy.gitloopersi.service.emailmanager.VacationReminderMessageBuilder;
 import com.infoshareacademy.gitloopersi.service.vacationmanager.VacationDefiningService;
 import com.infoshareacademy.gitloopersi.types.StatusType;
-import com.infoshareacademy.gitloopersi.web.view.VacationView;
+import com.infoshareacademy.gitloopersi.web.view.VacationViewString;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -25,7 +27,7 @@ import org.slf4j.LoggerFactory;
 @Startup
 public class VacationStatusScheduler {
 
-  private static final long THRESHOLD = 15000L;
+  private static final long THRESHOLD = 900000L;
 
   @EJB
   private VacationDefiningService vacationDefiningService;
@@ -35,54 +37,58 @@ public class VacationStatusScheduler {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
-  @Schedule(hour = "*", minute = "*", second = "*/15", info = "Every 1 minute timer")
+  @Schedule(hour = "*", minute = "*/1", info = "Every 1 minute timer")
   public void checkStatusOfVacation() {
 
     LocalDate todayDate = LocalDate.now();
 
-    List<VacationView> vacationViews = vacationDefiningService.getVacationsWithEmployeesList();
+    List<VacationViewString> vacationViews = vacationDefiningService
+        .getVacationsWithEmployeesStringList();
 
-    List<VacationView> vacationViewList = new ArrayList<>();
+    List<VacationViewString> vacationViewList = new ArrayList<>();
 
     if (!vacationViews.isEmpty()) {
 
-      for (VacationView vacationView : vacationViews) {
+      for (VacationViewString vacationViewString : vacationViews) {
 
         Timestamp timestampToday = Timestamp.valueOf(todayDate.atTime(LocalTime.now()));
         Long todayCount = timestampToday.getTime();
 
-        Long createCount = vacationView.getCreateDate().getTime();
+        Long createCount = vacationViewString.getCreateDate().getTime();
 
         long resultTimeCount = todayCount - createCount;
 
-        if (vacationView.getStatusType().equals(StatusType.REQUESTED)
+        if (vacationViewString.getStatusType().equals(StatusType.REQUESTED)
             && resultTimeCount > THRESHOLD) {
 
-          vacationViewList.add(vacationView);
+          vacationViewList.add(vacationViewString);
         }
       }
 
       if (!vacationViewList.isEmpty()) {
-          try {
+        try {
 
-            String subject = "Reminder of notified vacations";
+          String subject = "Reminder of notified vacations";
 
-            List<String> recipients = new ArrayList<>();
-            recipients.add("gitLoopersi@gmail.com");
+          List<String> recipients = new ArrayList<>();
+          recipients.add("gitLoopersi@gmail.com");
 
-            logger.info(vacationViewList.toString());
+          logger.info(vacationViewList.toString());
 
+          ObjectMapper objectMapper = new ObjectMapper();
+          objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+          String vacationToJson = objectMapper.writeValueAsString(vacationViewList);
 
-            Map<String, Object> messageParams = new HashMap<>();
-            messageParams.put("vacations", vacationViewList);
+          Map<String, Object> messageParams = new HashMap<>();
+          messageParams.put("vacations", vacationToJson);
 
-            emailVacationService
-                .prepareEmailAndSendMessage(messageParams, new VacationReminderMessageBuilder(),
-                    subject, recipients);
+          emailVacationService
+              .prepareEmailAndSendMessage(messageParams, new VacationReminderMessageBuilder(),
+                  subject, recipients);
 
-          } catch (IOException | MessagingException e) {
-            logger.error(e.getMessage());
-          }
+        } catch (IOException | MessagingException e) {
+          logger.error(e.getMessage());
+        }
       }
     }
   }

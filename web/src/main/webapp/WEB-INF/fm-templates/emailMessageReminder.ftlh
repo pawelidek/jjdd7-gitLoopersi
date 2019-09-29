@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
 </head>
 <body>
 Dear Admin,<br><br>
 A list of notified vacations:<br><br>
-<table style="border: 5px">
+<table border="1" style="text-align: center">
   <thead>
-  <tr style="align-content: center">
+  <tr style="text-align: center">
     <th>ID</th>
     <th>Date from</th>
     <th>Date to</th>
