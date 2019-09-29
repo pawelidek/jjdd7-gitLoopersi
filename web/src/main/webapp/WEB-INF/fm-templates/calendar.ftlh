@@ -13,7 +13,7 @@
     <#if vacationDates??>
     <#list vacationDates>
     <#items as vacationDate>
-    new Date(${vacationDate.year?long?c}, ${vacationDate.month}, ${vacationDate.day}),
+    new Date(${vacationDate.year?long?c}, ${vacationDate.month}, ${vacationDate.day}, ${vacationDate.employeeId}),
     </#items>
     </#list>
     </#if>
