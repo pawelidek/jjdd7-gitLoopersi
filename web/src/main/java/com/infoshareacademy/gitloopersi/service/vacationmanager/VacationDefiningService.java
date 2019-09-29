@@ -10,7 +10,9 @@ import com.infoshareacademy.gitloopersi.service.propertiesmanager.PropertiesLoad
 import com.infoshareacademy.gitloopersi.types.VacationType;
 import com.infoshareacademy.gitloopersi.validator.VacationDefiningValidator;
 import com.infoshareacademy.gitloopersi.web.mapper.VacationViewMapper;
+import com.infoshareacademy.gitloopersi.web.mapper.VacationViewStringMapper;
 import com.infoshareacademy.gitloopersi.web.view.VacationView;
+import com.infoshareacademy.gitloopersi.web.view.VacationViewString;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,9 @@ public class VacationDefiningService {
 
   @EJB
   private VacationViewMapper vacationViewMapper;
+
+  @EJB
+  private VacationViewStringMapper vacationViewStringMapper;
 
   @EJB
   private PropertiesLoaderService propertiesLoaderService;
@@ -76,11 +81,22 @@ public class VacationDefiningService {
   public List<VacationView> getVacationsListForTeam(Long id) {
     List<VacationView> vacationViewsForTeam = new ArrayList<>();
 
-    vacationDefiningDao.getVacationsListForTeam(id).forEach(e-> {
+    vacationDefiningDao.getVacationsListForTeam(id).forEach(e -> {
       vacationViewsForTeam.add(vacationViewMapper.mapEntityToView(e));
     });
 
     return vacationViewsForTeam;
+  }
+
+  @Transactional
+  public List<VacationView> getVacationsListForEmployee(Long id) {
+    List<VacationView> vacationViews = new ArrayList<>();
+
+    vacationDefiningDao.getVacationsListForEmployee(id).forEach(e -> {
+      vacationViews.add(vacationViewMapper.mapEntityToView(e));
+    });
+
+    return vacationViews;
   }
 
   @Transactional
@@ -89,6 +105,17 @@ public class VacationDefiningService {
 
     getVacationsList().forEach(e -> {
       vacationViews.add(vacationViewMapper.mapEntityToView(e));
+    });
+
+    return vacationViews;
+  }
+
+  @Transactional
+  public List<VacationViewString> getVacationsWithEmployeesStringList() {
+    List<VacationViewString> vacationViews = new ArrayList<>();
+
+    getVacationsList().forEach(e -> {
+      vacationViews.add(vacationViewStringMapper.mapEntityToView(e));
     });
 
     return vacationViews;

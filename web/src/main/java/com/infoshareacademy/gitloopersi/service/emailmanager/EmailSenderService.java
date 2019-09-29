@@ -2,6 +2,7 @@ package com.infoshareacademy.gitloopersi.service.emailmanager;
 
 import com.infoshareacademy.gitloopersi.service.propertiesmanager.PropertiesLoaderService;
 import java.io.IOException;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.mail.Message.RecipientType;
@@ -22,7 +23,7 @@ public class EmailSenderService {
   @EJB
   private PropertiesLoaderService propertiesLoaderService;
 
-  public void sendMessage(String recipient, String emailContent, String subject)
+  public void sendMessage(List<String> recipients, String emailContent, String subject)
       throws MessagingException {
 
     try {
@@ -30,7 +31,10 @@ public class EmailSenderService {
           .getDefaultInstance(propertiesLoaderService.loadMailProperties(), null);
 
       MimeMessage generateMailMessage = new MimeMessage(getMailSession);
-      generateMailMessage.addRecipient(RecipientType.TO, new InternetAddress(recipient));
+
+      for (String recipient : recipients) {
+        generateMailMessage.addRecipient(RecipientType.TO, new InternetAddress(recipient));
+      }
       generateMailMessage.setSubject(subject);
       generateMailMessage.setContent(emailContent, "text/html");
 

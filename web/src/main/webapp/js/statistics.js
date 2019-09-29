@@ -38,10 +38,6 @@ function drawChart() {
 
   chart1.draw(dataChart1, optionsChart1);
 
-
-
-
-
   let dataset2 = [
     {"fullName": "Marek Sitarski", "quantity": 8},
     {"fullName": "Arek Lewandowski", "quantity": 6},
@@ -72,10 +68,6 @@ function drawChart() {
 
   chart2.draw(dataChart2, optionsChart2);
 
-
-
-
-
   let dataset3 = [
     {"status": "accepted", "quantity": 4},
     {"status": "refused", "quantity": 5}
@@ -101,10 +93,6 @@ function drawChart() {
       document.getElementById('piechart3'));
 
   chart3.draw(dataChart3, optionsChart3);
-
-
-
-
 
   let dataset4 = [
     {"teamName": "GitLoopersi", "quantity": 45,},

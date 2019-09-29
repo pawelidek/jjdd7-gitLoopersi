@@ -49,7 +49,8 @@
     <table class="table table-sm table-hover" style="text-align: center">
       <thead>
       <tr>
-        <th scope="col" colspan="10" style="width: 100%">Vacation of "${team.name}" team members</th>
+        <th scope="col" colspan="10" style="width: 100%">Vacation of "${team.name}" team members
+        </th>
       </tr>
       <tr>
         <th scope="col" style="width: 3%">#</th>
