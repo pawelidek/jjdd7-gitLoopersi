@@ -20,6 +20,18 @@
   ];
 </script>
 
+<script>
+  window.listOfMyVacations = [
+    <#if myVacationDates??>
+    <#list myVacationDates>
+    <#items as myVacationDate>
+    new Date(${myVacationDate.year?long?c}, ${myVacationDate.month}, ${myVacationDate.day}),
+    </#items>
+    </#list>
+    </#if>
+  ];
+</script>
+
 <div class="main">
   <div id="calendar2" class="container">
     <section class="calendar-wrapper">
