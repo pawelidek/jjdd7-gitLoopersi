@@ -208,7 +208,7 @@ public class VacationDefiningService {
   @Transactional
   private void prepareStatistics(Vacation vacation) {
     if (vacation.getStatusType().equals(StatusType.REJECTED)) {
-      statusVacationStatService.addQuantityStatusVacationStat(StatusType.REJECTED);
+      statusVacationStatService.incrementQuantityStatusVacationStat(StatusType.REJECTED);
     } else if (vacation.getStatusType().equals(StatusType.ACCEPTED)) {
       statusVacationStatService.incrementQuantityStatusVacationStat(StatusType.ACCEPTED);
       monthVacationStatService
