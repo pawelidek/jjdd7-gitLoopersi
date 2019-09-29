@@ -3,6 +3,7 @@ package com.infoshareacademy.gitloopersi.domain.entity;
 import com.infoshareacademy.gitloopersi.types.StatusType;
 import com.infoshareacademy.gitloopersi.types.VacationType;
 import java.time.LocalDate;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.CreationTimestamp;
 
 @NamedQueries({
     @NamedQuery(
@@ -75,6 +79,11 @@ public class Vacation {
 
   @Column(name = "status_type")
   private StatusType statusType = StatusType.REQUESTED;
+
+  @CreationTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(name = "creating_date")
+  private Date creatingDate;
 
   public Long getId() {
     return id;
@@ -140,6 +149,14 @@ public class Vacation {
     this.deputy = deputy;
   }
 
+  public Date getCreatingDate() {
+    return creatingDate;
+  }
+
+  public void setCreatingDate(Date createDate) {
+    this.creatingDate = createDate;
+  }
+
   @Override
   public String toString() {
     return "Vacation{" +
@@ -151,6 +168,7 @@ public class Vacation {
         ", deputy='" + deputy + '\'' +
         ", vacationType=" + vacationType +
         ", statusType=" + statusType +
+        ", createDate=" + creatingDate +
         '}';
   }
 }

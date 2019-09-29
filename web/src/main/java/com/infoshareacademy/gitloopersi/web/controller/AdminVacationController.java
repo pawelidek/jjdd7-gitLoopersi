@@ -4,11 +4,17 @@ import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
 import com.infoshareacademy.gitloopersi.service.alertmessage.UserMessagesService;
 import com.infoshareacademy.gitloopersi.service.emailmanager.EmailVacationService;
+import com.infoshareacademy.gitloopersi.service.emailmanager.VacationResponderMessageBuilder;
 import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
 import com.infoshareacademy.gitloopersi.service.vacationmanager.VacationDefiningService;
 import com.infoshareacademy.gitloopersi.types.StatusType;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -61,7 +67,30 @@ public class AdminVacationController {
 
     Employee employee = employeeService.getEmployeeById(employeeId);
 
-    emailVacationService.buildEmailVacationManage(vacation, employee);
+    String firstName = employee.getFirstName();
+    String secondName = employee.getSecondName();
+    String statusType = vacation.getStatusType().getType();
+    String dateFrom = String.valueOf(vacation.getDateFrom());
+    String dateTo = String.valueOf(vacation.getDateTo());
+
+    String subject = String
+        .format("%s %s %s your Vacation request", firstName, secondName, statusType);
+
+    List<String> recipients = new ArrayList<>();
+    recipients.add("gitLoopersi@gmail.com");
+
+    Map<String, Object> messageParams = new HashMap<>();
+    messageParams.put("dateFrom", dateFrom);
+    messageParams.put("dateTo", dateTo);
+    messageParams.put("statusType", statusType);
+
+    try {
+      emailVacationService
+          .prepareEmailAndSendMessage(messageParams, new VacationResponderMessageBuilder(), subject,
+              recipients);
+    } catch (IOException | MessagingException e) {
+      logger.error(e.getMessage());
+    }
 
     vacationDefiningService.editVacation(vacation);
 
@@ -91,7 +120,30 @@ public class AdminVacationController {
 
     Employee employee = employeeService.getEmployeeById(employeeId);
 
-    emailVacationService.buildEmailVacationManage(vacation, employee);
+    String firstName = employee.getFirstName();
+    String secondName = employee.getSecondName();
+    String statusType = vacation.getStatusType().getType();
+    String dateFrom = String.valueOf(vacation.getDateFrom());
+    String dateTo = String.valueOf(vacation.getDateTo());
+
+    String subject = String
+        .format("%s %s %s your Vacation request", firstName, secondName, statusType);
+
+    List<String> recipients = new ArrayList<>();
+    recipients.add("gitLoopersi@gmail.com");
+
+    Map<String, Object> messageParams = new HashMap<>();
+    messageParams.put("dateFrom", dateFrom);
+    messageParams.put("dateTo", dateTo);
+    messageParams.put("statusType", statusType);
+
+    try {
+      emailVacationService
+          .prepareEmailAndSendMessage(messageParams, new VacationResponderMessageBuilder(), subject,
+              recipients);
+    } catch (IOException | MessagingException e) {
+      logger.error(e.getMessage());
+    }
 
     vacationDefiningService.editVacation(vacation);
 

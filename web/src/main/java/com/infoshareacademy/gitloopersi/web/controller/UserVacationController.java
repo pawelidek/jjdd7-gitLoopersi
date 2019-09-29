@@ -6,15 +6,20 @@ import com.infoshareacademy.gitloopersi.exception.DatesOverlapException;
 import com.infoshareacademy.gitloopersi.exception.VacationOutOfPoolException;
 import com.infoshareacademy.gitloopersi.service.alertmessage.UserMessagesService;
 import com.infoshareacademy.gitloopersi.service.emailmanager.EmailVacationService;
+import com.infoshareacademy.gitloopersi.service.emailmanager.VacationRequestMessageBuilder;
 import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
 import com.infoshareacademy.gitloopersi.service.vacationmanager.VacationDefiningService;
 import com.infoshareacademy.gitloopersi.types.VacationType;
 import com.infoshareacademy.gitloopersi.validator.VacationDefiningValidator;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.inject.Inject;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -138,7 +143,29 @@ public class UserVacationController {
 
       vacationDefiningService.addVacation(vacation, employeeId);
 
-      emailVacationService.buildEmailMessage(vacation, employee);
+      String subject = String.format("%s %s Requesting Vacation Days", employee.getFirstName(),
+          employee.getSecondName());
+
+      List<String> recipients = new ArrayList<>();
+      recipients.add("gitLoopersi@gmail.com");
+
+      String firstName = employee.getFirstName();
+      String secondName = employee.getSecondName();
+
+      Map<String, Object> messageParams = new HashMap<>();
+      messageParams.put("dateFrom", dateFrom);
+      messageParams.put("dateTo", dateTo);
+      messageParams.put("deputy", deputy);
+      messageParams.put("firstName", firstName);
+      messageParams.put("secondName", secondName);
+
+      try {
+        emailVacationService
+            .prepareEmailAndSendMessage(messageParams, new VacationRequestMessageBuilder(), subject,
+                recipients);
+      } catch (IOException | MessagingException e) {
+        e.printStackTrace();
+      }
 
       logger.info("Vacation {} was added", vacation.toString());
 
