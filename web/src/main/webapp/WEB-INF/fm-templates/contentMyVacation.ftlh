@@ -154,6 +154,5 @@
         </div>
       </div>
     </div>
-
   </article>
 </div>
