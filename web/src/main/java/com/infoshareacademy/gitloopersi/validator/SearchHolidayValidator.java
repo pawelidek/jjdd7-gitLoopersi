@@ -17,9 +17,13 @@ public class SearchHolidayValidator {
   public boolean checkIsDateFormatValid(String startDate, String endDate) {
     logger.info("Validate correct format startDate={} and endDate={}", startDate, endDate);
     try {
-      simpleDateFormat.parse(startDate).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-      simpleDateFormat.parse(endDate).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-      logger.info("Both startDate={} and endDate={} are in correct format", startDate, endDate);
+      if(startDate != null && endDate != null) {
+        simpleDateFormat.parse(startDate).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        simpleDateFormat.parse(endDate).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        logger.info("Both startDate={} and endDate={} are in correct format", startDate, endDate);
+      } else {
+        return false;
+      }
     } catch (ParseException pe) {
       logger.warn("Either startDate={} or endDate={} or both in incorrect format", startDate,
           endDate);

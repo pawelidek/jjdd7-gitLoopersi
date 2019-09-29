@@ -11,6 +11,21 @@
       </table>
     </div>
 
+
+
+
+    <input type="date" name="dateFrom" id="dateFrom" placeholder="Enter date from"
+           class="form-control"/>
+    <input type="date" name="dateTo" id="dateTo" placeholder="Enter date to"
+           class="form-control"/>
+    <button type="button" class="btn btn-outline-secondary pull-right" id="searchByDatesInTeams">
+      <img src="/img/button_search.svg" alt="Search by dates"> Search by
+      dates
+    </button>
+
+
+
+
     <table class="table table-sm table-hover" style="text-align: center">
       <thead>
       <tr>

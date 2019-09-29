@@ -73,3 +73,41 @@ window.setTimeout(function () {
     $(this).remove();
   });
 }, 1500);
+
+$(function () {
+  $(document).ready(function () {
+    $("#searchByDates").click(function (event) {
+      let dateFrom = $('#dateFrom').val();
+      let dateTo = $('#dateTo').val();
+      $.ajax({
+        url: '/user/vacation?dateFrom=' + dateFrom + '&dateTo='
+            + dateTo,
+        type: 'GET',
+        success: function () {
+          window.location.href = '/user/vacation?dateFrom=' + dateFrom + '&dateTo='
+              + dateTo
+          ;
+        }
+      });
+    });
+  });
+});
+
+$(function () {
+  $(document).ready(function () {
+    $("#searchByDatesInTeams").click(function (event) {
+      let dateFrom = $('#dateFrom').val();
+      let dateTo = $('#dateTo').val();
+      $.ajax({
+        url: '/user/vacation/team?dateFrom=' + dateFrom + '&dateTo='
+            + dateTo,
+        type: 'GET',
+        success: function () {
+          window.location.href = '/user/vacation/team?dateFrom=' + dateFrom + '&dateTo='
+              + dateTo
+          ;
+        }
+      });
+    });
+  });
+});

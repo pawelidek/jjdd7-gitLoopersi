@@ -8,6 +8,20 @@
         <tr>
           <td style="text-align: left"><h2>My Vacation</h2></td>
           <td style="text-align: right">
+
+
+
+            <input type="date" name="dateFrom" id="dateFrom" placeholder="Enter date from"
+                   class="form-control"/>
+            <input type="date" name="dateTo" id="dateTo" placeholder="Enter date to"
+                   class="form-control"/>
+            <button type="button" class="btn btn-outline-secondary pull-right" id="searchByDates">
+              <img src="/img/button_search.svg" alt="Search by dates"> Search by
+              dates
+            </button>
+
+
+
             <button type="button" class="btn btn-outline-secondary"
                     data-toggle="modal" data-target="#exampleModal" id="add_vacation_button">
               <img src="/img/button_add.svg" alt="Add"> Add Vacation

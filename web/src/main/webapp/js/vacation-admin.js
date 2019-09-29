@@ -74,3 +74,22 @@ $(function () {
     });
   });
 });
+
+$(function () {
+  $(document).ready(function () {
+    $("#searchByDates").click(function (event) {
+      let dateFrom = $('#dateFrom').val();
+      let dateTo = $('#dateTo').val();
+      $.ajax({
+        url: '/admin/vacation?dateFrom=' + dateFrom + '&dateTo='
+            + dateTo,
+        type: 'GET',
+        success: function () {
+          window.location.href = '/admin/vacation?dateFrom=' + dateFrom + '&dateTo='
+              + dateTo
+          ;
+        }
+      });
+    });
+  });
+});
