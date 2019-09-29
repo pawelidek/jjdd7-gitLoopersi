@@ -36,6 +36,14 @@ section {
   height: 1.5em;
 }
 
+.vacation {
+  color: white;
+  background: darkorange;
+  border-radius: 50%;
+  width: 1.5em;
+  height: 1.5em;
+}
+
 .to.day {
   color: white;
   background: #f09;

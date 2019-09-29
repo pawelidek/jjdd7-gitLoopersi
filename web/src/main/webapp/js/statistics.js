@@ -103,6 +103,5 @@ function drawChart() {
         document.getElementById('columnchart4'));
 
     chart4.draw(dataChart4, optionsChart4);
-
   });
 }
