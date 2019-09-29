@@ -96,8 +96,8 @@ $(function () {
 $(function () {
   $(document).ready(function () {
     $("#searchByDatesInTeams").click(function (event) {
-      let dateFrom = $('#dateFrom').val();
-      let dateTo = $('#dateTo').val();
+      let dateFrom = $('#dateFrom1').val();
+      let dateTo = $('#dateTo1').val();
       $.ajax({
         url: '/user/vacation/team?dateFrom=' + dateFrom + '&dateTo='
             + dateTo,

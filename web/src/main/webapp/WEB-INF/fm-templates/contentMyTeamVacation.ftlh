@@ -7,24 +7,18 @@
       <table class="table table-borderless">
         <tr>
           <td><h2 id="TeamVacation">My Team's Vacation</h2>
-
-
-    <button type="button" class="btn btn-outline-secondary pull-right" id="searchByDatesInTeams">
-      <img src="/img/button_search.svg" alt="Search by dates"> Search by
-      dates
-    </button>
-
-    <input type="date" name="dateFrom" id="dateFrom1" placeholder="Enter date from"
-           class="form-control"/>
-    <input type="date" name="dateTo" id="dateTo1" placeholder="Enter date to"
-           class="form-control"/>
-
-
-</td>
+            <button type="button" class="btn btn-outline-secondary pull-right"
+                    id="searchByDatesInTeams">
+              <img src="/img/button_search.svg" alt="Search by dates"> Search by
+              dates
+            </button>
+            <input type="date" name="dateFrom" id="dateFrom1" placeholder="Enter date from"
+                   class="form-control"/>
+            <input type="date" name="dateTo" id="dateTo1" placeholder="Enter date to"
+                   class="form-control"/>
+          </td>
         </tr>
-
     </div>
-
     <table class="table table-sm table-hover" style="text-align: center">
       <thead>
       <tr>
@@ -63,7 +57,8 @@
     <table class="table table-sm table-hover" style="text-align: center">
       <thead>
       <tr>
-        <th scope="col" colspan="10" style="width: 100%">Vacation of "${team.name}" team members</th>
+        <th scope="col" colspan="10" style="width: 100%">Vacation of "${team.name}" team members
+        </th>
       </tr>
       <tr>
         <th scope="col" style="width: 3%">#</th>
