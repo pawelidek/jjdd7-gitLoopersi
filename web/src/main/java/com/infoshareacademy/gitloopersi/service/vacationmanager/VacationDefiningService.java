@@ -81,11 +81,22 @@ public class VacationDefiningService {
   public List<VacationView> getVacationsListForTeam(Long id) {
     List<VacationView> vacationViewsForTeam = new ArrayList<>();
 
-    vacationDefiningDao.getVacationsListForTeam(id).forEach(e-> {
+    vacationDefiningDao.getVacationsListForTeam(id).forEach(e -> {
       vacationViewsForTeam.add(vacationViewMapper.mapEntityToView(e));
     });
 
     return vacationViewsForTeam;
+  }
+
+  @Transactional
+  public List<VacationView> getVacationsListForEmployee(Long id) {
+    List<VacationView> vacationViews = new ArrayList<>();
+
+    vacationDefiningDao.getVacationsListForEmployee(id).forEach(e -> {
+      vacationViews.add(vacationViewMapper.mapEntityToView(e));
+    });
+
+    return vacationViews;
   }
 
   @Transactional
