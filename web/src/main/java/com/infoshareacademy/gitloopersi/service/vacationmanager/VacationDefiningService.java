@@ -218,10 +218,13 @@ public class VacationDefiningService {
         monthVacationStatService
             .incrementQuantityMonthVacationStat(vacation.getDateTo().getMonth().toString());
       }
+
       employeeVacationStatService.incrementQuantityEmployeeVacationStat(
           vacation.getEmployee().getEmployeeVacationStat().getId());
+      logger.info("%d",vacation.getEmployee().getEmployeeVacationStat().getId());
       teamVacationStatService.incrementQuantityTeamVacationStat(
           vacation.getEmployee().getTeam().getTeamVacationStat().getId());
+      logger.info("%d",vacation.getEmployee().getTeam().getTeamVacationStat().getId());
     }
   }
 }
