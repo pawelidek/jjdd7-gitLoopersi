@@ -37,7 +37,7 @@ public class Vacation {
   private Long id;
 
   @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH,
-      CascadeType.PERSIST}, fetch = FetchType.EAGER)
+      CascadeType.PERSIST})
   @JoinColumn(name = "employee_id")
   private Employee employee;
 

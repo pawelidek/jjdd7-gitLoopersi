@@ -14,8 +14,9 @@ public class VacationResponderMessageBuilder extends EmailMessageAbstractBuilder
       throws IOException {
 
     String hash = EmailParameterCodingService.doEncode(messageParams);
+
     URLConnection urlConnection = new URL(
-        System.getProperty("APP_DOMAIN", "http://localhost:8080/") +
+        System.getenv("APP_DOMAIN") +
             "email-msg-responder?params=" + URLEncoder.encode(hash, "UTF-8")).openConnection();
     return readStream(urlConnection.getInputStream());
   }

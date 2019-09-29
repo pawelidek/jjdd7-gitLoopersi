@@ -7,7 +7,7 @@
 <body>
 Dear Admin,<br><br>
 A list of notified vacations:<br><br>
-<table style="border: 1px">
+<table style="border: 5px">
   <thead>
   <tr style="align-content: center">
     <th>ID</th>
@@ -21,15 +21,15 @@ A list of notified vacations:<br><br>
   </thead>
   <tbody>
   <#list vacations>
-      <#items as vacation>
-        <tr>
-          <td>${vacation.id}</td>
-          <td>${vacation.dateFrom}</td>
-          <td>${vacation.dateTo}</td>
-          <td>${vacation.daysCount}</td>
-          <td>${(vacation.deputy)!"Not stated"}</td>
-          <td>${vacation.vacationType.type}</td>
-          <td>${vacation.statusType}</td>
+      <#items as vacationView>
+        <tr id="vacationView${vacationView.id}">
+          <td>${vacationView.id}</td>
+          <td>${vacationView.dateFrom}</td>
+          <td>${vacationView.dateTo}</td>
+          <td>${vacationView.daysCount}</td>
+          <td>${(vacationView.deputy)!"Not stated"}</td>
+          <td>${vacationView.vacationType.type}</td>
+          <td>${vacationView.statusType}</td>
         </tr>
       </#items>
   </#list>

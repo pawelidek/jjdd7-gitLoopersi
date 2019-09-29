@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 @Startup
 public class VacationStatusScheduler {
 
-  private static final long THRESHOLD = 900000L;
+  private static final long THRESHOLD = 15000L;
 
   @EJB
   private VacationDefiningService vacationDefiningService;
@@ -35,7 +35,7 @@ public class VacationStatusScheduler {
 
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
-  @Schedule(hour = "*", minute = "*/1", info = "Every 1 minute timer")
+  @Schedule(hour = "*", minute = "*", second = "*/15", info = "Every 1 minute timer")
   public void checkStatusOfVacation() {
 
     LocalDate todayDate = LocalDate.now();
@@ -63,7 +63,6 @@ public class VacationStatusScheduler {
       }
 
       if (!vacationViewList.isEmpty()) {
-        try {
           try {
 
             String subject = "Reminder of notified vacations";
@@ -71,18 +70,19 @@ public class VacationStatusScheduler {
             List<String> recipients = new ArrayList<>();
             recipients.add("gitLoopersi@gmail.com");
 
+            logger.info(vacationViewList.toString());
+
+
             Map<String, Object> messageParams = new HashMap<>();
             messageParams.put("vacations", vacationViewList);
 
             emailVacationService
                 .prepareEmailAndSendMessage(messageParams, new VacationReminderMessageBuilder(),
                     subject, recipients);
-          } catch (IOException e) {
+
+          } catch (IOException | MessagingException e) {
             logger.error(e.getMessage());
           }
-        } catch (MessagingException e) {
-          logger.error(e.getMessage());
-        }
       }
     }
   }

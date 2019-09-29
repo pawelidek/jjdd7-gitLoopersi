@@ -1,5 +1,6 @@
 package com.infoshareacademy.gitloopersi.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.infoshareacademy.gitloopersi.domain.entity.statistic.EmployeeVacation;
 import java.time.LocalDate;
 import java.util.ArrayList;

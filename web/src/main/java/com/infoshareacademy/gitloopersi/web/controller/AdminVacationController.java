@@ -67,16 +67,22 @@ public class AdminVacationController {
 
     Employee employee = employeeService.getEmployeeById(employeeId);
 
+    String firstName = employee.getFirstName();
+    String secondName = employee.getSecondName();
+    String statusType = vacation.getStatusType().getType();
+    String dateFrom = String.valueOf(vacation.getDateFrom());
+    String dateTo = String.valueOf(vacation.getDateTo());
+
     String subject = String
-        .format("%s %s %s your Vacation request", employee.getFirstName(), employee.getSecondName(),
-            vacation.getStatusType().getType());
+        .format("%s %s %s your Vacation request", firstName, secondName, statusType);
 
     List<String> recipients = new ArrayList<>();
     recipients.add("gitLoopersi@gmail.com");
 
     Map<String, Object> messageParams = new HashMap<>();
-    messageParams.put("vacation", vacation);
-    messageParams.put("employee", employee);
+    messageParams.put("dateFrom", dateFrom);
+    messageParams.put("dateTo", dateTo);
+    messageParams.put("statusType", statusType);
 
     try {
       emailVacationService
@@ -114,16 +120,22 @@ public class AdminVacationController {
 
     Employee employee = employeeService.getEmployeeById(employeeId);
 
+    String firstName = employee.getFirstName();
+    String secondName = employee.getSecondName();
+    String statusType = vacation.getStatusType().getType();
+    String dateFrom = String.valueOf(vacation.getDateFrom());
+    String dateTo = String.valueOf(vacation.getDateTo());
+
     String subject = String
-        .format("%s %s %s your Vacation request", employee.getFirstName(), employee.getSecondName(),
-            vacation.getStatusType().getType());
+        .format("%s %s %s your Vacation request", firstName, secondName, statusType);
 
     List<String> recipients = new ArrayList<>();
     recipients.add("gitLoopersi@gmail.com");
 
     Map<String, Object> messageParams = new HashMap<>();
-    messageParams.put("vacation", vacation);
-    messageParams.put("employee", employee);
+    messageParams.put("dateFrom", dateFrom);
+    messageParams.put("dateTo", dateTo);
+    messageParams.put("statusType", statusType);
 
     try {
       emailVacationService

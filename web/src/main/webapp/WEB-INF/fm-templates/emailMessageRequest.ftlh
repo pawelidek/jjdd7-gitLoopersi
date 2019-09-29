@@ -6,11 +6,11 @@
 </head>
 <body>
 Dear Admin,<br><br>
-I would like to kindly ask for vacation from ${vacation.dateFrom} to ${vacation.dateTo}.<br><br>
-${vacation.deputy} will cover for me on that day.<br><br>
+I would like to kindly ask for vacation from ${dateFrom} to ${dateTo}.<br><br>
+${(deputy)!"Not stated"} will cover for me on that day.<br><br>
 Please count this day against my annual leave balance.<br><br>
 Thank you for understanding.<br><br>
 Best Regards,<br>
-${employee.firstName} ${employee.secondName}
+${firstName} ${secondName}
 </body>
 </html>

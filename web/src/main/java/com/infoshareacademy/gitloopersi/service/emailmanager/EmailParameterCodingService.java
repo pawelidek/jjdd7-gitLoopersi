@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 import java.util.Map;
+import javax.ejb.Stateless;
 
+@Stateless
 public class EmailParameterCodingService {
 
   public static String doEncode(Map<String, Object> messageParams)

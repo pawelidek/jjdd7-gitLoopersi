@@ -149,9 +149,15 @@ public class UserVacationController {
       List<String> recipients = new ArrayList<>();
       recipients.add("gitLoopersi@gmail.com");
 
+      String firstName = employee.getFirstName();
+      String secondName = employee.getSecondName();
+
       Map<String, Object> messageParams = new HashMap<>();
-      messageParams.put("vacation", vacation);
-      messageParams.put("employee", employee);
+      messageParams.put("dateFrom", dateFrom);
+      messageParams.put("dateTo", dateTo);
+      messageParams.put("deputy", deputy);
+      messageParams.put("firstName", firstName);
+      messageParams.put("secondName", secondName);
 
       try {
         emailVacationService

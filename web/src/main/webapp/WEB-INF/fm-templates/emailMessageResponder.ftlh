@@ -6,8 +6,7 @@
 </head>
 <body>
 Dear Employee,<br><br>
-Your request for leave from ${vacation.dateFrom} to ${vacation.dateTo}
-was ${vacation.statusType.type} by your manager.<br><br>
+Your request for leave from ${dateFrom} to ${dateTo} was ${statusType} by your manager.<br><br>
 Thank you for understanding.<br><br>
 </body>
 </html>
