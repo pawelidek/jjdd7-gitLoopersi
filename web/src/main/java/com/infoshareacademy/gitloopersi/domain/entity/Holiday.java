@@ -28,6 +28,10 @@ import javax.persistence.Table;
     @NamedQuery(
         name = "Holiday.findHolidayByName",
         query = "SELECT h FROM Holiday h WHERE h.name=:name"
+    ),
+    @NamedQuery(
+        name = "Holiday.checkHolidayByDate",
+        query = "SELECT COUNT(h) FROM Holiday h WHERE h.date=:date"
     )
 })
 @Entity

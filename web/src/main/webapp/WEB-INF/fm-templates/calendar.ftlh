@@ -7,6 +7,7 @@
     </#list>
   ];
 </script>
+
 <script>
   window.listOfVacations = [
     <#if vacationDates??>

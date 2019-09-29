@@ -66,9 +66,8 @@ function isVacation(candidate) {
   resetToDay(candidate);
   return window.listOfVacations.some((vacationDate) => {
     resetToDay(vacationDate);
-
     return vacationDate.getTime() === candidate.getTime();
-  });
+  })
 }
 
 function createDay(month, counter, order, monthDiv) {

@@ -7,6 +7,8 @@ import com.infoshareacademy.gitloopersi.domain.entity.Vacation;
 import com.infoshareacademy.gitloopersi.domain.model.Calendar;
 import com.infoshareacademy.gitloopersi.types.HolidayType;
 import com.infoshareacademy.gitloopersi.web.mapper.CalendarHolidayMapper;
+import com.infoshareacademy.gitloopersi.web.mapper.CalendarVacationMapper;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -20,6 +22,9 @@ public class CalendarService {
 
   @EJB
   CalendarHolidayMapper calendarHolidayMapper;
+
+  @EJB
+  CalendarVacationMapper calendarVacationMapper;
 
   @EJB
   HolidayDaoBean holidayDaoBean;
@@ -46,39 +51,17 @@ public class CalendarService {
 
   }
 
+  public boolean checkHolidayByDate(LocalDate date) {
+    logger.info("Check if Holiday dated={} exists", date);
+    return holidayDaoBean.checkHolidayByDate(date);
+  }
+
   public List<Calendar> findTeamEmployeesVacation(Long teamId) {
     logger.info("Load vacation dates");
 
     List<Vacation> employeeVacationList = vacationDaoBean
         .getVacationsListForTeam(teamId);
 
-    return calendarHolidayMapper.mapVacationDates(employeeVacationList);
+    return calendarVacationMapper.mapVacationDates(employeeVacationList);
   }
-
-//    public List<Calendar> findTeamEmployeeVacation(Long teamId, Long employeeId) {
-//    logger.info("Load vacation dates");
-//
-//    List<Vacation> employeeVacationList = vacationDaoBean
-//        .getVacationsListForTeamEmployee(teamId, employeeId);
-//
-//    return calendarHolidayMapper.mapVacationDates(employeeVacationList);
-//  }
-
-//  public List<List<Calendar>> findTeamEmployeesVacation(Long teamId) {
-//    logger.info("Load vacation dates");
-//
-//    List<Vacation> employeeVacationList = vacationDaoBean
-//        .getVacationsListForTeam(teamId);
-//
-//    List<Calendar> vacationCalendar = calendarHolidayMapper.mapVacationDates(employeeVacationList);
-//
-//    List<List<Calendar>> vacationList = new ArrayList<>();
-//
-//    for (Calendar calendar : vacationCalendar) {
-//      vacationList.add(vacationCalendar);
-//    }
-//
-//    return vacationList;
-//  }
 }
-

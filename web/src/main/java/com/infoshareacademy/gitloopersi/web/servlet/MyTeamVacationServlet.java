@@ -70,9 +70,7 @@ public class MyTeamVacationServlet extends HttpServlet {
     dataModel.put("function", "MyTeamVacation");
     dataModel.put("dates", dates);
     dataModel.put("vacationDates", vacationDates);
-
     PrintWriter printWriter = resp.getWriter();
-
     try {
       template.process(dataModel, printWriter);
     } catch (TemplateException e) {

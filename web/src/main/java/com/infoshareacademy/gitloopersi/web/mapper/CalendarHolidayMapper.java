@@ -27,22 +27,4 @@ public class CalendarHolidayMapper {
     });
     return holidaysList;
   }
-
-  public List<Calendar> mapVacationDates(List<Vacation> teamVacationList) {
-
-    logger.info("Vacation dates map on to individual parts of the date");
-    List<Calendar> vacationList = new ArrayList<>();
-
-    teamVacationList.forEach(dates -> {
-
-      for (int i = 0; i < dates.getDaysCount(); i++) {
-        Calendar date = new Calendar();
-        date.setYear(dates.getDateFrom().getYear());
-        date.setMonth(dates.getDateFrom().getMonthValue());
-        date.setDay(dates.getDateFrom().plusDays(i).getDayOfMonth());
-        vacationList.add(date);
-      }
-    });
-    return vacationList;
-  }
 }
