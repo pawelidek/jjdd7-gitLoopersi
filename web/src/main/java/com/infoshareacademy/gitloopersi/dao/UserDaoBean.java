@@ -35,6 +35,7 @@ public class UserDaoBean {
       entityManager.remove(user);
     }
   }
+
   public List<User> getUsersList() {
     Query query = entityManager.createNamedQuery("User.getUserList");
     return query.getResultList();
