@@ -53,25 +53,24 @@ public class MyTeamVacationServlet extends HttpServlet {
     Template template = templateProvider.getTemplate(getServletContext(), "home.ftlh");
     String email = String.valueOf(req.getSession().getAttribute("email"));
     Map<String, Object> dataModel = new HashMap<>();
-    List<Calendar> dates = calendarService.findAllHolidaysDates();
     Employee employee = employeeService.getEmployeeByEmail(email);
     req.getSession().setAttribute("employeeId", employee.getId());
     Long employeeId = (Long) req.getSession().getAttribute("employeeId");
     logger.info("{}", employee.getFirstName());
     Long myTeamId = teamService.getTeamByEmployeeId(employeeId).getId();
     Team team = teamService.getTeamByEmployeeId(employeeId);
+    List<Calendar> dates = calendarService.findAllHolidaysDates();
+    List<Calendar> vacationDates = calendarService.findTeamEmployeesVacation(team.getId());
     List<VacationView> vacationViews = vacationDefiningService.getVacationsListForTeam(myTeamId);
     List<EmployeeView> employeeViewsFromTeam = employeeService.getEmployeesFromTeam(myTeamId);
-
     dataModel.put("userType", "user");
     dataModel.put("vacations", vacationViews);
     dataModel.put("employees", employeeViewsFromTeam);
     dataModel.put("team", team);
     dataModel.put("function", "MyTeamVacation");
     dataModel.put("dates", dates);
-
+    dataModel.put("vacationDates", vacationDates);
     PrintWriter printWriter = resp.getWriter();
-
     try {
       template.process(dataModel, printWriter);
     } catch (TemplateException e) {
