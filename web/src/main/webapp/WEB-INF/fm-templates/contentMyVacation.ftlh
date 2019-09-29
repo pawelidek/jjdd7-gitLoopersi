@@ -8,9 +8,11 @@
         <tr>
           <td style="text-align: left"><h2>My Vacation</h2></td>
           <td style="text-align: right">
-            <div id="myVacationDateFrom"><input type="date" name="dateFrom" id="dateFrom1" placeholder="Enter date from"
+
+
+            <div id="myVacationDateFrom"><input type="date" name="dateFrom" id="dateFrom" placeholder="Enter date from"
                                    class="form-control"/>
-              <input type="date" name="dateTo" id="dateTo1" placeholder="Enter date to"
+              <input type="date" name="dateTo" id="dateTo" placeholder="Enter date to"
                                    class="form-control"/></div>
            <div id="myVacationDateTo" ><button type="button" class="btn btn-outline-secondary pull-right" id="searchByDates">
               <img src="/img/button_search.svg" alt="Search by dates"> Search by
