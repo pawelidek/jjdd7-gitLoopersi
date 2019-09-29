@@ -18,9 +18,6 @@ public class TeamService {
   @EJB
   private TeamDaoBean teamDaoBean;
 
-  @EJB
-  private TeamVacationStatDaoBean teamVacationStatDaoBean;
-
   public void addTeam(Team team) {
     logger.info("New team object [{}] go to DAO to be saved in DB", team.getName());
 

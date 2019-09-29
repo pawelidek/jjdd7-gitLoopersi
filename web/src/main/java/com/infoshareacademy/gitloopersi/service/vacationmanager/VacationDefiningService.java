@@ -93,7 +93,7 @@ public class VacationDefiningService {
   public List<VacationView> getVacationsListForTeam(Long id) {
     List<VacationView> vacationViewsForTeam = new ArrayList<>();
 
-    vacationDefiningDao.getVacationsListForTeam(id).forEach(e-> {
+    vacationDefiningDao.getVacationsListForTeam(id).forEach(e -> {
       vacationViewsForTeam.add(vacationViewMapper.mapEntityToView(e));
     });
 
@@ -179,13 +179,18 @@ public class VacationDefiningService {
   }
 
   @Transactional
-  private void prepareStatistics(Vacation vacation){
-    if(vacation.getStatusType().equals(StatusType.REJECTED)) {
+  private void prepareStatistics(Vacation vacation) {
+    if (vacation.getStatusType().equals(StatusType.REJECTED)) {
       statusVacationStatService.addQuantityStatusVacationStat(StatusType.REJECTED);
     } else if (vacation.getStatusType().equals(StatusType.ACCEPTED)) {
       statusVacationStatService.incrementQuantityStatusVacationStat(StatusType.ACCEPTED);
       monthVacationStatService
           .incrementQuantityMonthVacationStat(vacation.getDateFrom().getMonth().toString());
+      if (!vacation.getDateFrom().getMonth().toString()
+          .equals(vacation.getDateTo().getMonth().toString())) {
+        monthVacationStatService
+            .incrementQuantityMonthVacationStat(vacation.getDateTo().getMonth().toString());
+      }
       employeeVacationStatService.incrementQuantityEmployeeVacationStat(
           vacation.getEmployee().getEmployeeVacationStat().getId());
       teamVacationStatService.incrementQuantityTeamVacationStat(

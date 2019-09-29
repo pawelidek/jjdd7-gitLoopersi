@@ -32,9 +32,6 @@ public class EmployeeService {
   private EmployeeViewMapper employeeViewMapper;
 
   @EJB
-  private EmployeeVacationStatDaoBean employeeVacationStatDaoBean;
-
-  @EJB
   private UserService userService;
 
   @Transactional
