@@ -24,6 +24,25 @@ import org.hibernate.annotations.CreationTimestamp;
     @NamedQuery(
         name = "Vacation.findAll",
         query = "SELECT v FROM Vacation v"
+    ),
+    @NamedQuery(
+        name = "Vacation.findAllInTeam",
+        query = "SELECT v FROM Vacation v "
+            + "LEFT JOIN Employee e "
+            + "ON v.employee.id = e.id "
+            + "LEFT JOIN Team t "
+            + "ON e.team.id = t.id "
+            + "WHERE t.id=:id"
+    ),
+    @NamedQuery(
+        name = "Vacation.findForEmployeeInTeam",
+        query = "SELECT v FROM Vacation v "
+            + "LEFT JOIN Employee e "
+            + "ON v.employee.id = e.id "
+            + "LEFT JOIN Team t "
+            + "ON e.team.id = t.id "
+            + "WHERE t.id=:teamId "
+            + "AND e.id=:employeeId"
     )
 })
 @Entity

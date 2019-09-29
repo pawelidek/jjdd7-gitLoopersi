@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 @Stateless
 public class CalendarHolidayMapper {
 
-
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   public List<Calendar> mapHolidaysDates(List<Holiday> holidayDatesList) {
@@ -25,6 +24,7 @@ public class CalendarHolidayMapper {
       date.setDay(dates.getDate().getDayOfMonth());
       holidaysList.add(date);
     });
+
     return holidaysList;
   }
 }

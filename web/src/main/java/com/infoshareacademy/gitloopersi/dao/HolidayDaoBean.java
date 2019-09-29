@@ -79,4 +79,12 @@ public class HolidayDaoBean {
       return null;
     }
   }
+
+  public boolean checkIfNationalHolidayByDate(LocalDate date) {
+    logger.info("Checking if Holiday object dated={} exists", date);
+    Query query = entityManager.createNamedQuery("Holiday.checkIfNationalHolidayByDate");
+    query.setParameter("date", date);
+    long holidayCheck = (long) query.getSingleResult();
+    return holidayCheck != 0;
+  }
 }

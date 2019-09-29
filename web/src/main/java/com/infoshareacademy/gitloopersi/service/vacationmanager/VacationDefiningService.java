@@ -78,6 +78,17 @@ public class VacationDefiningService {
   }
 
   @Transactional
+  public List<VacationView> getVacationsListForTeam(Long id) {
+    List<VacationView> vacationViewsForTeam = new ArrayList<>();
+
+    vacationDefiningDao.getVacationsListForTeam(id).forEach(e-> {
+      vacationViewsForTeam.add(vacationViewMapper.mapEntityToView(e));
+    });
+
+    return vacationViewsForTeam;
+  }
+
+  @Transactional
   public List<VacationView> getVacationsWithEmployeesList() {
     List<VacationView> vacationViews = new ArrayList<>();
 

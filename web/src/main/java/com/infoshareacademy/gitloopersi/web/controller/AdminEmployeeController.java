@@ -240,17 +240,28 @@ public class AdminEmployeeController {
   @DELETE
   @Produces(MediaType.APPLICATION_JSON)
   public Response deleteEmployee(@QueryParam("id") Long id, @Context HttpServletRequest req) {
-    String firstName = employeeService.getEmployeeById(id).getFirstName();
-    String secondName = employeeService.getEmployeeById(id).getSecondName();
-    employeeService.deleteEmployeeById(id);
-    String message = String
-        .format("Employee \"%s %s\" has been successfully deleted", firstName, secondName);
-    userMessagesService
-        .addSuccessMessage(req.getSession(), message);
-    List<String> successMessageList = userMessagesService.getSuccessMessageList(req.getSession());
-    userMessagesService.removeSuccessMessages(req);
-    logger.info("Deleted employee \"{}\"", id);
-    return Response.ok().entity(successMessageList).build();
+    if (employeeService.getEmployeeById(id).getId() != 1) {
+      String firstName = employeeService.getEmployeeById(id).getFirstName();
+      String secondName = employeeService.getEmployeeById(id).getSecondName();
+      employeeService.deleteEmployeeById(id);
+      String message = String
+          .format("Employee \"%s %s\" has been successfully deleted", firstName, secondName);
+      userMessagesService
+          .addSuccessMessage(req.getSession(), message);
+      List<String> successMessageList = userMessagesService.getSuccessMessageList(req.getSession());
+      userMessagesService.removeSuccessMessages(req);
+      logger.info("Deleted employee \"{}\"", id);
+      return Response.ok().entity(successMessageList).build();
+    } else {
+      String message = "SuperAdmin cannot be deleted!";
+      userMessagesService.addErrorMessage(req.getSession(), message);
+      logger.info("Someone tried to delete SuperAdmin");
+
+      List<String> errors = userMessagesService.getErrorMessageList(req.getSession());
+      userMessagesService.removeErrorMessages(req);
+
+      return Response.status(HttpServletResponse.SC_CONFLICT).entity(errors).build();
+    }
   }
 
   private Response checkForErrors(@Context HttpServletRequest req) {

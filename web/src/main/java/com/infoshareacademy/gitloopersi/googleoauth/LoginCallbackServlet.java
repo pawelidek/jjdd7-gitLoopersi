@@ -7,7 +7,14 @@ import com.google.api.client.extensions.servlet.auth.oauth2.AbstractAuthorizatio
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.services.oauth2.Oauth2;
 import com.google.api.services.oauth2.model.Userinfoplus;
+import com.infoshareacademy.gitloopersi.domain.entity.Employee;
+import com.infoshareacademy.gitloopersi.domain.entity.Team;
+import com.infoshareacademy.gitloopersi.domain.entity.User;
+import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
+import com.infoshareacademy.gitloopersi.service.teammanager.TeamService;
+import com.infoshareacademy.gitloopersi.service.usermanager.UserService;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.UUID;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -17,6 +24,15 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/oauth2callback")
 public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServlet {
+
+  @EJB
+  private UserService userService;
+
+  @EJB
+  private TeamService teamService;
+
+  @EJB
+  private EmployeeService employeeService;
 
   @EJB
   private OauthBuilder builderOauth;
@@ -30,14 +46,46 @@ public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServl
     Oauth2 oauth2 = builderOauth.buildOauth(gCredential);
 
     Userinfoplus info = oauth2.userinfo().get().execute();
-    String name = info.getName();
+    String name = info.getGivenName();
     String email = info.getEmail();
-    req.getSession().setAttribute("google_name", name);
-    req.getSession().setAttribute("email", email);
-    req.getSession().setAttribute("userType", "user");
+    String surname = info.getFamilyName();
+
+    if(teamService.getTeamByName("Unkown") == null) {
+      Team team = new Team();
+      team.setName("Unkown");
+      teamService.addTeam(team);
+    }
+
+    if(employeeService.getEmployeeByEmail(email) == null) {
+      Team team = teamService.getTeamByName("Unkown");
+      User user = new User();
+      Employee employee = new Employee();
+      team.setName("Unkown");
+      user.setName(name);
+      user.setSurname(surname);
+      user.setEmail(email);
+      user.setEmployee(employee);
+      employee.setEmail(email);
+      employee.setFirstName(name);
+      employee.setSecondName(surname);
+      employee.setStartHireDate(LocalDate.now());
+      employee.setStartDate(LocalDate.now());
+      employee.unsetAdminPermissions();
+      employee.setTeam(team);
+      teamService.editTeam(team);
+      employeeService.addEmployee(employee, team.getId());
+      userService.updateUser(user);
+
+    }
+
+    Employee employee = employeeService.getEmployeeByEmail(email);
+    req.getSession().setAttribute("email", employee.getEmail());
+    if(employee.isAdmin()) {
+      req.getSession().setAttribute("userType", "admin");
+    } else {
+      req.getSession().setAttribute("userType", "user");
+    }
     resp.sendRedirect("/home");
-
-
   }
 
   @Override
