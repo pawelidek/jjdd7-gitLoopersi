@@ -66,8 +66,6 @@ function isVacation(candidate) {
   resetToDay(candidate);
   return window.listOfVacations.some((vacationDate) => {
     resetToDay(vacationDate);
-    console.log(vacationDate.getHours());
-
     return vacationDate.getTime() === candidate.getTime();
   })
 }
@@ -76,7 +74,6 @@ function createDay(month, counter, order, monthDiv) {
 
   var candidate = new Date(2019, month + 1, counter);
   var day = document.createElement("div");
-
 
   if (month == thisMonth && counter == today) {
     day.setAttribute("class", "to day");

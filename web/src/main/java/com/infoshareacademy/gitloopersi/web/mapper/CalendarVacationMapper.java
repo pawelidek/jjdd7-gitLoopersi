@@ -34,7 +34,6 @@ public class CalendarVacationMapper {
         date.setYear(dates.getDateFrom().getYear());
         date.setMonth(dates.getDateFrom().getMonthValue());
         date.setDay(dates.getDateFrom().getDayOfMonth());
-        date.setEmployeeId(dates.getEmployee().getId());
 
         StringBuilder sb = new StringBuilder();
         sb.append(date.getYear());

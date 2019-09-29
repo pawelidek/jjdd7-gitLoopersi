@@ -64,4 +64,13 @@ public class CalendarService {
 
     return calendarVacationMapper.mapVacationDates(employeeVacationList);
   }
+
+  public List<Calendar> findEmployeeVacations(Long employeeId) {
+    logger.info("Load vacation dates");
+
+    List<Vacation> employeeVacationList = vacationDaoBean
+        .getVacationsListForEmployee(employeeId);
+
+    return calendarVacationMapper.mapVacationDates(employeeVacationList);
+  }
 }

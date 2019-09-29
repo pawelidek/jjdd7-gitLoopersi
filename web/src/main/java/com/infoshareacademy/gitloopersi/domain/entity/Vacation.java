@@ -31,6 +31,13 @@ import javax.validation.constraints.NotNull;
             + "WHERE t.id=:id"
     ),
     @NamedQuery(
+        name = "Vacation.findAllForEmployee",
+        query = "SELECT v FROM Vacation v "
+            + "LEFT JOIN Employee e "
+            + "ON v.employee.id = e.id "
+            + "WHERE e.id=:id"
+    ),
+    @NamedQuery(
         name = "Vacation.findForEmployeeInTeam",
         query = "SELECT v FROM Vacation v "
             + "LEFT JOIN Employee e "

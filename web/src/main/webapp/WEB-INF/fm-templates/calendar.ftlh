@@ -13,7 +13,19 @@
     <#if vacationDates??>
     <#list vacationDates>
     <#items as vacationDate>
-    new Date(${vacationDate.year?long?c}, ${vacationDate.month}, ${vacationDate.day}, ${vacationDate.employeeId}),
+    new Date(${vacationDate.year?long?c}, ${vacationDate.month}, ${vacationDate.day}),
+    </#items>
+    </#list>
+    </#if>
+  ];
+</script>
+
+<script>
+  window.listOfMyVacations = [
+    <#if myVacationDates??>
+    <#list myVacationDates>
+    <#items as myVacationDate>
+    new Date(${myVacationDate.year?long?c}, ${myVacationDate.month}, ${myVacationDate.day}),
     </#items>
     </#list>
     </#if>
