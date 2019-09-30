@@ -8,6 +8,7 @@ import com.infoshareacademy.gitloopersi.service.holidaymanager.HolidayService;
 import com.infoshareacademy.gitloopersi.service.propertiesmanager.PropertiesLoaderService;
 import com.infoshareacademy.gitloopersi.service.vacationmanager.VacationDefiningService;
 import com.infoshareacademy.gitloopersi.types.HolidayType;
+import com.infoshareacademy.gitloopersi.types.VacationType;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
@@ -115,6 +116,7 @@ public class VacationDefiningHandler {
 
         monthCount = monthCount - employee.getStartHireDate().getMonthValue();
         overdueDaysOff = (int) (overdueDaysOff - Math.floor(monthCount * 1.6));
+
       } else if (numberOfVacationPool == getFullVacationPool()
           && employee.getStartHireDate().getYear() == todayDate
           .minusYears(1).getYear()) {
@@ -123,6 +125,74 @@ public class VacationDefiningHandler {
         overdueDaysOff = (int) (overdueDaysOff - Math.floor(monthCount * 2.2));
 
       } else if (todayDate.minusYears(1).getYear() == vacation.getDateFrom().getYear()) {
+        overdueDaysOff = overdueDaysOff + vacation.getDaysCount();
+      }
+      overdueDaysOff = numberOfVacationPool - overdueDaysOff;
+    }
+
+    workDaysNumber = (numberOfVacationPool - workDaysNumber) + overdueDaysOff;
+    numberOfVacationPool = workDaysNumber - numberOfSelectedVacationDays;
+
+    return numberOfVacationPool;
+  }
+
+  public int calculateVacationPoolChildcare(Long id, int numberOfSelectedVacationDays,
+      int numberOfVacationPool) throws IOException {
+
+    LocalDate todayDate = LocalDate.now();
+    int workDaysNumber = 0;
+    int overdueDaysOff = 0;
+
+    List<Vacation> countOfDaysHistory = vacationDefiningService.getVacationsList().stream()
+        .filter(vacation -> vacation.getEmployee().getId().equals(id)).filter(vacation ->
+            vacation.getVacationType().getType().equals(VacationType.CHILDCARE.getType()))
+        .collect(Collectors.toList());
+
+    for (Vacation vacation : countOfDaysHistory) {
+      if (todayDate.getYear() == vacation.getDateFrom().getYear() && todayDate.getYear() == vacation
+          .getDateTo().getYear()) {
+
+        int numberOfRemainingDays = Optional.ofNullable(vacation.getDaysCount())
+            .orElse(0);
+
+        workDaysNumber = workDaysNumber + numberOfRemainingDays;
+      }
+
+      if (todayDate.minusYears(1).getYear() == vacation.getDateFrom().getYear()) {
+        overdueDaysOff = overdueDaysOff + vacation.getDaysCount();
+      }
+      overdueDaysOff = numberOfVacationPool - overdueDaysOff;
+    }
+
+    workDaysNumber = (numberOfVacationPool - workDaysNumber) + overdueDaysOff;
+    numberOfVacationPool = workDaysNumber - numberOfSelectedVacationDays;
+
+    return numberOfVacationPool;
+  }
+
+  public int calculateVacationPoolSpecialLeave(Long id, int numberOfSelectedVacationDays,
+      int numberOfVacationPool) throws IOException {
+
+    LocalDate todayDate = LocalDate.now();
+    int workDaysNumber = 0;
+    int overdueDaysOff = 0;
+
+    List<Vacation> countOfDaysHistory = vacationDefiningService.getVacationsList().stream()
+        .filter(vacation -> vacation.getEmployee().getId().equals(id)).filter(vacation ->
+            vacation.getVacationType().getType().equals(VacationType.SPECIAL_LEAVE.getType()))
+        .collect(Collectors.toList());
+
+    for (Vacation vacation : countOfDaysHistory) {
+      if (todayDate.getYear() == vacation.getDateFrom().getYear() && todayDate.getYear() == vacation
+          .getDateTo().getYear()) {
+
+        int numberOfRemainingDays = Optional.ofNullable(vacation.getDaysCount())
+            .orElse(0);
+
+        workDaysNumber = workDaysNumber + numberOfRemainingDays;
+      }
+
+      if (todayDate.minusYears(1).getYear() == vacation.getDateFrom().getYear()) {
         overdueDaysOff = overdueDaysOff + vacation.getDaysCount();
       }
       overdueDaysOff = numberOfVacationPool - overdueDaysOff;
