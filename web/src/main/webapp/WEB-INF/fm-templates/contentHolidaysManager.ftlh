@@ -93,12 +93,12 @@
                 <label for="message">Description</label>
                 <textarea name="holiday_description" class="form-control"
                           id="holiday_description_input"
-                          value=""></textarea>
+                          value="">
+                </textarea>
               </div>
             </div>
           </form>
-
-          <div class=" modal-footer">
+          <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close
             </button>
             <button type="button" class="btn btn-outline-secondary" id="add_holiday">Save changes
@@ -107,6 +107,5 @@
         </div>
       </div>
     </div>
-
   </article>
 </div>

@@ -16,6 +16,7 @@ import java.util.Map;
 import javax.ejb.EJB;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -47,14 +48,15 @@ public class AdminVacationController {
   @PUT
   @Path("/reject/{id}")
   @Produces(MediaType.APPLICATION_JSON)
+  @Transactional
   public Response rejectVacation(@PathParam("id") Long id, @Context HttpServletRequest req) {
     logger.info("Api vacation editing: {}", id);
 
-    Long employeeId = (Long) req.getSession().getAttribute(EMPLOYEE_ID);
-
     Vacation vacation = vacationDefiningService.getByVacationId(id);
 
-    vacation.setStatusType(StatusType.REJECTED);
+    Long employeeId =vacation.getEmployee().getId();
+
+        vacation.setStatusType(StatusType.REJECTED);
 
     String message = String.format("Vacation ID[%d] was changed status type %s", id,
         vacation.getStatusType().getType());
@@ -100,12 +102,13 @@ public class AdminVacationController {
   @PUT
   @Path("/accept/{id}")
   @Produces(MediaType.APPLICATION_JSON)
+  @Transactional
   public Response acceptVacation(@PathParam("id") Long id, @Context HttpServletRequest req) {
     logger.info("Api vacation editing: {}", id);
 
-    Long employeeId = (Long) req.getSession().getAttribute(EMPLOYEE_ID);
-
     Vacation vacation = vacationDefiningService.getByVacationId(id);
+
+    Long employeeId = vacation.getEmployee().getId();
 
     vacation.setStatusType(StatusType.ACCEPTED);
 

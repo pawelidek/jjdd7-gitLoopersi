@@ -1,7 +1,9 @@
 package com.infoshareacademy.gitloopersi.service.teammanager;
 
 import com.infoshareacademy.gitloopersi.dao.TeamDaoBean;
+import com.infoshareacademy.gitloopersi.dao.TeamVacationStatDaoBean;
 import com.infoshareacademy.gitloopersi.domain.entity.Team;
+import com.infoshareacademy.gitloopersi.domain.entity.TeamVacationStat;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -18,6 +20,9 @@ public class TeamService {
 
   public void addTeam(Team team) {
     logger.info("New team object [{}] go to DAO to be saved in DB", team.getName());
+
+    team.setTeamVacationStat(new TeamVacationStat());
+
     teamDaoBean.addTeam(team);
   }
 

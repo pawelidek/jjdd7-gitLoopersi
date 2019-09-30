@@ -81,6 +81,9 @@ public class MyTeamVacationServlet extends HttpServlet {
     }
 
     List<VacationView> vacationViews = vacationDefiningService.getVacationsListForTeam(myTeamId,dateFrom,dateTo);
+
+    List<Calendar> myVacationDates = calendarService.findEmployeeVacations(employeeId);
+
     List<EmployeeView> employeeViewsFromTeam = employeeService.getEmployeesFromTeam(myTeamId);
     dataModel.put("userType", "user");
     dataModel.put("vacations", vacationViews);
@@ -89,6 +92,7 @@ public class MyTeamVacationServlet extends HttpServlet {
     dataModel.put("function", "MyTeamVacation");
     dataModel.put("dates", dates);
     dataModel.put("vacationDates", vacationDates);
+    dataModel.put("myVacationDates", myVacationDates);
     PrintWriter printWriter = resp.getWriter();
     try {
       template.process(dataModel, printWriter);

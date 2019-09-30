@@ -1,7 +1,9 @@
 package com.infoshareacademy.gitloopersi.service.employeemanager;
 
 import com.infoshareacademy.gitloopersi.dao.EmployeeDaoBean;
+import com.infoshareacademy.gitloopersi.dao.EmployeeVacationStatDaoBean;
 import com.infoshareacademy.gitloopersi.domain.entity.Employee;
+import com.infoshareacademy.gitloopersi.domain.entity.EmployeeVacationStat;
 import com.infoshareacademy.gitloopersi.domain.entity.Team;
 import com.infoshareacademy.gitloopersi.service.teammanager.TeamService;
 import com.infoshareacademy.gitloopersi.service.usermanager.UserService;
@@ -38,6 +40,7 @@ public class EmployeeService {
         employee.getSecondName());
     Team team = teamService.getTeamById(teamId);
     employee.setTeam(team);
+    employee.setEmployeeVacationStat(new EmployeeVacationStat());
     employeeDaoBean.addEmployee(employee);
   }
 

@@ -1,4 +1,4 @@
-package com.infoshareacademy.gitloopersi.domain.entity.statistic;
+package com.infoshareacademy.gitloopersi.domain.entity;
 
 import com.infoshareacademy.gitloopersi.domain.entity.Team;
 import javax.persistence.Column;
@@ -15,30 +15,34 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
     @NamedQuery(
         name = "TeamVacation.findAll",
-        query = "SELECT tv FROM TeamVacation tv ORDER BY tv.quantity"
+        query = "SELECT tv FROM TeamVacationStat tv ORDER BY tv.quantity DESC"
+    ),
+    @NamedQuery(
+        name = "TeamVacation.incrementQuantity",
+        query = "UPDATE TeamVacationStat tv SET tv.quantity=tv.quantity+1 WHERE tv.id=:id"
     )
 }
 )
 @Entity
 @Table(name = "team_vacation")
-public class TeamVacation {
+public class TeamVacationStat {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private Long id;
 
-  @OneToOne(mappedBy = "teamVacation")
+  @OneToOne(mappedBy = "teamVacationStat")
   private Team team;
 
   @Column(name = "quantity")
   @NotNull
   private Integer quantity = 0;
 
-  public TeamVacation() {
+  public TeamVacationStat() {
   }
 
-  public TeamVacation(Team team, @NotNull Integer quantity) {
+  public TeamVacationStat(Team team, @NotNull Integer quantity) {
     this.team = team;
     this.quantity = quantity;
   }
@@ -65,7 +69,7 @@ public class TeamVacation {
 
   @Override
   public String toString() {
-    return "TeamVacation{" +
+    return "TeamVacationStat{" +
         "id=" + id +
         ", team=" + team +
         ", quantity=" + quantity +

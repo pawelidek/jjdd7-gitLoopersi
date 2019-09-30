@@ -50,13 +50,13 @@ public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServl
     String email = info.getEmail();
     String surname = info.getFamilyName();
 
-    if(teamService.getTeamByName("Unkown") == null) {
+    if (teamService.getTeamByName("Unkown") == null) {
       Team team = new Team();
       team.setName("Unkown");
       teamService.addTeam(team);
     }
 
-    if(employeeService.getEmployeeByEmail(email) == null) {
+    if (employeeService.getEmployeeByEmail(email) == null) {
       Team team = teamService.getTeamByName("Unkown");
       User user = new User();
       Employee employee = new Employee();
@@ -80,7 +80,7 @@ public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServl
 
     Employee employee = employeeService.getEmployeeByEmail(email);
     req.getSession().setAttribute("email", employee.getEmail());
-    if(employee.isAdmin()) {
+    if (employee.isAdmin()) {
       req.getSession().setAttribute("userType", "admin");
     } else {
       req.getSession().setAttribute("userType", "user");

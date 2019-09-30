@@ -1,4 +1,4 @@
-package com.infoshareacademy.gitloopersi.domain.entity.statistic;
+package com.infoshareacademy.gitloopersi.domain.entity;
 
 import com.infoshareacademy.gitloopersi.types.StatusType;
 import javax.persistence.Column;
@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -14,13 +15,19 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
     @NamedQuery(
         name = "StatusVacation.findAll",
-        query = "SELECT sv FROM StatusVacation sv"
+        query = "SELECT sv FROM StatusVacationStat sv"
+    ),
+    @NamedQuery(
+        name = "StatusVacation.incrementQuantity",
+        query = "UPDATE StatusVacationStat sv SET sv.quantity=sv.quantity+1 WHERE sv.statusType=:statusType"
     )
 }
 )
 @Entity
-@Table(name = "status_vacation")
-public class StatusVacation {
+@Table(name = "status_vacation", indexes = {
+    @Index(columnList = "status_type", name = "status_type_hidx")
+})
+public class StatusVacationStat {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,10 +42,10 @@ public class StatusVacation {
   @NotNull
   private Integer quantity = 0;
 
-  public StatusVacation() {
+  public StatusVacationStat() {
   }
 
-  public StatusVacation(
+  public StatusVacationStat(
       @NotNull StatusType statusType,
       @NotNull Integer quantity) {
     this.statusType = statusType;
@@ -67,7 +74,7 @@ public class StatusVacation {
 
   @Override
   public String toString() {
-    return "StatusVacation{" +
+    return "StatusVacationStat{" +
         "id=" + id +
         ", statusType=" + statusType +
         ", quantity=" + quantity +

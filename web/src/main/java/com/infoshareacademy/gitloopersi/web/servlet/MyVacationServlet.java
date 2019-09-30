@@ -61,6 +61,7 @@ public class MyVacationServlet extends HttpServlet {
     Map<String, Object> dataModel = new HashMap<>();
     List<Calendar> dates = calendarService.findAllHolidaysDates();
 
+    List<EmployeeView> employeeViews = employeeService.getEmployeesWithTeamsList();
 
     String dateFrom = req.getParameter("dateFrom");
     String dateTo = req.getParameter("dateTo");
@@ -76,13 +77,16 @@ public class MyVacationServlet extends HttpServlet {
       dateTo="2100-01-01";
     }
 
-    List<VacationView> vacationViews = vacationDefiningService.getVacationsWithEmployeesList(dateFrom,dateTo);
-    List<EmployeeView> employeeViews = employeeService.getEmployeesWithTeamsList();
+    //List<VacationView> vacationViews = vacationDefiningService.getVacationsWithEmployeesList(dateFrom,dateTo);
     List<String> errorMessages = userMessagesService.getErrorMessageList(req.getSession());
     List<String> successMessages = userMessagesService.getSuccessMessageList(req.getSession());
     HttpSession httpSession = req.getSession(true);
-    httpSession.setAttribute(EMPLOYEE_ID, 1L);
-    Long employeeId = (Long) req.getSession().getAttribute(EMPLOYEE_ID);
+    String email = String.valueOf(httpSession.getAttribute("email"));
+    httpSession.setAttribute(EMPLOYEE_ID, employeeService.getEmployeeByEmail(email).getId());
+    Long employeeId = (Long) httpSession.getAttribute(EMPLOYEE_ID);
+    List<VacationView> vacationViews = vacationDefiningService
+        .getVacationsListForEmployee(employeeId,dateFrom,dateTo);
+
     List<EmployeeView> employeeViewList = employeeViews.stream()
         .filter(employeeView -> employeeView.getId().equals(employeeId))
         .collect(Collectors.toList());
