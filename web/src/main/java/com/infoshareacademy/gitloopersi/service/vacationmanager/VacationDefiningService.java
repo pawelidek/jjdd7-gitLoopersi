@@ -99,10 +99,13 @@ public class VacationDefiningService {
   public List<VacationView> getVacationsListForTeam(Long id, String dateFrom, String dateTo) {
     List<VacationView> vacationViewsForTeam = new ArrayList<>();
     vacationDefiningDao.getVacationsListForTeam(id).stream()
-        .filter(e->e.getDateFrom().isAfter(LocalDate.parse(dateFrom)) || e.getDateFrom().isEqual(LocalDate.parse(dateFrom)))
-        .filter(e->e.getDateTo().isBefore(LocalDate.parse((dateTo))) || e.getDateTo().isEqual(LocalDate.parse((dateTo))))
-        .forEach(e-> {vacationViewsForTeam.add(vacationViewMapper.mapEntityToView(e));
-    });
+        .filter(e -> e.getDateFrom().isAfter(LocalDate.parse(dateFrom)) || e.getDateFrom()
+            .isEqual(LocalDate.parse(dateFrom)))
+        .filter(e -> e.getDateTo().isBefore(LocalDate.parse((dateTo))) || e.getDateTo()
+            .isEqual(LocalDate.parse((dateTo))))
+        .forEach(e -> {
+          vacationViewsForTeam.add(vacationViewMapper.mapEntityToView(e));
+        });
 
     return vacationViewsForTeam;
   }
@@ -112,11 +115,13 @@ public class VacationDefiningService {
     List<VacationView> vacationViews = new ArrayList<>();
 
     vacationDefiningDao.getVacationsListForEmployee(id).stream()
-        .filter(e->e.getDateFrom().isAfter(LocalDate.parse(dateFrom)) || e.getDateFrom().isEqual(LocalDate.parse(dateFrom)))
-        .filter(e->e.getDateTo().isBefore(LocalDate.parse((dateTo))) || e.getDateTo().isEqual(LocalDate.parse((dateTo))))
+        .filter(e -> e.getDateFrom().isAfter(LocalDate.parse(dateFrom)) || e.getDateFrom()
+            .isEqual(LocalDate.parse(dateFrom)))
+        .filter(e -> e.getDateTo().isBefore(LocalDate.parse((dateTo))) || e.getDateTo()
+            .isEqual(LocalDate.parse((dateTo))))
         .forEach(e -> {
-      vacationViews.add(vacationViewMapper.mapEntityToView(e));
-    });
+          vacationViews.add(vacationViewMapper.mapEntityToView(e));
+        });
 
     return vacationViews;
   }
@@ -126,10 +131,13 @@ public class VacationDefiningService {
     List<VacationView> vacationViews = new ArrayList<>();
 
     getVacationsList().stream()
-        .filter(e->e.getDateFrom().isAfter(LocalDate.parse(dateFrom)) || e.getDateFrom().isEqual(LocalDate.parse(dateFrom)))
-        .filter(e->e.getDateTo().isBefore(LocalDate.parse((dateTo))) || e.getDateTo().isEqual(LocalDate.parse((dateTo))))
-        .forEach(e -> {vacationViews.add(vacationViewMapper.mapEntityToView(e));
-    });
+        .filter(e -> e.getDateFrom().isAfter(LocalDate.parse(dateFrom)) || e.getDateFrom()
+            .isEqual(LocalDate.parse(dateFrom)))
+        .filter(e -> e.getDateTo().isBefore(LocalDate.parse((dateTo))) || e.getDateTo()
+            .isEqual(LocalDate.parse((dateTo))))
+        .forEach(e -> {
+          vacationViews.add(vacationViewMapper.mapEntityToView(e));
+        });
 
     return vacationViews;
   }
@@ -259,10 +267,10 @@ public class VacationDefiningService {
 
       employeeVacationStatService.incrementQuantityEmployeeVacationStat(
           vacation.getEmployee().getEmployeeVacationStat().getId());
-      logger.info("%d",vacation.getEmployee().getEmployeeVacationStat().getId());
+      logger.info("%d", vacation.getEmployee().getEmployeeVacationStat().getId());
       teamVacationStatService.incrementQuantityTeamVacationStat(
           vacation.getEmployee().getTeam().getTeamVacationStat().getId());
-      logger.info("%d",vacation.getEmployee().getTeam().getTeamVacationStat().getId());
+      logger.info("%d", vacation.getEmployee().getTeam().getTeamVacationStat().getId());
     }
   }
 }

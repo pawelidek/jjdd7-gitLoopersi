@@ -69,12 +69,12 @@ public class MyVacationServlet extends HttpServlet {
     if (searchHolidayValidator.checkIsDateFormatValid(dateFrom, dateTo)) {
       if (searchHolidayValidator.checkIsEndDateLaterThanStartDate(dateFrom, dateTo)) {
       } else {
-        dateFrom="1970-01-01";
-        dateTo="2100-01-01";
+        dateFrom = "1970-01-01";
+        dateTo = "2100-01-01";
       }
     } else {
-      dateFrom="1970-01-01";
-      dateTo="2100-01-01";
+      dateFrom = "1970-01-01";
+      dateTo = "2100-01-01";
     }
 
     //List<VacationView> vacationViews = vacationDefiningService.getVacationsWithEmployeesList(dateFrom,dateTo);
@@ -85,7 +85,7 @@ public class MyVacationServlet extends HttpServlet {
     httpSession.setAttribute(EMPLOYEE_ID, employeeService.getEmployeeByEmail(email).getId());
     Long employeeId = (Long) httpSession.getAttribute(EMPLOYEE_ID);
     List<VacationView> vacationViews = vacationDefiningService
-        .getVacationsListForEmployee(employeeId,dateFrom,dateTo);
+        .getVacationsListForEmployee(employeeId, dateFrom, dateTo);
 
     List<EmployeeView> employeeViewList = employeeViews.stream()
         .filter(employeeView -> employeeView.getId().equals(employeeId))

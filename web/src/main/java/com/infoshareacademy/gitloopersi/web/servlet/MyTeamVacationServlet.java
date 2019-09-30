@@ -72,15 +72,16 @@ public class MyTeamVacationServlet extends HttpServlet {
     if (searchHolidayValidator.checkIsDateFormatValid(dateFrom, dateTo)) {
       if (searchHolidayValidator.checkIsEndDateLaterThanStartDate(dateFrom, dateTo)) {
       } else {
-        dateFrom="1970-01-01";
-        dateTo="2100-01-01";
+        dateFrom = "1970-01-01";
+        dateTo = "2100-01-01";
       }
     } else {
-      dateFrom="1970-01-01";
-      dateTo="2100-01-01";
+      dateFrom = "1970-01-01";
+      dateTo = "2100-01-01";
     }
 
-    List<VacationView> vacationViews = vacationDefiningService.getVacationsListForTeam(myTeamId,dateFrom,dateTo);
+    List<VacationView> vacationViews = vacationDefiningService
+        .getVacationsListForTeam(myTeamId, dateFrom, dateTo);
 
     List<Calendar> myVacationDates = calendarService.findEmployeeVacations(employeeId);
 

@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 public class HolidayApiConsumer {
 
   private static final String APIKEY = "93deab6507d4b12925ee610aafe48024f98ad8e5";
-  private static final String URI = "http://isa-proxy.blueazurit.com/calendar/holidays";
+  private static final String URI = "https://calendarific.com/api/v2/holidays?";
   private WebTarget webTarget;
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 

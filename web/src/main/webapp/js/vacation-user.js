@@ -84,7 +84,8 @@ $(function () {
             + dateTo,
         type: 'GET',
         success: function () {
-          window.location.href = '/user/vacation?dateFrom=' + dateFrom + '&dateTo='
+          window.location.href = '/user/vacation?dateFrom=' + dateFrom
+              + '&dateTo='
               + dateTo
           ;
         }
@@ -103,7 +104,8 @@ $(function () {
             + dateTo,
         type: 'GET',
         success: function () {
-          window.location.href = '/user/vacation/team?dateFrom=' + dateFrom + '&dateTo='
+          window.location.href = '/user/vacation/team?dateFrom=' + dateFrom
+              + '&dateTo='
               + dateTo
           ;
         }

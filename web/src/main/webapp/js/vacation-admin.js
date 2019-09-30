@@ -85,7 +85,8 @@ $(function () {
             + dateTo,
         type: 'GET',
         success: function () {
-          window.location.href = '/admin/vacation?dateFrom=' + dateFrom + '&dateTo='
+          window.location.href = '/admin/vacation?dateFrom=' + dateFrom
+              + '&dateTo='
               + dateTo
           ;
         }

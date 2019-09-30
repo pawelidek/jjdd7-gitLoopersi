@@ -28,15 +28,16 @@ public class MonthVacationStatDaoBean {
 
   public void updateMonthVacationIncrementQuantity(String month) {
 
-    logger.info("MonthVacationStat object month={} is to be incremented in DB",month);
+    logger.info("MonthVacationStat object month={} is to be incremented in DB", month);
 
     Query query = entityManager.createNamedQuery("MonthVacation.incrementQuantity");
     query.setParameter("month", month).executeUpdate();
   }
 
-  public void addMonthVacationStat(MonthVacationStat monthVacationStat){
+  public void addMonthVacationStat(MonthVacationStat monthVacationStat) {
 
-    logger.info("MonthVacationStat object month={} is to be saved in DB",monthVacationStat.getMonth());
+    logger.info("MonthVacationStat object month={} is to be saved in DB",
+        monthVacationStat.getMonth());
 
     entityManager.persist(monthVacationStat);
   }
