@@ -151,15 +151,15 @@ input[type=image]:disabled {
 }
 
 #dateFrom1 {
-  float:right;
-  margin:10px;
-  width:15%;
+  float: right;
+  margin: 10px;
+  width: 15%;
 }
 
 #dateTo1 {
-  float:right;
-  margin:10px;
-  width:15%;
+  float: right;
+  margin: 10px;
+  width: 15%;
 }
 
 #TeamVacation {
@@ -176,7 +176,7 @@ input[type=image]:disabled {
 }
 
 #searchByDates1 {
-  margin:10px;
+  margin: 10px;
   float: right;
 }
 

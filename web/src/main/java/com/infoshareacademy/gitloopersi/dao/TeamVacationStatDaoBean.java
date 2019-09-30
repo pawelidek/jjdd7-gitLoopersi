@@ -28,7 +28,7 @@ public class TeamVacationStatDaoBean {
 
   public void updateTeamVacationIncrementQuantity(Long id) {
 
-    logger.info("TeamVacationStat object id={} is to be incremented is DB",id);
+    logger.info("TeamVacationStat object id={} is to be incremented is DB", id);
 
     Query query = entityManager.createNamedQuery("TeamVacation.incrementQuantity");
     query.setParameter("id", id).executeUpdate();

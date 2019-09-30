@@ -60,15 +60,16 @@ public class VacationManagerServlet extends HttpServlet {
     if (searchHolidayValidator.checkIsDateFormatValid(dateFrom, dateTo)) {
       if (searchHolidayValidator.checkIsEndDateLaterThanStartDate(dateFrom, dateTo)) {
       } else {
-        dateFrom="1970-01-01";
-        dateTo="2100-01-01";
+        dateFrom = "1970-01-01";
+        dateTo = "2100-01-01";
       }
     } else {
-      dateFrom="1970-01-01";
-      dateTo="2100-01-01";
+      dateFrom = "1970-01-01";
+      dateTo = "2100-01-01";
     }
 
-    List<VacationView> vacationViews = vacationDefiningService.getVacationsWithEmployeesList(dateFrom,dateTo);
+    List<VacationView> vacationViews = vacationDefiningService
+        .getVacationsWithEmployeesList(dateFrom, dateTo);
     List<String> successMessages = userMessagesService.getSuccessMessageList(req.getSession());
 
     dataModel.put("userType", "admin");

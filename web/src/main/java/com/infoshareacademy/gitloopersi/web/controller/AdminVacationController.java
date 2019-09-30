@@ -54,9 +54,9 @@ public class AdminVacationController {
 
     Vacation vacation = vacationDefiningService.getByVacationId(id);
 
-    Long employeeId =vacation.getEmployee().getId();
+    Long employeeId = vacation.getEmployee().getId();
 
-        vacation.setStatusType(StatusType.REJECTED);
+    vacation.setStatusType(StatusType.REJECTED);
 
     String message = String.format("Vacation ID[%d] was changed status type %s", id,
         vacation.getStatusType().getType());

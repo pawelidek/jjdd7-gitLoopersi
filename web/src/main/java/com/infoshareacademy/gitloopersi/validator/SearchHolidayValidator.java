@@ -17,7 +17,7 @@ public class SearchHolidayValidator {
   public boolean checkIsDateFormatValid(String startDate, String endDate) {
     logger.info("Validate correct format startDate={} and endDate={}", startDate, endDate);
     try {
-      if(startDate != null && endDate != null) {
+      if (startDate != null && endDate != null) {
         simpleDateFormat.parse(startDate).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         simpleDateFormat.parse(endDate).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         logger.info("Both startDate={} and endDate={} are in correct format", startDate, endDate);

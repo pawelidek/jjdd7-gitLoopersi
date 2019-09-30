@@ -1,7 +1,6 @@
 package com.infoshareacademy.gitloopersi.service.employeemanager;
 
 import com.infoshareacademy.gitloopersi.dao.EmployeeDaoBean;
-import com.infoshareacademy.gitloopersi.dao.EmployeeVacationStatDaoBean;
 import com.infoshareacademy.gitloopersi.domain.entity.Employee;
 import com.infoshareacademy.gitloopersi.domain.entity.EmployeeVacationStat;
 import com.infoshareacademy.gitloopersi.domain.entity.Team;

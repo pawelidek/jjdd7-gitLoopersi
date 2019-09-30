@@ -29,7 +29,7 @@ public class EmployeeVacationStatDaoBean {
 
   public void updateEmployeeVacationIncrementQuantity(Long id) {
 
-    logger.info("EmployeeVacationStat object id={} is to be incremented in DB",id);
+    logger.info("EmployeeVacationStat object id={} is to be incremented in DB", id);
 
     Query query = entityManager.createNamedQuery("EmployeeVacation.incrementQuantity");
     query.setParameter("id", id).executeUpdate();

@@ -3,7 +3,7 @@ google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
 
-  $.getJSON('/api/admin/statistics/monthvacation', function(dataset1) {
+  $.getJSON('/api/admin/statistics/monthvacation', function (dataset1) {
 
     let monthsAndQuantitiesArrayChart1 = [['Month', 'Quantity',],];
 
@@ -27,7 +27,7 @@ function drawChart() {
     chart1.draw(dataChart1, optionsChart1);
   });
 
-  $.getJSON('/api/admin/statistics/employeevacation', function(dataset2) {
+  $.getJSON('/api/admin/statistics/employeevacation', function (dataset2) {
 
     let fullNameAndQuantitiesArrayChart2 = [['Full name', 'Quantity',],];
 
@@ -53,7 +53,7 @@ function drawChart() {
 
   });
 
-  $.getJSON('/api/admin/statistics/statusvacation', function(dataset3) {
+  $.getJSON('/api/admin/statistics/statusvacation', function (dataset3) {
 
     let statusesAndQuantitiesArrayChart3 = [['Status', 'Quantity',],];
 
@@ -78,7 +78,7 @@ function drawChart() {
 
   });
 
-  $.getJSON('/api/admin/statistics/teamvacation', function(dataset4) {
+  $.getJSON('/api/admin/statistics/teamvacation', function (dataset4) {
 
     let teamNamesAndQuantitiesArrayChart4 = [['Team name', 'Quantity',
       {role: 'style'}],];
