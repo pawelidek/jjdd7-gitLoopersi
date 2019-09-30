@@ -1,4 +1,4 @@
-<div>
+<div xmlns="http://www.w3.org/1999/html">
   <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
   <script src="/js/vacation-admin.js"></script>
   <article id="contentView">
@@ -6,11 +6,18 @@
     <div class="container-fluid">
       <table class="table table-borderless">
         <tr>
-          <td style="text-align: left"><h2>Vacation Manager</h2></td>
+          <td><h2 id="VacationManager">Vacation Manager</h2>
+            <button type="button" class="btn btn-outline-secondary pull-right" id="searchByDates1">
+              <img src="/img/button_search.svg" alt="Search by dates"> Search by
+              dates
+            </button>
+            <input type="date" name="dateTo" id="dateTo1" placeholder="Enter date to"
+                   class="form-control"/>
+            <input type="date" name="dateFrom" id="dateFrom1" placeholder="Enter date from"
+                   class="form-control"/>
+          </td>
         </tr>
-      </table>
     </div>
-
     <div>
         <#if success??>
           <div class="successMessage" role="alert"

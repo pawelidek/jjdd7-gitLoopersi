@@ -5,6 +5,7 @@ import com.infoshareacademy.gitloopersi.freemarker.TemplateProvider;
 import com.infoshareacademy.gitloopersi.service.alertmessage.UserMessagesService;
 import com.infoshareacademy.gitloopersi.service.calendarmanager.CalendarService;
 import com.infoshareacademy.gitloopersi.service.vacationmanager.VacationDefiningService;
+import com.infoshareacademy.gitloopersi.validator.SearchHolidayValidator;
 import com.infoshareacademy.gitloopersi.web.view.VacationView;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -38,6 +39,10 @@ public class VacationManagerServlet extends HttpServlet {
   @EJB
   private UserMessagesService userMessagesService;
 
+
+  @Inject
+  SearchHolidayValidator searchHolidayValidator;
+
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @Override
@@ -48,7 +53,22 @@ public class VacationManagerServlet extends HttpServlet {
 
     Map<String, Object> dataModel = new HashMap<>();
     List<Calendar> dates = calendarService.findAllHolidaysDates();
-    List<VacationView> vacationViews = vacationDefiningService.getVacationsWithEmployeesList();
+
+    String dateFrom = req.getParameter("dateFrom");
+    String dateTo = req.getParameter("dateTo");
+    logger.info("Dates dateFrom={} and dateTo={} are to be validated", dateFrom, dateTo);
+    if (searchHolidayValidator.checkIsDateFormatValid(dateFrom, dateTo)) {
+      if (searchHolidayValidator.checkIsEndDateLaterThanStartDate(dateFrom, dateTo)) {
+      } else {
+        dateFrom="1970-01-01";
+        dateTo="2100-01-01";
+      }
+    } else {
+      dateFrom="1970-01-01";
+      dateTo="2100-01-01";
+    }
+
+    List<VacationView> vacationViews = vacationDefiningService.getVacationsWithEmployeesList(dateFrom,dateTo);
     List<String> successMessages = userMessagesService.getSuccessMessageList(req.getSession());
 
     dataModel.put("userType", "admin");

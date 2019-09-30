@@ -37,6 +37,20 @@
     <section class="calendar-wrapper">
       <h1 id="year"></h1>
       <div class="calendar"></div>
+        <#if myVacationDates??>
+          <div>
+            <table class="table table-borderless">
+              <tr>
+                <td style="text-align: center; width: 50%">
+                  <div class="myVacationLegend">My vacation</div>
+                </td>
+                <td style="text-align: center; width: 50%">
+                  <div class="vacationLegend">Teammates vacation</div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </#if>
     </section>
   </div>
 </div>

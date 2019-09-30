@@ -6,11 +6,19 @@
     <div class="container-fluid">
       <table class="table table-borderless">
         <tr>
-          <td style="text-align: left"><h2>My Team's Vacation</h2></td>
+          <td><h2 id="TeamVacation">My Team's Vacation</h2>
+            <button type="button" class="btn btn-outline-secondary pull-right"
+                    id="searchByDatesInTeams">
+              <img src="/img/button_search.svg" alt="Search by dates"> Search by
+              dates
+            </button>
+            <input type="date" name="dateTo" id="dateTo1" placeholder="Enter date to"
+                   class="form-control"/>
+            <input type="date" name="dateFrom" id="dateFrom1" placeholder="Enter date from"
+                   class="form-control"/>
+          </td>
         </tr>
-      </table>
     </div>
-
     <table class="table table-sm table-hover" style="text-align: center">
       <thead>
       <tr>

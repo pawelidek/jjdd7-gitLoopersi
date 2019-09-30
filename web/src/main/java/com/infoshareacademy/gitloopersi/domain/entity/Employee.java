@@ -1,6 +1,5 @@
 package com.infoshareacademy.gitloopersi.domain.entity;
 
-import com.infoshareacademy.gitloopersi.domain.entity.statistic.EmployeeVacation;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,8 +85,8 @@ public class Employee {
   private List<Vacation> employeeVacations = new ArrayList<>();
 
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "employee_vacation_id", unique = true)
-  EmployeeVacation employeeVacation;
+  @JoinColumn(name = "employee_vacation_stat_id", unique = true)
+  EmployeeVacationStat employeeVacationStat;
 
   public Long getId() {
     return id;
@@ -164,5 +163,14 @@ public class Employee {
   public void setEmployeeVacations(
       List<Vacation> employeeVacations) {
     this.employeeVacations = employeeVacations;
+  }
+
+  public EmployeeVacationStat getEmployeeVacationStat() {
+    return employeeVacationStat;
+  }
+
+  public void setEmployeeVacationStat(
+      EmployeeVacationStat employeeVacationStat) {
+    this.employeeVacationStat = employeeVacationStat;
   }
 }

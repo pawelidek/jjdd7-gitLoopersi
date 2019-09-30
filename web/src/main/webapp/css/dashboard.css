@@ -149,3 +149,54 @@ h1 {
 input[type=image]:disabled {
   opacity: 0.5;
 }
+
+#dateFrom1 {
+  float:right;
+  margin:10px;
+  width:15%;
+}
+
+#dateTo1 {
+  float:right;
+  margin:10px;
+  width:15%;
+}
+
+#TeamVacation {
+  float: left;
+}
+
+#VacationManager {
+  float: left;
+}
+
+#searchByDatesInTeams {
+  margin: 10px;
+  float: right;
+}
+
+#searchByDates1 {
+  margin:10px;
+  float: right;
+}
+
+#myVacationDateFrom {
+  float: right;
+}
+
+#myVacationDateTo {
+  clear: both;
+}
+
+#dateFrom {
+  width: 250px;
+}
+
+#dateTo {
+  width: 250px;
+}
+
+
+
+
+
