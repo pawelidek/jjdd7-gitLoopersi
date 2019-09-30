@@ -127,19 +127,34 @@ public class VacationDefiningService {
     if (isValidOverlappingOfDates(employeeId, dateFrom, dateTo)) {
 
       int numberOfVacationPool = 0;
+      int numberOfSelectedVacationDays = 0;
+      int numberOfRemainingVacationDays = 0;
 
       if (vacationType.equals(VacationType.VACATION_LEAVE.getType())) {
         numberOfVacationPool = getNumberOfVacationPool(employeeId);
+
+        numberOfSelectedVacationDays = getNumberOfSelectedVacationDays(dateFrom, dateTo);
+
+        numberOfRemainingVacationDays = getNumberOfRemainingVacationDays(employeeId,
+            numberOfVacationPool, numberOfSelectedVacationDays);
+
       } else if (vacationType.equals(VacationType.CHILDCARE.getType())) {
         numberOfVacationPool = getChildcare();
+
+        numberOfSelectedVacationDays = getNumberOfSelectedVacationDays(dateFrom, dateTo);
+
+        numberOfRemainingVacationDays = getNumberOfVacationDaysChildcare(employeeId,
+            numberOfVacationPool, numberOfSelectedVacationDays);
+
       } else if (vacationType.equals(VacationType.SPECIAL_LEAVE.getType())) {
         numberOfVacationPool = getSpecialLeave();
+
+        numberOfSelectedVacationDays = getNumberOfSelectedVacationDays(dateFrom, dateTo);
+
+        numberOfRemainingVacationDays = getNumberOfVacationDaysSpecialLeave(employeeId,
+            numberOfVacationPool, numberOfSelectedVacationDays);
       }
 
-      int numberOfSelectedVacationDays = getNumberOfSelectedVacationDays(dateFrom, dateTo);
-
-      int numberOfRemainingVacationDays = getNumberOfRemainingVacationDays(employeeId,
-          numberOfVacationPool, numberOfSelectedVacationDays);
       logger.info("Number of remaining vacation days is {}", numberOfRemainingVacationDays);
       if (numberOfRemainingVacationDays >= 0) {
         return true;
@@ -168,6 +183,22 @@ public class VacationDefiningService {
 
     return vacationDefiningValidator
         .calculateRemainingVacationPool(employeeId, numberOfSelectedVacationDays,
+            numberOfVacationPool);
+  }
+
+  private int getNumberOfVacationDaysChildcare(Long employeeId, int numberOfVacationPool,
+      int numberOfSelectedVacationDays) throws IOException {
+
+    return vacationDefiningValidator
+        .calculateVacationPoolChildcare(employeeId, numberOfSelectedVacationDays,
+            numberOfVacationPool);
+  }
+
+  private int getNumberOfVacationDaysSpecialLeave(Long employeeId, int numberOfVacationPool,
+      int numberOfSelectedVacationDays) throws IOException {
+
+    return vacationDefiningValidator
+        .calculateVacationPoolSpecialLeave(employeeId, numberOfSelectedVacationDays,
             numberOfVacationPool);
   }
 

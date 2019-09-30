@@ -96,7 +96,7 @@ public class VacationDefiningValidator {
     Timestamp timestampDateTo = Timestamp.valueOf(dateToVacation.atTime(LocalTime.MIDNIGHT));
     Long dateToCount = timestampDateTo.getTime();
 
-    return dateFromCount < dateToCount;
+    return dateFromCount <= dateToCount;
   }
 
   public boolean isValidOverlappingOfDates(Long id, String dateFrom, String dateTo) {
@@ -129,8 +129,10 @@ public class VacationDefiningValidator {
     LocalDate dateFromVacation = LocalDate.parse(dateFrom);
     LocalDate dateToVacation = LocalDate.parse(dateTo);
 
-    return dateToday.getYear() == dateFromVacation.getYear()
-        && dateToday.getYear() == dateToVacation.getYear();
+    return (dateToday.getYear() == dateFromVacation.getYear()
+        && dateToday.getYear() == dateToVacation.getYear()) ||
+        (dateToday.plusYears(1).getYear() == dateFromVacation.getYear()
+            && dateToday.plusYears(1).getYear() == dateToVacation.getYear());
   }
 
   public boolean isValidVacationType(String vacationType) {
@@ -153,6 +155,22 @@ public class VacationDefiningValidator {
 
     return vacationDefiningHandler
         .calculateRemainingVacationPool(employeeId, numberOfSelectedVacationDays,
+            numberOfVacationPool);
+  }
+
+  public int calculateVacationPoolChildcare(Long employeeId, int numberOfSelectedVacationDays,
+      int numberOfVacationPool) throws IOException {
+
+    return vacationDefiningHandler
+        .calculateVacationPoolChildcare(employeeId, numberOfSelectedVacationDays,
+            numberOfVacationPool);
+  }
+
+  public int calculateVacationPoolSpecialLeave(Long employeeId, int numberOfSelectedVacationDays,
+      int numberOfVacationPool) throws IOException {
+
+    return vacationDefiningHandler
+        .calculateVacationPoolSpecialLeave(employeeId, numberOfSelectedVacationDays,
             numberOfVacationPool);
   }
 }
