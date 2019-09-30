@@ -77,7 +77,7 @@ $(function () {
 
 $(function () {
   $(document).ready(function () {
-    $("#searchByDates").click(function (event) {
+    $("#searchByDates1").click(function (event) {
       let dateFrom = $('#dateFrom1').val();
       let dateTo = $('#dateTo1').val();
       $.ajax({
