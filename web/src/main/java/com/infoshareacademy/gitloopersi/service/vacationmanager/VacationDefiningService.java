@@ -19,6 +19,7 @@ import com.infoshareacademy.gitloopersi.web.mapper.VacationViewStringMapper;
 import com.infoshareacademy.gitloopersi.web.view.VacationView;
 import com.infoshareacademy.gitloopersi.web.view.VacationViewString;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -95,21 +96,25 @@ public class VacationDefiningService {
   }
 
   @Transactional
-  public List<VacationView> getVacationsListForTeam(Long id) {
+  public List<VacationView> getVacationsListForTeam(Long id, String dateFrom, String dateTo) {
     List<VacationView> vacationViewsForTeam = new ArrayList<>();
-
-    vacationDefiningDao.getVacationsListForTeam(id).forEach(e -> {
-      vacationViewsForTeam.add(vacationViewMapper.mapEntityToView(e));
+    vacationDefiningDao.getVacationsListForTeam(id).stream()
+        .filter(e->e.getDateFrom().isAfter(LocalDate.parse(dateFrom)) || e.getDateFrom().isEqual(LocalDate.parse(dateFrom)))
+        .filter(e->e.getDateTo().isBefore(LocalDate.parse((dateTo))) || e.getDateTo().isEqual(LocalDate.parse((dateTo))))
+        .forEach(e-> {vacationViewsForTeam.add(vacationViewMapper.mapEntityToView(e));
     });
 
     return vacationViewsForTeam;
   }
 
   @Transactional
-  public List<VacationView> getVacationsListForEmployee(Long id) {
+  public List<VacationView> getVacationsListForEmployee(Long id, String dateFrom, String dateTo) {
     List<VacationView> vacationViews = new ArrayList<>();
 
-    vacationDefiningDao.getVacationsListForEmployee(id).forEach(e -> {
+    vacationDefiningDao.getVacationsListForEmployee(id).stream()
+        .filter(e->e.getDateFrom().isAfter(LocalDate.parse(dateFrom)) || e.getDateFrom().isEqual(LocalDate.parse(dateFrom)))
+        .filter(e->e.getDateTo().isBefore(LocalDate.parse((dateTo))) || e.getDateTo().isEqual(LocalDate.parse((dateTo))))
+        .forEach(e -> {
       vacationViews.add(vacationViewMapper.mapEntityToView(e));
     });
 
@@ -117,11 +122,13 @@ public class VacationDefiningService {
   }
 
   @Transactional
-  public List<VacationView> getVacationsWithEmployeesList() {
+  public List<VacationView> getVacationsWithEmployeesList(String dateFrom, String dateTo) {
     List<VacationView> vacationViews = new ArrayList<>();
 
-    getVacationsList().forEach(e -> {
-      vacationViews.add(vacationViewMapper.mapEntityToView(e));
+    getVacationsList().stream()
+        .filter(e->e.getDateFrom().isAfter(LocalDate.parse(dateFrom)) || e.getDateFrom().isEqual(LocalDate.parse(dateFrom)))
+        .filter(e->e.getDateTo().isBefore(LocalDate.parse((dateTo))) || e.getDateTo().isEqual(LocalDate.parse((dateTo))))
+        .forEach(e -> {vacationViews.add(vacationViewMapper.mapEntityToView(e));
     });
 
     return vacationViews;

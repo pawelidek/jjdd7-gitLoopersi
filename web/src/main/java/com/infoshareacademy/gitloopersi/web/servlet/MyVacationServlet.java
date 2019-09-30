@@ -6,6 +6,7 @@ import com.infoshareacademy.gitloopersi.service.alertmessage.UserMessagesService
 import com.infoshareacademy.gitloopersi.service.calendarmanager.CalendarService;
 import com.infoshareacademy.gitloopersi.service.employeemanager.EmployeeService;
 import com.infoshareacademy.gitloopersi.service.vacationmanager.VacationDefiningService;
+import com.infoshareacademy.gitloopersi.validator.SearchHolidayValidator;
 import com.infoshareacademy.gitloopersi.web.view.EmployeeView;
 import com.infoshareacademy.gitloopersi.web.view.VacationView;
 import freemarker.template.Template;
@@ -46,6 +47,9 @@ public class MyVacationServlet extends HttpServlet {
   @Inject
   private CalendarService calendarService;
 
+  @Inject
+  SearchHolidayValidator searchHolidayValidator;
+
   private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
   @Override
@@ -56,7 +60,24 @@ public class MyVacationServlet extends HttpServlet {
 
     Map<String, Object> dataModel = new HashMap<>();
     List<Calendar> dates = calendarService.findAllHolidaysDates();
+
     List<EmployeeView> employeeViews = employeeService.getEmployeesWithTeamsList();
+
+    String dateFrom = req.getParameter("dateFrom");
+    String dateTo = req.getParameter("dateTo");
+    logger.info("Dates dateFrom={} and dateTo={} are to be validated", dateFrom, dateTo);
+    if (searchHolidayValidator.checkIsDateFormatValid(dateFrom, dateTo)) {
+      if (searchHolidayValidator.checkIsEndDateLaterThanStartDate(dateFrom, dateTo)) {
+      } else {
+        dateFrom="1970-01-01";
+        dateTo="2100-01-01";
+      }
+    } else {
+      dateFrom="1970-01-01";
+      dateTo="2100-01-01";
+    }
+
+    //List<VacationView> vacationViews = vacationDefiningService.getVacationsWithEmployeesList(dateFrom,dateTo);
     List<String> errorMessages = userMessagesService.getErrorMessageList(req.getSession());
     List<String> successMessages = userMessagesService.getSuccessMessageList(req.getSession());
     HttpSession httpSession = req.getSession(true);
@@ -64,7 +85,7 @@ public class MyVacationServlet extends HttpServlet {
     httpSession.setAttribute(EMPLOYEE_ID, employeeService.getEmployeeByEmail(email).getId());
     Long employeeId = (Long) httpSession.getAttribute(EMPLOYEE_ID);
     List<VacationView> vacationViews = vacationDefiningService
-        .getVacationsListForEmployee(employeeId);
+        .getVacationsListForEmployee(employeeId,dateFrom,dateTo);
 
     List<EmployeeView> employeeViewList = employeeViews.stream()
         .filter(employeeView -> employeeView.getId().equals(employeeId))
